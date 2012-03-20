@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120319035448) do
+ActiveRecord::Schema.define(:version => 20120320170349) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20120319035448) do
     t.integer  "comment_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.text     "text"
   end
 
   add_index "sentences", ["comment_id"], :name => "index_sentences_on_comment_id"
