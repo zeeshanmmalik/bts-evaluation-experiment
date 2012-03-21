@@ -1,4 +1,6 @@
 BtsEvalExpApp::Application.routes.draw do
+  resources :bug_reports, :only => [:index, :show]
+
   devise_for :admins
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
