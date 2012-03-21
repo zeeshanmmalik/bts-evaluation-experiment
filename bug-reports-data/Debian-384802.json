@@ -1,0 +1,903 @@
+{
+    "project": "Debian", 
+    "original_link": "http://dont.know.yet/384802", 
+    "comments": [
+        {
+            "date": "2006-08-26 22:20:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Package: syslog-ng", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Severity: normal", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The default syslog-ng.conf contains this comment:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "# standard Linux log source (this is the default place for the syslog()\n        # function to send logs to)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "unix-stream(\"/dev/log\");", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But it is wrong: as you can easily verify using strace, libc by default\nuses datagram sockets (which for the AF_UNIX family are as reliable as\nstream sockets):", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$ strace -e trace=socket logger test", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "socket(PF_FILE, SOCK_DGRAM, 0)          = 1", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For this reason, the default configuration should use unix-dgram.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ciao,", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Marco", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Marco d'Itri <md@linux.it>", 
+            "email": "Marco d'Itri <md@linux.it>"
+        }, 
+        {
+            "date": "2006-09-20 22:53:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi All!", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The main problem with unix-dgram is that syslog-ng cannot keep the\nconnection between reloads.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And there are programs (for example some\npart of sendmail) which doesn't connect again.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So you loose log messages\nfrom various parts of the system.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, maybe the reason is bad but it's better to use unix-stream than\nunix-dgram.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "SZALAY Attila <sasa@pheniscidae.tvnetwork.hu>", 
+            "email": "SZALAY Attila <sasa@pheniscidae.tvnetwork.hu>"
+        }, 
+        {
+            "date": "2006-09-20 23:44:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Sep 20, SZALAY Attila <sasa@pheniscidae.tvnetwork.hu> wrote:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The main problem with unix-dgram is that syslog-ng cannot keep the\n> connection between reloads.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And there are programs (for example some\n> part of sendmail) which doesn't connect again.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So you loose log messages\n> from various parts of the system.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I do not understand.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Datagram sockets are connectionless, and our\ndefault syslog daemon appears to cope with them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ciao,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Marco", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "md@Linux.IT (Marco d'Itri)", 
+            "email": "md@Linux.IT (Marco d'Itri)"
+        }, 
+        {
+            "date": "2006-09-22 02:30:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Wed, 2006-09-20 at 23:44 +0200, Marco d'Itri wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I do not understand.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Datagram sockets are connectionless, and our\n> default syslog daemon appears to cope with them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not exactly.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you use only the syslog(3) function, you are right, but if you open a\nconnection to syslog with openlog(3) in the begining of your application\nthen you will be in trouble when syslog-ng listen in unix-dgram and have\nbeen reloaded.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "At least with the version 1.6.X of syslog-ng.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It's possible that in version 2.0 the syslog-ng could keep unix-dgram\nconnections between reload, but I'm too conservative to change it.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(If\nyou read the Changelog you could recognize the time when I", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "changes /dev/log from unix-stream to unix-dgram.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And the funny thins\n_is_ that because of this change I have to restart every daemon which\nsend log messages.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Because the running daemons couldn't recognize that\nunix-dgram /dev/log is no more.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "SZALAY Attila <sasa@pheniscidae.tvnetwork.hu>", 
+            "email": "SZALAY Attila <sasa@pheniscidae.tvnetwork.hu>"
+        }, 
+        {
+            "date": "2006-09-22 20:33:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "reopen 384802", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Sep 22, SZALAY Attila <sasa@pheniscidae.tvnetwork.hu> wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > I do not understand.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Datagram sockets are connectionless, and our\n> > default syslog daemon appears to cope with them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Not exactly.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> If you use only the syslog(3) function, you are right, but if you open a\n> connection to syslog with openlog(3) in the begining of your application\n> then you will be in trouble when syslog-ng listen in unix-dgram and have\n> been reloaded.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "At least with the version 1.6.X of syslog-ng.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As you can verify using the attached program, the same system calls\nare used no matter if you use openlog(3) or not.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> It's possible that in version 2.0 the syslog-ng could keep unix-dgram\n> connections between reload, but I'm too conservative to change it.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(If\nThere are no connections, datagram sockets are connectionless.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> you read the Changelog you could recognize the time when I\n> changes /dev/log from unix-stream to unix-dgram.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And the funny thins\n> _is_ that because of this change I have to restart every daemon which\n> send log messages.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Because the running daemons couldn't recognize that\n> unix-dgram /dev/log is no more.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Looks like your troubles were unrelated.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It can be easily verified using the attached test program, which creates\na datagram socket, that when the syslog daemon is restarted while it is\nrunning the socket is reopened:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "send(3, \"<29>Sep 22 19:59:18 syslogtest: \".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ", 39, MSG_NOSIGNAL) = -1 ECONNREFUSED (Connection refused)\nclose(3)                                = 0", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "socket(PF_FILE, SOCK_DGRAM, 0)          = 3", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fcntl64(3, F_SETFD, FD_CLOEXEC)         = 0", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "connect(3, {sa_family=AF_FILE, path=\"/dev/log\"}, 16) = 0", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "send(3, \"<29>Sep 22 19:59:18 syslogtest: \".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ", 39, MSG_NOSIGNAL) = 39", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> So, the thruth is that I'm not too brave to do this change.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(I have to\n> test a lot of daemons, before I could accept this change back.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ")\nThis does not justify closing the bug.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#include <stdio.h>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#include <unistd.h>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#include <stdlib.h>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#include <errno.h>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#include <syslog.h>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "int main (int argc, char *argv[])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "int counter = 0;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "openlog(\"syslogtest\", 0, LOG_DAEMON);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "while (1) {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "syslog(LOG_NOTICE, \"test: %d\", counter++);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "sleep(1);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "exit(0);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ciao,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Marco", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "md@Linux.IT (Marco d'Itri)", 
+            "email": "md@Linux.IT (Marco d'Itri)"
+        }, 
+        {
+            "date": "2006-09-29 20:02:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Fri, 2006-09-22 at 20:33 +0200, Marco d'Itri wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> reopen 384802", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> thanks", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> On Sep 22, SZALAY Attila <sasa@pheniscidae.tvnetwork.hu> wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Not exactly.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > If you use only the syslog(3) function, you are right, but if you open a\n> > connection to syslog with openlog(3) in the begining of your application\n> > then you will be in trouble when syslog-ng listen in unix-dgram and have\n> > been reloaded.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "At least with the version 1.6.X of syslog-ng.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> No.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As you can verify using the attached program, the same system calls\n> are used no matter if you use openlog(3) or not.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, but in libc6 set a global variable when openlog called.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(The fd\nto /dev/log)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > It's possible that in version 2.0 the syslog-ng could keep unix-dgram\n> > connections between reload, but I'm too conservative to change it.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(If\n> There are no connections, datagram sockets are connectionless.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, there are.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In normal way (tcp/ip) that connection is virtual, but\nin unix type socket there are no such type of connectionless socket.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > you read the Changelog you could recognize the time when I\n> > changes /dev/log from unix-stream to unix-dgram.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And the funny thins\n> > _is_ that because of this change I have to restart every daemon which\n> > send log messages.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Because the running daemons couldn't recognize that\n> > unix-dgram /dev/log is no more.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Looks like your troubles were unrelated.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> It can be easily verified using the attached test program, which creates\n> a datagram socket, that when the syslog daemon is restarted while it is\n> running the socket is reopened:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't think so, just the libc6 is upgraded after that time.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> This does not justify closing the bug.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hmm.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't want to close the bug.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Anyway.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "What is the advantage of unix-dgram against unix-stream for you?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "SZALAY Attila <sasa@pheniscidae.tvnetwork.hu>", 
+            "email": "SZALAY Attila <sasa@pheniscidae.tvnetwork.hu>"
+        }, 
+        {
+            "date": "2006-11-06 21:29:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, what do you want to gain from this change?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "SZALAY Attila <sasa@pheniscidae.tvnetwork.hu>", 
+            "email": "SZALAY Attila <sasa@pheniscidae.tvnetwork.hu>"
+        }, 
+        {
+            "date": "2011-10-06 18:21:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: 3.2.4-1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The version currently in sid (3.2.4-1) uses unix-dgram().", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm not quite\nsure when it started to do that, as the changelog does not seem to\ndocument it.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But at least in sid, this is fixed.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "|8]", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gergely Nagy <algernon@balabit.hu>", 
+            "email": "Gergely Nagy <algernon@balabit.hu>"
+        }
+    ], 
+    "title": "\nwrong type for the /dev/log socket"
+}
