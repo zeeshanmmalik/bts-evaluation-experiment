@@ -1,0 +1,23 @@
+%h1 Listing Bug Reports
+
+%table
+  %tr
+    %th Title
+    %th Project
+    %th Original link
+    %th Action
+    -#%th
+    -#%th
+
+  - @bug_reports.each do |bug_report|
+    %tr{:class => "#{cycle('even','odd')}"}
+      %td= bug_report.title
+      %td= bug_report.project
+      %td= bug_report.original_link
+      %td= link_to 'Show', bug_report
+      -#%td= link_to 'Edit', edit_bug_report_path(bug_report)
+      -#%td= link_to 'Destroy', bug_report, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+=# link_to 'New Bug report', new_bug_report_path

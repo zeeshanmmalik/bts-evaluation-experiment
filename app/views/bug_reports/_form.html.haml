@@ -1,0 +1,19 @@
+= form_for @bug_report do |f|
+  -if @bug_report.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@bug_report.errors.count, "error")} prohibited this bug_report from being saved:"
+      %ul
+        - @bug_report.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :project
+    = f.text_field :project
+  .field
+    = f.label :original_link
+    = f.text_field :original_link
+  .actions
+    = f.submit 'Save'
