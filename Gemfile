@@ -9,6 +9,7 @@ gem 'sqlite3'
 #gem "mysql2", "~> 0.3.11"
 gem "devise", "~> 2.0.4"
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
+gem "haml-rails", "~> 0.3.4"
 
 # Gems used only for assets and not required
 # in production environments by default.
