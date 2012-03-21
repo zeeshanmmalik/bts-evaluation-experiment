@@ -33,7 +33,8 @@ begin
                 participant.save!
                 # create new comment
                 comment = Comment.new(:number => com_num,
-                                      :submitted_at => Time.at(com['date']))
+                                      :submitted_at => com['date'])
+#                                      :submitted_at => Time.at(com['date']))
                 comment.participant = participant
                 comment.bug_report = bug_report
                 comment.save!
