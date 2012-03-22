@@ -20,17 +20,21 @@
     %legend Lex Summary
     - @bug_report.comments.each do |com|
       - com.sentences.order('number ASC').each do |sen|
-        - if sen.is_in_lex_summary?
-          .sentence
-            = sen.text
+        - if sen.text.empty?
+          %p
+        - elsif sen.is_in_lex_summary?
+          %span{ :class => "sentence" }
+            = raw sen.text.gsub("\n","<br>")
 
   %fieldset.summary
     %legend Email Summary
     - @bug_report.comments.each do |com|
       - com.sentences.order('number ASC').each do |sen|
-        - if sen.is_in_email_summary?
-          .sentence
-            = sen.text
+        - if sen.text.empty?
+          %p
+        - elsif sen.is_in_email_summary?
+          %span.sentence
+            = raw sen.text.gsub("\n","<br>")
 
 .clear-both
             
@@ -48,12 +52,14 @@
           = com.participant.email
         .comment-body
           - com.sentences.order('number ASC').each do |sen|
-            - if sen.is_in_lex_summary?
-              .sentence.highlight
-                = sen.text
+            - if sen.text.empty?
+              %p
+            - elsif sen.is_in_lex_summary?
+              %span.sentence.highlight
+                = raw sen.text.gsub("\n","<br>")
             - else
-              .sentence
-                = sen.text
+              %span.sentence
+                = raw sen.text.gsub("\n","<br>")
 
   %fieldset.summary
     %legend Email Summary
@@ -67,9 +73,11 @@
           = com.participant.email
         .comment-body
           - com.sentences.order('number ASC').each do |sen|
-            - if sen.is_in_email_summary?
-              .sentence.highlight
-                = sen.text
+            - if sen.text.empty?
+              %p            
+            - elsif sen.is_in_email_summary?
+              %span.sentence.highlight
+                = raw sen.text.gsub("\n","<br>")
             - else
-              .sentence
-                = sen.text
+              %span.sentence
+                = sen.text.gsub("\n","<br>")
