@@ -1,0 +1,474 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/399589", 
+    "comments": [
+        {
+            "date": "2007-10-12 07:21:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I tried to compile Firefox with the tip of NSS.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I get this error:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "/home/kaie/moz/ev/mozilla/security/manager/ssl/src/nsKeygenHandler.cpp:86:", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Kai Engert (:kaie)", 
+            "email": "Kai Engert (:kaie)"
+        }, 
+        {
+            "date": "2007-10-12 07:27:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I expect the fix for this bug must land at the same time as updating\nPSM/Mozilla to use a newer NSS CVS tag, so I'm adding a dependency to bug", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "399590.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Kai Engert (:kaie)", 
+            "email": "Kai Engert (:kaie)"
+        }, 
+        {
+            "date": "2007-10-12 08:29:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=284632) [details]", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch v1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Maybe the fix is simpler as I had assumed, maybe it can be done at any time,\nwithout landing at the same time with newer NSS.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Look at the patch, you'll see SECAlgorithmIDTemplate 3 times.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "First, it gets referenced, then PSM has a local copy, too.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It seems\nSECAlgorithmIDTemplate is no longer provided by NSS headers.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I moved PSM's copy of this structure further up in the file, which makes it\ncompile.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Kai Engert (:kaie)", 
+            "email": "Kai Engert (:kaie)"
+        }, 
+        {
+            "date": "2007-10-12 09:45:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It may be that SECAlgorithmIDTemplate was declared in a public header file\nbut was not a public symbol, that is, the symbol was not exported from any\nshared library.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If so, then it was correct to remove it from the public \nheader file.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-10-12 12:23:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nelson's explanation in comment 3 is correct .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SECAlgorithmIDTemplate is a\nDERTemplate .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The old DER_ decoder/encoder functions do not have the proper\ninfrastructure to use templates in shared libraries on windows, unlike the\ncurrent decoders/encoder, SEC_ASN1 and SEC_QuickDER .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Legacy DER templates can\nonly work when statically linked.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The symbol was in a header file previously\nbecause util was being linked statically in multiple shared libraries.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Now that\nutil is a shared library, it is not possible to export this symbol from util\nanymore.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, I ended up duplicating this template in the 2 places that it was\nused in NSS, and taking it out from the header file, which was the right thing\nto do.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "PSM shouldn't have been depending on the symbol in this header file since it\nwas there only for users of the util static library.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As it turns out, you\nstated in comment 2 that PSM has a local copy of the symbol too.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "That is the\none you were actually using.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You need to fix this by adding the symbol to a PSM\nheader file.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Julien Pierre", 
+            "email": "Julien Pierre"
+        }, 
+        {
+            "date": "2007-10-12 12:38:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I would also suggest that PSM stop using the old OLD \"DER_\" decoder and \nswitch to the newer faster better cheaper smarter SEC_QuickDER decoder.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-10-12 13:34:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's unlikely a decoder issue, but an encoder issue.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "SECAlgorithmIDTemplate is the last vestige of the old DER template code.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm murky as to why it was still used, but I vaguely remember something about\nhow signed objects are encode differently then our default encoding for ASN1\ntemplates.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I seem to recall the early days of switching the default encoding of\nan optional NULL attribute between dropping the attribute and encoding and\nexplicit NULL.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "One way is the way the standard was written, the other way was\nthe way that most code implementented it.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I believe when we switched to the new ASN1 encoder, that encoder implemented\nthe standard.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We preserved the various places where signatures were being\nencoded to use the old decoder to guarrentee compatibility.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "At some point it would be nice to maybe remove the old DER decoder (it has\nnever been exported in NSS), and code the old DER encoder to call the SEC_ASN1\nencoder after appropriately tweaking the old DER template.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "At the same time we\ncan expunge SECAlgorithmIDTemplate from all of NSS.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(and PSM could then follow\nsuite).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "AFAIK, SECOID_AlgorithmIDTemplate is used for all decoding (even in PSM), since\nwe don't export the DERDecode function.k", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "bob", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Relyea", 
+            "email": "Robert Relyea"
+        }, 
+        {
+            "date": "2007-10-12 16:28:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 284632 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r+", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Relyea", 
+            "email": "Robert Relyea"
+        }, 
+        {
+            "date": "2007-11-12 14:21:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for approval.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I might delay this landing until we land bug 399590.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Kai Engert (:kaie)", 
+            "email": "Kai Engert (:kaie)"
+        }, 
+        {
+            "date": "2007-11-15 12:41:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This one should be safe to land without waiting for NSS.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "bob", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Relyea", 
+            "email": "Robert Relyea"
+        }, 
+        {
+            "date": "2007-11-19 09:03:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fixed", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Kai Engert (:kaie)", 
+            "email": "Kai Engert (:kaie)"
+        }, 
+        {
+            "date": "2008-02-01 15:15:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=300950) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Same against 1.8 branch", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The same patch is needed in the 1.8 branch using system nss.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Fabien Tassin", 
+            "email": "Fabien Tassin"
+        }, 
+        {
+            "date": "2008-02-01 15:45:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Umm, Since NSS 3.12 is not yet released, systems should not be using it\nas their \"system NSS\", IMO.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2008-02-01 15:56:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The thing is, many linux distros are already providing betas of Firefox 3 so\nNSS 3.12 (beta) was needed too.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We're talking about the dev branch of those\nlinux distros.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Fabien Tassin", 
+            "email": "Fabien Tassin"
+        }, 
+        {
+            "date": "2008-02-11 12:10:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 300950 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "approved for 1.8.1.13, a=dveditz for release-drivers", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Daniel Veditz", 
+            "email": "Daniel Veditz"
+        }, 
+        {
+            "date": "2008-02-13 02:29:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in security/manager/ssl/src/nsKeygenHandler.cpp;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/security/manager/ssl/src/nsKeygenHandler.cpp,v  <-- \nnsKeygenHandler.cpp", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.36.2.1;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.36", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Reed Loden [:reed]", 
+            "email": "Reed Loden [:reed]"
+        }
+    ], 
+    "title": "PSM + tip of NSS, error SECAlgorithmIDTemplate not declared"
+}

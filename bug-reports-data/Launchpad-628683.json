@@ -1,0 +1,785 @@
+{
+    "project": "Launchpad", 
+    "original_link": "http://dont.know.yet/628683", 
+    "comments": [
+        {
+            "date": "2010-09-02 08:53:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Environment:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We have a branch that was originally a svn branch, then svn-imported to bzr, but after that merged (-r 0..)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "into another svn repo, and finally that svn repo was svn-imported.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "One of the revisions (the one mentioned below) is this branch is a svn mv of a lot of files to a different directory.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The moved files are marked as new files in the bzr repo, and the old files as removed.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The merged branch is now in a bzr repo without a working tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Problem:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As long as this branch does not have a tree, it can't be clone without --no-tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You get the error:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bzr: ERROR: No such file: ('27421@5bfab2c9-1120-0410-a44f-eade3576fde9:foo%2Ftrunk%2Fdir2Ffile', 'svn-v4:5bfab2c9-1120-0410-a44f-eade3576fde9:foo/trunk:27421')", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But I can do bzr reconfigure --tree in the branch, and after that it can be cloned/checked out.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Log:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "50.656  Traceback (most recent call last):", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/commands.py\", line 853, in exception_to_return_code\n    return the_callable(*args, **kwargs)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/commands.py\", line 1055, in run_bzr\n    ret = run(*run_argv)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/commands.py\", line 661, in run_argv_aliases\n    return self.run_direct(**all_cmd_args)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/commands.py\", line 665, in run_direct\n    return self._operation.run_simple(*args, **kwargs)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/cleanup.py\", line 121, in run_simple\n    return _do_with_cleanups(", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/cleanup.py\", line 156, in _do_with_cleanups\n    result = func(*args, **kwargs)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/builtins.py\", line 1328, in run\n    accelerator_tree, hardlink)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/branch.py\", line 1334, in create_checkout\n    hardlink=hardlink)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/bzrdir.py\", line 1616, in create_workingtree\n    accelerator_tree=accelerator_tree, hardlink=hardlink)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/workingtree_4.py\", line 1462, in initialize\n    delta_from_tree=delta_from_tree)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/transform.py\", line 2253, in build_tree\n    delta_from_tree)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/transform.py\", line 2346, in _build_tree\n    accelerator_tree, hardlink)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "File \"/usr/lib64/python2.4/site-packages/bzrlib/transform.py\", line 2411, in _create_files\n    for count, ((trans_id, tree_path), contents) in enumerate(\n  File \"/usr/lib64/python2.4/site-packages/bzrlib/revisiontree.py\", line 84, in iter_files_bytes\n    raise errors.NoSuchFile(e.revision_id)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "NoSuchFile: No such file: ('27421@5bfab2c9-1120-0410-a44f-eade3576fde9:foo%2Ftrunk%2Fdir%2Ffile', 'svn-v4:5bfab2c9-1120-0410-a44f-eade3576fde9:foo/trunk:27421')", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've anonymized the actual paths.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Unfortunately I can't share this repository, but this is a huge problem for us consuming time to create workarounds.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We're actually thinking about doing an export and just drop the history info.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "per.j", 
+            "email": "per.j"
+        }, 
+        {
+            "date": "2010-09-02 09:05:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Clarification: I can do reconfigure in the original branch, not one cloned with --no-tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In the latter case the same error appears.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "per.j", 
+            "email": "per.j"
+        }, 
+        {
+            "date": "2010-09-02 09:38:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Sorry for the spam, but figured I should add my theory as well, which is that the original repository contains something which is not copied to the new one.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Therefore reconfigure --tree works in the old branch but not in the new one.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I also get the error after a successful clone if I do reconfigure --branch followed by reconfigure --tree, so it seems once the tree is gone it can not be reconstructed without the original repository.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "per.j", 
+            "email": "per.j"
+        }, 
+        {
+            "date": "2010-09-02 17:21:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Can you give us the version of bzr and bzr-svn that you are using?", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Is it possible to make these branches available so we can check what the status is?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It certainly does seem like one repository ends up referencing a file key (file_id, revision_id) that isn't present in the other repository.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It *might* be working if you have a source working tree because we used to try to copy wt contents before reading from the repository if the wt was clean.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In bzr 2.2 we always read from the repository.)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jameinel", 
+            "email": "jameinel"
+        }, 
+        {
+            "date": "2010-09-03 13:55:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We're still using 2.1.1, but I've tried it now with 2.2.0 as well, still works the same, ie.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "clone works if old one has tree but not if it doesn't.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've found a way to enable the checkout.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If I make a repo and clone the branch from the second svn-import first and then clone our branch derived from that one, checking out works, but only if it's done in that order.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The same has to be repeated every time, even when cloning from the new repo.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "bzr-svn is at 1.0.1, I believe it was 1.0.0 when the first svn-import was done.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I can't share these branches I'm afraid.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Only possibility is if someone comes here (Stockholm, Sweden) and signs an NDA (we would ofc pay a consultant fee in that case, provided my boss clears it).", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "per.j", 
+            "email": "per.j"
+        }, 
+        {
+            "date": "2010-09-03 14:18:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Bug 628683] Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Fri, 2010-09-03 at 13:55 +0000, Per Johansson wrote:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> We're still using 2.1.1, but I've tried it now with 2.2.0 as well, still\n> works the same, ie.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "clone works if old one has tree but not if it\n> doesn't.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I've found a way to enable the checkout.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If I make a repo and clone the\n> branch from the second svn-import first and then clone our branch\n> derived from that one, checking out works, but only if it's done in that\n> order.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The same has to be repeated every time, even when cloning from\n> the new repo.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> bzr-svn is at 1.0.1, I believe it was 1.0.0 when the first svn-import\n> was done.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I can't share these branches I'm afraid.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Only possibility is\n> if someone comes here (Stockholm, Sweden) and signs an NDA (we would ofc\n> pay a consultant fee in that case, provided my boss clears it).", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is something that likely has broken during the original import.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Have you tried a fresh import from svn with the current version of\nbzr-svn, 1.0.4 ?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Jelmer", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jelmer", 
+            "email": "jelmer"
+        }, 
+        {
+            "date": "2010-09-04 18:05:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I could try that but the problem is I can't even reproduce it with our current tools.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm not really sure how it ended up this way...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The best thing would probably be if we could figure out what it is that's missing and make bzr reconcile fix it or somesuch.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The information is there after all, it works if the second branch is cloned first.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "per.j", 
+            "email": "per.j"
+        }, 
+        {
+            "date": "2010-09-05 21:12:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Bug 628683] Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Sat, 2010-09-04 at 18:05 +0000, Per Johansson wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I could try that but the problem is I can't even reproduce it with our\n>  current tools.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm not really sure how it ended up this way...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The\n>  best thing would probably be if we could figure out what it is that's\n>  missing and make bzr reconcile fix it or somesuch.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The information is\n>  there after all, it works if the second branch is cloned first.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I suspect this was caused by something broken in bzr-svn that made it\ncreate invalid data in Bazaar.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Bazaar can only have one copy of a\nrevision in a repository, and it will not fetch a new copy if it already\nhas one.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In this particular case I suspect that you now fetched the\ncorrect revision first and the broken one later.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There isn't much that bzr reconcile could do, although it would probably\nmake sense for Bazaar to raise an exception if a plugin tries to write\ninvalid data.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This would make it easier to catch bugs like this.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "affects bzr-svn", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "status incomplete", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cheers,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Jelmer", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jelmer", 
+            "email": "jelmer"
+        }, 
+        {
+            "date": "2010-09-06 09:49:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for the help.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "My first thought was also that there was a correct and a broken version of the same revision, but that doesn't explain that it breaks again on further clones.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Unless I've missed something, the problem has to be in the data specific to the branch and not in the revision, that's why I figured it should be fixable somehow.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'll be trying to delve into the bzr sources to look at this, since we need it fixed.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Any pointers would be greatly appreciated as I'm not very familiar with the source.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "per.j", 
+            "email": "per.j"
+        }, 
+        {
+            "date": "2010-09-13 11:30:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "My current plan is try try to remerge the whole branch from the first svn-import again (bzr merge -r0..)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": ", but when I try to do this it keeps using the revision info already in the tree, and only adds the new revisions.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Is there any way to make it readd all the revisions?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "per.j", 
+            "email": "per.j"
+        }, 
+        {
+            "date": "2010-09-13 11:51:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not in the existing repository.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jelmer", 
+            "email": "jelmer"
+        }, 
+        {
+            "date": "2010-09-13 13:08:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ah, but that got me thinking.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This seems to have worked:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Start in the original branch (the one that was merged -r0..", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "into another).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Merge the broken one -r0..", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Resolve the path conflicts and commit.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "clone -r 0.1.4711", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This seems to be a fully functional branch with all the history intact.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Perhaps I shouldn't celebrate too early, but it does seem to have fixed it.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "per.j", 
+            "email": "per.j"
+        }, 
+        {
+            "date": "2010-11-18 12:21:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think you can close this bug.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We solved it by using as little data as possible from the second svn repo.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Someone probably messed up the bzr properties while using svn there.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The only possible change I can think of is to check for bzr property corruption while parsing revisions in bzr-svn and abort on error.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "per.j", 
+            "email": "per.j"
+        }, 
+        {
+            "date": "2011-01-18 00:00:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: \"No such file\" on clone if no tree in parent branch, but works with tree.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks - closing.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jelmer", 
+            "email": "jelmer"
+        }
+    ], 
+    "title": "No such file\" on clone if no tree in parent branch, but works with tree."
+}

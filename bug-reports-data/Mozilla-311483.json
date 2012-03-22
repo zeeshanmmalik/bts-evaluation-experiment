@@ -1,0 +1,801 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/311483", 
+    "comments": [
+        {
+            "date": "2005-10-07 04:57:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "User-Agent:       Mozilla/5.0 (Windows;", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "U;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Windows NT 5.1;", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "en-US;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rv:1.7.11)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Gecko/20050728", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Build Identifier: NSS_3_10", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am trying to modify the pk12util tool add a new option to not export the full\ncertificate chain.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "While following this I found that SEC_PKCS12AddCertAndKey\ninvokes SEC_PKCS12AddCert by always passing TRUE for includeCertChain.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I want\nthis option to be exposed as a parameter to the SEC_PKCS12AddCertAndKey\nfunction.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reproducible: Always", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Pavel Pavlov", 
+            "email": "Pavel Pavlov"
+        }, 
+        {
+            "date": "2005-10-15 13:41:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Since SEC_PKCS12AddCertAndKey is a public function, already exposed to \ncallers, we cannot change its signature now.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In a situation such as \nthis, where we want to add an argument to a function, we typically\ncreate a new function with a new name that takes the desired arguments,\nand then reimplement the existing function as a call to that new one.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If we do that to SEC_PKCS12AddCertAndKey then we should also do that to\nSEC_PKCS12ExportCertificateAndKeyUsingPassword;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "that is, there should \nalso be a new version of SEC_PKCS12ExportCertificateAndKeyUsingPassword\n(with a shorter name :-) that also takes an includeCertChain argument.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Neil, would you like to take this bug?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2005-10-15 13:54:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "While we're looking at this file, it appears that function", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "SEC_PKCS12AddDERCertAndEncryptedKey is dead code.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "According to\nhttp://lxr.mozilla.org/security/search?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "string=PKCS12AddDERCertAndEncryp\nit is not exposed through any .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "def file and is not used within NSS \nitself anywhere.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "IMO, we should eliminate dead code like this.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2005-10-15 13:58:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Likewise, according to", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "http://lxr.mozilla.org/security/search?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "string=SEC_PKCS12AddEncryptedKey \nfunction SEC_PKCS12AddEncryptedKey is not exposed in any .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "def file, and \nis only called by the (dead) function SEC_PKCS12AddDERCertAndEncryptedKey, \nso both of those functions can be eliminated at the same time.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2005-10-15 14:12:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "According to", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "http://lxr.mozilla.org/security/search?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "string=PKCS12ExportCertificateAn\nfunction SEC_PKCS12ExportCertificateAndKeyUsingPassword is not declared\nin any header file, nor exported in any .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "def file, nor called from any\nwhere in NSS.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2005-10-15 14:48:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=199695) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Implement new function, delete several dead functions", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Here's my first attempt to implement this RFE as an addition to 3.11.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2005-10-17 11:20:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 199695 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r=wtc.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In pkcs12/p12e.c, the first line of this comment block\nneeds to be updated to say SEC_PKCS12AddCertChainAndKey instead:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> /* SEC_PKCS12AddCertAndKey", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  *\tAdd a certificate and key pair to be exported.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  *", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">- *\tp12ctxt - the export context", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">- * \tcertSafe - the safeInfo where the cert is stored", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+ *\tp12ctxt        - the export context", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+ * \tcertSafe       - the safeInfo where the cert is stored\n>  *\tcertNestedDest - the nested safeContents to store the cert\n...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+ *\tincludeCertChain - also add certs from chain to bag.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  */", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> SECStatus", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-SEC_PKCS12AddCertAndKey(SEC_PKCS12ExportContext *p12ctxt, \n>+SEC_PKCS12AddCertChainAndKey(SEC_PKCS12ExportContext *p12ctxt,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It is unfortunate that the new function's name and the existing\nfunction's name are opposite to what they do.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "SEC_PKCS12AddCertAndKey always adds the cert chain, but", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "SEC_PKCS12AddCertChainAndKey may not add the cert chain.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Perhaps adding a new function SEC_PKCS12AddCertAndKeyWithoutChain\n(or NoChain) or SEC_PKCS12AddCertOnlyAndKey, without a boolean\nincludeCertChain argument, and make SEC_PKCS12AddCertChainAndKey\nan internal function would be less confusing.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2005-10-18 19:42:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #6)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> It is unfortunate that the new function's name and the existing\n> function's name are opposite to what they do.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Perhaps adding a new function SEC_PKCS12AddCertAndKeyWithoutChain\n> (or NoChain) or SEC_PKCS12AddCertOnlyAndKey, without a boolean\n> includeCertChain argument, and make SEC_PKCS12AddCertChainAndKey\n> an internal function would be less confusing.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am quite willing to add a AddCertAndKeyWithoutChain function, to complement \nSEC_PKCS12AddCertAndKey, but I believe that the function that takes an \nargument specifying the addition of the chain (or not) should also be public.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am open to a better name for it, and invite suggestions.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SEC_PKCS12AddCertAndKeyOptionalChain ?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SEC_PKCS12AddCertAndKeyAndMaybeChain ?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SEC_PKCS12AddKeyAndOneOrMoreCerts    ?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SEC_PKCS12AddKeyAndCertOrChain    ?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SEC_PKCS12AddCertAndKeyEx (Aaargh!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":-)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2005-10-19 11:29:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I like SEC_PKCS12AddCertOrChainAndKey.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "we add a function that takes an includeCertChain", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "parameter, we don't need to add a", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "SEC_PKCS12AddCertAndKeyWithoutChain function.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2006-02-28 22:44:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 199695 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Marking obsolete to remind myself that the name(s) of the new functions need to\nbe changed before this can be committed.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2008-09-24 14:05:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=340209) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Remove dead functions", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The previous patch for this bug did two separate things:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "a) it removed lots of dead code, and", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "b) it added a new function, which was controversial.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The work stalled because of the issue with the new function.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, I have broken the old patch into two patches, one to remove the dead\ncode, and another to add the new function.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is the patch to remove \nthe dead code.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Wan-Teh, please review this patch, which only removes dead code.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When this gets r+, I will remove this dead code right away, separately from \nadding the other new function.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I will attach the patch for the new function \nto this bug later.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2008-09-24 14:26:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 340209 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r=wtc.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2008-09-24 14:36:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=340218) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Add new function SEC_PKCS12AddCertOrChainAndKey", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This patch is essentially the same as before, except that the function\nname I have used this time is the one Wan-Teh previously suggested.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Wan-Teh, please review.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2008-09-25 18:39:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 340218 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r=wtc.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I no longer remember why I liked this name.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It is still a", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "little unclear, but ...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> extern SECStatus", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+SEC_PKCS12AddCertOrChainAndKey(SEC_PKCS12ExportContext *p12ctxt, \n>+\t\t\tvoid *certSafe, void *certNestedDest,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t\t\tCERTCertificate *cert, CERTCertDBHandle *certDb,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t\t\tvoid *keySafe, void *keyNestedDest, PRBool shroudKey,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t\t\tSECItem *pwitem, SECOidTag algorithm,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t\t\tPRBool includeCertChain);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Nit: align the parameters with the opening parenthesis.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> /* SEC_PKCS12AddCertAndKey", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  *\tAdd a certificate and key pair to be exported.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\"SEC_PKCS12AddCertAndKey\" should be changed to the new", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function name.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2008-09-26 09:55:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #7)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm beginning to like SEC_PKCS12AddCertAndKeyEx better now.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm afraid that in trying to avoid the Windowism \"Ex\", we", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "may come up with function names that are wordier and less", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "clear.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Anyway, I leave the decision up to you :-)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2008-09-29 21:18:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 340209 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Dead functions removed.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2008-09-29 21:25:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 340218 [details])", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }
+    ], 
+    "title": "exposing includeCertChain as a parameter to SEC_PKCS12AddCertAndKey"
+}

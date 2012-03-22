@@ -1,0 +1,928 @@
+{
+    "project": "Chrome", 
+    "original_link": "http://dont.know.yet/18030", 
+    "comments": [
+        {
+            "date": "2009-07-29 15:36:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Chrome Version      : 3.0.196.0 (21954)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "OS + version : Ubuntu 8.04", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "CPU architecture (32-bit / 64-bit): 64-bit", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "window manager : Gnome 2.22.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "URLs (if applicable) :", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Behavior in Firefox 3.x (if applicable):", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Behavior in Chrome for Windows (optional):", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've been waiting on these functionalities but I guess I'll just raise it\nso we have it on record.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The page menu's cut, copy and paste are not working", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/aocampo@chromium.org/", 
+            "email": "/u/aocampo@chromium.org/"
+        }, 
+        {
+            "date": "2009-07-29 15:58:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "the reason it's not implemented is that it's a super-hack on windows:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "// TODO(devint): http://b/issue?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "id=1117225 Cut, Copy, and Paste are always\n// enabled in the page menu regardless of whether the command will do\n// anything.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When someone selects the menu item, we just act as if they hit\n// the keyboard shortcut for the command by sending the associated key press\n// to windows.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The real fix to this bug is to disable the commands when they\n// won't do anything.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We'll need something like an overall clipboard command\n// manager to do that.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "void Browser::Cut() {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "UserMetrics::RecordAction(L\"Cut\", profile_);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ui_controls::SendKeyPress(L'X', true, false, false);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "void Browser::Copy() {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "UserMetrics::RecordAction(L\"Copy\", profile_);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ui_controls::SendKeyPress(L'C', true, false, false);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't think we can assume that ctrl+c will always copy.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The amount of plumbing that \ndoing it *right* would require just seems not worth it.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UBBSQ1JWAhBCXwh8Fw%3D%3D/", 
+            "email": "/u/@UBBSQ1JWAhBCXwh8Fw%3D%3D/"
+        }, 
+        {
+            "date": "2009-09-14 15:31:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following revision refers to this bug:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "http://src.chromium.org/viewvc/chrome?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "view=rev&revision=26168", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------------------------------------------\nr26168 | jshin@chromium.org | 2009-09-14 15:30:18 -0700 (Mon, 14 Sep 2009) | 33 lines\nChanged paths:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/browser.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=26168&r2=26167\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/renderer_host/render_view_host.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=26168&r2=26167\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/renderer_host/render_view_host.h?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=26168&r2=26167\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/tab_contents/tab_contents.h?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=26168&r2=26167\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/render_messages_internal.h?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=26168&r2=26167\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/renderer/render_view.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=26168&r2=26167\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/renderer/render_view.h?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=26168&r2=26167\n   M http://src.chromium.org/viewvc/chrome/trunk/src/webkit/glue/webview_impl.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r1=26168&r2=26167", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Fix for  bug 2932 : Chrome should not trigger page reloading when turn off auto detect", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In order to fix the bug I added new interfaces to allow resetting the override encoding (including a new render message).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The new logic is as follows:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-) If the user turns auto-detect OFF, nothing happens (as requested in the bug description)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-) If the user turns auto-detect ON, then the page is reloaded with an empty override encoding", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I.e.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ", turning auto-detect on resets a previous override setting.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The reverse is not true, however: specifiying a new override setting will not turn auto-detect off.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BUG=2932", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "TEST=do the following steps, using the test file (encoding-gb18030.htm) attached to comment 14 of the original bug http://crbug.com/2932 :", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1.) load the file while auto-detect is turned off", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-> garbage is displayed", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2.) turn auto-detect on", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-> proper Chinese text should appear", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-> in the encoding menu, Chinese encoding should be highlighted", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3.) turn auto-detect off", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-> proper Chinese text should remain", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-> in the encoding menu, Chinese encoding should remain highlighted", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4.) choose any other encoding", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-> garbage is again displayed (in the new encoding)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5.) turn auto-detect on", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-> proper Chinese text should again appear", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-> in the encoding menu, Chinese should again be highlighted", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Original Review: http://codereview.chromium.org/173265", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch by Roland Steiner (rolandsteiner@google.com)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-06 03:50:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please disregard above above message from the bugdroid.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It seems to have been triggered \nby me using the chinese gb18030 codepage in my description.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It has nothing to do with \nthe issue at hand.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UxZfRlxYBhJGWgB1/", 
+            "email": "/u/@UxZfRlxYBhJGWgB1/"
+        }, 
+        {
+            "date": "2009-10-06 08:49:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If we're gonna have these menu items, I guess we should implement them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Or remove them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ";)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-07 15:44:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Implementing this properly is a big hassle.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-07 15:46:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Can I get a read from you as to whether this should be mstone 4 or 5?", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/mikesmith@chromium.org/", 
+            "email": "/u/mikesmith@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-13 10:21:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Moving this out of mstone-4 and into mstone-5 after talking to the Linux \nteam.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/jon@chromium.org/", 
+            "email": "/u/jon@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-26 15:19:39", 
+            "sentences": [], 
+            "name": "/u/aocampo@chromium.org/", 
+            "email": "/u/aocampo@chromium.org/"
+        }, 
+        {
+            "date": "2009-11-15 16:55:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/ben.at.chromium.org/", 
+            "email": "/u/ben.at.chromium.org/"
+        }, 
+        {
+            "date": "2009-11-18 18:41:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/ben.at.chromium.org/", 
+            "email": "/u/ben.at.chromium.org/"
+        }, 
+        {
+            "date": "2009-12-18 13:56:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Updating labels:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Area-UI-Features replaces Area-BrowserUI", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UxhWQFdVBxFMWQd5/", 
+            "email": "/u/@UxhWQFdVBxFMWQd5/"
+        }, 
+        {
+            "date": "2010-01-06 12:09:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2010-01-06 12:33:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/mikesmith@chromium.org/", 
+            "email": "/u/mikesmith@chromium.org/"
+        }, 
+        {
+            "date": "2010-01-07 17:00:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following revision refers to this bug:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "http://src.chromium.org/viewvc/chrome?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "view=rev&revision=35655", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "------------------------------------------------------------------------\nr35655 | oshima@chromium.org | 2010-01-06 14:25:55 -0800 (Wed, 06 Jan 2010) | 7 lines\nChanged paths:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/browser.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=35655&r2=35654\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/browser.h?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=35655&r2=35654\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/page_menu_model.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=35655&r2=35654\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/page_menu_model_unittest.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r1=35655&r2=35654", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Copy, Cut&Paste for chromeos", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not enabled for linux as ctrl-c/x/v may not be copy/cut/paste.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "See bug for details.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "BUG=18030", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TEST=None", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/519068", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2010-01-08 10:52:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/laforge@chromium.org/", 
+            "email": "/u/laforge@chromium.org/"
+        }, 
+        {
+            "date": "2010-01-08 16:12:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Maybe suzhe, master of keyboard shortcuts, has a thought.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Maybe we can send down the \ngtk-level key command to copy rather than sending down a ctl-c?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2010-01-10 18:47:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Are these copy/cut/paste commands only for web page content?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm just wondering if it's \nfeasible to use the Copy/Cut/Paste methods of RenderViewHost rather than sending key \nevents?", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/@VBhTRVZWDhZNXQN5/", 
+            "email": "/u/@VBhTRVZWDhZNXQN5/"
+        }, 
+        {
+            "date": "2010-01-10 19:23:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hm, that's a good question.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ok, new idea.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I wonder if we could just make the renderwidgethost \"implement\" GTK-level copy/paste \nin the same way that the GtkTextView in the URL bar must do.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(I don't know how that \nworks.)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "That would also perhaps make enabling/disabling the menus properly easier.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2010-01-10 20:20:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Enabling/disabling these menu items properly is not trivial.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In order to do that, we \nneed the editor's status of current selection, which may need a new ViewHostMsg.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "See \nWebCore::Editor::canCut/Copy/Paste methods.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And for Paste command, we also need to know if the clipboard contains any content that \ncan be pasted into the current node, which is also not trivial on Linux.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/@VBhTRVZWDhZNXQN5/", 
+            "email": "/u/@VBhTRVZWDhZNXQN5/"
+        }, 
+        {
+            "date": "2010-01-13 22:35:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "To current approach used by Windows port (fake ctrl-c/v) works in both omnibox and web \npage.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So it might not be a good solution to use RenderViewHost's Copy/Cut/Paste \nmethods.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@VBhTRVZWDhZNXQN5/", 
+            "email": "/u/@VBhTRVZWDhZNXQN5/"
+        }, 
+        {
+            "date": "2010-01-14 11:32:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@suzhe: exactly why this hasn't been implemented", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UBBSQ1JWAhBCXwh8Fw%3D%3D/", 
+            "email": "/u/@UBBSQ1JWAhBCXwh8Fw%3D%3D/"
+        }, 
+        {
+            "date": "2010-01-22 14:07:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think on Windows, the menu items are always enabled.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So I guess enabling/disabling \nthe menu items is a separate issue to implementing these.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2010-01-24 00:30:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@VBhTRVZWDhZNXQN5/", 
+            "email": "/u/@VBhTRVZWDhZNXQN5/"
+        }, 
+        {
+            "date": "2010-01-24 21:05:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@VBhTRVZWDhZNXQN5/", 
+            "email": "/u/@VBhTRVZWDhZNXQN5/"
+        }, 
+        {
+            "date": "2010-01-25 08:29:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following revision refers to this bug:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "http://src.chromium.org/viewvc/chrome?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "view=rev&revision=36989", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "------------------------------------------------------------------------\nr36989 | suzhe@chromium.org | 2010-01-24 20:46:23 -0800 (Sun, 24 Jan 2010) | 6 lines\nChanged paths:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/browser.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=36989&r2=36988\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/browser.h?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=36989&r2=36988\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/browser_window.h?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=36989&r2=36988\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/gtk/browser_window_gtk.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=36989&r2=36988\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/gtk/browser_window_gtk.h?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=36989&r2=36988\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/views/frame/browser_view.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=36989&r2=36988\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/views/frame/browser_view.h?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r1=36989&r2=36988", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "[Linux]Implement Cut, Copy and Paste from page menu.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "BUG=18030", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "TEST=The Cut, Copy and Paste commands in page menu should work in both web content and location bar.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/552125", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }
+    ], 
+    "title": "Implement Cut, Copy and Paste from Page menu"
+}

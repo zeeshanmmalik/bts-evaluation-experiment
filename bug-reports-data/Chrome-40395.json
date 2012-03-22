@@ -1,0 +1,508 @@
+{
+    "project": "Chrome", 
+    "original_link": "http://dont.know.yet/40395", 
+    "comments": [
+        {
+            "date": "2010-04-04 19:02:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Chrome Version       : 5.0.366.0 (Official Build 43169) dev (Mac)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "URLs (if applicable) :", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Other browsers tested:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Add OK or FAIL after other browsers where you have tested this issue:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Safari 4: OK", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Firefox 3.x: OK", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "What steps will reproduce the problem?", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1. Enable the keyboard shortcuts experiment at http://www.google.com/experimental/", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "2. Navigate to a random URL (e.g. http://www.apple.com/)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "3. From the OmniBox, type in a keyboard and run the search", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "4. Use 'j' to select a result, and 'o' to open it", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5. Press command [ to go back", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "What is the expected result?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "End up on the search results.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "What happens instead?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "End up on the page before the search results (e.g.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http:///www.apple.com/", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm able to reproduce this in the current dev channel build, but not in the beta channel (5.0.342.7)", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/mihai.parparita/", 
+            "email": "/u/mihai.parparita/"
+        }, 
+        {
+            "date": "2010-04-04 19:22:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Slightly shorter repro steps:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1. Go to www.google.com/experimental.  Click on \"Join this experiment\" for the keyboard navigation \nexperiment, if you haven't already.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "2. Click on the example search: rattlesnake.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "3. Use 'j' to pick a search result, enter to open it.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "4. Press Cmd-[ to go back.  You will end up on www.google.com/experimental, not on the search results page.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bisecting narrowed this down to http://build.chromium.org/buildbot/perf/dashboard/ui/changelog.html?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "url=/trunk/src&range=41832:41850 .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "http://src.chromium.org/viewvc/chrome?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "view=rev&revision=41850 \nseems most likely.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/rohitrao@chromium.org/", 
+            "email": "/u/rohitrao@chromium.org/"
+        }, 
+        {
+            "date": "2010-04-14 14:42:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Maybe adding OS-All will get someone to look at this.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/rohitrao@chromium.org/", 
+            "email": "/u/rohitrao@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-04 15:25:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Same thing happens for me in Win XP SP3.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The search page appears in my search history, \nbut it seems to be invisible to the back button.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Happens very consistently.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/nheynen/", 
+            "email": "/u/nheynen/"
+        }, 
+        {
+            "date": "2010-05-07 11:00:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/laforge@chromium.org/", 
+            "email": "/u/laforge@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-11 13:55:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/karen@chromium.org/", 
+            "email": "/u/karen@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-14 17:36:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This persists in 6.0.401.1 dev for mac.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/alexoedelman/", 
+            "email": "/u/alexoedelman/"
+        }, 
+        {
+            "date": "2010-05-16 18:19:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Also confirmed in 6.0.401.1 on Linux.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following is, I believe, a minimal test case that reproduces this problem \n(extracted from what keyboard shortcuts does when enter is pressed)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<html><body><script type=\"text/javascript\">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function test() {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "window.location.replace(\"#\");", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "window.location='http://www.google.com';", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "};", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "</script>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<a href=\"\" onclick=\"test();", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "return false\">Click here.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "</a>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "</body></html>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The location it ultimately goes to does not matter, though (I think) it has to exist.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The \"window.location.replace\" line is critical, and it's critical that it update the \nhash part of the location.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I believe this is what trips up the browser history.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here's my (completely uninformed) guess:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Chrome sees the update to just the hash part of the location and records that it \nneeds to *replace* the current location in the history, say \"x.html\" with the new \nlocation \"x.html#\".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For example, if you comment out the second location update, \nyou'll note that this changes the location to \"x.html#\", but *without* leaving \n\"x.html\" in the history.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The second location update happens, causing Chrome to actually fetch \nwww.google.com.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, because Chrome recorded that it needed to *replace* the \ncurrent location with the new one and we're still in the same Javascript call, \n\"x.html\" gets dropped from the history altogether.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/amdragon/", 
+            "email": "/u/amdragon/"
+        }, 
+        {
+            "date": "2010-05-16 18:47:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Tony, can you look at this?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/dglazkov@chromium.org/", 
+            "email": "/u/dglazkov@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-16 19:47:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Issue 44315  has been merged into this issue.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/rohitrao@chromium.org/", 
+            "email": "/u/rohitrao@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-24 11:03:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UhFQRldUDxNGWQk%3D/", 
+            "email": "/u/@UhFQRldUDxNGWQk%3D/"
+        }, 
+        {
+            "date": "2010-05-24 16:41:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following revision refers to this bug:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "http://src.chromium.org/viewvc/chrome?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "view=rev&revision=48105", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------------------------------------------\nr48105 | tonyg@chromium.org | 2010-05-24 16:40:05 -0700 (Mon, 24 May 2010) | 9 lines\nChanged paths:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/tab_contents/navigation_controller.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=48105&r2=48104\n   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/tab_contents/navigation_controller_unittest.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r1=48105&r2=48104", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Don't clear user_gesture_observed_ when navigating within a page.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This fixes a bug which incorrectly classifies client redirects following an in\npage navigation as an auto navigation.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TEST=NavigationControllerTest.ClientRedirectAfterInPageNavigation\nBUG=40395", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/2077023", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-24 16:41:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UhFQRldUDxNGWQk%3D/", 
+            "email": "/u/@UhFQRldUDxNGWQk%3D/"
+        }
+    ], 
+    "title": "Back button broken when using Google keyboard shortcuts search experiment"
+}

@@ -1,0 +1,3191 @@
+{
+    "project": "Debian", 
+    "original_link": "http://dont.know.yet/607041", 
+    "comments": [
+        {
+            "date": "2010-12-14 08:23:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Package: linux-image-2.6.32-5-openvz-amd64", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: 2.6.32-29", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Hi,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I noticed that on kernel 2.6.32-5-openvz-amd64 (Debian 2.6.32-29), the \namd64 build of ip6tables does not work at all in an OpenVZ VE, but the \ni386 build does.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Within the OpenVZ host itself though (VE0), both \nversions work.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So I'm inclined to say this is more likely a \nkernel/OpenVZ bug than a bug in ip6tables.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "IPv4 iptables works fine in all cases.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I tested this within a OpenVZ VE, which is an amd64 Debian lenny \ninstall, with an i386 chroot inside of it:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "# dpkg-query -Wf '${Package}-${Version}_${Architecture}\\n' iptables\niptables-1.4.2-6_amd64", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "# ip6tables -L", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "FATAL: Could not load /lib/modules/2.6.32-5-openvz-amd64/modules.dep: No \nsuch file or directory", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ip6tables v1.4.2: can't initialize ip6tables table `filter': Permission \ndenied (you must be root)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Perhaps ip6tables or your kernel needs to be upgraded.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "# chroot lenny-i386/ dpkg-query -Wf", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "'${Package}-${Version}_${Architecture}\\n' iptables", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "iptables-1.4.2-6_i386", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "# chroot lenny-i386/ ip6tables -L", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Chain INPUT (policy ACCEPT)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "target     prot opt source               destination", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I believe this strace of the amd64 version shows where the problem occurs:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> socket(PF_INET6, SOCK_RAW, IPPROTO_RAW) = 3", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> getsockopt(3, SOL_IPV6, 0x40 /* IPV6_???", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "*/, 0x7fff508e34d0, 0x7fff508e3538) = -1 EPERM (Operation not permitted)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "After that, ip6tables seems to think some kernel modules must be \nmissing, so it tries to load them, except that's not correct for OpenVZ \nand that leads to the errors visible on stderr.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The same getsockopt() call succeeds in the i386 version:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> socket(PF_INET6, SOCK_RAW, IPPROTO_RAW) = 3", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> getsockopt(3, SOL_IPV6, 0x40 /* IPV6_???", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "*/, \"filter\\0\\377\\241\\372\\3\\201\\377\\377\\377\\377\\6\\0\\0\\0\\0\\0\\0\\0Q\\367\\0\\201\\377\\377\\377\\377\\16\"...", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": ", [84]) = 0", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "After an exhaustive search of kernel source I think maybe this is the \nsource of that -1 EPERM return value:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> static int", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> compat_do_ip6t_get_ctl(struct sock *sk, int cmd, void __user *user, int *len)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">         int ret;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">         if (!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "capable(CAP_VE_NET_ADMIN))", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">                 return -EPERM;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> static int", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> do_ip6t_get_ctl(struct sock *sk, int cmd, void __user *user, int *len)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">         int ret;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">         if (!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "capable(CAP_NET_ADMIN))", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">                 return -EPERM;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It looks like the OpenVZ patch changed CAP_NET_ADMIN to CAP_VE_NET_ADMIN \nfor compat_do_ip6t_{get,set}_ctl but not for the native functions \nip6t_{get,set}_ctl.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, the equivalent IPv4 functions have something slightly \ndifferent, for all four functions (get and set, compat and native):", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> if (capable(CAP_NET_ADMIN) && !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "capable(CAP_VE_NET_ADMIN))", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In all honesty I don't know what this means -- I don't know if there are \nsecurity implications if I changed this.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Or maybe it would break \nip6tables in the host system (VE0).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I may try fiddling with this \nsometime if I get the chance to reboot the machine (a production system, \nunfortunately, such is the way of things...)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thanks,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Regards,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Steven Chamberlain", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "steven@pyro.eu.org", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Steven Chamberlain <steven@pyro.eu.org>", 
+            "email": "Steven Chamberlain <steven@pyro.eu.org>"
+        }, 
+        {
+            "date": "2010-12-17 07:39:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "forwarded 607041 http://bugzilla.openvz.org/show_bug.cgi?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "id=1723\nthanks", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Hi Steven", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thanks for your report.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have forwarded this to upstream now.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Best regards,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "// Ola", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On Tue, Dec 14, 2010 at 08:23:22AM +0000, Steven Chamberlain wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Package: linux-image-2.6.32-5-openvz-amd64", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Version: 2.6.32-29", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Hi,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I noticed that on kernel 2.6.32-5-openvz-amd64 (Debian 2.6.32-29), the  \n> amd64 build of ip6tables does not work at all in an OpenVZ VE, but the  \n> i386 build does.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Within the OpenVZ host itself though (VE0), both  \n> versions work.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So I'm inclined to say this is more likely a  \n> kernel/OpenVZ bug than a bug in ip6tables.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> IPv4 iptables works fine in all cases.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I tested this within a OpenVZ VE, which is an amd64 Debian lenny  \n> install, with an i386 chroot inside of it:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> # dpkg-query -Wf '${Package}-${Version}_${Architecture}\\n' iptables\n> iptables-1.4.2-6_amd64", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> # ip6tables -L", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> FATAL: Could not load /lib/modules/2.6.32-5-openvz-amd64/modules.dep: No  \n> such file or directory", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ip6tables v1.4.2: can't initialize ip6tables table `filter': Permission  \n> denied (you must be root)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Perhaps ip6tables or your kernel needs to be upgraded.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> # chroot lenny-i386/ dpkg-query -Wf", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> '${Package}-${Version}_${Architecture}\\n' iptables", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> iptables-1.4.2-6_i386", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> # chroot lenny-i386/ ip6tables -L", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Chain INPUT (policy ACCEPT)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> target     prot opt source               destination", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I believe this strace of the amd64 version shows where the problem occurs:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> socket(PF_INET6, SOCK_RAW, IPPROTO_RAW) = 3", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> getsockopt(3, SOL_IPV6, 0x40 /* IPV6_???", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "*/, 0x7fff508e34d0, 0x7fff508e3538) = -1 EPERM (Operation not permitted)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> After that, ip6tables seems to think some kernel modules must be  \n> missing, so it tries to load them, except that's not correct for OpenVZ  \n> and that leads to the errors visible on stderr.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The same getsockopt() call succeeds in the i386 version:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> socket(PF_INET6, SOCK_RAW, IPPROTO_RAW) = 3", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> getsockopt(3, SOL_IPV6, 0x40 /* IPV6_???", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "*/, \"filter\\0\\377\\241\\372\\3\\201\\377\\377\\377\\377\\6\\0\\0\\0\\0\\0\\0\\0Q\\367\\0\\201\\377\\377\\377\\377\\16\"...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": ", [84]) = 0\n>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> After an exhaustive search of kernel source I think maybe this is the  \n> source of that -1 EPERM return value:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> static int", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> compat_do_ip6t_get_ctl(struct sock *sk, int cmd, void __user *user, int *len)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>         int ret;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>         if (!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "capable(CAP_VE_NET_ADMIN))", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>                 return -EPERM;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> static int", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> do_ip6t_get_ctl(struct sock *sk, int cmd, void __user *user, int *len)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>         int ret;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>         if (!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "capable(CAP_NET_ADMIN))", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>                 return -EPERM;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> It looks like the OpenVZ patch changed CAP_NET_ADMIN to CAP_VE_NET_ADMIN  \n> for compat_do_ip6t_{get,set}_ctl but not for the native functions  \n> ip6t_{get,set}_ctl.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> However, the equivalent IPv4 functions have something slightly  \n> different, for all four functions (get and set, compat and native):", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> if (capable(CAP_NET_ADMIN) && !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "capable(CAP_VE_NET_ADMIN))", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> In all honesty I don't know what this means -- I don't know if there are  \n> security implications if I changed this.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Or maybe it would break  \n> ip6tables in the host system (VE0).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I may try fiddling with this  \n> sometime if I get the chance to reboot the machine (a production system,  \n> unfortunately, such is the way of things...)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Thanks,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Regards,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> --", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Steven Chamberlain", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> steven@pyro.eu.org", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> --", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> To UNSUBSCRIBE, email to debian-kernel-REQUEST@lists.debian.org\n> with a subject of \"unsubscribe\".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Trouble?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Contact listmaster@lists.debian.org\n> Archive: http://lists.debian.org/4D07297A.7070305@pyro.eu.org\n>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--------------------- Ola Lundqvist ---------------------------\n/  opal@debian.org                     Annebergsslingan 37      \\\n|  ola@inguza.com                      654 65 KARLSTAD          |\n|  http://inguza.com/                  +46 (0)70-332 1551       |\n\\  gpg/f.p.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": ": 7090 A92B 18FE 7994 0C36  4FE4 18A1 B1CF 0FE5 3DD9 /", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ola Lundqvist <opal@debian.org>", 
+            "email": "Ola Lundqvist <opal@debian.org>"
+        }, 
+        {
+            "date": "2010-12-17 06:49:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On 17/12/10 06:39, Ola Lundqvist wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> forwarded 607041 http://bugzilla.openvz.org/show_bug.cgi?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "id=1723\n> Thanks for your report.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have forwarded this to upstream now.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thank you.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I also noticed that the ip6tables -j LOG target logs into the host node\nrather than the VE.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think the IPv6 equivalent of the IPv4 log target\nhas not been patched to do this.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "At least in the current Debian openvz\nkernel.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'll copy that to the bug report in the OpenVZ tracker.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Regards,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Steven Chamberlain", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "steven@pyro.eu.org", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Steven Chamberlain <steven@pyro.eu.org>", 
+            "email": "Steven Chamberlain <steven@pyro.eu.org>"
+        }, 
+        {
+            "date": "2010-12-17 08:31:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thanks.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "// Ola", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Quoting \"Steven Chamberlain\" <steven@pyro.eu.org>:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> On 17/12/10 06:39, Ola Lundqvist wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> forwarded 607041 http://bugzilla.openvz.org/show_bug.cgi?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "id=1723\n>> Thanks for your report.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have forwarded this to upstream now.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Thank you.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I also noticed that the ip6tables -j LOG target logs into the host node\n> rather than the VE.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think the IPv6 equivalent of the IPv4 log target\n> has not been patched to do this.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "At least in the current Debian openvz\n> kernel.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I'll copy that to the bug report in the OpenVZ tracker.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Regards,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> --", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Steven Chamberlain", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> steven@pyro.eu.org", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--- Inguza Technology AB --- MSc in Information Technology ----\n/  ola@inguza.com                    Annebergsslingan 37        \\\n|  opal@debian.org                   654 65 KARLSTAD            |\n|  http://inguza.com/                Mobile: +46 (0)70-332 1551 |\n\\  gpg/f.p.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": ": 7090 A92B 18FE 7994 0C36 4FE4 18A1 B1CF 0FE5 3DD9  /", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "\"Ola Lundqvist\" <ola@inguza.com>", 
+            "email": "\"Ola Lundqvist\" <ola@inguza.com>"
+        }, 
+        {
+            "date": "2011-01-15 17:18:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "severity 607041 important", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "merge 607041 590321", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "thanks", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thanks for the information.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Merging them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "// Ola", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On Thu, Dec 23, 2010 at 07:32:55AM +0000, Steven Chamberlain wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Hi Christian,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Your bug report is the same issue I've reported here -- actually a\n> kernel bug:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * http://bugs.debian.org/607041", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * http://bugzilla.openvz.org/show_bug.cgi?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "id=1723", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> If you're able to patch and rebuild your Debian kernel you could try the\n> patch available here:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * http://bugzilla.openvz.org/attachment.cgi?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "id=1339", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Regards,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> --", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Steven Chamberlain", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> steven@pyro.eu.org", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--------------------- Ola Lundqvist ---------------------------\n/  opal@debian.org                     Annebergsslingan 37      \\\n|  ola@inguza.com                      654 65 KARLSTAD          |\n|  http://inguza.com/                  +46 (0)70-332 1551       |\n\\  gpg/f.p.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": ": 7090 A92B 18FE 7994 0C36  4FE4 18A1 B1CF 0FE5 3DD9 /", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ola Lundqvist <opal@debian.org>", 
+            "email": "Ola Lundqvist <opal@debian.org>"
+        }, 
+        {
+            "date": "2011-01-27 21:10:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On 15/01/11 16:18, Ola Lundqvist wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> severity 607041 important", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> merge 607041 590321", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> thanks", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Thanks for the information.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Merging them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Hi Ola,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I notice these bugs didn't actually get merged.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "From the BTS\ndocumentation it seems you must first resassign 590321 to", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "linux-image-2.6.32-5-openvz-amd64 before you can merge or forcemerge them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Right now I'm running this test build posted by Max Attems which I'm\nhappy to say fixes the issue for me (although I had to --force-depends\nto install it without an updated linux-base package):", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> have a 2.6.32-31 build for testing here, ola or anyone?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://charm.itp.tuwien.ac.at/~mattems/linux-image-2.6.32-5-openvz-amd64_2.6.32-31_amd64.deb\n> http://charm.itp.tuwien.ac.at/~mattems/linux-image-2.6.32-5-openvz-amd64_2.6.32-31_amd64.deb.sha512sum.asc", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I also note that 'tc' works now inside VEs;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "this was a separate issue\nthat someone had reported here:  http://bugzilla.openvz.org/1238", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thanks, everyone!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Regards,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Steven Chamberlain", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "steven@pyro.eu.org", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Steven Chamberlain <steven@pyro.eu.org>", 
+            "email": "Steven Chamberlain <steven@pyro.eu.org>"
+        }, 
+        {
+            "date": "2011-01-27 23:21:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On Thu, Jan 27, 2011 at 09:10:24PM +0000, Steven Chamberlain wrote:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I notice these bugs didn't actually get merged.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "From the BTS\n> documentation it seems you must first resassign 590321 to", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> linux-image-2.6.32-5-openvz-amd64 before you can merge or forcemerge them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "reassigned both to linux-2.6 and forcemerged them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The source is the culprit not the binary package.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Right now I'm running this test build posted by Max Attems which I'm\n> happy to say fixes the issue for me (although I had to --force-depends\n> to install it without an updated linux-base package):", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "oh right this is a pain I allways forget, we need to get rid of this\npostsqueeze, now libata switch is done.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "http://charm.itp.tuwien.ac.at/~mattems/linux-base_2.6.32-31_all.deb\nhttp://charm.itp.tuwien.ac.at/~mattems/linux-base_2.6.32-31_all.deb.sha512.asc", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > have a 2.6.32-31 build for testing here, ola or anyone?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > http://charm.itp.tuwien.ac.at/~mattems/linux-image-2.6.32-5-openvz-amd64_2.6.32-31_amd64.deb\n> > http://charm.itp.tuwien.ac.at/~mattems/linux-image-2.6.32-5-openvz-amd64_2.6.32-31_amd64.deb.sha512sum.asc\n>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I also note that 'tc' works now inside VEs;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "this was a separate issue\n> that someone had reported here:  http://bugzilla.openvz.org/1238", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "good pointer, added to changelog.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "thanks for the testing!!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "maks", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "maximilian attems <maks@debian.org>", 
+            "email": "maximilian attems <maks@debian.org>"
+        }, 
+        {
+            "date": "2011-01-28 07:39:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thanks to you both (Steven and Maximilian)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thanks for the fast feedback and the testing.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Especially the testing\nsaves me the hassle to re-install my lab machine.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For some reason\nI was hit by the ATA driver change in the recent kernels so not that\nmachine no longer boots.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Now I still need to re-install (or fix) it but\nI do not have to do it today.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": ":-)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Best regards,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "// Ola", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On Thu, Jan 27, 2011 at 11:21:40PM +0000, maximilian attems wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> On Thu, Jan 27, 2011 at 09:10:24PM +0000, Steven Chamberlain wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > I notice these bugs didn't actually get merged.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "From the BTS\n> > documentation it seems you must first resassign 590321 to\n> > linux-image-2.6.32-5-openvz-amd64 before you can merge or forcemerge them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> reassigned both to linux-2.6 and forcemerged them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The source is the culprit not the binary package.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Right now I'm running this test build posted by Max Attems which I'm\n> > happy to say fixes the issue for me (although I had to --force-depends\n> > to install it without an updated linux-base package):", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> oh right this is a pain I allways forget, we need to get rid of this\n> postsqueeze, now libata switch is done.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://charm.itp.tuwien.ac.at/~mattems/linux-base_2.6.32-31_all.deb\n> http://charm.itp.tuwien.ac.at/~mattems/linux-base_2.6.32-31_all.deb.sha512.asc\n>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > have a 2.6.32-31 build for testing here, ola or anyone?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > http://charm.itp.tuwien.ac.at/~mattems/linux-image-2.6.32-5-openvz-amd64_2.6.32-31_amd64.deb\n> > > http://charm.itp.tuwien.ac.at/~mattems/linux-image-2.6.32-5-openvz-amd64_2.6.32-31_amd64.deb.sha512sum.asc\n> >", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > I also note that 'tc' works now inside VEs;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "this was a separate issue\n> > that someone had reported here:  http://bugzilla.openvz.org/1238\n>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> good pointer, added to changelog.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> thanks for the testing!!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> --", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> maks", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--- Inguza Technology AB --- MSc in Information Technology ----\n/  ola@inguza.com                    Annebergsslingan 37        \\\n|  opal@debian.org                   654 65 KARLSTAD            |\n|  http://inguza.com/                Mobile: +46 (0)70-332 1551 |\n\\  gpg/f.p.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": ": 7090 A92B 18FE 7994 0C36 4FE4 18A1 B1CF 0FE5 3DD9  /", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ola Lundqvist <ola@inguza.com>", 
+            "email": "Ola Lundqvist <ola@inguza.com>"
+        }, 
+        {
+            "date": "2011-02-01 10:13:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Hi everyone,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> have a 2.6.32-31 build for testing here, ola or anyone?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> http://charm.itp.tuwien.ac.at/~mattems/linux-image-2.6.32-5-openvz-amd64_2.6.32-31_amd64.deb\n>> http://charm.itp.tuwien.ac.at/~mattems/linux-image-2.6.32-5-openvz-amd64_2.6.32-31_amd64.deb.sha512sum.asc", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This test build works for me and resolves the ip6tables issue.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've had someone else test this too (thanks Bernhard), and he reports\nthat this build also fixes #587905 and #579658 for him.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thanks,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Christian", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Christian Hofstdtler <christian@hofstaedtler.name>", 
+            "email": "Christian Hofstdtler <christian@hofstaedtler.name>"
+        }, 
+        {
+            "date": "2011-02-15 22:02:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Hi", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Sorry for the delayed response.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(I have been on a business trip).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Very good to know.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Unfortunatly this build did not reach the\nstable release.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Maks, do you know if this would be a good candidate for the next point\nrelease?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Best regards,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "// Ola", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On Tue, Feb 01, 2011 at 10:13:28AM +0100, Christian Hofstdtler wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Hi everyone,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >> have a 2.6.32-31 build for testing here, ola or anyone?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >> http://charm.itp.tuwien.ac.at/~mattems/linux-image-2.6.32-5-openvz-amd64_2.6.32-31_amd64.deb\n> >> http://charm.itp.tuwien.ac.at/~mattems/linux-image-2.6.32-5-openvz-amd64_2.6.32-31_amd64.deb.sha512sum.asc\n>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> This test build works for me and resolves the ip6tables issue.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I've had someone else test this too (thanks Bernhard), and he reports\n> that this build also fixes #587905 and #579658 for him.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">   Thanks,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">   Christian", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--- Inguza Technology AB --- MSc in Information Technology ----\n/  ola@inguza.com                    Annebergsslingan 37        \\\n|  opal@debian.org                   654 65 KARLSTAD            |\n|  http://inguza.com/                Mobile: +46 (0)70-332 1551 |\n\\  gpg/f.p.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": ": 7090 A92B 18FE 7994 0C36 4FE4 18A1 B1CF 0FE5 3DD9  /", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ola Lundqvist <ola@inguza.com>", 
+            "email": "Ola Lundqvist <ola@inguza.com>"
+        }, 
+        {
+            "date": "2011-02-15 21:21:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On Tue, Feb 15, 2011 at 10:02:10PM +0100, Ola Lundqvist wrote:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Sorry for the delayed response.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(I have been on a business trip).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Very good to know.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Unfortunatly this build did not reach the\n> stable release.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "sure the updated git only came out shortly before release.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Maks, do you know if this would be a good candidate for the next point\n> release?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "next squeeze upload will have it.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "what would be cool would be to add also those nfs fixes, but afair\nthey are not yet in git, please reping about them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "thank you.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "maks", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "maximilian attems <maks@debian.org>", 
+            "email": "maximilian attems <maks@debian.org>"
+        }, 
+        {
+            "date": "2011-03-07 19:59:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: linux-2.6", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source-Version: 2.6.32-31", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We believe that the bug you reported is fixed in the latest version of\nlinux-2.6, which is due to be installed in the Debian FTP archive:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "firmware-linux-free_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "to main/l/linux-2.6/firmware-linux-free_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-2.6_2.6.32-31.diff.gz", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "to main/l/linux-2.6/linux-2.6_2.6.32-31.diff.gz", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-2.6_2.6.32-31.dsc", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "to main/l/linux-2.6/linux-2.6_2.6.32-31.dsc", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-base_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "to main/l/linux-2.6/linux-base_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-doc-2.6.32_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "to main/l/linux-2.6/linux-doc-2.6.32_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-manual-2.6.32_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "to main/l/linux-2.6/linux-manual-2.6.32_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-patch-debian-2.6.32_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "to main/l/linux-2.6/linux-patch-debian-2.6.32_2.6.32-31_all.deb\nlinux-source-2.6.32_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "to main/l/linux-2.6/linux-source-2.6.32_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-support-2.6.32-5_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "to main/l/linux-2.6/linux-support-2.6.32-5_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "A summary of the changes between this version and the previous one is\nattached.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thank you for reporting the bug, which will now be closed.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you\nhave further comments please address them to 607041@bugs.debian.org,\nand the maintainer will reopen the bug report if appropriate.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Debian distribution maintenance software", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pp.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ben Hutchings <ben@decadent.org.uk> (supplier of updated linux-2.6 package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(This message was generated automatically at their request;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "if you\nbelieve that there is a problem with it please contact the archive\nadministrators by mailing ftpmaster@debian.org)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----BEGIN PGP SIGNED MESSAGE-----", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hash: SHA512", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Format: 1.8", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date: Mon, 07 Mar 2011 01:54:53 +0000", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: linux-2.6", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Binary: linux-tools-2.6.32 linux-source-2.6.32 linux-doc-2.6.32 linux-manual-2.6.32 linux-patch-debian-2.6.32 firmware-linux-free linux-support-2.6.32-5 linux-base linux-libc-dev linux-headers-2.6.32-5-all linux-headers-2.6.32-5-all-alpha linux-headers-2.6.32-5-common linux-image-2.6.32-5-alpha-generic linux-headers-2.6.32-5-alpha-generic linux-image-2.6.32-5-alpha-smp linux-headers-2.6.32-5-alpha-smp linux-image-2.6.32-5-alpha-legacy linux-headers-2.6.32-5-alpha-legacy linux-headers-2.6.32-5-all-amd64 linux-image-2.6.32-5-amd64 linux-headers-2.6.32-5-amd64 linux-image-2.6.32-5-amd64-dbg linux-headers-2.6.32-5-common-openvz linux-image-2.6.32-5-openvz-amd64 linux-headers-2.6.32-5-openvz-amd64 linux-image-2.6.32-5-openvz-amd64-dbg linux-headers-2.6.32-5-common-vserver linux-image-2.6.32-5-vserver-amd64 linux-headers-2.6.32-5-vserver-amd64 linux-image-2.6.32-5-vserver-amd64-dbg linux-headers-2.6.32-5-common-xen linux-image-2.6.32-5-xen-amd64 linux-headers-2.6.32-5-xen-amd64\n linux-image-2.6.32-5-xen-amd64-dbg xen-linux-system-2.6.32-5-xen-amd64 linux-headers-2.6.32-5-all-armel linux-image-2.6.32-5-iop32x linux-headers-2.6.32-5-iop32x linux-image-2.6.32-5-ixp4xx linux-headers-2.6.32-5-ixp4xx linux-image-2.6.32-5-kirkwood linux-headers-2.6.32-5-kirkwood linux-image-2.6.32-5-orion5x linux-headers-2.6.32-5-orion5x linux-image-2.6.32-5-versatile linux-headers-2.6.32-5-versatile linux-headers-2.6.32-5-all-hppa linux-image-2.6.32-5-parisc linux-headers-2.6.32-5-parisc linux-image-2.6.32-5-parisc-smp linux-headers-2.6.32-5-parisc-smp linux-image-2.6.32-5-parisc64 linux-headers-2.6.32-5-parisc64 linux-image-2.6.32-5-parisc64-smp linux-headers-2.6.32-5-parisc64-smp linux-headers-2.6.32-5-all-i386 linux-image-2.6.32-5-486 linux-headers-2.6.32-5-486 linux-image-2.6.32-5-686 linux-headers-2.6.32-5-686 linux-image-2.6.32-5-686-bigmem linux-headers-2.6.32-5-686-bigmem linux-image-2.6.32-5-686-bigmem-dbg linux-image-2.6.32-5-openvz-686\n linux-headers-2.6.32-5-openvz-686 linux-image-2.6.32-5-openvz-686-dbg linux-image-2.6.32-5-vserver-686 linux-headers-2.6.32-5-vserver-686 linux-image-2.6.32-5-vserver-686-bigmem linux-headers-2.6.32-5-vserver-686-bigmem linux-image-2.6.32-5-vserver-686-bigmem-dbg linux-image-2.6.32-5-xen-686 linux-headers-2.6.32-5-xen-686 linux-image-2.6.32-5-xen-686-dbg xen-linux-system-2.6.32-5-xen-686 linux-headers-2.6.32-5-all-ia64 linux-image-2.6.32-5-itanium linux-headers-2.6.32-5-itanium linux-image-2.6.32-5-mckinley linux-headers-2.6.32-5-mckinley linux-image-2.6.32-5-vserver-itanium linux-headers-2.6.32-5-vserver-itanium linux-image-2.6.32-5-vserver-mckinley linux-headers-2.6.32-5-vserver-mckinley linux-headers-2.6.32-5-all-m68k linux-image-2.6.32-5-amiga linux-headers-2.6.32-5-amiga linux-image-2.6.32-5-atari linux-headers-2.6.32-5-atari linux-image-2.6.32-5-bvme6000 linux-headers-2.6.32-5-bvme6000 linux-image-2.6.32-5-mac linux-headers-2.6.32-5-mac\n linux-image-2.6.32-5-mvme147 linux-headers-2.6.32-5-mvme147 linux-image-2.6.32-5-mvme16x linux-headers-2.6.32-5-mvme16x linux-headers-2.6.32-5-all-mips linux-image-2.6.32-5-r4k-ip22 linux-headers-2.6.32-5-r4k-ip22 linux-image-2.6.32-5-r5k-ip32 linux-headers-2.6.32-5-r5k-ip32 linux-image-2.6.32-5-sb1-bcm91250a linux-headers-2.6.32-5-sb1-bcm91250a linux-image-2.6.32-5-sb1a-bcm91480b linux-headers-2.6.32-5-sb1a-bcm91480b linux-image-2.6.32-5-4kc-malta linux-headers-2.6.32-5-4kc-malta linux-image-2.6.32-5-5kc-malta linux-headers-2.6.32-5-5kc-malta linux-headers-2.6.32-5-all-mipsel linux-image-2.6.32-5-r5k-cobalt linux-headers-2.6.32-5-r5k-cobalt linux-headers-2.6.32-5-all-powerpc linux-image-2.6.32-5-powerpc linux-headers-2.6.32-5-powerpc linux-image-2.6.32-5-powerpc-smp linux-headers-2.6.32-5-powerpc-smp linux-image-2.6.32-5-powerpc64 linux-headers-2.6.32-5-powerpc64 linux-image-2.6.32-5-vserver-powerpc linux-headers-2.6.32-5-vserver-powerpc\n linux-image-2.6.32-5-vserver-powerpc64 linux-headers-2.6.32-5-vserver-powerpc64 linux-headers-2.6.32-5-all-s390 linux-image-2.6.32-5-s390x linux-headers-2.6.32-5-s390x linux-image-2.6.32-5-s390x-tape linux-image-2.6.32-5-vserver-s390x linux-headers-2.6.32-5-vserver-s390x linux-headers-2.6.32-5-all-sh4 linux-image-2.6.32-5-sh7751r linux-headers-2.6.32-5-sh7751r linux-image-2.6.32-5-sh7785lcr linux-headers-2.6.32-5-sh7785lcr linux-headers-2.6.32-5-all-sparc linux-image-2.6.32-5-sparc64 linux-headers-2.6.32-5-sparc64 linux-image-2.6.32-5-sparc64-smp linux-headers-2.6.32-5-sparc64-smp linux-image-2.6.32-5-vserver-sparc64 linux-headers-2.6.32-5-vserver-sparc64\n linux-headers-2.6.32-5-all-sparc64", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Architecture: all amd64 source", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Version: 2.6.32-31", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Distribution: stable", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Urgency: low", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Maintainer: Debian Kernel Team <debian-kernel@lists.debian.org>\nChanged-By: Ben Hutchings <ben@decadent.org.uk>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Closes: 568454 590105 590653 591061 600769 602444 602853 603835 604802 607041 607879 608148 608684 609538 610360 610838 611390 613170 613200 613335 613499 613501 613531 613823 614555 615888 616058\nDescription:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "firmware-linux-free - Binary firmware for various drivers in the Linux kernel\n linux-base - Linux image base package", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "linux-doc-2.6.32 - Linux kernel specific documentation for version 2.6.32\n linux-headers-2.6.32-5-486 - Header files for Linux 2.6.32-5-486\n linux-headers-2.6.32-5-4kc-malta - Header files for Linux 2.6.32-5-4kc-malta\n linux-headers-2.6.32-5-5kc-malta - Header files for Linux 2.6.32-5-5kc-malta\n linux-headers-2.6.32-5-686-bigmem - Header files for Linux 2.6.32-5-686-bigmem\n linux-headers-2.6.32-5-686 - Header files for Linux 2.6.32-5-686\n linux-headers-2.6.32-5-all - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-alpha - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-amd64 - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-armel - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-hppa - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-i386 - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-ia64 - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-m68k - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-mips - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-mipsel - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-powerpc - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-s390 - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-sh4 - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-sparc64 - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-all-sparc - All header files for Linux 2.6.32 (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-headers-2.6.32-5-alpha-generic - Header files for Linux 2.6.32-5-alpha-generic\n linux-headers-2.6.32-5-alpha-legacy - Header files for Linux 2.6.32-5-alpha-legacy\n linux-headers-2.6.32-5-alpha-smp - Header files for Linux 2.6.32-5-alpha-smp\n linux-headers-2.6.32-5-amd64 - Header files for Linux 2.6.32-5-amd64\n linux-headers-2.6.32-5-amiga - Header files for Linux 2.6.32-5-amiga\n linux-headers-2.6.32-5-atari - Header files for Linux 2.6.32-5-atari\n linux-headers-2.6.32-5-bvme6000 - Header files for Linux 2.6.32-5-bvme6000\n linux-headers-2.6.32-5-common - Common header files for Linux 2.6.32-5\n linux-headers-2.6.32-5-common-openvz - Common header files for Linux 2.6.32-5-openvz\n linux-headers-2.6.32-5-common-vserver - Common header files for Linux 2.6.32-5-vserver\n linux-headers-2.6.32-5-common-xen - Common header files for Linux 2.6.32-5-xen\n linux-headers-2.6.32-5-iop32x - Header files for Linux 2.6.32-5-iop32x\n linux-headers-2.6.32-5-itanium - Header files for Linux 2.6.32-5-itanium\n linux-headers-2.6.32-5-ixp4xx - Header files for Linux 2.6.32-5-ixp4xx\n linux-headers-2.6.32-5-kirkwood - Header files for Linux 2.6.32-5-kirkwood\n linux-headers-2.6.32-5-mac - Header files for Linux 2.6.32-5-mac\n linux-headers-2.6.32-5-mckinley - Header files for Linux 2.6.32-5-mckinley\n linux-headers-2.6.32-5-mvme147 - Header files for Linux 2.6.32-5-mvme147\n linux-headers-2.6.32-5-mvme16x - Header files for Linux 2.6.32-5-mvme16x\n linux-headers-2.6.32-5-openvz-686 - Header files for Linux 2.6.32-5-openvz-686\n linux-headers-2.6.32-5-openvz-amd64 - Header files for Linux 2.6.32-5-openvz-amd64\n linux-headers-2.6.32-5-orion5x - Header files for Linux 2.6.32-5-orion5x\n linux-headers-2.6.32-5-parisc64 - Header files for Linux 2.6.32-5-parisc64\n linux-headers-2.6.32-5-parisc64-smp - Header files for Linux 2.6.32-5-parisc64-smp\n linux-headers-2.6.32-5-parisc - Header files for Linux 2.6.32-5-parisc\n linux-headers-2.6.32-5-parisc-smp - Header files for Linux 2.6.32-5-parisc-smp\n linux-headers-2.6.32-5-powerpc64 - Header files for Linux 2.6.32-5-powerpc64\n linux-headers-2.6.32-5-powerpc - Header files for Linux 2.6.32-5-powerpc\n linux-headers-2.6.32-5-powerpc-smp - Header files for Linux 2.6.32-5-powerpc-smp\n linux-headers-2.6.32-5-r4k-ip22 - Header files for Linux 2.6.32-5-r4k-ip22\n linux-headers-2.6.32-5-r5k-cobalt - Header files for Linux 2.6.32-5-r5k-cobalt\n linux-headers-2.6.32-5-r5k-ip32 - Header files for Linux 2.6.32-5-r5k-ip32\n linux-headers-2.6.32-5-s390x - Header files for Linux 2.6.32-5-s390x\n linux-headers-2.6.32-5-sb1a-bcm91480b - Header files for Linux 2.6.32-5-sb1a-bcm91480b\n linux-headers-2.6.32-5-sb1-bcm91250a - Header files for Linux 2.6.32-5-sb1-bcm91250a\n linux-headers-2.6.32-5-sh7751r - Header files for Linux 2.6.32-5-sh7751r\n linux-headers-2.6.32-5-sh7785lcr - Header files for Linux 2.6.32-5-sh7785lcr\n linux-headers-2.6.32-5-sparc64 - Header files for Linux 2.6.32-5-sparc64\n linux-headers-2.6.32-5-sparc64-smp - Header files for Linux 2.6.32-5-sparc64-smp\n linux-headers-2.6.32-5-versatile - Header files for Linux 2.6.32-5-versatile\n linux-headers-2.6.32-5-vserver-686-bigmem - Header files for Linux 2.6.32-5-vserver-686-bigmem\n linux-headers-2.6.32-5-vserver-686 - Header files for Linux 2.6.32-5-vserver-686\n linux-headers-2.6.32-5-vserver-amd64 - Header files for Linux 2.6.32-5-vserver-amd64\n linux-headers-2.6.32-5-vserver-itanium - Header files for Linux 2.6.32-5-vserver-itanium\n linux-headers-2.6.32-5-vserver-mckinley - Header files for Linux 2.6.32-5-vserver-mckinley\n linux-headers-2.6.32-5-vserver-powerpc64 - Header files for Linux 2.6.32-5-vserver-powerpc64\n linux-headers-2.6.32-5-vserver-powerpc - Header files for Linux 2.6.32-5-vserver-powerpc\n linux-headers-2.6.32-5-vserver-s390x - Header files for Linux 2.6.32-5-vserver-s390x\n linux-headers-2.6.32-5-vserver-sparc64 - Header files for Linux 2.6.32-5-vserver-sparc64\n linux-headers-2.6.32-5-xen-686 - Header files for Linux 2.6.32-5-xen-686\n linux-headers-2.6.32-5-xen-amd64 - Header files for Linux 2.6.32-5-xen-amd64\n linux-image-2.6.32-5-486 - Linux 2.6.32 for old PCs", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-4kc-malta - Linux 2.6.32 for MIPS Malta\n linux-image-2.6.32-5-5kc-malta - Linux 2.6.32 for MIPS Malta (64-bit)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-686-bigmem-dbg - Debugging infos for Linux 2.6.32-5-686-bigmem\n linux-image-2.6.32-5-686-bigmem - Linux 2.6.32 for PCs with 4GB+ RAM\n linux-image-2.6.32-5-686 - Linux 2.6.32 for modern PCs", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-alpha-generic - Linux 2.6.32 for Alpha\n linux-image-2.6.32-5-alpha-legacy - Linux 2.6.32 for Alpha Legacy\n linux-image-2.6.32-5-alpha-smp - Linux 2.6.32 for Alpha SMP\n linux-image-2.6.32-5-amd64-dbg - Debugging infos for Linux 2.6.32-5-amd64\n linux-image-2.6.32-5-amd64 - Linux 2.6.32 for 64-bit PCs", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-amiga - Linux 2.6.32 for Amiga", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-atari - Linux 2.6.32 for Atari", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-bvme6000 - Linux 2.6.32 for BVM BVME4000 and BVME6000\n linux-image-2.6.32-5-iop32x - Linux 2.6.32 for IOP32x", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-itanium - Linux 2.6.32 for Itanium", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-ixp4xx - Linux 2.6.32 for IXP4xx", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-kirkwood - Linux 2.6.32 for Marvell Kirkwood\n linux-image-2.6.32-5-mac - Linux 2.6.32 for Macintosh", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "linux-image-2.6.32-5-mckinley - Linux 2.6.32 for Itanium II\n linux-image-2.6.32-5-mvme147 - Linux 2.6.32 for Motorola MVME147\n linux-image-2.6.32-5-mvme16x - Linux 2.6.32 for Motorola MVME162/6/7, MVME172/7\n linux-image-2.6.32-5-openvz-686-dbg - Debugging infos for Linux 2.6.32-5-openvz-686\n linux-image-2.6.32-5-openvz-686 - Linux 2.6.32 for modern PCs, OpenVZ support\n linux-image-2.6.32-5-openvz-amd64-dbg - Debugging infos for Linux 2.6.32-5-openvz-amd64\n linux-image-2.6.32-5-openvz-amd64 - Linux 2.6.32 for 64-bit PCs, OpenVZ support\n linux-image-2.6.32-5-orion5x - Linux 2.6.32 for Marvell Orion\n linux-image-2.6.32-5-parisc64 - Linux 2.6.32 for 64-bit PA-RISC\n linux-image-2.6.32-5-parisc64-smp - Linux 2.6.32 for multiprocessor 64-bit PA-RISC\n linux-image-2.6.32-5-parisc - Linux 2.6.32 for 32-bit PA-RISC\n linux-image-2.6.32-5-parisc-smp - Linux 2.6.32 for multiprocessor 32-bit PA-RISC\n linux-image-2.6.32-5-powerpc64 - Linux 2.6.32 for 64-bit PowerPC\n linux-image-2.6.32-5-powerpc - Linux 2.6.32 for uniprocessor 32-bit PowerPC\n linux-image-2.6.32-5-powerpc-smp - Linux 2.6.32 for multiprocessor 32-bit PowerPC\n linux-image-2.6.32-5-r4k-ip22 - Linux 2.6.32 for SGI IP22", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-r5k-cobalt - Linux 2.6.32 for Cobalt", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-r5k-ip32 - Linux 2.6.32 for SGI IP32", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-s390x - Linux 2.6.32 for IBM zSeries", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-image-2.6.32-5-s390x-tape - Linux 2.6.32 for IBM zSeries, IPL from tape\n linux-image-2.6.32-5-sb1a-bcm91480b - Linux 2.6.32 for BCM91480B\n linux-image-2.6.32-5-sb1-bcm91250a - Linux 2.6.32 for BCM91250A\n linux-image-2.6.32-5-sh7751r - Linux 2.6.32 for sh7751r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "linux-image-2.6.32-5-sh7785lcr - Linux 2.6.32 for sh7785lcr\n linux-image-2.6.32-5-sparc64 - Linux 2.6.32 for uniprocessor 64-bit UltraSPARC\n linux-image-2.6.32-5-sparc64-smp - Linux 2.6.32 for multiprocessor 64-bit UltraSPARC\n linux-image-2.6.32-5-versatile - Linux 2.6.32 for Versatile\n linux-image-2.6.32-5-vserver-686-bigmem-dbg - Debugging infos for Linux 2.6.32-5-vserver-686-bigmem\n linux-image-2.6.32-5-vserver-686-bigmem - Linux 2.6.32 for PCs with 4GB+ RAM, Linux-VServer support\n linux-image-2.6.32-5-vserver-686 - Linux 2.6.32 for modern PCs, Linux-VServer support\n linux-image-2.6.32-5-vserver-amd64-dbg - Debugging infos for Linux 2.6.32-5-vserver-amd64\n linux-image-2.6.32-5-vserver-amd64 - Linux 2.6.32 for 64-bit PCs, Linux-VServer support\n linux-image-2.6.32-5-vserver-itanium - Linux 2.6.32 for Itanium, Linux-VServer support\n linux-image-2.6.32-5-vserver-mckinley - Linux 2.6.32 for Itanium II, Linux-VServer support\n linux-image-2.6.32-5-vserver-powerpc64 - Linux 2.6.32 for 64-bit PowerPC, Linux-VServer support\n linux-image-2.6.32-5-vserver-powerpc - Linux 2.6.32 for uniprocessor 32-bit PowerPC, Linux-VServer suppo\n linux-image-2.6.32-5-vserver-s390x - Linux 2.6.32 for IBM zSeries, Linux-VServer support\n linux-image-2.6.32-5-vserver-sparc64 - Linux 2.6.32 for uniprocessor 64-bit UltraSPARC, Linux-VServer su\n linux-image-2.6.32-5-xen-686-dbg - Debugging infos for Linux 2.6.32-5-xen-686\n linux-image-2.6.32-5-xen-686 - Linux 2.6.32 for modern PCs, Xen dom0 support\n linux-image-2.6.32-5-xen-amd64-dbg - Debugging infos for Linux 2.6.32-5-xen-amd64\n linux-image-2.6.32-5-xen-amd64 - Linux 2.6.32 for 64-bit PCs, Xen dom0 support\n linux-libc-dev - Linux support headers for userspace development\n linux-manual-2.6.32 - Linux kernel API manual pages for version 2.6.32\n linux-patch-debian-2.6.32 - Debian patches to version 2.6.32 of the Linux kernel\n linux-source-2.6.32 - Linux kernel source for version 2.6.32 with Debian patches\n linux-support-2.6.32-5 - Support files for Linux 2.6.32", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-tools-2.6.32 - Performance analysis tools for Linux 2.6.32\n xen-linux-system-2.6.32-5-xen-686 - Xen system with Linux 2.6.32 on modern PCs (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "xen-linux-system-2.6.32-5-xen-amd64 - Xen system with Linux 2.6.32 on 64-bit PCs (meta-package)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changes:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux-2.6 (2.6.32-31) stable;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ Ian Campbell ]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* xen: blkback: fix potential leak of kernel thread. (CVE-2010-3699)\n .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ Moritz Muehlenhoff ]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* rds: Fix rds_iovec page count overflow (CVE-2010-3865)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ Ben Hutchings ]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* tty: Fix information leaks from SIOCGICOUNT handlers (CVE-2010-4075,\n     CVE-2010-4076, CVE-2010-4077)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* bonding: Ensure that we unshare skbs prior to calling pskb_may_pull\n     (Closes: #610838)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* r8169: Keep firmware in memory (Closes: #609538)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* linux-base: Convert LILO entries for /boot/vmlinuz, /boot/vmlinuz.old\n     (Closes: #613200)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* aufs: Fix VM race leading to kernel panic (Closes: #607879)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* rt2500usb: Fall back to SW encryption for TKIP+AES (Closes: #611390)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Add longterm 2.6.32.29:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- SCSI: Fix medium error problems with some arrays which can cause\n       data corruption", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- ptrace: Use safer wake up on ptrace_detach()", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- [x86] mm: Avoid possible bogus TLB entries by clearing prev\n       mm_cpumask after switching mm", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- sched: Fix softirq time accounting", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- sched: Use group weight, idle cpu metrics to fix imbalances during\n       idle", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- [openvz,vserver] Revert sched changes since they conflict", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* Revert \"USB: Prevent buggy hubs from crashing the USB stack\", included\n     in longterm 2.6.32.29 and reported to cause a regression", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* virtio_net: Further fixes for out-of-memory conditions (Closes: #603835)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Fix OOM handling on TX", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Add schedule check to napi_enable call", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* af_unix: Limit recursion level of passing sockets through sockets\n     (variant of CVE-2010-4249)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* iowarrior: Don't trust report_size for buffer size (CVE-2010-4656)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* drm: Fix unsigned vs signed comparison issue in modeset ctl ioctl\n     (CVE-2011-1013)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* brcm80211: Fix suspend/resume in brcmsmac (Closes: #600769, #604802)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* brcm80211: Fix race between scanning and calibration on SMP\n     (Closes: 602444)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* drm/i915: Overlay on gen2 can't address above 1G", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* drm/i915: Fix memory corruption with GM965 and >4GB RAM", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* ipv6: Silence privacy extensions initialization (Closes: #590653)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* [x86] Enable VT6656, loading firmware from a separate file (requires\n     firmware-linux-nonfree 0.28+squeeze1) (Closes: #568454)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* usbfs: Show correct speed for SuperSpeed USB devices (Closes: #613531)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* drm/i915: Add pipe A force quirk for some laptops (Closes: #608148)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* psmouse/elantech: Fix detection and decoding for newer Elantech\n     touchpads (Closes: #613335)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ dann frazier ]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* xfs: Fix information leak using stale NFS handle (CVE-2010-2943)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* CAN: Use inode instead of kernel address for /proc file (CVE-2010-4565)\n .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ maximilian attems]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* Update openvz patch to feoktistov (ipv6, checkpointing, stability,\n     ipsec, nfs, ppp, tc, ve). (closes: #607041, #613501, #613170)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* HID: add support for Acan FG-8100 barcode reader. (closes: #615888)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Add longterm 2.6.32.30:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- nfsd: Memory corruption due to writing beyond the stat array", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- av7110: check for negative array offset (CVE-2011-0521)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- cred: Fix get_task_cred() and task_state() to not resurrect dead\n       credentials", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- cred: Fix kernel panic upon security_file_alloc() failure", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- cred: Fix BUG() upon security_cred_alloc_blank() failure", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- cred: Fix memory and refcount leaks upon security_prepare_creds()\n       failure", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- dm/raid1: Fail writes if errors are not handled and log fails", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- GFS2: Fix bmap allocation corner-case bug", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- [s390] remove task_show_regs (CVE-2011-0710)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- PM/hibernate: Return error code when alloc_image_page() fails", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- fs/partitions: Validate map_count in Mac partition tables\n       (CVE-2011-1010)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- ALSA: caiaq - Fix possible string-buffer overflow (CVE-2011-0712)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- acer-wmi, asus_acpi, tc1100-wmi: Restrict write permissions on files\n       in procfs/sysfs", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- [x86] usbip/vhci: Update reference count for usb_device", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- [x86] usbip/vhci: Give back URBs from in-flight unlink requests", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- [x86] usbip/vhci: Refuse to enqueue for dead connections", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- epoll: Prevent creating circular epoll structures", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- fs/partitions/ldm: Corrupted partition table can cause kernel oops", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- xhci: Avoid BUG() in interrupt context", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- xhci: Fix errors in the running total calculations in the TRB math", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- xhci: Fix an error in count_sg_trbs_needed()", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- x25: Do not reference freed memory", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Add longterm 2.6.32.31.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Add longterm 2.6.32.32-rc1:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- netxen: fix set mac addr. (closes: #616058)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- [xen] do not release any memory under 1M in domain 0. (closes: #613823)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- virtio: set pci bus master enable bit. (closes: #610360)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- sctp: Fix oops when sending queued ASCONF chunks (CVE-2010-1173).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- drm/ttm: Fix two race conditions + fix busy codepaths (closes: #591061)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Add Slovak translation by Slavko. (closes: #608684)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Add drm changes from 2.6.32.28+drm33.13:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- drm/i915: Add dependency on CONFIG_TMPFS.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- drm/i915/lvds: Add AOpen i915GMm-HFS to the list of false-positive LVDS.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- drm/radeon/kms: add pll debugging output.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- drm/radeon/kms: add quirk for Mac Radeon HD 2600 card.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- drm/radeon/kms: fix s/r issues with bios scratch regs.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- drm/radeon/kms: make the mac rv630 quirk generic.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- drm/radeon: remove 0x4243 pci id.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ Aurelien Jarno ]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* init: fix race between init and kthreadd, fixes a kernel panic on\n     mips/5kc-malta.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* mips/swarm: enable PATA drivers that have been lost during IDE -> PATA\n     conversion.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ Martin Michlmayr ]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Orion: add support for Buffalo LS-CHL (Closes: #590105).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Kirkwood: initialize PCIE1 for QNAP TS-419P+ (Closes: #613499).\n .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ Jurij Smakov ]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* sparc: add sparc-console-handover.patch to address problems with\n     console handover on sparc causing kernel to hang during boot on\n     systems using atyfb driver.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thanks to Fabio M.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Di Nitto <fabbione@fabbione.net> for the patch.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(Closes: #602853)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ Bastian Blank ]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Add supportt for AMD Family 10h/11h CPU internal temperatur sensor.\n     (closes: #614555)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checksums-Sha1:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ba440b0dcfb8e3ecba608e4cea3bfa5acf76cfb9 6969 linux-2.6_2.6.32-31.dsc\n dbabb73fa2dc05ddfddf4182b9ca4db677bdb8a0 14545949 linux-2.6_2.6.32-31.diff.gz\n f1a13a756876c92b6488d0b7bb5515f18ef19012 159524 linux-support-2.6.32-5_2.6.32-31_all.deb\n a7602b6da12abfcc520a86dd66120b4c7ca6d80d 147620 firmware-linux-free_2.6.32-31_all.deb\n da6148241a124682440e613b33345576c23f3b5c 169566 linux-base_2.6.32-31_all.deb\n 5ae884ac3cf7774f1bda42b89d9ae44d308eb130 7701932 linux-patch-debian-2.6.32_2.6.32-31_all.deb\n b2932155fd9962ff98cecae045394bc964b0fac9 65054266 linux-source-2.6.32_2.6.32-31_all.deb\n 61edeedd18b302bb71984abeaa369a78c4779d92 6054660 linux-doc-2.6.32_2.6.32-31_all.deb\n 8d05c2389ec79725198cac2e843e03b61f8737f9 2728422 linux-manual-2.6.32_2.6.32-31_all.deb\nChecksums-Sha256:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "c233469c11d4d2132c88862a472205a0aac277d0fb292f724d2935db8446a7b0 6969 linux-2.6_2.6.32-31.dsc\n 21b63e52aee0de85c83cae3ddce206f03d1a3a8b7a322aebaa6f03ac82992e8b 14545949 linux-2.6_2.6.32-31.diff.gz\n af945a91ffbc0db3fe7393763db08cea2ba59cfa848b3da06df3109b6d967806 159524 linux-support-2.6.32-5_2.6.32-31_all.deb\n 802539aaa32e582d2a1c18ef5bb88ec9d4fd8c52ad83bd8bb6574522df01e887 147620 firmware-linux-free_2.6.32-31_all.deb\n 1d8ff28bf825cf13e55bd955b8304ad228f2e34d2dd2a8f2fade2801fa259537 169566 linux-base_2.6.32-31_all.deb\n 5e2a6946d4ce85236d982f30c418b1b8970290ae17556b8ce55659ba1030aacd 7701932 linux-patch-debian-2.6.32_2.6.32-31_all.deb\n da7065e1faa1c6129441e5dfc41969389b93eb5a55754d20f10fd8d22038885b 65054266 linux-source-2.6.32_2.6.32-31_all.deb\n b2fe62debe1aba059d4379363cb502e36349c17f0fb480c97e292528647701fb 6054660 linux-doc-2.6.32_2.6.32-31_all.deb\n 511b226a0a6680b9fd265051e11c2336f7cf63c83989d6cd8b84154ee825323f 2728422 linux-manual-2.6.32_2.6.32-31_all.deb\nFiles:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "7f1210eabc5a00094a52c1e0fab292b2 6969 kernel optional linux-2.6_2.6.32-31.dsc\n 70806b556b2ec290156d6ad4748e0759 14545949 kernel optional linux-2.6_2.6.32-31.diff.gz\n 2f13dcac5067aa6516afa3970119109b 159524 devel optional linux-support-2.6.32-5_2.6.32-31_all.deb\n deed6dc3ebb99e4a1675380ccdeecdb7 147620 kernel optional firmware-linux-free_2.6.32-31_all.deb\n 4201c29037234c0be60eac54db2e6769 169566 kernel optional linux-base_2.6.32-31_all.deb\n d997377112089b010e605a05124e5e6b 7701932 kernel optional linux-patch-debian-2.6.32_2.6.32-31_all.deb\n 3fca2c4170d9cce67bc377feec06d6c7 65054266 kernel optional linux-source-2.6.32_2.6.32-31_all.deb\n 4d499f146638422395029f6eb1f116a1 6054660 doc optional linux-doc-2.6.32_2.6.32-31_all.deb\n c2c7798ebfbde7a3762e41b2d1e3ee14 2728422 doc optional linux-manual-2.6.32_2.6.32-31_all.deb", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----BEGIN PGP SIGNATURE-----", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: GnuPG v1.4.11 (GNU/Linux)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "iQIVAwUBTXTb5ue/yOyVhhEJAQqiuA/+OlE0mzEvJMeeMZx5CECfsyWkLMtHfter\nloaa3109pqWxdU9WHhD1VnyqAmuSDpQZJgspQnrvaDuPe5LwreJFSTg+kh24rAWL\no4vn6WYsTwf7N6b5QEqz2sjUOzvZbPCW/ioNZKDWEkZJO0M9pZAbv6UxrzJa5Bwr\nGs+qPAXRWRd1fQSipT1CxrB2pYkpZsAcDPlBWtEZdoUQUDhKxq39mqpJ/gMyoo2v\nMjOt2eV8f4fatPz7hxZQ6d+gENa2ERqlgQG3u2rH3fncYGLjK/aICW4Vvm9hYcwz\nA77r9KS4s9+dcXpOF3cSjcOoNyu2BGrJVV/vB+PYwV7hu1wfR9rW4Gj4qBAybCUF\n3Gk1ywybYkKNBG0plzpblZFP0PX+ke+CmPWZ4WsOgsOckLKMDuGXLH4M+hLSLNJ1\nqFVrdqJRZnGYwGu5doGTpl3DbiqyLi5IwE3kQbZSXO1bSS33AvgXFdta3J5WE4un\nj3qJHJBHFpMYAQ9YB5lVYjVkIPl7/5COf6jlwG3l6sDrDbfgs6a4f71DDbvW/o0m\n1LArvSgzmxyzzTuRzlcMv8ZKTXvxZ+Q0TpIK/RqU+42itwgFHVsJAlegIZT2MEiG\n/+Pq4D/EF2IOy3nQH4IxtODfJ4T6Ny5zo+JYgXL3HFhhaeVOl7Xww0squr5zwsrm\n83poDnDMJBE=", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "=T7Ti", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----END PGP SIGNATURE-----", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ben Hutchings <ben@decadent.org.uk>", 
+            "email": "Ben Hutchings <ben@decadent.org.uk>"
+        }
+    ], 
+    "title": "\nlinux-image-2.6.32-5-openvz-amd64: amd64 ip6tables broken in OpenVZ VE"
+}

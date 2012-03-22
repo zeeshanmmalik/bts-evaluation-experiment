@@ -1,0 +1,835 @@
+{
+    "project": "Launchpad", 
+    "original_link": "http://dont.know.yet/538516", 
+    "comments": [
+        {
+            "date": "2010-03-13 18:51:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\nI recently upgraded my server from Hardy to Lucid, using \"do-release-upgrade -d\" from the command line.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When the upgrade process attempted to install the new version of the slapd package, the package installation/configuration failed due to problems with the DBD database files (as I reported in bug #536958).", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Once I resolved that problem, I re-ran \"dpkg --pending --configure\", and the configuration script was able to successfully convert my slapd.conf file to the slapd.d configuration directory.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "However, a second later, I received  the following error message:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Starting OpenLDAP: slapd - failed.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The operation failed but no output was produced.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For hints on what went\n  wrong please refer to the system's logfiles (e.g.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/var/log/syslog) or\n  [...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "invoke-rc.d: initscript slapd, action \"start\" failed.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dpkg: error processing slapd (--configure):", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sure enough, the syslog file contained the following:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mar 11 20:43:23 suza slapd[7087]: @(#) $OpenLDAP: slapd 2.4.21 (Feb 18 2010 06:12:56) $#012#011buildd@yellow:/build/buildd/openldap-2.4.21/debian/build/servers/slapd\n  Mar 11 20:43:23 suza slapd[7087]: config error processing olcDatabase={0}config,cn=config: ordered_value_sort failed on attr olcAccess#012\n  Mar 11 20:43:23 suza slapd[7087]: slapd stopped.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Since the slapd.postinst returns an exit status in this situation, the slapd package is left in half-configured status.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "nathanst", 
+            "email": "nathanst"
+        }, 
+        {
+            "date": "2010-03-13 19:49:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\nI found that running \"slaptest -F /etc/ldap/slapd.d\" generated that same error message.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "To investigate further, I used the command line", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "slaptest -F /etc/ldap/slapd.d -d 1 2>&1 | grep \"\\.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ldif\" \nto track down the full path of the file that contained the offending line, which turned out to be\n   /etc/ldap/slapd.d/cn=config/olcDatabase={0}config.ldif", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am attaching a copy of that file, as it was created by the slapd.postinst script.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Eventually I was able to track the error down to the following line from that file:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "olcAccess: to * by dn.exact=cn=localroot,cn=config manage by * break", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "When I edited that line to read:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "olcAccess: {1}to * by dn.exact=cn=localroot,cn=config manage by * break\nand then re-ran the \"slaptest\" command, the error went away.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I then tried running \"dpkg --pending --configure\" again...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "but the postinst script errored out because /var/backups/*-2.4.9-0ubuntu0.8.04.2.ldapdb already existed.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I moved the old backup file out of the way and tried again...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "only to get the \"Starting OpenLDAP: slapd - failed.\"", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "message again.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It turned out that the postinst script had re-converted the slapd.conf file and then re-added the oldAccess line back to the config file, and so slapd was still erroring out.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So I went ahead and edited the grep and sed lines in /var/lib/dpkg/info/slapd.postinst (inside the \"if previous_version_older 2.4.11-0ubuntu1\" block) so that the text of the line added there used there included the \"{1}\".", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Then I moved the backup file out of the way and reran \"dpkg --pending --configure\"...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "and this time slapd started up successfully, and the slapd package was left in the \"installed\" state.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nathanst", 
+            "email": "nathanst"
+        }, 
+        {
+            "date": "2010-03-13 20:53:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\nI did some additional testing and believe that all Hardy -> Lucid upgrades will hit this bug.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Specifically, I installed the \"slapd\" package on Hardy box, one that had never had any openldap packages installed.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I let the package installation script create the default slapd.conf file there, and then copied the resulting file over to the machine that is now running Lucid.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I then created an empty slapd.d directory, ran \"slaptest -f slapd.conf -F slapd.d\", and compared the new slapd.d directory tree with the /etc/ldap/slapd.d tree that was generated from my system local slapd.conf file.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Sure enough, the *{0}config.ldif file generated from the stock slapd.conf fle contained the same \n  olcAccess: {0}to *  by * none", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "line that was causing the conflict with the \"olcAccess: to * by ...\"", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "line being added by the  slapd.postinst script.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(So in other words, even a stock, uncustomized slapd.conf file would trigger this error upon upgrade to Lucid's slapd.)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I see from the changelog.Debian.gz file for slapd that the postinst script started edited this config file in the Karmic timeframe:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "openldap (2.4.17-1ubuntu3) karmic;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "urgency=low", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* Add cn=localroot,cn=config authz mapping on upgrades.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- Mathias Gug < <email address hidden>>   Tue, 11 Aug 2009 14:48:56 -0400", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Out of curiousity, I ran \"slaptest -f slapd.conf -F ...\"", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "on my Hardy box, and then compared the *{0}config.ldif file generated there with the one generated on Lucid..", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "and saw that the \"olcAccess: {0}to *  by * none\" line was NOT generated there.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, I think that the issue here is that between 2.4.17 and 2.4.21, the *{0}config.ldif file  generated by \"slaptest -f ...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-F ...\"", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "changed in such a way that it's no longer compatible with the \"cn=localroot\" lines that the postinst script is adding.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There was no problem for machines that were upgraded first to Intrepid (when the configuration data migration took place) and then to Karmic (when the \"cn=localroot\" lines were added to the previously-generated *{0}config.ldif file)...", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "but anyone migrating directly from Hardy will run into problems since by openldap 2.4.21 the two steps are incompatible....", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nathanst", 
+            "email": "nathanst"
+        }, 
+        {
+            "date": "2010-03-13 21:41:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\nA few other notes:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bug #526230 \"On upgrade modifies multiple olcAccess definition are not handled correclty\" is definitely related to this one.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, #526230 deals with a Jaunty->Karmic upgrade, and specifically mentions that the pre-upgrade configuration had multiple oldAccess lines (so presumably it had been customized locally).", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I created a separate bug here in case there is simple tweak to the slapd.postinst script that would allow the Hardy->Lucid upgrade to work, but which wouldn't fix #526230.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On the other hand, a more comprensive solution of some sort could certainly resolve both bugs at the same time.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Also, I should mention that my goal when I added the \"{1}\" to the text of the new dn.exact=cn=localroot  line was simply to make the smallest possible change needed get \"dpkg\" to think that the package installation had succeeded (so that it would stop trying to reconfigure the package every time I installed some other package, etc.)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I haven't actually tried doing anything with my LDAP database yet, but I as far as I understand the workings of the oldAccess lines, the dn.exact=cn=localroot line as it now exists is actually completely ignored, since the \"{0}to *  by * none\" line will prevent any lines with higher sequence numbers from being processed....", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So presumably the actual fix will have to take some other approach to getting past this error....", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nathanst", 
+            "email": "nathanst"
+        }, 
+        {
+            "date": "2010-03-15 12:37:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\nThanks for the bug report, we'll try to get this fixed for lucid.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Regards", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "chuck", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "zulcss", 
+            "email": "zulcss"
+        }, 
+        {
+            "date": "2010-03-24 12:29:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\nI think this is a repetition of", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://bugs.launchpad.net/ubuntu/+source/openldap/+bug/450645", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Other bug has been assigned low importance - this is a major problem and has been around since karmic.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Be good to see some resolution of the various ldap issues in ubuntu at the minute.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jay-wharfs", 
+            "email": "jay-wharfs"
+        }, 
+        {
+            "date": "2010-03-29 13:50:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\nThis bug was fixed in the package openldap - 2.4.21-0ubuntu3", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---------------", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "openldap (2.4.21-0ubuntu3) lucid;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "urgency=low", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* debian/slapd.postinst, debian/slapd.scripts-common: Upgrade databases\n    before trying to convert to slapd.d, to avoid upgrade failure from hardy\n    (LP: #536958)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* debian/slapd.postinst: Add a {1} numeric index to olcAccess entry in\n    olcDatabase={0}config.ldif to avoid upgrade failures (LP: #538516, #526230)", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "janitor", 
+            "email": "janitor"
+        }, 
+        {
+            "date": "2010-03-29 14:08:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\nAs I commented earlier, I belive this is the same bug as in karmic, https://bugs.launchpad.net/ubuntu/+source/openldap/+bug/450645.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Will this be fixed so you can dist upgrade an ldap from jaunty -> karmic -> lucid ...", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "or will this remain broken for karmic ?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Jay", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jay-wharfs", 
+            "email": "jay-wharfs"
+        }, 
+        {
+            "date": "2010-03-29 15:00:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\nI will try to actually run a test of this scenario sometime in the next few days, but at first glance it appears to me that simply adding \"{1}\" to both the \"grep\" and the \"sed\" lines of the postinst script will fix Hardy -> Lucid upgrades, but will cause new problems for other upgrade paths.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In particular, if the slapd package was upgraded 2.4.17/2.4.18 timeframe, an oldAccess line without any index would have already been added to the .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ldif file, and then upon upgrade to Lucid, this updated postinst script would add the new \"{1}\" version of the line as well....", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nathanst", 
+            "email": "nathanst"
+        }, 
+        {
+            "date": "2010-03-29 15:40:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\n@Jay: once this is fixed, it can be backported for Karmic.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "@Nathan: My understanding is that the olcAccess line added before would make the package fail to start until it is manually fixed to include a {1}.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The idea here is to keep the package working on a hardy->lucid upgrade, not to automagically fix a broken karmic setup in karmic->lucid upgrades...", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "ttx", 
+            "email": "ttx"
+        }, 
+        {
+            "date": "2010-03-29 22:36:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\nAh, never mind.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I was thinking that if the user upgraded from jaunty up to karmic and then again to lucid, both copies of the oldAccess line would be added to the file (i.e.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "one with no index, by the karmic upgrade, and one with \"{1}\", by the lucid upgrade) -- but I see now the postinst script checks to see what version of the package we're upgrading from before adding the lines, which would prevent the lucid upgrade from trying to edit the file a second time.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "nathanst", 
+            "email": "nathanst"
+        }, 
+        {
+            "date": "2010-04-07 03:43:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\nUsing this new version of the slapd.postinst script, the \"cn=config\" database ends up with these two oldAccess attributes:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "$ sudo slapcat -b\"cn=config\" -s\"olcDatabase={0}config,cn=config\" | grep olcAccess\nolcAccess: {0}to *  by * none", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "olcAccess: {1}to * by dn.exact=cn=localroot,cn=config manage by * break", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As far as I understand the OpenLDAP Access Control documentation, in this scenario the {0} line will always take precedence over the {1} line (so that the later will just be ignored).", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It seems like the two separate directives should instead be combined into one, something like:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "olcAccess: {0}to * by dn.exact=cn=localroot,cn=config manage by * none", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I haven't yet managed to find any discussion of the exact goals behind adding the various \"localroot\" access directives into the slapd configuration, so I'm not sure what sort of testing I can do to confirm that my understanding is correct.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But I figured I would go ahead and submit this comment now, in hopes that someone who knows more about why this logic was added to the script in version 2.4.17-1ubuntu3 can check to see if this new version of the script is still having the desired effect....", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nathanst", 
+            "email": "nathanst"
+        }, 
+        {
+            "date": "2010-04-09 09:12:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\n@Nathan: yes, rereading the slapd.access manpage I think you're right, the first match will define level of access:", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<<Access control checking stops at the first match of the <what> and <who> clause, unless otherwise  dictated  by  the  <control> clause.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Also, given that:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "<<Each <who> clause list is implicitly terminated by a \"by * none stop\" clause  that  results  in  stopping  the  access control with no access privileges granted>>\nI think the right way is to completely replace the existing olcAccess: {0} line by\nolcAccess: {0}to * by dn.exact=cn=localroot,cn=config manage break\nand remove the new olcAccess: {1} line.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'll file a new bug about this.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "ttx", 
+            "email": "ttx"
+        }, 
+        {
+            "date": "2010-04-09 09:22:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade\nSee bug 559070 (targeted to Lucid) for followup", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "ttx", 
+            "email": "ttx"
+        }
+    ], 
+    "title": "slapd package configuration aborts due to \"ordered_value_sort failed on attr olcAccess\" error during Hardy -> Lucid upgrade"
+}

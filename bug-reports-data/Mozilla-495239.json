@@ -1,0 +1,740 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/495239", 
+    "comments": [
+        {
+            "date": "2009-05-28 07:50:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This has been discussed previously but I don't think it has a bug in Bugzilla\nyet, so I'm creating one.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When running trace-test.js, TM will produce a segmentation fault during one of\nthe createMandelSet tests (in JIT-generated code).", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In the current tip, this\nhappens in the seventh createMandelSet test, but moving things around a bit\nseems to move (or even remove) the failure.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I _think_ that the bug is related to register allocation.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The faulty code is\nemitted by ::asm_ldr_chk, following a call from ::asm_ld.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I believe that the\nfault in this case is caused by register allocation in ::asm_ld;", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "by moving the\nprepResultReg call to after the getBaseReg call, the test suite runs to\ncompletion (and passes everything).", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Having said that, I am not happy with simply submitting a patch to swap those\ncalls around as there is clearly something else wrong here.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As far as I can\ntell, there should be no reason why I can't call prepResultReg before\ngetBaseReg.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please let me know if there is!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Jacob", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jacob Bramley", 
+            "email": "Jacob Bramley"
+        }, 
+        {
+            "date": "2009-05-29 08:28:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The abort occurs on the following (generated) instruction:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "0x4042d1b8:    ldr    r2, [r0, #16]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "By using GDB, I was able to trace this to the ::asm_ld function (when the\noperation is LIR_ld).", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, several of these operations are emitted before\nthere is a problem.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have also checked that they execute, but whilst they do\nnot cause an abort, I cannot verify that they are correct.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(R0 may, by chance,\nhave had a valid address from a previous operation.)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "When the offending LDR instruction executes, r0 has the value \"0x3faeb851\".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "::asm_ld calls getBaseReg to find this register, and I'm wondering if it\ndoesn't preserve it properly, or something like that.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "getBaseReg basically\ntranslates into findRegFor for anything other than LIR_alloc, so this doesn't\nseem to be a special-case failure, but rather a failure in the common parts of\nthe register allocator.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is supported by previous experience;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I was\npreviously playing with some optimizations in ::asm_arith but found that I had\nto preserve the order in which the register allocation functions were called.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am finding this bug increasingly difficult to trace;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "GDB is rather flaky on\nthis platform and at first glance, the code seems to be sensible.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, many\nof the register allocation functions have side effects that aren't obvious at\nfirst so just guessing what a function does by its name is not reliable.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "NOTE: It's worth pointing out that the verbose output doesn't help here;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "the\nsegmentation fault takes out the process before it even prints the useful bit.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jacob Bramley", 
+            "email": "Jacob Bramley"
+        }, 
+        {
+            "date": "2009-06-02 08:43:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=381081) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Example verbose output.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am getting closer to the cause of the problem, and have attached some\n(trimmed) verbose logs.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The aborting instruction is at line 117, and at address 0x4042f1b8.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For some\nreason, running within GDB affects the memory allocation such that the address\nis 0x4042e1b8 in that case, but this is likely to differ on other machines.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(This explains why I couldn't find the failing instruction in the asm_output\nbefore.)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The problem itself appears earlier in the log, at line 70 and at address\n0x4042f170.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The register (r0) holding createMandelSet.addPoint is spilled and\nis restord at this point.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, the previous instruction clobbers its stack\nslot.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is emitted by asm_mmq, which is in turn called by asm_load64.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "At the moment, I'm thinking that there is a fault in the stack slot allocation.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jacob Bramley", 
+            "email": "Jacob Bramley"
+        }, 
+        {
+            "date": "2009-06-04 02:58:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have found the cause of the bug.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "asm_load64 calls freeRsrcOf(ins) to free up the stack slots which it then\nwrites into.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(Remember that code is generated backwards, so this _does_ make\nsense.)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It then (sometimes) does an asm_mmq.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "That looks innocent, but asm_mmq\nallocates a register, which means that it can spill some other value.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When that\nhappens, a space is allocated on the stack.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Guess where it goes :-)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Moving freeRsrcOf to the end of asm_load64 causes the crash to go away, but the\naffected test then fails, for some reason.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll try to find a tidy solution.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jacob Bramley", 
+            "email": "Jacob Bramley"
+        }, 
+        {
+            "date": "2009-06-04 06:41:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Is this an arm-specific failure, or could it potentially hit other targets?", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Julian Seward", 
+            "email": "Julian Seward"
+        }, 
+        {
+            "date": "2009-06-04 07:43:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've never seen it on x86, but judging by the code, it is probably affected by\nit too.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have no idea about the other targets, but they probably need looking\nat.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Unfortunately, the nature of the bug makes it very difficult to catch with a\ntest.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Indeed, of the 9 createMandelSet tests that are run, only one crashed on\nARM, and that failure disappears if you change a few calls around elsewhere.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have a fix for it, but I'm just tidying & testing the patch.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jacob Bramley", 
+            "email": "Jacob Bramley"
+        }, 
+        {
+            "date": "2009-06-05 00:57:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=381730) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Fixes the stack slot allocation and no longer crashes in createMandelSet!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Description of major changes:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* Fixed the bug! The ::asm_mmq function no longer allocates a register, so it\nwill never cause a spill. The comments in the code explain the details.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Modified nRegisterAllocFromSet so that it uses the new CountLeadingZeroes\nfunction.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The old code used CLZ but only on WinCE and ARMCC, so we've been\nusing the C fall-back routine with GCC up until now!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This should improve\nperformance somewhat, as registers are allocated fairly often, though I haven't\nrun any benchmarks to check this.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Description of minor changes:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* Replaced _activation with ar in a couple of places to remain consistent with\nthe rest of the function. (They are equivalent.)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Fixed the outputForEOL debug function because I wanted to use it whilst\ndebugging.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Added a CountLeadingZeroes utility function, with selection code for WinCE,\nARMCC, GCC and a fall-back C routine.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Added a few assertions.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Improved a few comments.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "----", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "NOTE: Because I have made some changes to the CountLeadingZeroes stuff, we\nshould probably test on WinCE before pushing this.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I can't imagine that it\nwould break as the code is trivial, but it's worth testing anyway.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(I don't\nhave a WinCE platform to test on.)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "----", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jacob Bramley", 
+            "email": "Jacob Bramley"
+        }, 
+        {
+            "date": "2009-06-05 01:12:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Regarding other platforms: The x86 and Sparc back-ends both call freeRsrcOf\nimmediately after asm_mmq, so they will never run into the problem of the stack\nslot being re-allocated in this way.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm not sure why the same pattern won't\nwork on ARM!", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jacob Bramley", 
+            "email": "Jacob Bramley"
+        }, 
+        {
+            "date": "2009-06-05 02:46:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=381741) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As before, but also ensures that freeRsrcOf isn't misused elsewhere.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I did a quick review to ensure that we don't misuse freeRsrcOf elsewhere.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There\naren't many additional changes.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jacob Bramley", 
+            "email": "Jacob Bramley"
+        }, 
+        {
+            "date": "2009-06-05 15:38:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 381741 [details])", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Looks great -- nice job tracking this down!", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Vladimir Vukicevic (:vlad)", 
+            "email": "Vladimir Vukicevic (:vlad)"
+        }, 
+        {
+            "date": "2009-06-22 08:17:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I was about to commit this, but realized that on the current tip it makes\ncreateMandelSet fail.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "They don't crash, mind, but I'd like to know what's going\non.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Should I commit this anyway, on the basis that a failure is better than a\ncrash, or should I hold back?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "To add more interest, my operand 2 patch (for bug 490968) applied on top again\nmake it all pass, including another test which seems to be failing in the\ntrunk.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Note that the operand 2 patch isn't yet in Bugzilla, but it will be\nshortly.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jacob Bramley", 
+            "email": "Jacob Bramley"
+        }, 
+        {
+            "date": "2009-06-22 10:02:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As long as it doesn't budge behavior on non-ARM during the tests (i.e.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "tinderbox doesn't turn worse colors than it already is), I think it's\nreasonable to push it with a note in the checkin comment mentioning the\nfollowup bug to fix the now-failure.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We're not usually in this position of\nconsidering whether to take half-fixes like this, but I think precedent for\nports (AIX, BeOS, OS/2, &c.)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "suggests taking it.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jeff Walden (remove +bmo to email)", 
+            "email": "Jeff Walden (remove +bmo to email)"
+        }, 
+        {
+            "date": "2009-06-22 15:54:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I agree -- the issues fixed here obviously need fixing, so let's get that in.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Vladimir Vukicevic (:vlad)", 
+            "email": "Vladimir Vukicevic (:vlad)"
+        }, 
+        {
+            "date": "2009-06-23 01:14:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I suspect that the failures are a result of the integer speculation.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've filed\nbug 499889 to track this, as it is a separate issue.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I will push the createMandleSet patch once I've re-run the tests on the current\ntip (as it has changed since last night).", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jacob Bramley", 
+            "email": "Jacob Bramley"
+        }, 
+        {
+            "date": "2009-06-23 01:46:48", 
+            "sentences": [], 
+            "name": "Jacob Bramley", 
+            "email": "Jacob Bramley"
+        }, 
+        {
+            "date": "2009-06-23 01:56:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We keep this open until its merged into trunk.", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Andreas Gal :gal", 
+            "email": "Andreas Gal :gal"
+        }, 
+        {
+            "date": "2009-07-05 09:36:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/mozilla-central/rev/46370f001a04", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Sayre", 
+            "email": "Robert Sayre"
+        }
+    ], 
+    "title": "TraceMonkey: trace-test.js crashes on ARM during the createMandelSet tests."
+}
