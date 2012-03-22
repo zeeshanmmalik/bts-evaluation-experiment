@@ -1,0 +1,697 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/526805", 
+    "comments": [
+        {
+            "date": "2009-11-05 10:32:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "User-Agent:       Mozilla/5.0 (X11;", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " U;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Linux x86_64;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " en-US;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " rv:1.9.1.3)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Gecko/20090909 Fedora/3.5.3-1.fc11 Firefox/3.5.3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Build Identifier: 4.8.1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Details from NSPR development mailing list:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Sorry to bring up such an old message thread, but an issue has come up\n> > related\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > to re-entrant use of PR_RWLock_Rlock().\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > The way PR_RWLock works is that a waiting writer will block any threads\n> > attempting to get a new read lock.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  If you use read locks in a re-entrant\n> > manor, a request for a write lock between the two read lock calls will cause\n> > a\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > deadlock (the writer is waiting for the reader to exit, and the reader can't\n> > get the re-entrant lock since the writer is waiting).", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  I am running into\n> > this\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > deadlock in my application.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > I'd like to propose that we modify PR_RWLock to behave differently when a\n> > re-entrant read lock is made.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  If a thread already holds a read lock and\n> > tries\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > to get another readlock, this should be allowed, even if a writer is waiting\n> > on\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > the write lock.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  Any other threads attempting to get a read lock will have\n> > to\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > wait on the writer since it is given priority.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  This approach would prevent\n> > the\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > writer from being starved due to many active readers, yet it would also\n> > allow\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > for safe re-entrant use of read locks without chance of a deadlock.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Does the above proposal sound feasible?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Nathan,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We have three implementations of PRRWLock.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Two of them (HAVE_UNIX98_RWLOCK and HAVE_UI_RWLOCK)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "are based on native thread libraries.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Unless the behavior you\nproposed is documented in the Unix 98 reader-writer locks,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if we make this change, we won't be able to use Unix 98\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "reader-writer locks.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It seems that native thread libraries must solve this problem\nif they allow a thread to hold multiple concurrent read locks,\nand it seems that your proposal is the obvious solution.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm worried that native thread libraries actually implement\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "your solution but fail to document it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Wan-Teh\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reproducible: Always\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nkinder", 
+            "email": "nkinder"
+        }, 
+        {
+            "date": "2009-11-05 10:36:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created an attachment (id=410550) [details]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Test Program Code\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is the code for a test program that demonstrates the deadlock.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The program creates 2 threads (a reader and a writer).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  The PR_Sleep function\nis used to guarantee the following order of events:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Reader thread obtains a reader lock.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Writer threads attempts to get writer lock (and is blocked by the reader).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Reader thread attempts to get a second reader lock (and is blocked by the\nwaiting writer).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nkinder", 
+            "email": "nkinder"
+        }, 
+        {
+            "date": "2009-11-05 10:39:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have run the test program on a HP-UX 11.23 ia64 system (where\nHAVE_UNIX98_RWLOCK is defined), and the deadlock still occurs.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  Does this mean\nthat it is out of the question to modify the way that NSPR's portable\nreader-writer locks work?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "nkinder", 
+            "email": "nkinder"
+        }, 
+        {
+            "date": "2009-11-05 11:13:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nathan, thanks for the bug report.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  Could you also run your test program\non Solaris?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  That's the other platform where NSPR uses the native reader\nwriter locks.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I thought about this issue a bit, and I believe that unless we remember\nall the threads that own a reader lock, we will need to give up giving\npreference to waiting writers (which means writers may be starved)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "to allow readers to lock recursively.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2009-11-05 13:59:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have run my test program on a Solaris 9 sparc system and it does not\ndeadlock.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Here is the stdout output from my test program on this system:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reader running.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Attempting to get first reader lock.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reader obtained first reader lock.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reader sleeping for 10 seconds.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Writer running.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Sleeping for 5 seconds.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Writer attempting to get writer lock.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reader attempting to get second reader lock.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reader obtained second reader lock.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reader releasing second reader lock.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reader releasing first reader lock.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Writer obtained writer lock.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Writer releasing writer lock.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nkinder", 
+            "email": "nkinder"
+        }, 
+        {
+            "date": "2009-11-05 14:18:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to comment #3) \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I thought about this issue a bit, and I believe that unless we remember\n> all the threads that own a reader lock, we will need to give up giving\n> preference to waiting writers (which means writers may be starved)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> to allow readers to lock recursively.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I believe that you are correct that we need to keep track of all of the threads\nwho own a reader lock as opposed to simply keeping a count of the number of\nreaders.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Is it legal for a thread that does not own a reader or writer lock to call\nPR_RWLock_Unlock()?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  It seems like nothing is preventing this currently.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  If we\nkeep track of readers, it seems as if this should not be allowed since there\nwould be no way of knowing which thread to remove from the owners list.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "nkinder", 
+            "email": "nkinder"
+        }, 
+        {
+            "date": "2009-11-16 10:34:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In light of my test findings, do my suggestions from comment#5 seem like a\nviable and acceptable approach for fixing this issue?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "nkinder", 
+            "email": "nkinder"
+        }, 
+        {
+            "date": "2009-11-16 11:06:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Nathan, keeping track of all the threads who own a reader lock\nmay slow down PRRWLock.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  It also means we won't be able to use\npthread_rwlock_t on HP-UX.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  Since Solaris is open source now,\nwe should study its implementation of reader-writer locks.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  I\ndid a quick search for pthread_rwlock_rdlock and rw_rdlock at\nhttp://src.opensolaris.org/source/ and found:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://src.opensolaris.org/source/xref/onnv/onnv-gate/usr/src/lib/libc/port/threads/rwlock.c\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Could you also study the code to find out what its algorithm\nis?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Thanks.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2009-11-19 08:40:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to comment #7)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Nathan, keeping track of all the threads who own a reader lock\n> may slow down PRRWLock.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  It also means we won't be able to use\n> pthread_rwlock_t on HP-UX.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  Since Solaris is open source now,\n> we should study its implementation of reader-writer locks.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  I\n> did a quick search for pthread_rwlock_rdlock and rw_rdlock at\n> http://src.opensolaris.org/source/ and found:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://src.opensolaris.org/source/xref/onnv/onnv-gate/usr/src/lib/libc/port/threads/rwlock.c\n> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Could you also study the code to find out what its algorithm\n> is?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Thanks.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The Solaris implementation of reader-writer locks keeps a list of readers.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  It\nalso keeps a reference count for each reader to keep track of how many locks it\nholds.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  When a thread that already holds a reader lock attempts to get another\nreader lock, the list of readers is checked to see if a reader lock is already\nheld by the thread.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  If so, the reference count for that thread is simply\nincreased.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The list of reader threads is also used by the unlock function to ensure that\nthe calling thread actually holds a reader lock.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nkinder", 
+            "email": "nkinder"
+        }, 
+        {
+            "date": "2009-11-19 11:36:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Nathan: thanks for studying the Solaris code.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is a tough call.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  On the one hand, it is reasonable to expect\nthat a thread should be able to acquire a reader lock recursively\nbecause the thread should be able to share read-only access to the\nresource with itself.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  On the other hand, to support this the\nreader-writer lock implementation will become very heavyweight,\nmaking it even less appealing than regular locks.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you really can't restructure your code to avoid recursive\nreader locks, we'll have to implement the Solaris algorithm\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "and also stop using the pthread reader-writer locks on HP-UX.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }
+    ], 
+    "title": "Users of multiple PRRWLock reader locks may deadlock"
+}

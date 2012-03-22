@@ -1,0 +1,4297 @@
+{
+    "project": "Launchpad", 
+    "original_link": "http://dont.know.yet/568988", 
+    "comments": [
+        {
+            "date": "2010-04-23 13:15:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "[Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Binary package hint: fglrx\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Environment]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* You are using fglrx restricted driver from Ubuntu repository or download the linux driver from AMD ATI website (fglrx version <= 8.723.1-0ubuntu3).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* If your ATI card is listed in the following pdf, then your desktop behaviours will most likely be affected the 'bugs' listed in [Symptoms] section.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  https://a248.e.akamai.net/f/674/9206/0/www2.ati.com/drivers/linux/catalyst_102_linux.pdf\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* GNOME and KDE SC 4.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Compositing desktop is enabled (Compiz and KWIN).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Symptoms]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Window Management: Unminimizing, Maximising, Full-Screening, Resizing windows and Switching windows (Alt+Tab) will noticably freeze the screen for about 1 second plus. Your mileage might vary.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Memory (RAM) Management: Secondary problem you might notice is memory leak and/or memory-clearing problem (http://www.phoronix.com/forums/showthread.php?t=21471).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Workarounds]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Window Management:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " - Using PPA (Lucid Only) by Bryce Harrington (not up-to-date as of time of writing)\n   PPA address @ https://edge.launchpad.net/~bryceharrington/+archive/violet\n   In terminal, 'sudo add-apt-repository ppa:bryceharrington/violet' then install the update and reboot.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " - Compile your own packages - when the ppa is not updated fast enough (or you are an update-freak like me)\n   + You need to tick 'Source Code' option in Synaptic Repositories or add relevant source code repo (deb-src) if you are using ppa:ubuntu-x-swat/x-updates.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   + Building instruction:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t  sudo apt-get build-dep xorg-server\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t  sudo apt-get install devscripts\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t  apt-get source xorg-server\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t  cd xorg-server-*\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t  wget http://launchpadlibrarian.net/32728179/xserver-xorg-backclear.patch\n\t  patch -p1 < xserver-xorg-backclear.patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t  dch -l -backclear-local 'Backclear Patch' #make package local to precede the unpatched version\n\t  debuild -us -uc\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t  cd ..\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t  dpkg --install xserver-xorg-core*.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t  dpkg --install xserver-common*.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Memory (RAM) Management:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " - In terminal, run 'glxinfo' command or invoke 'glxgears' to release the 'uncleared' memory. You might need 'mesa-utils' package installed.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " - Create a bash script to run at start up\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   #!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/bin/sh\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   while [ 1 ]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   do\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     glxinfo\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     sleep 60\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   done\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[My Suggested Comment Guidelines - subjected to change]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Keep it civil.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Subscribe to the bug instead of comment like 'it affects me too'.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Help test the patch for potential regression as requested by Bryce Harrington:\n \"A. What we need is solid proof of the following:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    1.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No visible regression on -intel with compiz turned on\n    2.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No visible regression on -ati with compiz turned on\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    3.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No visible regression on -nouveau with compiz turned on\n    4.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No visible regression on -nvidia with compiz turned on\n    5.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No visible regression on at least one video driver with kde kwin desktop effects turned on.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Alternatively, I could accept either of the following:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  B.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Rejigger the patch so its logic is only enabled when the fglrx driver is loaded\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  C.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Forward the patch upstream to Debian or bugs.freedesktop.org and get it accepted into the upstream xserver, from which we can pull a cherrypick patch.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "idyllic", 
+            "email": "idyllic"
+        }, 
+        {
+            "date": "2010-04-23 13:15:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "idyllic", 
+            "email": "idyllic"
+        }, 
+        {
+            "date": "2010-04-23 15:10:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It was suggested by Bryce Harrington that we create a fresh bug report because of the comment limit and dangling workaround instructions in the 400+ comments.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Please don't mark it as a duplicate of #351186.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Quote Bryce Harrington.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "idyllic", 
+            "email": "idyllic"
+        }, 
+        {
+            "date": "2010-04-28 21:45:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Can't use the patch and build instructions anymore on Lucid.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  The patch command relates:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patching file p1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hunk #1 FAILED at 483.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1 out of 1 hunk FAILED -- saving rejects to file p1.rej\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Can anyone help update this patch for Lucid?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "ybdjkfd", 
+            "email": "ybdjkfd"
+        }, 
+        {
+            "date": "2010-04-28 22:50:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm sorry, I typed the patch command incorrectly.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Please disregard the last message, I don't have an option to delete it.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "ybdjkfd", 
+            "email": "ybdjkfd"
+        }, 
+        {
+            "date": "2010-04-28 22:59:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I tested again with the instruction.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It works fine.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "hoa@halcyon:~/Forge/xorg/xorg-server-1.7.6$ patch -p1 < xserver-xorg-backclear.patch\npatching file composite/compalloc.c\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hunk #1 succeeded at 486 (offset 3 lines)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I suggest you redownload the source-file.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Then apply the patch again.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Remember to go into the xorg-server-* directory first then wget the patch and lastly apply it.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "idyllic", 
+            "email": "idyllic"
+        }, 
+        {
+            "date": "2010-04-29 21:09:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dpkg-shlibdeps: warning: dependency on libXpm.so.4 could be avoided if \"debian/xdmx-tools/usr/bin/xdmxconfig\" were not uselessly linked against it (they use none of its symbols).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dpkg-shlibdeps: warning: dependency on libXext.so.6 could be avoided if \"debian/xdmx-tools/usr/bin/dmxresize debian/xdmx-tools/usr/bin/dmxreconfig debian/xdmx-tools/usr/bin/dmxaddscreen debian/xdmx-tools/usr/bin/xdmx debian/xdmx-tools/usr/bin/dmxaddinput debian/xdmx-tools/usr/bin/dmxrmscreen debian/xdmx-tools/usr/bin/dmxrminput debian/xdmx-\nI have this error on\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Do you know something about this error (on ' debuild -us -uc' command):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "tools/usr/bin/dmxwininfo\" were not uselessly linked against it (they use none of its symbols).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dpkg-shlibdeps: warning: dependency on librt.so.1 could be avoided if \"debian/xdmx-tools/usr/bin/dmxresize debian/xdmx-tools/usr/bin/xdmxconfig debian/xdmx-tools/usr/bin/dmxreconfig debian/xdmx-tools/usr/bin/dmxaddscreen debian/xdmx-tools/usr/bin/xdmx debian/xdmx-tools/usr/bin/dmxaddinput debian/xdmx-tools/usr/bin/dmxrmscreen debian/xdmx-tools/usr/bin/dmxtodmx debian/xdmx-tools/usr/bin/dmxrminput debian/xdmx-tools/usr/bin/vdltodmx debian/xdmx-tools/usr/bin/dmxwininfo\" were not uselessly linked against it (they use none of its symbols).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dpkg-shlibdeps: error: no dependency information found for /usr/lib/libGL.so.1 (used by debian/xserver-xephyr/usr/bin/Xephyr).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dh_shlibdeps: dpkg-shlibdeps -Tdebian/xserver-xephyr.substvars debian/xserver-xephyr/usr/bin/Xephyr returned exit code 2\nmake[1]: *** [binary-deb] Error 9\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: Leaving directory `/home/ms/Desktop/xorg-server-1.7.6'\nmake: *** [binary-arch] Error 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rm stampdir/configure-main\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dpkg-buildpackage: error: fakeroot debian/rules binary gave error exit status 2\ndebuild: fatal error at line 1340:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dpkg-buildpackage -rfakeroot -D -us -uc failed\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "cazacugmihai", 
+            "email": "cazacugmihai"
+        }, 
+        {
+            "date": "2010-04-29 21:27:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Attached is the log file for 'debuild -us -uc > log.txt' command.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My system: iMac 27\" with ATI Mobility Radeon HD 4850 video card.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "OS: Ubuntu 10.04\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "cazacugmihai", 
+            "email": "cazacugmihai"
+        }, 
+        {
+            "date": "2010-04-30 00:06:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi, the actual ppa with 1.7...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ubuntu7 can be found at \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpad.net/~info-g-com/+archive/xserver-xorg-1.7.6-gc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Please, be a little patient, i have build it on my own and its work.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Have to wait 'til launchpad hopefully build it too.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-04-30 06:59:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "builded, tested, working ;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-04-30 18:40:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I built xserver-xorg-core and xserver-common with the patch and everything appears to be working fine again with fglrx that is included in the repositories for lucid.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "ybdjkfd", 
+            "email": "ybdjkfd"
+        }, 
+        {
+            "date": "2010-04-30 18:58:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm still have ugly gradients and slow videos.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " And the error mentioned above is still present.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "cazacugmihai", 
+            "email": "cazacugmihai"
+        }, 
+        {
+            "date": "2010-04-30 21:25:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "PPA from comment #8 works around the problem for me.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Thanks Alf.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "brendan-p", 
+            "email": "brendan-p"
+        }, 
+        {
+            "date": "2010-05-02 19:23:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "PPA from comment #8 also woks for me.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I have a Lenovo ThinkPad T400 and ATI Mobility Radeon HD 3470.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " My question now is what happens when a xorg-server update comes through?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Do I just keep on using the one from the PPA and hold updates back?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "michael-alexander-werner", 
+            "email": "michael-alexander-werner"
+        }, 
+        {
+            "date": "2010-05-03 20:24:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As suggested i tried the configurations\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-ati\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-nouveaux\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-nvidia\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-fglrx\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "and found no visible regressions, slowdowns nor memory leaks with gnome and compiz\nkwin breaks with and without this patch and 10.4 in KDE\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "KDE and emerald or KDE and GTK work without clues\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-05-03 20:47:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi all,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I was looking at the docs for the latest version of the ATI driver from their website and of significance is that this bug is *still* not listed in the known issues section of the doc.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Do they even know about this?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  I think that an awareness campaign is in order!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Please go to <http://www.amd.com/us/LinuxCrewSurvey/> and fill out the survey and be sure to cite this bug and the linking bug (351186) for their reference and to show them just how old and well known it is.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Regards,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Van\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sethgilchrist", 
+            "email": "sethgilchrist"
+        }, 
+        {
+            "date": "2010-05-03 22:10:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@Vancouverite\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for the survey.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Done.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Have a look at 351186 comment #228 by Felix Kuehling.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Have a look at the mail address in the profile.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Sure i think AMD knows about this problem ;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Last week I've been in a thread at phoronix, there was interesting news about new drivers from AMD by bridgman.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (also @amd) So i think, they know about.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " IMHO the bug isn't primary in the ati drivers, i think its in Xorg.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-05-04 01:06:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fix works great!!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Toshiba Satellite A300\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ATI 3650 HD\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Many thanks!!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "bryan-electricedgesystems", 
+            "email": "bryan-electricedgesystems"
+        }, 
+        {
+            "date": "2010-05-04 11:35:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks Alf!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Using your PPA and it works.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm on a Thinkpad W500 with ATI Mobility Radeon HD 3650.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I notice my xorg process uses a lot of memory, more than 165MB.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Is this normal?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "castromd", 
+            "email": "castromd"
+        }, 
+        {
+            "date": "2010-05-05 10:24:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Me again.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " My xorg process uses around 140-170MB, could there be a memory leak here?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Or is this normal?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's just that I have another Thinkpad (T61 with Intel video) and xorg process never grows over 50MB.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Let me know if you think there could be an issue here and if we want logs to track it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "castromd", 
+            "email": "castromd"
+        }, 
+        {
+            "date": "2010-05-05 10:36:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fix works great !\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "HP 6930p\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ATI Mobile Radeon 3400\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Many thanks!!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jabadia", 
+            "email": "jabadia"
+        }, 
+        {
+            "date": "2010-05-05 11:49:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@19\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If it is a leak then dont worry about it in the start of your computer.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I check this back with my Computer.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Depending on th number of open windows and their size, Xorg take between 100 and 200 M at Start.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " When these Value is nearly the same +/- 20-30M after a few hours, i think you dont have a leak.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If it increase to 500M or so with no windows open then i would say, there can be a leak.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So it comes to another question: Why do we use graphic card with 1 or 2 G of own memory?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " There must be an profit for us to do so.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I think a pice of that amount of memory are objects cached by Xorg and will be destroyed by xorg after a amount of time...\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-05-05 13:00:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Confirm the fix works, at least when it comes to window management - @Alf: thank you very much for providing the PPA.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yet what I am still very unhappy with is the (obvious) memory management problem (leak) mentioned in the original bug description.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Having glxinfo executed regularly by a script in order to deallocate memory is a hack I'd rather not apply to my system, not because it doesn't work out (in fact, it does), but because it is not what I'd call a 'clean' solution.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " *sigh*\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "ngc2997", 
+            "email": "ngc2997"
+        }, 
+        {
+            "date": "2010-05-05 20:39:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It looks like something similar to option \"C\" is going on upstream now:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://lists.x.org/archives/xorg-devel/2010-May/008085.html\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "danagoyette", 
+            "email": "danagoyette"
+        }, 
+        {
+            "date": "2010-05-07 03:38:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nice job !\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "works with my ATI HD 2600XT\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks !\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "u-giorgi", 
+            "email": "u-giorgi"
+        }, 
+        {
+            "date": "2010-05-08 23:28:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "HELP!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Ubuntu 10.04 (Lucid) Freezing and hanging for several seconds when I click on a page, file, etc.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ", both on-line and off-line.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "bigjeff1002", 
+            "email": "bigjeff1002"
+        }, 
+        {
+            "date": "2010-05-09 07:54:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@Big Jeff\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This bug is related to ATI cards only.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " My guess is you have a different issue I'm afraid.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "brendan-p", 
+            "email": "brendan-p"
+        }, 
+        {
+            "date": "2010-05-09 19:09:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This kind of solved my issue, i used Alf's PPA and im having some better results now than before.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " For sure the minimize, maximize, enlarge, tab and all that was fixed.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Its just one other \"error\" im still experiencing.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " For follow up please have a look at my topic back at ubuntu forums: http://ubuntuforums.org/showthread.php?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "t=1477258\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "With the PPA from Alf i could \"not use the computer\" for over 1 minute, which i havent been able to do since i've had linux on my laptop (almost 2 years now).", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Its a Fujitsu Siemens Amilo Xi 2550 (HD Mobility Radeon 2700 (or 2600 as in linux)).", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Very much appreciated and i hope upcoming updates might even fix my problem totaly =)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thank you for this great commitment you are doing to solve all our issues!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "fractaluser", 
+            "email": "fractaluser"
+        }, 
+        {
+            "date": "2010-05-09 20:40:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://bugs.launchpad.net/ubuntu/+source/fglrx-installer/+bug/577962\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sorry for the double post but here is my bug report if someone wants to look it over.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "fractaluser", 
+            "email": "fractaluser"
+        }, 
+        {
+            "date": "2010-05-13 09:46:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thank you very much for the patch.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It completely solved the freeze windows management problem.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " \nBut the proposed workaround for the memory leak problem does not work for me.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Typically xorg will use around 250m after X started.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Then the memory use will grow to around 3G after one day.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " (this is not the GEM memory leak, for I am using proprietary driver) Does anyone have the same problem?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "creatorlarryli", 
+            "email": "creatorlarryli"
+        }, 
+        {
+            "date": "2010-05-13 11:25:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@ creatorlarryli\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've also noticed this problem.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "disabling Compiz only use the ram returns to normal...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am using Lucid x86_32 and driver installed from Driver Hardware.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "u-giorgi", 
+            "email": "u-giorgi"
+        }, 
+        {
+            "date": "2010-05-13 11:40:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have read in other bugs and bord a nice workaround.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Create an Button that runs glxgears for twenty seconds.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This should fix the leaking...\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-05-13 16:24:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have a DELL XPS STUDIO, with ATI/AMD proprietary fglrx driver and an ATI HD 3670 video-card.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I had the problem concerning the maximizing/resizing windows low speed with Ubuntu Karmic: solved with no-back-fill ppa.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " \nNow I upgraded to Lucid Lynx and the problem came back (I was so happy to know that!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " :)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Unfortunately none of the solutions you listed worked for me (xserver-xorg-1.7.6-gc ppa, \"MigrationHeuristic\" \"greedy\", \"AccelMethod XAA\", Harrington's ppa, amdccle->disable option, no-backclear patch, etc.)", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I then decided to remove the proprietary fglrx driver, but I have a crash and something goes wrong and the result is that I can't install the ATI open-source driver.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(I guess I'll have to wait for an update of the fglrx driver...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I would ask you: is it an automatic update or do I have to add some ppa to my software sources?)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "piero-campa", 
+            "email": "piero-campa"
+        }, 
+        {
+            "date": "2010-05-13 18:18:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@PieroCampa\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have the same machine, at least same ATI card if you a diff model to mine, XPS Studio 16\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Solution in comment #8 works 100%.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "brendan-p", 
+            "email": "brendan-p"
+        }, 
+        {
+            "date": "2010-05-14 11:15:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@Brendan_P\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thank you Breand, I tried that, but no improvements unfortunately.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "piero-campa", 
+            "email": "piero-campa"
+        }, 
+        {
+            "date": "2010-05-18 11:54:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Lenovo W500 with ATI Mobility Radeon HD 3650\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ubuntu 10.04 with compiz activated\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can confirm the fix.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Great Job Thank you.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "After adding/ installing the packages and rebooting I got a black screen.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No login GUI appeared.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Reinstalling the proprietary ATI Driver fixed that!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "markus-rummler", 
+            "email": "markus-rummler"
+        }, 
+        {
+            "date": "2010-05-20 11:17:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yesterday my update manager upgraded:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Commit Log for Wed May 19 10:15:58 2010\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Upgraded the following packages:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gdm (2.28.1-0ubuntu2.1) to 2.28.1-0ubuntu2.2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "xserver-common (2:1.6.4-2ubuntu4.2+backclear1) to 2:1.6.4-2ubuntu4.3\nxserver-xorg-core (2:1.6.4-2ubuntu4.2+backclear1) to 2:1.6.4-2ubuntu4.3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Although it is not as bad as without this fix, the slow window effects are back.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Now minimize, unminimize and maximize are slower than before this update was applied.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Any ideas?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "castromd", 
+            "email": "castromd"
+        }, 
+        {
+            "date": "2010-05-20 14:09:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "somehow I fixed this by my self...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1)I used the ppas above and ran the update\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2)I renamed the /etc/ati folder to /etc/ati_OLD \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3)I restarted with:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "sudo /etc/init.d/gdm restart\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4)ran Ubuntu in low graphic mode and installed ati driver from ati site.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5)again I restarted and I dont see any problems by now. If anything changes I ll post it.\nGood luck\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "slovyno", 
+            "email": "slovyno"
+        }, 
+        {
+            "date": "2010-05-20 15:59:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This fix definitely broke after the last update.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So I disabled https://launchpad.net/~k0ekk0ek/+archive/ppa and re-enabled https://launchpad.net/~launchpad-weyland/+archive/xserver-nobackfill did the updates and now it's all good again.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So there are at least three different PPAs for this:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpad.net/~k0ekk0ek/+archive/ppa\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpad.net/~launchpad-weyland/+archive/xserver-nobackfill\nhttps://launchpad.net/~info-g-com/+archive/xserver-xorg-1.7.6-gc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Anyone knows what are the differences between them and which one is better?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "castromd", 
+            "email": "castromd"
+        }, 
+        {
+            "date": "2010-05-20 17:44:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#38 Please read the description in top and you'll find the answer to your questions about k0ekk0ek and info-g-com.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (about no backfill read in 351186)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "..", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " definitely broke..", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"It Ain't Necessarily So\" (George Gershwin).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-05-20 18:35:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@#39\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Forgive my ignorance, but how does one make a PPA sticky?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is it Synaptic -> Package -> Force Version?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "castromd", 
+            "email": "castromd"
+        }, 
+        {
+            "date": "2010-05-20 21:04:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, mark the xorg-server and set version.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " One short notice: If you do so, you have to look for new versions manually, i.e.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " in the ppa.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If you take a look at the ppa should get an \"new version available\" or so.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Anyway, if Catalyst run without problems ther is no reason to change sub-minor-versions as 1.7.6-1 -2 -3.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It will make no sence, nor in performance nor is stability.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Relax and wait for a few days, you will miss nothing.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As i wrote so, i'm use 1.8.0.1 in Arch.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Nice to have, but not a must...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If the 1.7.6 runs stable, yust be lucky.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-05-21 14:05:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For what it's worth.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I've never been too happy with Xorg memory utilization so today I tried the following:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1. Uninstalled Ubuntu's proprietary ATI drivers from System -> Administration -> Hardware Drivers.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2. Reboot.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3. Download and install ATI drivers from their website. http://support.amd.com/us/gpudownload/linux/Pages/radeon_linux.aspx?type=2.4.2&product=2.4.2.3.25&lang=English\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4. Reboot.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Now I'm using latest ATI and memory usage of Xorg seems a lot better.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Note: If xserver has to be updated with the nobackfill fix before installing the drivers, if done after X won't start and drivers will have to be removed and reinstalled.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "castromd", 
+            "email": "castromd"
+        }, 
+        {
+            "date": "2010-05-21 21:02:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you had readed and understanded the suggested comments for bug 351186 you would know why there is no recommendation for the no-backfill patch....", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Btw.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ", the ubuntu version for catalyst is 10.4-666, the version of their website is 10.4-1.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Guess why most people at fedora or arch or so use the ubuntu one ;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Second time: Nobody force you to use the fglrx nor backfill!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-05-22 00:24:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Alf I'm not complaining I'm just explaining the different things that I've experienced, it might help other people.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Seriously, there is no need for your attitude.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "castromd", 
+            "email": "castromd"
+        }, 
+        {
+            "date": "2010-05-22 07:39:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@44 and @all\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't think I'm too unkind in the end.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " IMHO it is a real advantage for me  to know  what I am doing.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Mostly I reach this goal reading the whole stuff.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " In this special case I would read the comments on  bug 351186 #126 #127 #128 #174 #218 #219 about no-backfill.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The no-backclear is described at #228 #234 #256 .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " The advantage of no backclear and the ppa for karmic your can find here.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (#291..", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#296).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My intention for an own ppa is described at its best at #264 and by myself at #413 #414 #421 #436.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You will see it's all in the records...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@Daniel: It was no offense writing that you are not forced to use fglrx and no backfill.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " You and anyone can give the free driver a chance.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I did this yesterday with a brand new X 1.8 directly from the latest sources and the latest xf86-video-ati, ati-dri, mesa and so on directly from the git.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Then I built Compiz 0.86somewhat from the git and it works mostly.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Disadvantages are: No powermanagement, my 4890 runs at full speed all the time (over 90 Watts more power consumption), several bugs in Compiz effects (finally get a kernel panic), bugs with glx (best shown with glxgears), memory leaks within compiz.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Some strange behaviour with false rendering..)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I have checked this out with arch and a 2.6.34 patched kernel (new scheduling, powermanagement and so on) just for fun.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I found out by and for myself that the most errors are related primarily to compiz, second in Xorg and the minor part in Catalyst.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I've choosen arch, because I'm familiar with arch and I figured out that it has nothing to do with Ubuntu.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Today I'll change back to Catalyst and will build a new version of the ppa.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-05-22 19:18:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amkoraiem", 
+            "email": "amkoraiem"
+        }, 
+        {
+            "date": "2010-06-07 01:18:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I tried the fix in comment #8 and the system (Lenovo W500 running Lucid) seemed to hang after the Ubuntu splash and before the login screen.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  Rebooting to low graphics mode and reinstalling the ATI proprietary driver fixed the hand and my window performance has improved dramatically.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "paul-cyberengel", 
+            "email": "paul-cyberengel"
+        }, 
+        {
+            "date": "2010-06-11 12:54:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-06-13 10:44:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The suggested fix\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpad.net/~info-g-com/+archive/xserver-xorg-1.7.6-gc\nworks great for me - now my system feels slick again :).", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I checked OpenGL games, video playback and the resizing of windows without any problems.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "System is \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Lucid, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ATI RadeOn HD mobility 3670 with \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fglrx 8.723.1-0ubuntu3 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(Lucid stable packages as of writing).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "derlars", 
+            "email": "derlars"
+        }, 
+        {
+            "date": "2010-06-17 07:39:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://blogs.amd.com/play/2010/06/16/ati-catalyst%E2%84%A2-10-6-driver-%E2%80%93-what%E2%80%99s-new/\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2D performance enhancements\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "80502905788-mail", 
+            "email": "80502905788-mail"
+        }, 
+        {
+            "date": "2010-06-17 10:42:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "it works?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "agostino-leonida", 
+            "email": "agostino-leonida"
+        }, 
+        {
+            "date": "2010-06-17 11:25:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm running Lucid (x86_64) with the 2.6.34-020634 kernel from kernel-ppa/mainline on a Thinkpad W500 (Radeon HD 3650).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Downloading the proprietary driver from http://www2.ati.com/drivers/linux/ati-driver-installer-10-6-x86.x86_64.run and installing worked for me after adding the attached patch to dkms and using the installer's option to build an ubuntu package.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I suppose, up to kernel version 2.6.33 no additional patch should be necessary.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Windows now minimize and resize very smoothly.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Also memory usage of X is constant (after running X for 1,5 hours), although it is pretty high with 360 mb.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "denis-lohner-net", 
+            "email": "denis-lohner-net"
+        }, 
+        {
+            "date": "2010-06-17 20:14:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is there a possibility that Jaunty, Karmic and Lucid get this new/fixed fglrx via regular updates?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(or at least on Lucid, because this is an LTS)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "malizor", 
+            "email": "malizor"
+        }, 
+        {
+            "date": "2010-06-22 04:09:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've actually noticed that this \"backfill\" behavior itself seems to cause glitches on my Intel netbook.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  When I use the \"vacuum\" animation for menu creation, new menus grab bits of the window behind them and drag those bits along, until the real content finishes appearing.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  That's exactly what Xorg deliberately does: it copies the contents of underlying windows into new windows.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'll test it with the backclear patch now.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "danagoyette", 
+            "email": "danagoyette"
+        }, 
+        {
+            "date": "2010-06-23 10:17:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://blogs.amd.com/play/2010/06/16/ati-catalyst%E2%84%A2-10-6-driver-%E2%80%93-what%E2%80%99s-new/\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "New driver from ati (10.6) works perfectly and finally ATI addressed this issue.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " \nI have Mobility Radeon HD 4500 (Dell Studio 1555).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Eerlier on I suffered from a different bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://bugs.launchpad.net/ubuntu/+bug/574848?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "comments=all\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "which was fixed with previous Catalyst 10.5.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've just uninstalled 10.5 and installed 10.6 - now the system properly resumes and finally feels sleek  :)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "tomasz-cenian", 
+            "email": "tomasz-cenian"
+        }, 
+        {
+            "date": "2010-06-27 05:31:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "New ATI Driver fixes this for me too.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Finally!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "humblecoffee", 
+            "email": "humblecoffee"
+        }, 
+        {
+            "date": "2010-06-27 06:17:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not quite for me.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It did remove the minimise/maximise delay, but it introduced big black sections within the application windows - especially when using Thunderbird or Nautilus.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The windows basically looked like they were trying to refreshed but couldn't and resolved into a black square.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " E.g.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ", change directory in Nautilus would cause the panel on the left side to go black, the folder view in Thunderbird would go black if clicking between messages.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It was so bad that I have reverted back to the above patch and uninstalled the new ATI driver.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hardware: ATI Mobility HD 3650 / HP EliteBook 8530p\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ubuntu 10.04\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "johnbrondum", 
+            "email": "johnbrondum"
+        }, 
+        {
+            "date": "2010-06-27 10:23:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@ John Brondum\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "have You uninstall Ati driver before install PPA ?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I read that can help for your problem.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "u-giorgi", 
+            "email": "u-giorgi"
+        }, 
+        {
+            "date": "2010-06-27 10:58:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Fiodor\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks for your suggestions.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I did the following:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- uninstalled fglrx driver (latest distributed with Ubuntu - ATI driver version 10.5 I believe) reverting back to the open source driver\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- reverted back to unpatched xserver\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- rebooted into recovery mode\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- installed the new ATI driver 10.6\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- normal boot.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Things worked fine until I started noticing these black parts of my application windows.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So I have reverted back to the Ubuntu distributed AMD ATI driver and the above patched xserver - which works very well as it did before I tried the new AMD ATI driver :)\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "johnbrondum", 
+            "email": "johnbrondum"
+        }, 
+        {
+            "date": "2010-06-27 14:49:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Why do you remove the patched Server.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " The Server has absolutly nothing to do with the ati driver.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The combination patched server + 10.6 works without glitches and errors for me.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Give it a try.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-06-27 15:04:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Running lucid, I upgraded my xorg stuff to the latest, and built the .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "deb from the 10.6 installer.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  I'm not experiencing the annoying delays, but if I run glxinfo or fglrxinfo, I get the error message \"couldn't find RGB GLX visual\"\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is anyone else getting that?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Is there some procedure I should follow to make sure I have a clean version of everything?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "aarons-ubuntu", 
+            "email": "aarons-ubuntu"
+        }, 
+        {
+            "date": "2010-06-27 20:45:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@aarons\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I am heading same issue.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " After install 10.6, system did not see my card, jockey is empty, because new installer removes package xorg-server-fglrx and not contains newer version.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " So I am using ubuntu's older one.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "alim-cpp", 
+            "email": "alim-cpp"
+        }, 
+        {
+            "date": "2010-07-03 22:14:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "New package available: xorg-server - 2:1.7.6-2ubuntu7.2-gc6\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-07-22 19:08:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My desktop PC is also affected by this bug.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have a ATI Radeon HD5850 in my pc and compiz was slow as hell...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It runs a lot slower than on my laptop with an integrated Intel card...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " this should really be solved.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@Ald Gaida.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Thank you very much!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The xorg-server package from your ppa did the trick.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " My desktop is lightening fast now!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@Ubuntu developers: Please look into this bug.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It really is a showstopper for new users with ATI cards.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "degroot-roelof", 
+            "email": "degroot-roelof"
+        }, 
+        {
+            "date": "2010-07-23 00:21:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The Karmic (9.10) version of the xorg patch has been superceded by a subsequent xserver release.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  You can add it with add-apt-repository but apt-get-update will ignore it.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  I could try building it manually following the instructions under \"Workarounds\", but could you update the version at https://launchpad.net/~k0ekk0ek/+archive/ppa?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "sean-manning", 
+            "email": "sean-manning"
+        }, 
+        {
+            "date": "2010-07-23 00:39:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-07-27 21:02:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-08-02 12:20:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I removed all fglrx drivers and installed catalyst 10.7 today and the problem is gone.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "medbelh", 
+            "email": "medbelh"
+        }, 
+        {
+            "date": "2010-08-02 12:44:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can confirm above post.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "markus-rummler", 
+            "email": "markus-rummler"
+        }, 
+        {
+            "date": "2010-08-16 19:42:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can also confirm above posts.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've installed catalyst 10.7 drivers and 'downgraded' xserver-xorg-core and xserver-common to the original ubuntu versions and the problem seems to be solved!\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Looks like this bug has been resolved...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Yes!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(Still having some issues with video-tearing though, but thats another thing (from what i've read, is that a shortcoming of the ATI catalyst drivers and have nothing to do with ubuntu) .)\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "degroot-roelof", 
+            "email": "degroot-roelof"
+        }, 
+        {
+            "date": "2010-08-16 20:23:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You have to look twice ;)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The Bug isn't gone, but a lot faster now.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I discovered the 1.8.1 and 1.8.2 and the bug is still there.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I tried Maverick last week with an brand new bleeding Xserver (1.8.xxx) where the patch can't  applied anymore.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " But in this version it seems the bug has gone too.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "info-g-com", 
+            "email": "info-g-com"
+        }, 
+        {
+            "date": "2010-08-24 18:34:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I installed catalyst 10.7 drivers.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " But my thunderbird still has problem with the black windows.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "minhna", 
+            "email": "minhna"
+        }, 
+        {
+            "date": "2010-08-25 00:22:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Bug 568988] Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Wed, Aug 25, 2010 at 2:34 AM, Nguyen Anh Minh <email address hidden> wrote:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I installed catalyst 10.7 drivers.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " But my thunderbird still has problem\n> with the black windows.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> --\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize,\n> maximise, .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://bugs.launchpad.net/bugs/568988\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> You received this bug notification because you are a direct subscriber\n> of the bug.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Status in xf86-video-ati: New\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Status in fglrx-installer package in Ubuntu: New\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Status in Arch Linux: New\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Status in Gentoo Linux: New\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Bug description:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> PPA to fix the error 'til a final solution is created:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ---------------------------------------------------------------------------------------------------------------------------\n>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> KARMIC:  https://launchpad.net/~k0ekk0ek/+archive/ppa\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> LUCID: https://launchpad.net/~info-g-com/+archive/xserver-xorg-1.7.6-gc\n>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Please do not write: Have the same error nor it affects me to, please\n> become a subscriber!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> THX Alf\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> --------------------------------------------------------------------------------------------------------------------------\n>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Binary package hint: fglrx\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> [Environment]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * You are using fglrx restricted driver from Ubuntu repository or download\n> the linux driver from AMD ATI website (fglrx version <= 8.723.1-0ubuntu3).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * If your ATI card is listed in the following pdf, then your desktop\n> behaviours will most likely be affected the 'bugs' listed in [Symptoms]\n> section.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://a248.e.akamai.net/f/674/9206/0/www2.ati.com/drivers/linux/catalyst_102_linux.pdf\n> * GNOME and KDE SC 4.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * Compositing desktop is enabled (Compiz and KWIN).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> [Symptoms]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * Window Management: Unminimizing, Maximising, Full-Screening, Resizing\n> windows and Switching windows (Alt+Tab) will noticably freeze the screen for\n> about 1 second plus.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Your mileage might vary.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * Memory (RAM) Management: Secondary problem you might notice is memory\n> leak and/or memory-clearing problem (\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://www.phoronix.com/forums/showthread.php?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "t=21471).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> [Workarounds]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * Window Management:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  - Using PPA (Lucid Only) by Bryce Harrington (not up-to-date as of time of\n> writing)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    PPA address @\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://edge.launchpad.net/~bryceharrington/+archive/violet\n>    In terminal, 'sudo add-apt-repository ppa:bryceharrington/violet' then\n> install the update and reboot.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    Other PPAs:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">   + Alf Gaida (Lucid):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://launchpad.net/~info-g-com/+archive/xserver-xorg-1.7.6-gc\n>    'sudo add-apt-repository ppa:info-g-com/xserver-xorg-1.7.6-gc'\n>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  - Compile your own packages - when the ppa is not updated fast enough (or\n> you are an update-freak like me)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    + You need to tick 'Source Code' option in Synaptic Repositories or add\n> relevant source code repo (deb-src) if you are using\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ppa:ubuntu-x-swat/x-updates.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    + Building instruction:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    sudo apt-get build-dep xorg-server\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    sudo apt-get install devscripts\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    apt-get source xorg-server\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    cd xorg-server-*\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    wget\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://launchpadlibrarian.net/45103003/xserver-xorg-backclear.patch\n>    patch -p1 < xserver-xorg-backclear.patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    dch -l local 'Backclear Patch'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    debuild -us -uc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    cd ..\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    sudo dpkg --install xserver-xorg-core*.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    sudo dpkg --install xserver-common*.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * Memory (RAM) Management:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  - In terminal, run 'glxinfo' command or invoke 'glxgears' to release the\n> 'uncleared' memory.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " You might need 'mesa-utils' package installed.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  - Create a bash script to run at start up\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    #!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/bin/sh\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    while [ 1 ]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    do\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">      glxinfo\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">      sleep 60\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    done\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> [My Suggested Comment Guidelines - subjected to change]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * Keep it civil.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * Subscribe to the bug and click on the (!)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " icon on top 'This bug affects\n> you and x other people'  instead of comment like 'it affects me too'.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * Help test the patch for potential regression as requested by Bryce\n> Harrington:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \"A.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " What we need is solid proof of the following:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">     1.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No visible regression on -intel with compiz turned on\n>     2.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No visible regression on -ati with compiz turned on\n>     3.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No visible regression on -nouveau with compiz turned on\n>     4.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No visible regression on -nvidia with compiz turned on\n>     5.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No visible regression on at least one video driver with kde kwin\n> desktop effects turned on.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">   Alternatively, I could accept either of the following:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">   B.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Rejigger the patch so its logic is only enabled when the fglrx driver\n> is loaded\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">   C.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Forward the patch upstream to Debian or bugs.freedesktop.org and get\n> it accepted into the upstream xserver, from which we can pull a cherrypick\n> patch.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> To unsubscribe from this bug, go to:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://bugs.launchpad.net/xf86-video-ati/+bug/568988/+subscribe\n>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I installed the new driver, though the bug is gone.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "However, I cannot find the fglrx !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " even anything related.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This makes me believe that something is wrong here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cairo-dock works wrong on my desktop and hardware decoding cannot be worked\nout.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "*If the dream is BIG enough,the facts don't count!*\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "lwlw1988", 
+            "email": "lwlw1988"
+        }, 
+        {
+            "date": "2010-08-27 03:03:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Re: [Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "etc) with fglrx driver + compositing desktop.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I installed catalyst 10.8.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " thunderbird Still has problem with black windows.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "minhna", 
+            "email": "minhna"
+        }
+    ], 
+    "title": "[Lucid][Ubuntu 10.04][ATI cards] Slow/freeze windows management (resize, maximise, .etc) with fglrx driver + compositing desktop."
+}

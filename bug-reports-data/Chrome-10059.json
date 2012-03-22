@@ -1,0 +1,666 @@
+{
+    "project": "Chrome", 
+    "original_link": "http://dont.know.yet/10059", 
+    "comments": [
+        {
+            "date": "2009-04-13 16:55:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Load a page with a windowed plugin.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  test_shell goes into a paint storm, \ncontinuously repainting the whole page.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  I've been unable to track down where \nit regressed, so here are some notes.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " - using DiamondX (which doesn't animate / redraw repeatedly), still happens\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " - turning off the call to PaintRect in webwidget_host_gtk.cc (which calls \ninto WebKit to paint) fixes it!", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  but at at the cost of disabling webkit \npainting, so that call is somehow triggering it\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-04-13 17:40:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I always forget how to do this, so here is breaking on all WebPluginDelegateImpl \nfunctions:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(gdb) rbreak WebPluginDelegateImpl::.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "*\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-04-13 17:48:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Never mind.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  That just makes gdb spin on startup.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-04-13 17:57:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "xtrace mixed with log;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " ran as\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(xtrace &;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " DISPLAY=:9 .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "/out/bin/test_shell file:///work/chrome/src/webkit/data/test_shell/plugins/diamondx/index.htm) \n>log 2>&1 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "My comments start with ***\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "*** from the middle of the trace, when it's in its looping behavior\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "*** nothing that looks like an \"expose\" above -- maybe the expose is synthetic somehow?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "[8516:8516:1327537300891:INFO:webkit/tools/test_shell/webwidget_host_gtk.cc(145)] WebWidgetHost expose event: 0,0 \n800x600\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "[8516:8516:1327537309618:INFO:webkit/tools/test_shell/webwidget_host_gtk.cc(339)] paint rect 0,0 800x600\n[8516:8516:1327537319982:INFO:webkit/glue/plugins/webplugin_delegate_impl_gtk.cc(175)] WebPluginDelegateImpl::Paint ctx \n0xa0aacf0 winless 0 rect 0,0 800x600\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "[8516:8516:1327537320195:INFO:webkit/tools/test_shell/webwidget_host_gtk.cc(358)] total paint rect: 0,0 800x600\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04b0: 16: Request(53): CreatePixmap depth=0x18 pid=0x032000da drawable=0x03200030 width=800 height=600\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04b1:  8: RENDER-Request(157,7): RenderFreePicture picture=0x032000d9\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04b2:  8: Request(54): FreePixmap drawable=0x032000d8\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04b3: 20: RENDER-Request(157,4): RenderCreatePicture pid=0x032000db drawable=0x032000da format=0x00000107  \nvalues={}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04b4: 20: RENDER-Request(157,6): RenderSetPictureClipRectangles picture=0x032000db xOrigin=0 yOrigin=0 \nrectangles={x=0 y=0 w=800 h=600};\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04b5: 28: RENDER-Request(157,26): RenderFillRectangles op=Over(0x03) dst=0x032000db red=0xeaea green=0xeaea \nblue=0xeaea alpha=0xffff rects={x=0 y=0 w=800 h=600};\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04b6: 24: SHAPE-Request(129,1): ShapeRectangles operation=Set(0x00) destination kind=Bounding(0x00) \nordering=YXBanded(0x03) destination window=0x03200031 x-offset=0 y-offset=0 rectangles={x=0 y=0 w=400 h=300};\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "*** the shape stuff is due to iframe shims?  dean?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04b7: 16: Request(53): CreatePixmap depth=0x18 pid=0x032000dc drawable=0x03200030 width=800 height=600\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04b8: 20: RENDER-Request(157,4): RenderCreatePicture pid=0x032000dd drawable=0x032000dc format=0x00000107  \nvalues={}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04b9: 20: RENDER-Request(157,6): RenderSetPictureClipRectangles picture=0x032000dd xOrigin=0 yOrigin=0 \nrectangles={x=0 y=0 w=800 h=600};\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04ba: 28: RENDER-Request(157,26): RenderFillRectangles op=Over(0x03) dst=0x032000dd red=0xeaea green=0xeaea \nblue=0xeaea alpha=0xffff rects={x=0 y=0 w=800 h=600};\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "*** that's filling the background with seafoam\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04bb: 16: Request(53): CreatePixmap depth=0x20 pid=0x032000de drawable=0x032000dc width=800 height=600\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04bc: 16: Request(56): ChangeGC gc=0x0320004b  values={clip-mask=None(0x00000000)}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<: Warning: Waiting for rest of package (yet got 65520 of 259224)!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<: Warning: buffer filled!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04bd:259224: Request(72): PutImage format=ZPixmap(0x02) drawable=0x032000de gc=0x0320004b width=800 height=81 dst-\nx=0 dst-y=0 left-pad=0x00 depth=0x20\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "000:<: Warning: Waiting for rest of package (yet got 63608 of 259224)!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<: Warning: buffer filled!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04be:259224: Request(72): PutImage format=ZPixmap(0x02) drawable=0x032000de gc=0x0320004b width=800 height=81 dst-\nx=0 dst-y=81 left-pad=0x00 depth=0x20\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "000:<: Warning: Waiting for rest of package (yet got 47848 of 259224)!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<: Warning: buffer filled!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04bf:259224: Request(72): PutImage format=ZPixmap(0x02) drawable=0x032000de gc=0x0320004b width=800 height=81 dst-\nx=0 dst-y=162 left-pad=0x00 depth=0x20\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<: Warning: buffer filled!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04c0:259224: Request(72): PutImage format=ZPixmap(0x02) drawable=0x032000de gc=0x0320004b width=800 height=81 dst-\nx=0 dst-y=243 left-pad=0x00 depth=0x20\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<: Warning: buffer filled!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04c1:259224: Request(72): PutImage format=ZPixmap(0x02) drawable=0x032000de gc=0x0320004b width=800 height=81 dst-\nx=0 dst-y=324 left-pad=0x00 depth=0x20\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "000:<: Warning: Waiting for rest of package (yet got 63848 of 259224)!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<: Warning: buffer filled!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04c2:259224: Request(72): PutImage format=ZPixmap(0x02) drawable=0x032000de gc=0x0320004b width=800 height=81 dst-\nx=0 dst-y=405 left-pad=0x00 depth=0x20\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "000:<: Warning: Waiting for rest of package (yet got 65384 of 259224)!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<: Warning: buffer filled!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04c3:259224: Request(72): PutImage format=ZPixmap(0x02) drawable=0x032000de gc=0x0320004b width=800 height=81 dst-\nx=0 dst-y=486 left-pad=0x00 depth=0x20\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<: Warning: Waiting for rest of package (yet got 65384 of 105624)!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<: Warning: buffer filled!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04c4:105624: Request(72): PutImage format=ZPixmap(0x02) drawable=0x032000de gc=0x0320004b width=800 height=33 dst-\nx=0 dst-y=567 left-pad=0x00 depth=0x20\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04c5: 24: RENDER-Request(157,4): RenderCreatePicture pid=0x032000df drawable=0x032000de format=0x00000105  \nvalues={subwindow-mode=IncludeInferiors(0x01)}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04c6: 16: RENDER-Request(157,5): RenderChangePicture picture=0x032000dd mask=0x00000040 \nvalues={repeat=false(0x00)}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04c7: 36: RENDER-Request(157,8): RenderComposite op=Over(0x03) src=0x032000df mask=None(0x00000000) dst=0x032000dd \nxSrc=0 ySrc=0 xMask=0 yMask=0 xDst=0 yDst=0 width=800 height=600\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04c8: 20: Request(59): SetClipRectangles ordering=YXBanded(0x03) gc=0x03200045 clip-x-origin=0 clip-y-origin=0 \nrectangles ={x=0 y=0 w=800 h=600};\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04c9: 28: Request(62): CopyArea src-drawable=0x032000dc dst-drawable=0x03200030 gc=0x03200045 src-x=0 src-y=0 dst-\nx=0 dst-y=0 width=800 height=600\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04ca: 16: Request(56): ChangeGC gc=0x03200045  values={clip-mask=None(0x00000000)}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04cb:  8: RENDER-Request(157,7): RenderFreePicture picture=0x032000dd\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04cc:  8: Request(54): FreePixmap drawable=0x032000dc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04cd: 12: Request(59): SetClipRectangles ordering=YXBanded(0x03) gc=0x03200045 clip-x-origin=0 clip-y-origin=0 \nrectangles =;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04ce: 28: Request(62): CopyArea src-drawable=0x032000da dst-drawable=0x03200030 gc=0x03200045 src-x=0 src-y=0 dst-\nx=0 dst-y=0 width=0 height=0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04cf: 16: Request(56): ChangeGC gc=0x03200045  values={clip-mask=None(0x00000000)}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04d0:  8: RENDER-Request(157,7): RenderFreePicture picture=0x032000db\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "000:<:04d1:  8: Request(54): FreePixmap drawable=0x032000da\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "*** the zero-sized copy is weird\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-04-13 17:59:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Upon second look that's actually not filling with seafoam, duh.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  It's just filling with \ngray.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-04-13 18:35:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And then I lost a bunch of time trying to get --gtk-debug=plugsocket working, or gdb's \ndebug symbols for gtk working.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This 32-bit library thing is a huge hassle.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  :(\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-04-14 13:20:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "More info for Dean:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- removing the gtk_widget_show() on the plugin socket fixes it\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- I'm unable to find any point that the webkit code calls into the \nwebplugin_delegate_impl where we do anything\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-04-14 15:24:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Found it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "http://src.chromium.org/viewvc/chrome?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "view=rev&revision=12179\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ugh, should have found it earlier.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Fix coming.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-04-15 16:15:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following revision refers to this bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    http://src.chromium.org/viewvc/chrome?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "view=rev&revision=13804 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "------------------------------------------------------------------------\nr13804 | evan@chromium.org | 2009-04-15 16:14:22 -0700 (Wed, 15 Apr 2009) | 14 lines\nChanged paths:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/webkit/glue/webplugin_impl.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r1=13804&r2=13803\n   M http://src.chromium.org/viewvc/chrome/trunk/src/webkit/tools/test_shell/test_webview_delegate_gtk.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r1=13804&r2=13803\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "linux: make windowless plugins work again after r12179 regressed it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r12179 makes painting always call DidMove(), even when the plugin hasn't moved,\nin case the cutout rects need to change.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  DidMove() on Linux test_shell causes\nthe window to invalidate, causing an endless cycle of repaints.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  r12179: http://src.chromium.org/viewvc/chrome?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "view=rev&revision=12179\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This code will be very different in the real multiproc case, so this is just\nthe minimal change to make test_shell work again.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BUG=10059\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/67147\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2009-04-15 16:45:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-06-03 18:01:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Marking all old Fixed Linux bugs Verified so we can start doing real  \nverification in the future.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-12-18 00:35:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/mal.chromium/", 
+            "email": "/u/mal.chromium/"
+        }
+    ], 
+    "title": "[regression] test_shell spins when showing windowed plugins"
+}

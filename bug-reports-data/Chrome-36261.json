@@ -1,0 +1,329 @@
+{
+    "project": "Chrome", 
+    "original_link": "http://dont.know.yet/36261", 
+    "comments": [
+        {
+            "date": "2010-02-19 08:12:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "layout tests are killing the test shells as they finish their sections, so test shell \ndoesn't do it's normal shutdown/cleanup, this seems to be causing resource \nleaks.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/thomasvl@chromium.org/", 
+            "email": "/u/thomasvl@chromium.org/"
+        }, 
+        {
+            "date": "2010-02-19 08:29:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Looks like the cause of this is TestShellThread's _run.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  If self._filename_list_queue throws because it's empty, we call \n_kill_test_shell().", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  On all three platforms, it will close stdin/out/err, which will let testshell shut down, but on linux and mac, \nit turns around and immediately does a poll() and if the app hasn't exited (which is always always true), it then kills it \nthereby preventing test shell from cleaning up.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "looks like http://codereview.chromium.org/465089/show is the cl that added this kill, so odds are this is when the bots \nstarted collecting resources.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It looks like we're getting read to upstream things here, so I'm not sure if it's safe to change things.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My suggestion would be to allow some delay in here to let testshell to shutdown before killing it outright.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/thomasvl@chromium.org/", 
+            "email": "/u/thomasvl@chromium.org/"
+        }, 
+        {
+            "date": "2010-02-19 10:41:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The following revision refers to this bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    http://src.chromium.org/viewvc/chrome?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "view=rev&revision=39463 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------------------------------------------\nr39463 | thomasvl@chromium.org | 2010-02-19 10:40:43 -0800 (Fri, 19 Feb 2010) | 6 lines\nChanged paths:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/webkit/tools/test_shell/test_shell_main.cc?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r1=39463&r2=39462\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Mac/Linux] clean up the shmem file at the end of each testshell run.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Mac/Linux back shmem with a file, but the file isn't cleaned up (since it could be shared), this pulls over the same basic code we used in chrome_test_suite to clean up the files there also so they don't leak a fill up the bots.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BUG=32391\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TEST=nothing, http://crbug.com/36261 prevents this from really cleaning up resource leaks\nReview URL: http://codereview.chromium.org/651038\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2010-03-01 13:42:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Thomas,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm hoping to actually flip the bots to the upstream code today.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I will look at fixing this \nupstream and, if I can't flip the bots today, I'll commit the chagne downstream as well.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/dpranke@chromium.org/", 
+            "email": "/u/dpranke@chromium.org/"
+        }, 
+        {
+            "date": "2010-03-01 13:42:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Thomas,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm hoping to actually flip the bots to the upstream code today.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I will look at fixing this \nupstream and, if I can't flip the bots today, I'll commit the change downstream as well.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/dpranke@chromium.org/", 
+            "email": "/u/dpranke@chromium.org/"
+        }, 
+        {
+            "date": "2010-03-01 14:23:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Well, test_shell_thread has been immediately killing test_shell for quite a while (see \nhttp://src.chromium.org/viewvc/chrome?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "view=rev&revision=13914 );", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " r34310 didn't \nactually add it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "That said, we probably should give test_shell a chance to clean up on its own, so I'll add \na sleep delay before killing it.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/dpranke@chromium.org/", 
+            "email": "/u/dpranke@chromium.org/"
+        }, 
+        {
+            "date": "2010-03-01 16:42:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Okay, turns out that this is all being caused by a bug in Python: \nhttp://bugs.python.org/issue2320\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fix upstreamed to https://bugs.webkit.org/show_bug.cgi?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "id=35553 and posted for \nreview.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Should land in Chromium shortly after it lands there.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/dpranke@chromium.org/", 
+            "email": "/u/dpranke@chromium.org/"
+        }, 
+        {
+            "date": "2010-03-02 12:26:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "FWIW, that was in r55391.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This is now available in the version of new-run-webkit-tests \nthat Chromium is pulling (although the bots don't use this yet).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I will close this bug when we flip the bots to the new version of the code.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/dpranke@chromium.org/", 
+            "email": "/u/dpranke@chromium.org/"
+        }, 
+        {
+            "date": "2010-03-02 16:38:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "okay, due to needing a couple more bugfixes to trickle downstream, I likely won't be \nflipping the bots before tomorrow.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/dpranke@chromium.org/", 
+            "email": "/u/dpranke@chromium.org/"
+        }, 
+        {
+            "date": "2010-03-12 05:56:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "any update?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  (i'm looking to confirm when the code does run, the mac cleans up all the profile dirs correctly)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/thomasvl@chromium.org/", 
+            "email": "/u/thomasvl@chromium.org/"
+        }, 
+        {
+            "date": "2010-03-12 10:45:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "aw, whoops.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I forgot about this bug.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This was fixed last thursday or friday.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Let me know \nif you are still seeing issues.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/dpranke@chromium.org/", 
+            "email": "/u/dpranke@chromium.org/"
+        }
+    ], 
+    "title": "layout tests kill test shell, causing resource leaks"
+}

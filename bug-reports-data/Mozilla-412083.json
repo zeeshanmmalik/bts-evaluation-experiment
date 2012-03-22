@@ -1,0 +1,579 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/412083", 
+    "comments": [
+        {
+            "date": "2008-01-12 09:54:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The basic idea of unit tests is:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Add tests for every method in every object.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Check: Does this method do what\nit's supposed to do?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For example, you could add a unit test for $bug->add_group.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Does it correctly\nupdate the Bug object when a valid group is added?", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Does it correctly throw an\nerror when you try to add an invalid group?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There are various modules in the Test:: namespace on CPAN that help with this\nsort of testing.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In order to do this, we need to be able to have a test database that is\nseparate from the real database.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " What I'm thinking is that we can add SQLite\nsupport to Bugzilla, and then have the tests:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1) Create a test database before starting the unit tests.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2) Populate that test database based on some variables set in constants\n   in a Bugzilla::Test package (or something like that).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There may also be unit testing frameworks for Perl that we could use, although\nI know nothing about that.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " (The standard testing framework for Perl is\nTest::Harness, of course, and most people use Test::More on top of that, but\nthere might be additional modules or frameworks we can use for writing unit\ntests.)\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Max Kanat-Alexander", 
+            "email": "Max Kanat-Alexander"
+        }, 
+        {
+            "date": "2008-01-12 09:58:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Barring any other unit test framework, I was thinking we would have modules in\nthe Bugzilla::Test namespace named after the standard modules, and we would\nhave functions named after the methods we were going to test.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, for example, to test Bugzilla::Bug::create, we would have a function called\nBugzilla::Test::Bug::create.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The Bugzilla::Test modules would live under t/, I was thinking, not under our\nnormal Bugzilla/ directory.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Max Kanat-Alexander", 
+            "email": "Max Kanat-Alexander"
+        }, 
+        {
+            "date": "2008-07-30 18:18:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "FYI, the QA team already has tests for each webservice method available.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " We\ndon't test each specific object method, though.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Frdric Buclin", 
+            "email": "Frdric Buclin"
+        }, 
+        {
+            "date": "2008-10-14 08:07:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created an attachment (id=343048) [details]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Bugzilla Unit Tests Using Test::More\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My first attempt to start with the project.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Could you give some comments?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "irina", 
+            "email": "irina"
+        }, 
+        {
+            "date": "2008-10-14 08:08:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created an attachment (id=343049) [details]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mockup Objects for Keyword.t\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "irina", 
+            "email": "irina"
+        }, 
+        {
+            "date": "2008-10-14 08:31:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(From update of attachment 343049 [details])\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You should not have to have your own Bugzilla::DB, etc.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " You should just be\nusing the normal ones--otherwise you're not testing our real code.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Max Kanat-Alexander", 
+            "email": "Max Kanat-Alexander"
+        }, 
+        {
+            "date": "2008-10-14 08:38:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(From update of attachment 343048 [details])\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "General comments:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Perhaps it might be a good idea to create a Bugzilla::MockObject, a subclass of\nTest::MockObject (or some similar CPAN class) for this.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Instead of creating a DB manually and all that, I think that we should just\nhave a separate localconfig.test or something, that checksetup.pl can create\nwith a --test-db argument or something like that.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Then we can have a\nUSAGE_MODE_TEST or something as an argument for Bugzilla->usage_mode that will\nswitch Bugzilla->localconfig to reading localconfig.test.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">ok (Bugzilla::Keyword::keyword_count() == 0 , \"No keywords in DB\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  You should be using \"is\" instead of \"ok\" here.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Or if you really want to force\na numeric comparison, you should be using \"cmp_ok\".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (Same comment for all your\ncomparison tests.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">my $keyword = Bugzilla::Keyword->create(\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    { name => 'foobar', description => 'Keyword foobar' });\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  You should be calling \"isa\" on the return value, to make sure it returned\nsomething.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">$dbh->do(\"INSERT INTO keywords (bug_id, keywordid) VALUES (?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ",?)\"", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ",\n>            undef, 100, 1);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">$dbh->do(\"INSERT INTO keywords (bug_id, keywordid) VALUES (?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ",?)\"", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ",\n>            undef, 200, 1);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  There should be no direct SQL in any of your tests, because that will be hard\nto maintain.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">ok (scalar(@$allkeywords) == 1 && $allkeywords->[0]->{bug_count} == 2,\n>    \"Retrieved all keywords\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  You should never be accessing a hash member directly.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Instead you should be\ncalling the bug_count method.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Also, that should be two separate tests, not one test.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">eval {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    $keyword2 = Bugzilla::Keyword->create(\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">        {name => 'foobar', description => 'Keyword foobar'});\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">};\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Instead of calling an eval, you should use Test::Exception.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Max Kanat-Alexander", 
+            "email": "Max Kanat-Alexander"
+        }, 
+        {
+            "date": "2008-10-14 08:39:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Also, please don't do work directly on this bug.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " This is a \"meta bug\" meaning\nthat it tracks work to be done in other bugs.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " File a new bug specifically for\nthe Keyword tests and make it block this one.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (Make sure you CC me and LpSolit\non the new bug, also.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Max Kanat-Alexander", 
+            "email": "Max Kanat-Alexander"
+        }, 
+        {
+            "date": "2008-10-14 08:52:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to comment #6)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Instead of creating a DB manually and all that, I think that we should just\n> have a separate localconfig.test or something, that checksetup.pl can create\n> with a --test-db argument or something like that.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I would really prefer to separate the real DB and the test DB, to not mess the\ncode with USAGE_MODE_TEST.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " We already have a test DB for Selenium;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " it would\nmake more sense to use it.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Frdric Buclin", 
+            "email": "Frdric Buclin"
+        }, 
+        {
+            "date": "2008-10-14 08:59:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to comment #8)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I would really prefer to separate the real DB and the test DB, to not mess the\n> code with USAGE_MODE_TEST.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " We already have a test DB for Selenium;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " it would\n> make more sense to use it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  USAGE_MODE_TEST would only exist inside of Bugzilla->localconfig, and then it\nwould only appear in the tests.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " That's not really messing the code.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Max Kanat-Alexander", 
+            "email": "Max Kanat-Alexander"
+        }, 
+        {
+            "date": "2008-10-14 09:01:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Oh, but I do agree that we should re-use the same data that we currently use\nfor the Selenium tests.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " We can import it incrementally into the main codebase.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(I expect these Unit Tests to be a part of Bugzilla.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Max Kanat-Alexander", 
+            "email": "Max Kanat-Alexander"
+        }
+    ], 
+    "title": "Unit Tests For Bugzilla"
+}

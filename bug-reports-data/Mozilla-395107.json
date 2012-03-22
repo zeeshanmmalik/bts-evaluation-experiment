@@ -1,0 +1,707 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/395107", 
+    "comments": [
+        {
+            "date": "2007-09-05 17:05:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created an attachment (id=279820) [details]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Test case demonstrating the problem\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The UI is not being updated after the selected attribute is removed from the\nsecond option via javascript.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  You can verify by DOM Inspector that the\nattribute is no longer on the option element.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " However, the browser still\nrenders the second option as selected in addition to the slection on the first\noption.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This is a regression from Firefox 2.0.0.6.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have attached a sample test case that demonstrates the bug.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Testing in IE 7, I verify that without any javascript activity, the second\nelement is selected.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  If I only enable the javascript that resets the selection\nto the first element, then the selection UI appears on the first element, but\nnot the second element.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  So, in IE's case, the removeAttribute(\"selected\") on\nthe second element is unneeded.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  They are probably behaving this way because\nthe select element does not have the \"multiple\" attribute set.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I wonder if the real issue here is that Firefox is ignoring the fact that the\n\"mupltiple\" attribute is not set on the \"select\" element.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Clint Talbert ( :ctalbert )", 
+            "email": "Clint Talbert ( :ctalbert )"
+        }, 
+        {
+            "date": "2007-09-05 17:06:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created an attachment (id=279821) [details]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Proper rendering of this test for reference.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Clint Talbert ( :ctalbert )", 
+            "email": "Clint Talbert ( :ctalbert )"
+        }, 
+        {
+            "date": "2007-10-02 20:40:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think we should try to do what IE does here....", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Jonas, what do you think?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2007-10-05 19:09:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No, I don't think we should do exactly what IE does.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Just like IE maps\ntextField.value to textField.getAttribute(\"value\") it maps option.selected to\noption.getAttribute(\"selected\").", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " In other words, when the user, or javascript,\nselects an option, the selected attribute is removed from all other options.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We've never done that, but rather use the DOM attribute only to initiate\njavascript properties.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It does look like we get our knickers in a knot here though.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Both options\nappear to be selected which clearly is wrong.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I don't agree with the reference\nthough as the disabled attribute has an effect.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I think we should behave as if\nthe DOM looked like the selected attribute was set on both options, and the\nfirst option was disabled.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Attaching a testcase.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jonas Sicking (:sicking)", 
+            "email": "Jonas Sicking (:sicking)"
+        }, 
+        {
+            "date": "2007-10-05 19:09:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created an attachment (id=283799) [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "reference rendering 2\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jonas Sicking (:sicking)", 
+            "email": "Jonas Sicking (:sicking)"
+        }, 
+        {
+            "date": "2007-10-05 19:10:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So basically it looks like we're just rendering the first option wrong by\nrendering it as selected.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Jonas Sicking (:sicking)", 
+            "email": "Jonas Sicking (:sicking)"
+        }, 
+        {
+            "date": "2007-10-05 19:16:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The problem seems to be on the DOM side, both options have their .", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "selected set\nto true, which is probably why layout gets all confused.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jonas Sicking (:sicking)", 
+            "email": "Jonas Sicking (:sicking)"
+        }, 
+        {
+            "date": "2007-10-05 19:36:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I think we should behave as if the DOM looked like the selected attribute was\n> set on both options\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That would be fine, yes.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  I wonder why that's not happening...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Jonas, do you want to dig, or should I?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2007-10-05 19:48:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not sure that this bug is super important, though it is always scary with\nregressions...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But if you feel you have the time to work on it feel free to.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jonas Sicking (:sicking)", 
+            "email": "Jonas Sicking (:sicking)"
+        }, 
+        {
+            "date": "2007-10-05 19:51:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Well.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  I don't have the time, in fact, but I did cause the regression, so I\nfeel obligated to fix it...\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2007-10-29 09:24:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bug 401554 might be the same issue as this, and appears on a real live site.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2007-10-29 22:47:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=286646) [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Proposed fix\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "OK, let's try this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The basic issue was that toggling .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "defaultSelected could change the value of\n.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "selected but that the nsHTMLSelectElement was never notified of the change.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " \nThis patch notifies it.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  With this patch, adding an option to a <select> and\nthen setting defaultSelected is equivalent to setting defaultSelected and then\nadding the option, as far as I can see.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  Neither quite matches what the\n<select> would have looked like when parsed from scratch, but I think that's\nsorta the behavior we want, given the IE compat needs here.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In brief, the patch does these:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Do the notifying described above before setting or unsetting the \"selected\"\n  attribute on options.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* Change OnOptionSelected to not effectively call SetSelected on when an option\n  with the \"selected\" attribute set is added to the <select>.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  This makes\n  setting defaultSelected to false actually work to unselect options which have\n  never had SetSelected called.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* Make nsGenericElement::UnsetAttr call Before/AfterSetAttr, and remove some\n  code that's no longer needed if we do that.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Fix the one SVG consumer that\n  assumed that aValue is never null in BeforeSetAttr.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Add tests\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This patch fixes bug 401554 as well.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2007-11-07 16:42:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Jonas, I think this is risky enough that we should land it ASAP...\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2007-11-15 14:27:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ugh, I hate the options code :(.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Does this patch really need to be this big?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bz, would be great if you could give an overview of what's happening, either\nhere on on irc.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jonas Sicking (:sicking)", 
+            "email": "Jonas Sicking (:sicking)"
+        }, 
+        {
+            "date": "2007-11-15 14:46:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Ugh, I hate the options code \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Amen.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Does this patch really need to be this big?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not quite.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  I could implement set/unset hooks in nsHTMLOptionElement instead of\nmaking nsGenericElement::UnsetAttr call BeforeSetAttr.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Doing it the way I did\nseems simpler, though...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  If you prefer, I can revert this part of the patch\n(so nsGenericElement, nsGenericHTMLElement, and the SVG and XUL changes.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  I do\nthink we need the rest of it, though.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For the rest, like I said in comment 11, the basic problem is that the <select>\nneeds to be told any time the .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "selected state of an option changes.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  When it\nbecomes true, the <select> (if it's a single select) goes through and unselects\nall other options.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Since we now map .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "selected to .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "defaultSelected unless\n.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "selected has been explicitly set, we need to notify the <select> if\n.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "defaultSelected changes and .", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "selected hasn't been set.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "That's what the patch does in nsHTMLOptionElement::BeforeSetAttr.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  The\nnsHTMLSelectElement changes are to address the second bullet of comment 11.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2007-12-04 01:00:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(From update of attachment 286646 [details])\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Why not let XUL::unsetattr also call before/aftersetattr?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I'd prefer the\nconsistency to the saved cycles I think\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jonas Sicking (:sicking)", 
+            "email": "Jonas Sicking (:sicking)"
+        }, 
+        {
+            "date": "2007-12-04 01:00:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(From update of attachment 286646 [details])\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r/sr = me either way.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jonas Sicking (:sicking)", 
+            "email": "Jonas Sicking (:sicking)"
+        }, 
+        {
+            "date": "2007-12-04 06:41:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Why not let XUL::unsetattr also call before/aftersetattr?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Because the things nsXULElement::UnsetAttr and nsXULElement::AfterSetAttr do\nsubtly different things to the same attributes.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  So it was more a matter of\ncomplexity and regression risk than cycles...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for the review!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2007-12-04 09:40:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created an attachment (id=291451) [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Need this to build too (missing header change)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2007-12-04 10:34:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checked in.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }
+    ], 
+    "title": "[FIX]Not updating UI after selection attribute removed from option inside SELECT element"
+}

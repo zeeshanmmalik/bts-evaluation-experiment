@@ -1,0 +1,703 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/327448", 
+    "comments": [
+        {
+            "date": "2006-02-16 03:26:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "CreateFileW, FindFirstFileW, FindNextFileW, GetDriveTypeW, and GetFullPathNameW\nare  exported from Win95 kernel as stubs.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Therefore it's meaningless to call them implicitly.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Masatoshi Kimura [:emk]", 
+            "email": "Masatoshi Kimura [:emk]"
+        }, 
+        {
+            "date": "2006-02-16 03:27:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created an attachment (id=212102) [details]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have confirmed this works on Win95.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Masatoshi Kimura [:emk]", 
+            "email": "Masatoshi Kimura [:emk]"
+        }, 
+        {
+            "date": "2006-02-16 10:18:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 212102 [details])\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Masatoshi: thank you for the patch.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  If we\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "call the W functions on Windows 95, do they\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fail with the ERROR_CALL_NOT_IMPLEMENTED error?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Do these W function stubs exist in Windows\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "95 even if you don't install the Microsoft\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Layer for Unicode (MSLU)?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2006-02-16 11:49:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> If we call the W functions on Windows 95, do they\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> fail with the ERROR_CALL_NOT_IMPLEMENTED error?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Do these W function stubs exist in Windows\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 95 even if you don't install the Microsoft\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Layer for Unicode (MSLU)?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I've confirmed it on very early version of Win95a without IE, without\nMSLU.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In general, Win95 Kernel32 exports all documented WinNT3.5 APIs (including all\nW functions) even if they are not implemented.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "FYI W functions will succeed instead of failing with the\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ERROR_CALL_NOT_IMPLEMENTED error if we install MSLU.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Masatoshi Kimura [:emk]", 
+            "email": "Masatoshi Kimura [:emk]"
+        }, 
+        {
+            "date": "2006-02-16 11:55:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> if we install MSLU.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if we install MSLU and our program link with unicows.lib.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Masatoshi Kimura [:emk]", 
+            "email": "Masatoshi Kimura [:emk]"
+        }, 
+        {
+            "date": "2006-02-16 13:36:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I checked in the patch on the NSPR trunk (NSPR 4.7).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Checking in w95io.c;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "/cvsroot/mozilla/nsprpub/pr/src/md/windows/w95io.c,v  <--  w95io.c\nnew revision: 3.27;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " previous revision: 3.26\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "done\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "jshin, I'd still appreciate your review of the patch.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The Mozilla trunk is closed right now.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  I will check\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "in the patch on the NSPRPUB_PRE_4_2_CLIENT_BRANCH when\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "the Mozilla trunk re-opens.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2006-02-17 13:05:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 212102 [details])\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "add.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " r=me (because I'm not a superreviewer).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " btw, these function pointers need\nto be included back later when we add UTF16 APIs on Win 9x/ME without MSLU\n(i.e.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " by emulating 'W' APIs ourselves).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jungshik Shin", 
+            "email": "Jungshik Shin"
+        }, 
+        {
+            "date": "2006-02-17 15:40:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created an attachment (id=212263) [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Alternate patch: keep function pointers but do not lookup the W functions\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Given jshin's comment 6, I think we should keep the\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function pointers.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  But we don't need to look up the\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function symbols at run time.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Here is my proposed\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "alternate patch that reduces the amount of work when\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "we emulate the MSLU W functions.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "jshin: in NSPR I'm using the superreview to mean\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"second review\".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Feel free to mark review+ and\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "cancel the super-review on patches you like.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2006-02-17 16:41:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 212263 [details])\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It's better to initialize function pointers with W functions than to initialize\nthem with NULL and assign W functions later.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Because we are trying to eliminate\nNULL checks.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Leave InitUnicodeSupport() as an empty function for when we emulate the MSLU W\nfunctions.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BTW, these functions had not returned PR_NOT_IMPLEMENTED_ERROR because\nGetProcAddress() would never fail.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Perhaps it's better to add ERROR_CALL_NOT_IMPLEMENTED case in\n_MD_win32_map_default_error.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Masatoshi Kimura [:emk]", 
+            "email": "Masatoshi Kimura [:emk]"
+        }, 
+        {
+            "date": "2006-02-17 16:42:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created an attachment (id=212270) [details]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Alternative patch, take 3.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Masatoshi Kimura [:emk]", 
+            "email": "Masatoshi Kimura [:emk]"
+        }, 
+        {
+            "date": "2006-02-17 16:53:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 212270 [details])\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r=wtc.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Thank you, Masatoshi.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2006-02-18 05:26:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 212270 [details])\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " r=jshin\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jungshik Shin", 
+            "email": "Jungshik Shin"
+        }, 
+        {
+            "date": "2006-02-20 14:07:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I checked in the \"alternative patch, take 3\" on the NSPR\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "trunk (NSPR 4.7) and the NSPRPUB_PRE_4_2_CLIENT_BRANCH\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(mozilla 1.9 alpha).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Checking in w95io.c;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/nsprpub/pr/src/md/windows/w95io.c,v  <--  w95io.c\nnew revision: 3.29;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " previous revision: 3.28\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in win32_errors.c;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/nsprpub/pr/src/md/windows/win32_errors.c,v  <-- \nwin32_errors.c\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 3.11;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " previous revision: 3.10\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Checking in w95io.c;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/nsprpub/pr/src/md/windows/w95io.c,v  <--  w95io.c\nnew revision: 3.22.4.6;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " previous revision: 3.22.4.5\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in win32_errors.c;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/nsprpub/pr/src/md/windows/win32_errors.c,v  <-- \nwin32_errors.c\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 3.9.4.2;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " previous revision: 3.9.4.1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2006-03-13 12:07:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The patch for bug 326168 got rejected in w95io.c (in NSPR corresponding to\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1.8.x branch) because this bug hasn't been fixed in 1.8.x branch.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Although it's\ntrivial to modify it so that it can be applied to the branch,  it might be a\ngood idea to fix this bug in 1.8.x branch as well.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Jungshik Shin", 
+            "email": "Jungshik Shin"
+        }, 
+        {
+            "date": "2006-03-13 14:44:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 212270 [details])\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "a=darin for the MOZILLA_1_8_BRANCH\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Darin Fisher", 
+            "email": "Darin Fisher"
+        }, 
+        {
+            "date": "2006-03-13 16:17:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Darin, if you check this patch in on the MOZILLA_1_8_BRANCH,\nyou also need to check it in on the NSPR_4_6_BRANCH and change\nthe target milestone to 4.6.2.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2006-03-13 17:43:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "OK, good to know.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  I'm not sure that we should check this in until we know that\nwe wish to take the whole set of i18n changes on the MOZILLA_1_8_BRANCH.", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " \nJshin: Can you set bug dependencies appropriately?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Darin Fisher", 
+            "email": "Darin Fisher"
+        }, 
+        {
+            "date": "2006-04-05 14:56:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I checked in the patch on the NSPR_4_6_BRANCH (NSPR 4.6.2)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "and MOZILLA_1_8_BRANCH (Mozilla 1.8.1), to make it easier\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "to apply the patch for bug 326168.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }
+    ], 
+    "title": "Redundant implicit calls in NSPR"
+}
