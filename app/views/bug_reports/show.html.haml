@@ -14,21 +14,6 @@
 /\|
 = link_to 'Back', bug_reports_path
 
-%fieldset.bugreport
-  %legend Bug Report
-  - @bug_report.comments.each do |com|
-    .comment
-      .comment-header
-        = com.number
-        \| 
-        = com.submitted_at
-        \| 
-        = com.participant.email
-      .comment-body
-        - com.sentences.order('number ASC').each do |sen|
-          .sentence
-            = sen.text
-
 .summaries
   %h2 Summaries
   %fieldset.summary
@@ -39,7 +24,6 @@
           .sentence
             = sen.text
 
-  /.summary
   %fieldset.summary
     %legend Email Summary
     - @bug_report.comments.each do |com|
@@ -48,27 +32,44 @@
           .sentence
             = sen.text
 
+.clear-both
+            
 .summaries
   %h2 Interlaced Summaries
   %fieldset.summary
     %legend Lex Summary
-    - @bug_report.comments.each do |com|
-      - com.sentences.order('number ASC').each do |sen|
-        - if sen.is_in_lex_summary?
-          .sentence.highlight
-            = sen.text
-        - else
-          .sentence
-            = sen.text
+    - @bug_report.comments.order('number ASC').each do |com|
+      .comment
+        .comment-header
+          = com.number
+          \| 
+          = com.submitted_at
+          \| 
+          = com.participant.email
+        .comment-body
+          - com.sentences.order('number ASC').each do |sen|
+            - if sen.is_in_lex_summary?
+              .sentence.highlight
+                = sen.text
+            - else
+              .sentence
+                = sen.text
 
-  /.summary
   %fieldset.summary
     %legend Email Summary
-    - @bug_report.comments.each do |com|
-      - com.sentences.order('number ASC').each do |sen|
-        - if sen.is_in_email_summary?
-          .sentence.highlight
-            = sen.text
-        - else
-          .sentence
-            = sen.text
+    - @bug_report.comments.order('number ASC').each do |com|
+      .comment
+        .comment-header
+          = com.number
+          \| 
+          = com.submitted_at
+          \| 
+          = com.participant.email
+        .comment-body
+          - com.sentences.order('number ASC').each do |sen|
+            - if sen.is_in_email_summary?
+              .sentence.highlight
+                = sen.text
+            - else
+              .sentence
+                = sen.text
