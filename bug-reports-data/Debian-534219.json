@@ -16,12 +16,12 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "Severity: important", 
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "Tags: patch", 
                     "is_in_email_summary": false
                 }, 
@@ -36,7 +36,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "The rsyslog package (and some others) install an extension conf\nfile at /etc/logrotate.d/rsyslog .", 
                     "is_in_email_summary": false
                 }, 
@@ -46,7 +46,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "This file makes a noble effort at triggering rsyslog to start a\nnew file after rotation:", 
                     "is_in_email_summary": false
                 }, 
@@ -101,7 +101,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "1).", 
                     "is_in_email_summary": false
                 }, 
@@ -111,7 +111,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "One solution is to simply specify an absolute path for invoke-rc.d:", 
                     "is_in_email_summary": false
                 }, 
@@ -121,7 +121,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "/usr/sbin/invoke-rc.d rsyslog reload > /dev/null\n        endscript", 
                     "is_in_email_summary": false
                 }, 
@@ -137,7 +137,27 @@
                 }, 
                 {
                     "is_in_lex_summary": true, 
-                    "text": "- logrotate.c(102):    if (write(fd, \"#!/bin/sh\\n\\n\", 11) != 11 ||\n+ logrotate.c(102):    if (write(fd, \"#!/bin/sh -\\n\\n\", 11) != 11 ||\nbut that could have other effects and is probably outside the scope\nof this bug.", 
+                    "text": "- logrotate.c(102):    if (write(fd, \"#!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "/bin/sh\\n\\n\", 11) !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "= 11 ||\n+ logrotate.c(102):    if (write(fd, \"#!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "/bin/sh -\\n\\n\", 11) !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "= 11 ||\nbut that could have other effects and is probably outside the scope\nof this bug.", 
                     "is_in_email_summary": false
                 }, 
                 {
@@ -146,7 +166,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "Other packages (ones I don't have installed) are probably affected,\nI don't know the best way to track them down and bug them.", 
                     "is_in_email_summary": false
                 }, 
@@ -156,7 +176,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "Thanks,", 
                     "is_in_email_summary": false
                 }, 
@@ -166,7 +186,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "- Marsh", 
                     "is_in_email_summary": false
                 }, 
@@ -211,7 +231,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "+               /usr/sbin/invoke-rc.d rsyslog reload > /dev/null\n        endscript", 
                     "is_in_email_summary": false
                 }, 
@@ -251,7 +271,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "+               /usr/sbin/invoke-rc.d rsyslog reload > /dev/null\n        endscript", 
                     "is_in_email_summary": false
                 }, 
@@ -266,7 +286,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "-- System Information:", 
                     "is_in_email_summary": false
                 }, 
@@ -302,7 +322,12 @@
                 }, 
                 {
                     "is_in_lex_summary": false, 
-                    "text": "Locale: LANG=en_US.UTF-8, LC_CTYPE=en_US.UTF-8 (charmap=UTF-8)\nShell: /bin/sh linked to /bin/bash", 
+                    "text": "Locale: LANG=en_US.UTF-8, LC_CTYPE=en_US.UTF-8 (charmap=UTF-8)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Shell: /bin/sh linked to /bin/bash", 
                     "is_in_email_summary": false
                 }, 
                 {
@@ -311,7 +336,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "Versions of packages rsyslog depends on:", 
                     "is_in_email_summary": false
                 }, 
@@ -342,6 +367,11 @@
                 }, 
                 {
                     "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
                     "text": "-- no debconf information", 
                     "is_in_email_summary": false
                 }
@@ -358,7 +388,7 @@
                     "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "thanks", 
                     "is_in_email_summary": false
                 }, 
@@ -455,102 +485,122 @@
                 {
                     "is_in_lex_summary": true, 
                     "text": "Set up a\n> loop to generate log messages, and watch ls -lht on the directory.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "> Run logrotate manually, or have cron run it every minute to speed\n> the repro.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "Observe that logrotate rotates the files, but syslog\n> continues writing to the same filehandle (the file now ending\n> in .", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "1).", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": ">", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "> One solution is to simply specify an absolute path for invoke-rc.d:", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": ">         postrotate", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": ">                 /usr/sbin/invoke-rc.d rsyslog reload > /dev/null\n>         endscript", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": ">", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "> Another solution might be to patch logrotate to use a login shell:", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
-                    "text": "> - logrotate.c(102):    if (write(fd, \"#!/bin/sh\\n\\n\", 11) != 11 ||\n> + logrotate.c(102):    if (write(fd, \"#!/bin/sh -\\n\\n\", 11) != 11 ||\n> but that could have other effects and is probably outside the scope\n> of this bug.", 
-                    "is_in_email_summary": true
+                    "text": "> - logrotate.c(102):    if (write(fd, \"#!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "/bin/sh\\n\\n\", 11) !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "= 11 ||\n> + logrotate.c(102):    if (write(fd, \"#!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "/bin/sh -\\n\\n\", 11) !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "= 11 ||\n> but that could have other effects and is probably outside the scope\n> of this bug.", 
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": ">", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "> Other packages (ones I don't have installed) are probably affected,\n> I don't know the best way to track them down and bug them.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "That sounds like a bug in logrotate which should set the correct context to run\nit's post-rotate scripts under.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "I don't plan to add absolute paths to the\nrsyslog.conf file.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "So reassigning to logrotate.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "Cheers,", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "Michael", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }
             ], 
             "name": "Michael Biebl <biebl@debian.org>", 
@@ -560,104 +610,104 @@
             "date": "2009-06-22 22:10:12", 
             "sentences": [
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "severity 534219 minor", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "tags 534219 = moreinfo unreproducible", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "thanks", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "logrotate inherits its PATH from cron.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "It works fine on my system, and many daemons' logrotate.d postrotate scripts\ndepend on invoke-rc.d being on the path.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "/etc/crontab should start with (ignoring comments):", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "SHELL=/bin/sh", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "If it doesn't, that's what's causing the problem, not logrotate.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "Demoting severity to minor, as it doesn't seem to be a problem on most\nsystems.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "I'm a little surprised Michael didn't suspect that a non-default environment\nwas the likely problem.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "--", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "Paul Martin <pm@debian.org>", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }
             ], 
             "name": "Paul Martin <pm@debian.org>", 
@@ -669,62 +719,62 @@
                 {
                     "is_in_lex_summary": true, 
                     "text": "That explains it then.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "Logrotate was inheriting a path from cron\nwithout /usr/sbin.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "> I'm a little surprised Michael didn't suspect that a non-default environment\n> was the likely problem.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "It is the default environment, it just happened to be the default\nenvironment you get when you run 'crontab -e' as root.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "Go ahead and close out this bug if you feel Debian is working as designed here.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "Would be nice if logrotate gave an appropriate diagnostic for failed\npostrotate scripts though.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": true, 
                     "text": "- Marsh", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }
             ], 
             "name": "Marsh Ray <marsh527@gmail.com>", 
@@ -736,22 +786,22 @@
                 {
                     "is_in_lex_summary": true, 
                     "text": "End user had changed the configuration of cron, such that /usr/sbin was no\nlonger on the path when logrotate was called by cron.", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
                     "is_in_lex_summary": false, 
                     "text": "", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "--", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }, 
                 {
-                    "is_in_lex_summary": false, 
+                    "is_in_lex_summary": true, 
                     "text": "Paul Martin <pm@debian.org>", 
-                    "is_in_email_summary": true
+                    "is_in_email_summary": false
                 }
             ], 
             "name": "Paul Martin <pm@debian.org>", 
