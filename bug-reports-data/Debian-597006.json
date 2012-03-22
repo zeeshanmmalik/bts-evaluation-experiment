@@ -1,0 +1,627 @@
+{
+    "project": "Debian", 
+    "original_link": "http://dont.know.yet/597006", 
+    "comments": [
+        {
+            "date": "2010-09-15 14:32:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Package: auctex", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Version: 11.86-1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Severity: normal", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "File: /usr/share/emacs/site-lisp/auctex/tex.el", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Running ConTeXt (with C-c C-c <RET>) produces this command in the output\nbuffer:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Running `ConTeXt' on `a' with ``texexec --once --texutil --engine=ConTeXt-engine --interface=en --nonstop a.tex''", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, that command line produces 0 pages of output (the log contains\n\"TeXExec | no ctx file found.\")", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The culprit is the", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--engine=ConTeXt-engine switch, which should be absent or something like", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--engine=pdftex.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following diff fixes the problem for me (after recompiling to make\nnew tex.elc files in both the emacs/site-lisp and emacs23/site-lisp\ndirectories!)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--- /usr/share/emacs/site-lisp/auctex/tex.el.orig\t2010-08-27 11:06:48.000000000 -0400\n+++ /usr/share/emacs/site-lisp/auctex/tex.el\t2010-09-15 14:20:51.000000000 -0400\n@@ -1214,10 +1214,10 @@", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ";;;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Engine", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(defvar TeX-engine-alist-builtin", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-  '((default \"Default\" TeX-command LaTeX-command ConTeXt-engine)\n+  `((default \"Default\" ,TeX-command ,LaTeX-command ,ConTeXt-engine)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(xetex \"XeTeX\" \"xetex\" \"xelatex\" \"xetex\")", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(luatex \"LuaTeX\" \"luatex\" \"lualatex\" \"luatex\")", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-    (omega \"Omega\" TeX-Omega-command LaTeX-Omega-command ConTeXt-Omega-engine))\n+    (omega \"Omega\" ,TeX-Omega-command ,LaTeX-Omega-command ,ConTeXt-Omega-engine))", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\"Alist of built-in TeX engines and associated commands.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For a description of the format see `TeX-engine-alist'.\")", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-- Package-specific info:", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sanjoy Mahajan <sanjoy@olin.edu>", 
+            "email": "Sanjoy Mahajan <sanjoy@olin.edu>"
+        }, 
+        {
+            "date": "2010-09-17 17:26:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-- System Information:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Debian Release: squeeze/sid", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "APT prefers unstable", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "APT policy: (500, 'unstable'), (500, 'stable'), (1, 'experimental')", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Architecture: i386 (i686)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Kernel: Linux 2.6.35.3 (SMP w/2 CPU cores)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Locale: LANG=en_US.utf8, LC_CTYPE=en_US.utf8 (charmap=UTF-8)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Shell: /bin/sh linked to /bin/bash", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Versions of packages auctex depends on:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ii  debconf [debconf-2.0]     1.5.35         Debian configuration management sy\nii  dpkg                      1.15.8.4       Debian package management system\nii  emacs22                   22.3+1-1.2+b1  The GNU Emacs editor\nii  emacs23                   23.2+1-4       The GNU Emacs editor (with GTK+ us\nii  install-info              4.13a.dfsg.1-5 Manage installed documentation in \nii  make                      3.81-8         An utility for Directing compilati\nii  preview-latex-style       11.86-1        extraction of elements from LaTeX", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Versions of packages auctex recommends:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ii  doc-base                    0.9.5        utilities to manage online documen\nii  epdfview [pdf-viewer]       0.1.7-4      Lightweight pdf viewer based on po\nii  evince [pdf-viewer]         2.30.3-1     Document (postscript, pdf) viewer\nii  ghostscript                 8.71~dfsg2-6 The GPL Ghostscript PostScript/PDF\nii  gv [pdf-viewer]             1:3.7.1-1    PostScript and PDF viewer for X\nii  texlive-latex-recommended   2009-10      TeX Live: LaTeX recommended packag\nii  xpdf [pdf-viewer]           3.02-11      Portable Document Format (PDF) rea\nii  xpdf-reader                 3.02-11      Transitional package for xpdf", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Versions of packages auctex suggests:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pn  catdvi                        <none>     (no description available)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ii  dvipng                        1.13-1     convert DVI files to PNG graphics\nii  lacheck                       1.26-12    A simple syntax checker for LaTeX", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-- debconf information:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "auctex/doauto: Background", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "auctex/logfile: /var/log/auctex.log", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "auctex/doautofg: File", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "\"Davide G. M. Salvetti\" <salve@debian.org>", 
+            "email": "\"Davide G. M. Salvetti\" <salve@debian.org>"
+        }, 
+        {
+            "date": "2010-09-15 14:32:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "forwarded 597006 bug-auctex@gnu.org", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Please, keep 597006@bugs.debian.org in Cc.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "the following bug has been reported with the Debian bug tracking\nsystem.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I believe it should be evaluated upstream.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks, Davide", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sanjoy Mahajan <sanjoy@olin.edu>", 
+            "email": "Sanjoy Mahajan <sanjoy@olin.edu>"
+        }, 
+        {
+            "date": "2010-09-18 10:49:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Package: auctex", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Version: 11.86-1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Severity: normal", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "File: /usr/share/emacs/site-lisp/auctex/tex.el", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Running ConTeXt (with C-c C-c <RET>) produces this command in the output\nbuffer:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Running `ConTeXt' on `a' with ``texexec --once --texutil --engine=ConTeXt-engine --interface=en --nonstop a.tex''", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, that command line produces 0 pages of output (the log contains\n\"TeXExec | no ctx file found.\")", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The culprit is the", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--engine=ConTeXt-engine switch, which should be absent or something like", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--engine=pdftex.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following diff fixes the problem for me (after recompiling to make\nnew tex.elc files in both the emacs/site-lisp and emacs23/site-lisp\ndirectories!)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--- /usr/share/emacs/site-lisp/auctex/tex.el.orig\t2010-08-27 11:06:48.000000000 -0400\n+++ /usr/share/emacs/site-lisp/auctex/tex.el\t2010-09-15 14:20:51.000000000 -0400\n@@ -1214,10 +1214,10 @@", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ";;;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Engine", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(defvar TeX-engine-alist-builtin", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-  '((default \"Default\" TeX-command LaTeX-command ConTeXt-engine)\n+  `((default \"Default\" ,TeX-command ,LaTeX-command ,ConTeXt-engine)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(xetex \"XeTeX\" \"xetex\" \"xelatex\" \"xetex\")", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(luatex \"LuaTeX\" \"luatex\" \"lualatex\" \"luatex\")", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-    (omega \"Omega\" TeX-Omega-command LaTeX-Omega-command ConTeXt-Omega-engine))\n+    (omega \"Omega\" ,TeX-Omega-command ,LaTeX-Omega-command ,ConTeXt-Omega-engine))", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\"Alist of built-in TeX engines and associated commands.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For a description of the format see `TeX-engine-alist'.\")", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-- Package-specific info:", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ralf Angeli <angeli@caeruleus.net>", 
+            "email": "Ralf Angeli <angeli@caeruleus.net>"
+        }, 
+        {
+            "date": "2010-09-24 22:17:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-- System Information:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Debian Release: squeeze/sid", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "APT prefers unstable", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "APT policy: (500, 'unstable'), (500, 'stable'), (1, 'experimental')", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Architecture: i386 (i686)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Kernel: Linux 2.6.35.3 (SMP w/2 CPU cores)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Locale: LANG=en_US.utf8, LC_CTYPE=en_US.utf8 (charmap=UTF-8)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Shell: /bin/sh linked to /bin/bash", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Versions of packages auctex depends on:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ii  debconf [debconf-2.0]     1.5.35         Debian configuration management sy\nii  dpkg                      1.15.8.4       Debian package management system\nii  emacs22                   22.3+1-1.2+b1  The GNU Emacs editor\nii  emacs23                   23.2+1-4       The GNU Emacs editor (with GTK+ us\nii  install-info              4.13a.dfsg.1-5 Manage installed documentation in \nii  make                      3.81-8         An utility for Directing compilati\nii  preview-latex-style       11.86-1        extraction of elements from LaTeX", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Versions of packages auctex recommends:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ii  doc-base                    0.9.5        utilities to manage online documen\nii  epdfview [pdf-viewer]       0.1.7-4      Lightweight pdf viewer based on po\nii  evince [pdf-viewer]         2.30.3-1     Document (postscript, pdf) viewer\nii  ghostscript                 8.71~dfsg2-6 The GPL Ghostscript PostScript/PDF\nii  gv [pdf-viewer]             1:3.7.1-1    PostScript and PDF viewer for X\nii  texlive-latex-recommended   2009-10      TeX Live: LaTeX recommended packag\nii  xpdf [pdf-viewer]           3.02-11      Portable Document Format (PDF) rea\nii  xpdf-reader                 3.02-11      Transitional package for xpdf", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Versions of packages auctex suggests:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pn  catdvi                        <none>     (no description available)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ii  dvipng                        1.13-1     convert DVI files to PNG graphics\nii  lacheck                       1.26-12    A simple syntax checker for LaTeX", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-- debconf information:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "auctex/doauto: Background", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "auctex/logfile: /var/log/auctex.log", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "auctex/doautofg: File", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "salve@debian.org (Davide G. M. Salvetti)", 
+            "email": "salve@debian.org (Davide G. M. Salvetti)"
+        }
+    ], 
+    "title": "\nauctex: runs ConTeXt with incorrect --engine switch"
+}

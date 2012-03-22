@@ -1,0 +1,1177 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/388839", 
+    "comments": [
+        {
+            "date": "2007-07-19 12:25:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=273009) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This patch moves the logic for updating the offline cache and adding to the\nowners list in to an nsOfflineCacheUpdate object.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It updates the content sink\nand navigator.offlineResources to use this object instead of the prefetch\nservice, and navigator.pendingOfflineLoads to monitor it instead of the\nprefetch service.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Dave Camp (:campd)", 
+            "email": "Dave Camp (:campd)"
+        }, 
+        {
+            "date": "2007-07-19 20:10:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 273009 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "nsIOfflineCacheSession needs a new IID", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "uriloader/prefetch/nsIOfflineCacheUpdate.idl", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+[scriptable, uuid(7dc06ede-1098-4384-b95e-65525ab254c9)]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+interface nsIOfflineCacheUpdate : nsISupports {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+  /**", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+   * An nsIOfflineCacheUpdate is used to update a domain's offline resources.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+   * It can be used to perform partial or complete updates.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You should put that comment above the interface, that way tools like\ndoxygen can find it.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+   * @param aDocument Schedule the update when this document finished loading.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "That doesn't sound like the right comment here", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+  readonly attribute unsigned long numItems;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+  nsIDOMLoadStatus item(in unsigned long index);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Perhaps numItems would better be named count?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(for consistency with\nnsIDOMNodeList, which also has an item() function)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "uriloader/prefetch/nsOfflineCacheUpdate.cpp", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Shouldn't the AutoFreeArray data members be private?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "nsOfflineCacheUpdateItem::OnStartRequest doesn't need the QI anymore", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "as mentioned on irc, nsOfflineCacheUpdateItem::Cancel should still reset\nmState.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "nsOfflineCacheUpdateItem::OnChannelRedirect doesn't use oldCachingChannel", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+    *aSource = nsnull;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+    nsCOMPtr<nsIDOMNode> source = do_QueryReferent(mSource);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+    if (source)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+        source.swap(*aSource);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+    return NS_OK;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "return CallQueryReferent(mSource, aSource);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Note that your ItemCompleted calls on the observers don't handle observers\nthat remove themselves, is that a problem?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "perhaps you should copy that\nlist and iterate on the copy.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You should probably also remove weak references for which the object has\ngone away at some point.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+    mDocUpdates.Init();", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Should check whether that failed", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+            NS_RELEASE(gOfflineCacheUpdateService);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+            gOfflineCacheUpdateService = nsnull;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "NS_RELEASE already takes care of the null setting", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "What if NewChannel or AsyncOpen fails for a certain URL?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ProcessNextUpdate\nwill have set mUpdateRunning to true already.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It seems like no further\nupdates would ever run, right?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+        if (mDocUpdates.Count() < 0)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+            return NS_OK;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hm, when would that be less than zero?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Do you mean <= ?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Christian :Biesinger (don't email me, ping me on IRC)", 
+            "email": "Christian :Biesinger (don't email me, ping me on IRC)"
+        }, 
+        {
+            "date": "2007-07-19 21:45:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=273083) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v2", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Dave Camp (:campd)", 
+            "email": "Dave Camp (:campd)"
+        }, 
+        {
+            "date": "2007-07-20 16:06:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 273083 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "actually I meant to comment on the doxygen comment style too;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "for comments\nlike:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+   * @param aPartialUpdate TRUE if the update should just update the URIs\n+   *        given to it, FALSE if all URLs for the owner domain\n+   *        should be added.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think it would be nicer to write them as:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* @param aPartialUpdate", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "TRUE if the [...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "]", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Christian :Biesinger (don't email me, ping me on IRC)", 
+            "email": "Christian :Biesinger (don't email me, ping me on IRC)"
+        }, 
+        {
+            "date": "2007-07-23 15:32:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 273083 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- In uriloader/prefetch/nsIOfflineCacheUpdate.idl:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+  /**", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+   * Add a URI to the offline cache as part of the update.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+   *", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+   * @param aURI The URI to add.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+   * @param aURI The DOM node (<link> tag) associated with this node (for\n+   *        implementing nsIDOMLoadStatus).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+   */", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+  void addURI(in nsIURI aURI, in nsIDOMNode aSource);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The second @param names the wrong argument.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "sr=jst", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Johnny Stenback (:jst, jst@mozilla.com)", 
+            "email": "Johnny Stenback (:jst, jst@mozilla.com)"
+        }, 
+        {
+            "date": "2007-07-24 22:35:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=273735) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "patch as committed", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Dave Camp (:campd)", 
+            "email": "Dave Camp (:campd)"
+        }, 
+        {
+            "date": "2007-07-24 22:36:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in content/base/src/nsContentSink.cpp;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/content/base/src/nsContentSink.cpp,v  <--  nsContentSink.cpp\nnew revision: 1.86;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.85", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in content/base/src/nsContentSink.h;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/content/base/src/nsContentSink.h,v  <--  nsContentSink.h\nnew revision: 1.39;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.38", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in content/html/document/src/nsHTMLContentSink.cpp;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/content/html/document/src/nsHTMLContentSink.cpp,v  <-- \nnsHTMLContentSink.cpp", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 3.795;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 3.794", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in docshell/build/Makefile.in;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/docshell/build/Makefile.in,v  <--  Makefile.in\nnew revision: 1.47;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.46", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in docshell/build/nsDocShellModule.cpp;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/docshell/build/nsDocShellModule.cpp,v  <-- \nnsDocShellModule.cpp", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.29;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.28", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in dom/src/base/Makefile.in;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/dom/src/base/Makefile.in,v  <--  Makefile.in\nnew revision: 1.81;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.80", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Checking in dom/src/offline/nsDOMOfflineLoadStatusList.cpp;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/dom/src/offline/nsDOMOfflineLoadStatusList.cpp,v  <-- \nnsDOMOfflineLoadStatusList.cpp", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.2;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Checking in dom/src/offline/nsDOMOfflineLoadStatusList.h;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/dom/src/offline/nsDOMOfflineLoadStatusList.h,v  <-- \nnsDOMOfflineLoadStatusList.h", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.2;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Checking in dom/src/offline/nsDOMOfflineResourceList.cpp;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/dom/src/offline/nsDOMOfflineResourceList.cpp,v  <-- \nnsDOMOfflineResourceList.cpp", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.4;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.3", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in dom/tests/mochitest/ajax/offline/test_pendingOfflineLoads.html;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/dom/tests/mochitest/ajax/offline/test_pendingOfflineLoads.html,v\n <--  test_pendingOfflineLoads.html", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.2;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in netwerk/cache/public/nsIOfflineCacheSession.idl;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/netwerk/cache/public/nsIOfflineCacheSession.idl,v  <-- \nnsIOfflineCacheSession.idl", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.2;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in netwerk/cache/src/nsCacheService.cpp;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/netwerk/cache/src/nsCacheService.cpp,v  <-- \nnsCacheService.cpp", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.113;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.112", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in netwerk/cache/src/nsCacheService.h;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/netwerk/cache/src/nsCacheService.h,v  <--  nsCacheService.h\nnew revision: 1.49;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.48", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in netwerk/cache/src/nsCacheSession.cpp;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/netwerk/cache/src/nsCacheSession.cpp,v  <-- \nnsCacheSession.cpp", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.16;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.15", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in netwerk/cache/src/nsDiskCacheDeviceSQL.cpp;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/netwerk/cache/src/nsDiskCacheDeviceSQL.cpp,v  <-- \nnsDiskCacheDeviceSQL.cpp", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.13;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.12", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in netwerk/cache/src/nsDiskCacheDeviceSQL.h;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/netwerk/cache/src/nsDiskCacheDeviceSQL.h,v  <-- \nnsDiskCacheDeviceSQL.h", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.5;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.4", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Checking in uriloader/prefetch/Makefile.in;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/uriloader/prefetch/Makefile.in,v  <--  Makefile.in\nnew revision: 1.6;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.5", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Checking in uriloader/prefetch/nsCPrefetchService.h;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/uriloader/prefetch/nsCPrefetchService.h,v  <-- \nnsCPrefetchService.h", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.2;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "RCS file: /cvsroot/mozilla/uriloader/prefetch/nsIOfflineCacheUpdate.idl,v\ndone", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Checking in uriloader/prefetch/nsIOfflineCacheUpdate.idl;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "/cvsroot/mozilla/uriloader/prefetch/nsIOfflineCacheUpdate.idl,v  <-- \nnsIOfflineCacheUpdate.idl", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "initial revision: 1.1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "RCS file: /cvsroot/mozilla/uriloader/prefetch/nsOfflineCacheUpdate.cpp,v\ndone", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Checking in uriloader/prefetch/nsOfflineCacheUpdate.cpp;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "/cvsroot/mozilla/uriloader/prefetch/nsOfflineCacheUpdate.cpp,v  <-- \nnsOfflineCacheUpdate.cpp", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "initial revision: 1.1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "RCS file: /cvsroot/mozilla/uriloader/prefetch/nsOfflineCacheUpdate.h,v\ndone", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Checking in uriloader/prefetch/nsOfflineCacheUpdate.h;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/uriloader/prefetch/nsOfflineCacheUpdate.h,v  <-- \nnsOfflineCacheUpdate.h", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "initial revision: 1.1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Dave Camp (:campd)", 
+            "email": "Dave Camp (:campd)"
+        }, 
+        {
+            "date": "2007-07-24 23:57:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=273747) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bustage fix", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "this patch was needed on linux", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Dave Camp (:campd)", 
+            "email": "Dave Camp (:campd)"
+        }, 
+        {
+            "date": "2007-07-26 01:06:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 273735 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Doesn't anyone read compiler warnings any more?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+NS_IMETHODIMP", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+nsOfflineCacheUpdateItem::GetStatus(PRUint16 *aStatus)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+            *aStatus = NS_ERROR_NOT_AVAILABLE;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You can't fit a quart into a pint pot.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "neil@parkwaycc.co.uk", 
+            "email": "neil@parkwaycc.co.uk"
+        }, 
+        {
+            "date": "2007-07-27 04:13:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 273735 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    for (PRInt32 i = 0;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i < mObservers.Count();", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i++) {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+        if (mObservers[i] == aObserver) {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+            mObservers.RemoveObjectAt(i);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+            return NS_OK;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+        }", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    }", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "mObservers.RemoveObject(aObserver);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "also works.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "neil@parkwaycc.co.uk", 
+            "email": "neil@parkwaycc.co.uk"
+        }
+    ], 
+    "title": "object to manage updates to the offline cache"
+}

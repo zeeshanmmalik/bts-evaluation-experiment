@@ -1,0 +1,682 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/310708", 
+    "comments": [
+        {
+            "date": "2005-10-01 11:25:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It is about last HUGE performance bottleneck in our GFX layer (there are\nothers,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "but much less important)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For sites which use specual char alignment (like align=justify) )Mozilla\npermanently calculates placement for each char, and to calculate this\nplacement,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "it should permanently ask char widths.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But in BeOS each call for String/CharWidth, be it BView method or BFont method,\nactually calls app_server, which brings HUGE overhead and slowdown.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Like 5000\nextra appserver calls for page.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Workaround is to create special cache, where you storage widths for already\n\"tested\" chars for given font.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Actually it is not trivial task,sometimes very\nnon-trivial, but even simplest implementation I tested here gives us fantastic\nspeed improvement.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Current price is that for each mFontMetrics object ( it uses additional memory", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-  float foo[OxFFFF]. Unfortunately.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "With time and work it may be reduced and optimized, but for me it is already\nworth submitting and testing.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Because even with simpicistic implementation\nperformance boost is fantastic.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2005-10-01 12:07:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=198155) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "patch - draft implementation", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Preliminary but worth testing.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2005-10-01 12:19:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 198155 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "something went wrong in if()s", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2005-10-01 12:19:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=198156) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "patch", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This one seems working again", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2005-10-01 16:49:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Notice for curious.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Previous patch is rather proof of concept.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Being fastest but memory hog.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Kind of.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Actual implementation will use hash-table.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In future there is sence to make it global, but it needs rewrite of\nnsFontMetricsBeOS in order to make cacheable (and hasheable) font descriptions,\nand to resolve possible thread-safety problem.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thus, at the moment it looks like good idea to restrict ourselves only by\nfont-width cache unique for nsFontMetrics instance.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2005-10-02 02:56:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=198208) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "patch with hashtable", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reimplemented using nsHashtable.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For key generating from single UTF-8 character I use nsCStringKey().", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Biesi, timeless, can you look at?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I never used nsHashtable, do don't know, for example, if simple Reset() is\nenough", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "to free all new-ed width entries (as hashtable gets those as (void *)).", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2005-10-02 03:57:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=198209) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "patch", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "taking in account some timeless notices,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "logic is same asin previous", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2005-10-02 03:59:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This patch isn't working, it has different variablename for hashtable in header\nand source.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "tqh", 
+            "email": "tqh"
+        }, 
+        {
+            "date": "2005-10-02 04:50:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=198211) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "patch - for whole strings", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Here is patch which tries to calculate whole string width from cached char\nwidths.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But it works sometimes bit strange - some strings get too wide-spaced.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Performance of this version is higher than previous, but issue needs\ninvestigation.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "At moment I prefer to have previous patch as production-ready.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2005-10-02 05:19:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The last two patches are broken.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You use mFontWidthCache in code and\nmWidthFontCache in header.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I wonder if you tested the right builds.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "tqh", 
+            "email": "tqh"
+        }, 
+        {
+            "date": "2005-10-02 07:40:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=198222) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "patch with nsDataHashtable", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Using nsDataHashtable.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Single-char version.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Also added explicit setting for B_FIXED_SPACING for font - char and string\nspacing don't work for us here anyway.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Removed direct links to system fonts in fallback case - that was bit dangerous\nand didn't allow to control some font parameters.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed line in EnumFonts according biesi comment:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://bugzilla.mozilla.org/show_bug.cgi?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "id=310680#c10", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2005-10-02 09:06:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 198222 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "review request", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2005-10-02 10:08:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 198222 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r=thesuckiestemail@yahoo.se", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm not very good at the utf-'magic' but it looks good to me and seems to work\nok.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "tqh", 
+            "email": "tqh"
+        }, 
+        {
+            "date": "2005-10-02 10:23:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Patch landed in trunk:", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2005-10-02 12:25:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "might the APIs from bug 297074 help here too?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Christian :Biesinger (don't email me, ping me on IRC)", 
+            "email": "Christian :Biesinger (don't email me, ping me on IRC)"
+        }, 
+        {
+            "date": "2005-10-02 13:11:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There must be little follow-up to this bug.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Curently \"biggest\" versopn nsRenderingContextBeOS::::GetTextDimensions() uses\nmFont->StringWidth() - it means non-cached BView::StringWidth();", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For most time, in theory, GetTextDimensions asks for longer than one character\nstrings, so it shouldn't matter with current GetStringWidth() implementation,\nbut in future it might do.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So  I will move it to unified way.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Second problem is BeOS and Mozilla different understanding about widths.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In other cases it differs by one, but i'm yet sure if it matters for\nStringWidth().", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Looks like it does, so why i failed to calculate, even with fixed\nspacing, string width from cached char widths.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2005-10-02 13:17:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks biesi.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As i already planned changes in nsRenderingContext, i will look at bug you\npointed.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Though, patch looks huge there:)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }, 
+        {
+            "date": "2006-08-04 02:26:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 198222 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Requesting approval for landing in the MOZILLA_1_8_BRANCH.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is a BeOS-only change and does not affect other platforms.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Niels Reedijk", 
+            "email": "Niels Reedijk"
+        }, 
+        {
+            "date": "2006-08-04 10:21:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 198222 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "a=schrep for drivers.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mike Schroepfer", 
+            "email": "Mike Schroepfer"
+        }, 
+        {
+            "date": "2006-08-04 10:37:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in mozilla/gfx/src/beos/nsFontMetricsBeOS.cpp;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/gfx/src/beos/nsFontMetricsBeOS.cpp,v  <--", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "nsFontMetricsBeOS.cpp", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.40.12.3;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.40.12.2", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in mozilla/gfx/src/beos/nsFontMetricsBeOS.h;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/gfx/src/beos/nsFontMetricsBeOS.h,v  <--  nsFontMetricsBeOS.h\nnew revision: 1.12.12.1;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.12", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in mozilla/gfx/src/beos/nsRenderingContextBeOS.cpp;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/cvsroot/mozilla/gfx/src/beos/nsRenderingContextBeOS.cpp,v  <-- \nnsRenderingContextBeOS.cpp", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.51.12.4;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.51.12.3", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "done", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sergei Dolgov", 
+            "email": "Sergei Dolgov"
+        }
+    ], 
+    "title": "[BeOS]Font width cache to be implemented"
+}

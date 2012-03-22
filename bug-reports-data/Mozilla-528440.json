@@ -1,0 +1,637 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/528440", 
+    "comments": [
+        {
+            "date": "2009-11-13 01:10:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "nsIWindowMediator tracks windows until they are destroyed, but there's a brief\nperiod when windows are closed without being destroyed yet.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Session restore\nshould only care for windows that are open and should thus skip windows that\naren't.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't think this is relevant for real users, but it likely is relevant for\ntests and could in fact be the cause for some intermittent failures we're\nseeing.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Do Gottwald", 
+            "email": "Do Gottwald"
+        }, 
+        {
+            "date": "2009-11-13 04:11:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=412187) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "patch", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "passed sessionstore browser chrome tests locally and everything on the\ntryserver", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Do Gottwald", 
+            "email": "Do Gottwald"
+        }, 
+        {
+            "date": "2009-11-13 04:23:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 412187 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    var window = windowMediator.getMostRecentWindow(\"navigator:browser\");", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    return window.closed ?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "null : window;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This will fail when getMostRecentWindow returns |null| - which it does when\nthere are no open \"navigator:browser\" windows at all.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Simon Bnzli", 
+            "email": "Simon Bnzli"
+        }, 
+        {
+            "date": "2009-11-13 04:30:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=412188) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "patch v2", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "true!", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Do Gottwald", 
+            "email": "Do Gottwald"
+        }, 
+        {
+            "date": "2009-11-13 05:35:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "hum, so if the most recent window is closing it will return null?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "should it not return _next_ most recent window?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marco Bonardo [:mak]", 
+            "email": "Marco Bonardo [:mak]"
+        }, 
+        {
+            "date": "2009-11-13 05:37:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i was thinking something like this:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+    var win = windowMediator.getMostRecentWindow(\"navigator:browser\");", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+    if (win && win.closed) {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+      // Use our own _openBrowserWindows cache.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+      for (var i = 0;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i < this._openBrowserWindows.length;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "i++) {\n+        win = this._openBrowserWindows[i];", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+        if (!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "win.closed)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+          break;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+      }", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+    return win && win.closed ?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "null : win;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "where _openBrowserWindows is a local cache filled up using domwindowopened and\ndomwindowclosed (since there is no way to read the window timestamp)", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marco Bonardo [:mak]", 
+            "email": "Marco Bonardo [:mak]"
+        }, 
+        {
+            "date": "2009-11-13 05:39:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "well, my return condition is wrong, but is just the idea.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marco Bonardo [:mak]", 
+            "email": "Marco Bonardo [:mak]"
+        }, 
+        {
+            "date": "2009-11-13 05:43:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "btw, actually it is not wrong", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marco Bonardo [:mak]", 
+            "email": "Marco Bonardo [:mak]"
+        }, 
+        {
+            "date": "2009-11-13 05:52:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "could even make sense add an optional aOnlyOpenWindows param to getEnumerator\nand getMostRecentWindow...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "the interface is not frozen and being optional\nshould not create big headache.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marco Bonardo [:mak]", 
+            "email": "Marco Bonardo [:mak]"
+        }, 
+        {
+            "date": "2009-11-13 06:25:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=412205) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "patch v3", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This tries to find the most recent open window.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've pushed this to the\ntryserver, tests passed for both ifdef branches locally.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Do Gottwald", 
+            "email": "Do Gottwald"
+        }, 
+        {
+            "date": "2009-11-13 07:44:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 412205 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Wouldn't it make more sense to fix nsIWindowMediator::getMostRecentWindow\ninstead?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "What you're doing here is how I'd have expected it to behave in the\nfirst place.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Simon Bnzli", 
+            "email": "Simon Bnzli"
+        }, 
+        {
+            "date": "2009-11-13 07:47:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm not sure if returning closed-but-not-yet-destroyed windows is useful in\nother contexts.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I guess I'll file a bug.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Do Gottwald", 
+            "email": "Do Gottwald"
+        }, 
+        {
+            "date": "2009-11-13 08:23:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "it is useful in the enumerator, exactly to wait for windows to be closed, for\nexample in the browser-test.js case.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "that's why i suggest an optional param.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marco Bonardo [:mak]", 
+            "email": "Marco Bonardo [:mak]"
+        }, 
+        {
+            "date": "2009-11-13 08:26:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This bug can affect the fix of bug 526194, which is a 3.6 blocker, so I think\nthis should also block the release of Firefox 3.6.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }, 
+        {
+            "date": "2009-11-13 08:53:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #12)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> it is useful in the enumerator, exactly to wait for windows to be closed, for\n> example in the browser-test.js case.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> that's why i suggest an optional param.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You're not using getMostRecentWindow in that other bug.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #13)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> This bug can affect the fix of bug 526194, which is a 3.6 blocker, so I think\n> this should also block the release of Firefox 3.6.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I still think this is only relevant for tests...", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Do Gottwald", 
+            "email": "Do Gottwald"
+        }, 
+        {
+            "date": "2009-11-13 12:03:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 412205 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">   _getMostRecentBrowserWindow: function sss_getMostRecentBrowserWindow() {\n>-    var windowMediator = Cc[\"@mozilla.org/appshell/window-mediator;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1\"].", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-                         getService(Ci.nsIWindowMediator);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-    return windowMediator.getMostRecentWindow(\"navigator:browser\");", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    var wm = Cc[\"@mozilla.org/appshell/window-mediator;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1\"].", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+             getService(Ci.nsIWindowMediator);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    var win = wm.getMostRecentWindow(\"navigator:browser\");", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    if (win && !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "win.closed)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+      return win;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've changed the last two lines to this:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    if (!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "win)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+      return null;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    if (!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "win.closed)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+      return win;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "No need to call getEnumerator / getZOrderDOMWindowEnumerator if\ngetMostRecentWindow returns null already.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Do Gottwald", 
+            "email": "Do Gottwald"
+        }, 
+        {
+            "date": "2009-11-13 12:03:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/mozilla-central/rev/e39e777f86bb", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Do Gottwald", 
+            "email": "Do Gottwald"
+        }, 
+        {
+            "date": "2009-11-14 05:59:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #10)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (From update of attachment 412205 [details] [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Wouldn't it make more sense to fix nsIWindowMediator::getMostRecentWindow\n> instead?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "What you're doing here is how I'd have expected it to behave in the\n> first place.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Filed bug 528706.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Do Gottwald", 
+            "email": "Do Gottwald"
+        }, 
+        {
+            "date": "2009-11-17 10:35:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 412205 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This doesn't require approval now that it's a blocker.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }, 
+        {
+            "date": "2009-11-17 11:20:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Landed on 1.9.2:", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }
+    ], 
+    "title": "Should skip windows that are closed but not yet destroyed when using nsIWindowMediator"
+}

@@ -1,0 +1,1183 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/469760", 
+    "comments": [
+        {
+            "date": "2008-12-15 17:14:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created an attachment (id=353136) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "hacky patch used for initial verify", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1. start http live headers", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2. reset app.update.lastUpdateTime.blocklist-background-update-timer", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3. open error console", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4. force blocklist update by running:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Components.classes['@mozilla.org/extensions/blocklist;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1'].", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "getService(Components.interfaces.nsITimerCallback).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "notify(null)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5. check the GET url invoked", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "result:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://addons.mozilla.org/blocklist/2/%7Bec8030f7-c20a-464f-9b0e-13a3a9e97384%7D/3.0.4/Firefox/2008111319/Linux_x86_64-gcc3/chrome://glo\nbal/locale/intl.properties/default/Linux%202.6.27-7-generic%20(GTK%202.14.4)/canonical/1.0/", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "expected result:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://addons.mozilla.org/blocklist/2/%7Bec8030f7-c20a-464f-9b0e-13a3a9e97384%7D/3.0.4/Firefox/2008111319/Linux_x86_64-gcc3/en-US/default/Linux%202.6.27-7-generic%20(GTK%202.14.4)/canonical/1.0/", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "difference: %LOCALE% is replaced by chrome://global/locale/intl.properties ...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "but should be en-US", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Note: this probably busts \"OS\" stats if they are based on blocklist runs.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Evaluation: PREF_GENERAL_USERAGENT_LOCALE seems to be a complex pref;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "fix would\nfirst check for complex pref and then fall back to not complex pref.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alexander Sack", 
+            "email": "Alexander Sack"
+        }, 
+        {
+            "date": "2008-12-15 17:18:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "sorry ...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "the result url had a line break:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alexander Sack", 
+            "email": "Alexander Sack"
+        }, 
+        {
+            "date": "2008-12-15 17:21:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fwiw, its an ubuntu only issue.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "we ship a special pref since i took over the\npackage ...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "we can drop that if you dont want to fix it in blocklist code.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alexander Sack", 
+            "email": "Alexander Sack"
+        }, 
+        {
+            "date": "2008-12-15 17:25:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Why is general.useragent.locale a localized pref in your builds?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "browser/app/profile/firefox.js and browser/locales/en-US/firefox-l10n.js\nexplicitly set it to a non-localized value, and this isn't the only piece of\ncode that assumes it's a normal charpref.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In fact all.js seems to be the only\none who thinks it can end up localized, so the easiest fix is probably to just\nfix it to use @AB_CD@ as well.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gavin Sharp", 
+            "email": "Gavin Sharp"
+        }, 
+        {
+            "date": "2008-12-15 17:26:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Ah, sorry, missed your comment.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think you should just remove that pref, yeah\n(and we should fix all.js too).", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gavin Sharp", 
+            "email": "Gavin Sharp"
+        }, 
+        {
+            "date": "2008-12-15 17:28:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "remove blocking from stable branches in turn of comment 2", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alexander Sack", 
+            "email": "Alexander Sack"
+        }, 
+        {
+            "date": "2008-12-15 17:35:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #4)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Ah, sorry, missed your comment.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think you should just remove that pref, yeah\n> (and we should fix all.js too).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ok, will prepare a patch for that.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alexander Sack", 
+            "email": "Alexander Sack"
+        }, 
+        {
+            "date": "2008-12-15 17:57:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I would expect this to take a patch like in bug 446527 to really work\nindependent of user settings.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "http://mxr.mozilla.org/mozilla-central/source/toolkit/components/urlformatter/src/nsURLFormatter.js\nis worth a look, too.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Sadly, one can't pass in extra variables.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not sure if\nsome of the blocklist variables would be worth adding.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Axel Hecht [:Pike]", 
+            "email": "Axel Hecht [:Pike]"
+        }, 
+        {
+            "date": "2008-12-15 18:00:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #7)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I would expect this to take a patch like in bug 446527 to really work\n> independent of user settings.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I believe that the difference between this and bug 446527 is that we want the\ncurrently running locale vs.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "the installation locale.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Strong [:rs] (do not email)", 
+            "email": "Robert Strong [:rs] (do not email)"
+        }, 
+        {
+            "date": "2008-12-15 18:16:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I wonder if we really mind in the end.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In which scenario would be blacklist an\nextension for just the currently selected locale?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Maybe just making sure that the actual char prefs are properly escaped so that\n\"/\" chars don't make it through would be already good enough.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Axel Hecht [:Pike]", 
+            "email": "Axel Hecht [:Pike]"
+        }, 
+        {
+            "date": "2008-12-15 19:30:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #9)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I wonder if we really mind in the end.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In which scenario would be blacklist an\n> extension for just the currently selected locale?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I agree that its not obvious as of why to pass a %LOCALE% to the blocklist\nserver at all ...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If there is no use-case for that we can just drop that component from the\nblocklist URL completely.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not sure how many backends/services rely on that\ncomponent for parsing though.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Maybe just making sure that the actual char prefs are properly escaped so that\n> \"/\" chars don't make it through would be already good enough.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Agreed, properly escaping the components would make this more fail-safe ...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "not\nsure if its really worth the effort though.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thoughts?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alexander Sack", 
+            "email": "Alexander Sack"
+        }, 
+        {
+            "date": "2008-12-16 00:23:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't see any particular reason to block 3.1 on this, given that it works for\nthe standard case.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't see why we wouldn't take a patch though.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #10)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (In reply to comment #9)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > I wonder if we really mind in the end.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In which scenario would be blacklist an\n> > extension for just the currently selected locale?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I agree that its not obvious as of why to pass a %LOCALE% to the blocklist\n> server at all ...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> If there is no use-case for that we can just drop that component from the\n> blocklist URL completely.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not sure how many backends/services rely on that\n> component for parsing though.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bug 430120", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Maybe just making sure that the actual char prefs are properly escaped so that\n> > \"/\" chars don't make it through would be already good enough.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Agreed, properly escaping the components would make this more fail-safe ...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "not\n> sure if its really worth the effort though.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thoughts?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bug 468527", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Dave Townsend (:Mossop)", 
+            "email": "Dave Townsend (:Mossop)"
+        }, 
+        {
+            "date": "2008-12-16 02:23:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As the rationale for bug 430120 is to retrieve the same data as with update\npings, we should feed the same locale info, i.e.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": ", the installed locale code, as\nit determines in", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://mxr.mozilla.org/mozilla-central/source/toolkit/mozapps/update/src/nsUpdateService.js.in#519.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not sure what info linux distro's have there, and what we do about that.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Axel Hecht [:Pike]", 
+            "email": "Axel Hecht [:Pike]"
+        }, 
+        {
+            "date": "2008-12-16 04:04:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Confirming that a patch for this problem should interpolate the installation\nlocale to match the spec.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As comment #12 mentions, bug 430120 contains the\nrational for having these extra fields in the URL.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The parser expects a legitimate @AB_CD@ code, but it special cases the\nchrome:// value using a gawd awful complicated regex.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "That workaround would\nbreak if you tried to do something like adding escaping to the URL instead, so\nif we do end up adding any new escaping to the URL, we need to open a separate\nbug for Metrics to track that.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Daniel Einspanjer :dre", 
+            "email": "Daniel Einspanjer :dre"
+        }, 
+        {
+            "date": "2008-12-16 04:08:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #13)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Confirming that a patch for this problem should interpolate the installation\n> locale to match the spec.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As comment #12 mentions, bug 430120 contains the\n> rational for having these extra fields in the URL.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The parser expects a legitimate @AB_CD@ code, but it special cases the\n> chrome:// value using a gawd awful complicated regex.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "That workaround would\n> break if you tried to do something like adding escaping to the URL instead, so\n> if we do end up adding any new escaping to the URL, we need to open a separate\n> bug for Metrics to track that.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Presumably if we take a patch for this bug (getting rid of the chrome url from\nthe locale and using a proper locale code) then adding escaping shouldn't\nactually affect anything.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Dave Townsend (:Mossop)", 
+            "email": "Dave Townsend (:Mossop)"
+        }, 
+        {
+            "date": "2008-12-16 04:12:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "right, escaping should just kick in when you'd get garbage anyway.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'd\nsuggest to drop the locale to something \"None\" or \"undefined\" in the metrics\nbackend whenever you get a non-good locale code.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "No idea what you currently do\nif the regexp isn't matched.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Axel Hecht [:Pike]", 
+            "email": "Axel Hecht [:Pike]"
+        }, 
+        {
+            "date": "2008-12-16 04:15:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #7)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I would expect this to take a patch like in bug 446527 to really work\n> independent of user settings.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://mxr.mozilla.org/mozilla-central/source/toolkit/components/urlformatter/src/nsURLFormatter.js\n> is worth a look, too.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Sadly, one can't pass in extra variables.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not sure if\n> some of the blocklist variables would be worth adding.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Ideally we should just get bug 430235 fixed", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Dave Townsend (:Mossop)", 
+            "email": "Dave Townsend (:Mossop)"
+        }, 
+        {
+            "date": "2008-12-16 04:48:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "replacing the chrome URL with a properly formatted locale would be transparent\non metrics.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I just went back and looked at the regex.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It would properly handle an escaped\nbogus value as well without a problem, but I'd still very much like to get\nmindset that any time a change happens with the structure of one of these URLs,\na bug gets opened with metrics to review it for potential impact.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've opened\nBug 469806 to that effect.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "FYI, here is the piece of the regex that deals with the locale segment:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/(?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">                        # locale raw_string", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "chrome://(?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "{0,108})\\.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "properties", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "# Note: some Linuxes are messed up and report chrome URL instead of\nlocale", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ")|(?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(                       # locale code", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">[a-z]{2,3})         # language", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-[A-Z]{2})?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "# region", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-[\\w]{2,8})?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "# dialect", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ")", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ")|(?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[^/]*", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "# Failsafe to eat unacceptable values", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ")", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ")", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Daniel Einspanjer :dre", 
+            "email": "Daniel Einspanjer :dre"
+        }, 
+        {
+            "date": "2008-12-16 04:54:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #17)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I just went back and looked at the regex.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It would properly handle an escaped\n> bogus value as well without a problem, but I'd still very much like to get\n> mindset that any time a change happens with the structure of one of these URLs,\n> a bug gets opened with metrics to review it for potential impact.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've opened\n> Bug 469806 to that effect.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm not entirely sure what the benefit is in opening a bug to evaluate the\npotential impact of another bug.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Surely it would be better for all the\ndiscussion to go in the single bug?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Dave Townsend (:Mossop)", 
+            "email": "Dave Townsend (:Mossop)"
+        }, 
+        {
+            "date": "2008-12-16 05:40:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #17):", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There are more variants to locale codes than that regexp matches.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Like script,\nat least.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We don't have any of those right now, but the real monty looks more\ncomplex still.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not this bug, though.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Axel Hecht [:Pike]", 
+            "email": "Axel Hecht [:Pike]"
+        }, 
+        {
+            "date": "2008-12-18 06:54:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #17)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> FYI, here is the piece of the regex that deals with the locale segment:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    /(?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">                        # locale raw_string", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">      (?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">         chrome://(?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "{0,108})\\.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "properties", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">           # Note: some Linuxes are messed up and report chrome URL instead of\n> locale", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">      )|(?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for the insight!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So I guess this means that the url i posted in the bug\ndescription is properly matched as of now?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "can you double check that by running\nyour complete regexp against what i posted?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Its quite important for us to know,\nso we can assign a proper prio to this issue in ubuntu.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks again!", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alexander Sack", 
+            "email": "Alexander Sack"
+        }, 
+        {
+            "date": "2008-12-18 07:35:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Yes, the \"expected result\" URL you pasted in the description is properly\nmatched and the locale is captured.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "@Axel Hecht :Pike -- Regarding comment #19, I replied via e-mail asking for\nmore details.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Did you get that?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I figured that tangent wasn't very related to\nthe actual bug so I didn't want to junk up the comments here.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Daniel Einspanjer :dre", 
+            "email": "Daniel Einspanjer :dre"
+        }, 
+        {
+            "date": "2008-12-18 07:40:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yeah, got that.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I should update the docs to say that", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "http://tools.ietf.org/html/rfc4646 is what we use, while trying to be as short\nas possible conforming to that spec.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Axel Hecht [:Pike]", 
+            "email": "Axel Hecht [:Pike]"
+        }
+    ], 
+    "title": "blocklist url %LOCALE% replaced with general.useragent.locale value, but without resolving complex value on ubuntu"
+}

@@ -1,0 +1,342 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/409376", 
+    "comments": [
+        {
+            "date": "2007-12-21 03:32:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Unlike bug 314214 the testcase in the URL does not have percentage types.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you click shift reload then everything is fine.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You get a Reflow which\ninitialises the viewport size and then the onload which works.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When simply clicking on refresh things happen in the opposite order, you get\nthe onload which fails as the viewport size is uninitialised (zero actually)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "and then the Reflow which initialises the viewport size too late.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This works in Firefox 2, but then that doesn't do reflow in the same way.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Longson", 
+            "email": "Robert Longson"
+        }, 
+        {
+            "date": "2007-12-21 12:12:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Does the result of getScreenCTM depend on layout?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If so, shouldn't it be\nflushing layout?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2007-12-21 13:31:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=294277) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Spot on Boris.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am all right using the ownerDoc rather than the currentDoc for\nthe flush aren't I.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Longson", 
+            "email": "Robert Longson"
+        }, 
+        {
+            "date": "2007-12-21 14:08:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 294277 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "No, you really want to use the current doc, not the owner doc.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Furthermore,\nthe flush can run arbitrary script, so you shouldn't really assume that things\nlike the owner doc stay the same across the flush...", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2007-12-21 14:35:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=294288) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "currentDoc", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Longson", 
+            "email": "Robert Longson"
+        }, 
+        {
+            "date": "2007-12-21 15:12:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 294288 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Looks great.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This method isn't called from layout code, right?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2007-12-21 15:14:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The methods are part of the SVG DOM and called from javascript.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Longson", 
+            "email": "Robert Longson"
+        }, 
+        {
+            "date": "2007-12-22 01:45:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In case that wasn't a clear enough answer.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "No these methods are not called from\nlayout code.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Longson", 
+            "email": "Robert Longson"
+        }, 
+        {
+            "date": "2007-12-24 14:07:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 294288 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "a=beltzner for 1.9", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mike Beltzner [:beltzner]", 
+            "email": "Mike Beltzner [:beltzner]"
+        }, 
+        {
+            "date": "2007-12-31 06:09:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "checked in", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Longson", 
+            "email": "Robert Longson"
+        }, 
+        {
+            "date": "2008-01-02 14:36:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "verified fixed using Mozilla/5.0 (Windows;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "U;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Windows NT 6.0;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "en-US;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rv:1.9b3pre) Gecko/2008010211 Minefield/3.0b3pre.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marcia Knous [:marcia]", 
+            "email": "Marcia Knous [:marcia]"
+        }, 
+        {
+            "date": "2008-01-02 14:44:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://litmus.mozilla.org/show_test.cgi?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "id=5068 has been added to the Litmus\ntest suite.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marcia Knous [:marcia]", 
+            "email": "Marcia Knous [:marcia]"
+        }, 
+        {
+            "date": "2008-01-02 16:08:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I just noticed that when you load that URL you do get this error in the console", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- I just wanted to note it: Error: uncaught exception: [Exception... \"Component\nreturned failure code: 0x80004001 (NS_ERROR_NOT_IMPLEMENTED)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[nsIDOMSVGLocatable.farthestViewportElement]\"  nsresult: \"0x80004001\n(NS_ERROR_NOT_IMPLEMENTED)\"  location: \"JS frame ::", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://www.w3.org/Graphics/SVG/Test/20061213/svggen/types-basicDOM-01-b.svg ::", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "testSVGLocatable :: line 33\"  data: no].", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marcia Knous [:marcia]", 
+            "email": "Marcia Knous [:marcia]"
+        }, 
+        {
+            "date": "2008-01-03 00:14:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Neither GetFarthestViewport nor GetNearestViewportElement are implemented (both\nare use on that page).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't think there is a bug for that, so feel free to\nraise one if you wish.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Longson", 
+            "email": "Robert Longson"
+        }, 
+        {
+            "date": "2008-01-04 08:42:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "raised bug 410811 for comment 12.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Longson", 
+            "email": "Robert Longson"
+        }
+    ], 
+    "title": "getScreenCTM testcase fails on reload"
+}

@@ -1,0 +1,474 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/482493", 
+    "comments": [
+        {
+            "date": "2009-03-10 09:42:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=366593) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "add stats check", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We should be monitoring for broken statistics to avoid stuff like bug 482327.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This patch just does a query to make sure there is a row that exists with a\ndate recent enough to still be updating.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(It also renames $dbh to $sdbh for\nthe shadow db.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'll ask IT to review if wenzel gives me an r+", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wil Clouser [:clouserw]", 
+            "email": "Wil Clouser [:clouserw]"
+        }, 
+        {
+            "date": "2009-03-10 10:01:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 366593 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Your patch looks good but it seems to assume that each day can have one and\nonly one entry.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Unless I am mistaken, there is one entry per day and add-on.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If\nso, you need to check for >= 1 or similar.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Fred Wenzel [:wenzel]", 
+            "email": "Fred Wenzel [:wenzel]"
+        }, 
+        {
+            "date": "2009-03-10 10:03:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm just checking for 1 case in the interests of speed.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The check assumes if 1\nmade it they all made it.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wil Clouser [:clouserw]", 
+            "email": "Wil Clouser [:clouserw]"
+        }, 
+        {
+            "date": "2009-03-10 10:05:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 366593 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Ouch, I'm a hero: I overlooked \"LIMIT 1\".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In that case, r+.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I find your\nassumption reasonable.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Fred Wenzel [:wenzel]", 
+            "email": "Fred Wenzel [:wenzel]"
+        }, 
+        {
+            "date": "2009-03-10 10:07:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 366593 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks wenzel.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ing oremj so he knows about the check and can let oncall\nknow.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wil Clouser [:clouserw]", 
+            "email": "Wil Clouser [:clouserw]"
+        }, 
+        {
+            "date": "2009-03-10 11:29:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 366593 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It would best best if the stats checks were separated out a bit more.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For\nexample, I could check monitor.php?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "check=stats for stats checks.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jeremy Orem [oremj@mozilla.com]", 
+            "email": "Jeremy Orem [oremj@mozilla.com]"
+        }, 
+        {
+            "date": "2009-03-11 09:29:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=366818) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "split out monitoring", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This splits the two out.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Links are at the bottom of the page.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I also added a\ncheck to make sure NETAPP_STORAGE is writable and the compatibility checks\nexist there.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wil Clouser [:clouserw]", 
+            "email": "Wil Clouser [:clouserw]"
+        }, 
+        {
+            "date": "2009-03-11 10:43:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://svn.mozilla.org/addons/trunk/bin/check_stats.php is already setup on\nnagios...", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Justin Scott [:fligtar]", 
+            "email": "Justin Scott [:fligtar]"
+        }, 
+        {
+            "date": "2009-03-11 11:34:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #7)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://svn.mozilla.org/addons/trunk/bin/check_stats.php is already setup on\n> nagios...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I didn't know that!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Did it page oncall all weekend because the stats weren't being updated?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wil Clouser [:clouserw]", 
+            "email": "Wil Clouser [:clouserw]"
+        }, 
+        {
+            "date": "2009-03-11 11:36:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #8)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I didn't know that!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Still need me to review it then or not so much?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Fred Wenzel [:wenzel]", 
+            "email": "Fred Wenzel [:wenzel]"
+        }, 
+        {
+            "date": "2009-03-11 12:34:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #9)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (In reply to comment #8)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > I didn't know that!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Still need me to review it then or not so much?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'd rather have all the monitoring in one place, so I'd like to migrate\ncheck_stats.php to monitor.php...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, monitor.php is completely uncached and could be used as a DOS against\nthe slaves.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Oremj will have to comment on that.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wil Clouser [:clouserw]", 
+            "email": "Wil Clouser [:clouserw]"
+        }, 
+        {
+            "date": "2009-03-11 13:32:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #8)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Did it page oncall all weekend because the stats weren't being updated?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Huh, I can't find that in nagios anywhere, even though I set it up\noriginally...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Looks like it isn't being monitored anymore maybe?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Reed Loden [:reed]", 
+            "email": "Reed Loden [:reed]"
+        }, 
+        {
+            "date": "2009-03-11 13:33:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #11)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Huh, I can't find that in nagios anywhere, even though I set it up\n> originally...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Looks like it isn't being monitored anymore maybe?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Yep, it's commented out.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":(", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Reed Loden [:reed]", 
+            "email": "Reed Loden [:reed]"
+        }, 
+        {
+            "date": "2009-03-11 14:23:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":(", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Michael Morgan [:morgamic]", 
+            "email": "Michael Morgan [:morgamic]"
+        }, 
+        {
+            "date": "2009-03-11 14:35:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I emailed infra@ about the nagios script being commented out so we can keep\nthis bug on track.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wil Clouser [:clouserw]", 
+            "email": "Wil Clouser [:clouserw]"
+        }, 
+        {
+            "date": "2009-11-11 21:55:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "metrics has their own monitoring", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wil Clouser [:clouserw]", 
+            "email": "Wil Clouser [:clouserw]"
+        }
+    ], 
+    "title": "Add statistics monitoring to AMO nagios check"
+}

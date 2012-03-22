@@ -1,0 +1,526 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/383560", 
+    "comments": [
+        {
+            "date": "2007-06-07 00:00:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=267542) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "fix v1.0", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This patch does a bunch of event handling cleanup without changing any\nbehavior.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1. Comments are more clear, standardized.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2. Common event-related code patterns are standardized.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3. Better event conversion method names for clarity.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4. Native-to-gecko event conversion re-factored for clarity.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5. Got rid of some duplicate code.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "6. Moved some methods for more logical organization.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Josh Aas (Mozilla Corporation)", 
+            "email": "Josh Aas (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2007-06-07 00:03:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "BTW, there is a bunch more cleanup we can do but this patch is already big and\nI don't want to make it bigger.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Josh Aas (Mozilla Corporation)", 
+            "email": "Josh Aas (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2007-06-07 07:00:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 267542 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+- (void) convertCocoaMouseEvent:(NSEvent*)aMouseEvent toGeckoEvent:(nsInputEvent*)outGeckoEvent;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If it's possible to fold the actual creation of the gecko event into this\nmethod and have it be something like", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nsInputEvent*)geckoEventForCocoaMouseEvent:(NSEvent*)aMouseEvent", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-  [(ChildView*)mView convertEvent:nil toGeckoEvent:&geckoEvent];", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-  // Use our own coordinates in the gecko event.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-  // Convert event from gecko global coords to gecko view coords.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-  NSPoint localPoint = NSMakePoint(aMouseGlobalX, aMouseGlobalY);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-  FlipCocoaScreenCoordinate(localPoint);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-  localPoint = [[mView window] convertScreenToBase:localPoint];", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-  localPoint = [mView convertPoint:localPoint fromView:nil];", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-  geckoEvent.refPoint.x = NS_STATIC_CAST(nscoord, localPoint.x);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-  geckoEvent.refPoint.y = NS_STATIC_CAST(nscoord, localPoint.y);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+  [(ChildView*)mView convertCocoaMouseEvent:nil toGeckoEvent:&geckoEvent];", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "|convertCocoaMouseEvent:nil ...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "| is a no-op now;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "why is it there, and how is\nthis not changing behavior?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+- (void) genericCocoaEvent:(NSEvent*)inEvent toGeckoEvent:(nsInputEvent*)outGeckoEvent", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Why doesn't this method use the 'convert' prefix?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+  if (!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "aMouseEvent || !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "outGeckoEvent)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    return;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+  if (!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "aKeyEvent || !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "outGeckoEvent)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    return;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Enforcing a non-nil aMouseEvent/aKeyEvent is new, so again it seems like this\nisn't behavior-preserving.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It seems like outGeckoEvent probably be an assert, rather than just a check.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Stuart Morgan", 
+            "email": "Stuart Morgan"
+        }, 
+        {
+            "date": "2007-06-07 10:40:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=267604) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "fix v1.1", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thanks for the nice catch.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I didn't intend to do that at all.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't want to fold gecko event creation into those methods right now because\nof scoping/lifetime issues.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Maybe I would in a later patch.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Josh Aas (Mozilla Corporation)", 
+            "email": "Josh Aas (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2007-06-07 13:38:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Another thing I forgot to mention that is hard to see in the patch...", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-    if (!outGeckoEvent->isControl && !outGeckoEvent->isMeta)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-      outGeckoEvent->isControl = outGeckoEvent->isAlt = outGeckoEvent->isMeta\n= 0;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I completely removed this.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "First of all, isControl and isMeta are obviously\nalready 0, so setting those is unnecessary.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Secondly, it doesn't make any sense\nto set \"isAlt\" to false just because meta and control are false.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I looked back\nin cvs blame to see why that was done and it looks like a mistake to me.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Jinglepants just copied it over from Carbon where the logic is actually\nslightly different anyway (though it still looks buggy in Carbon to me).", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Josh Aas (Mozilla Corporation)", 
+            "email": "Josh Aas (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2007-06-07 14:29:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 267604 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "r=me, although I'd like to see the gecko events being created by the methods\neventually.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I didn't notice anything else that might not be behavior preserving.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Colin Barrett [:cbarrett]", 
+            "email": "Colin Barrett [:cbarrett]"
+        }, 
+        {
+            "date": "2007-06-08 08:46:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=267718) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "window fix v1.0", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Just putting some window cleanup on this bug as well.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Josh Aas (Mozilla Corporation)", 
+            "email": "Josh Aas (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2007-06-08 11:40:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 267718 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+  if (gRollupListener !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "= nsnull && gRollupWidget !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "= nsnull)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'd prefer to see this changed to |if (gRollupListener && gRollupWidget)| while\nyou are touching it, but r=me either way.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Stuart Morgan", 
+            "email": "Stuart Morgan"
+        }, 
+        {
+            "date": "2007-06-08 12:03:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 267718 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "sr=pink", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mike Pinkerton (not reading bugmail)", 
+            "email": "Mike Pinkerton (not reading bugmail)"
+        }, 
+        {
+            "date": "2007-06-08 12:06:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 267604 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "sr=pink", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mike Pinkerton (not reading bugmail)", 
+            "email": "Mike Pinkerton (not reading bugmail)"
+        }, 
+        {
+            "date": "2007-06-11 12:26:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "checked in \"window fix v1.0\"", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Josh Aas (Mozilla Corporation)", 
+            "email": "Josh Aas (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2007-06-12 13:31:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "checked in \"fix v1.0\"", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Josh Aas (Mozilla Corporation)", 
+            "email": "Josh Aas (Mozilla Corporation)"
+        }
+    ], 
+    "title": "clean up cocoa child view event handling code"
+}

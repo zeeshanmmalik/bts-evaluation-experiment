@@ -1,0 +1,2043 @@
+{
+    "project": "Mozilla", 
+    "original_link": "http://dont.know.yet/388117", 
+    "comments": [
+        {
+            "date": "2007-07-13 21:18:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=272279) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "strsclnt patch v1, make it use IPv4 or IPv6, like tstclnt", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "While investigating NSPR bug 387954, I enabled IPv6 on my WinXP system\nusing the command \"ipv6 install\".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "After doing so, ssl.sh began to hang.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The problem seems to be related to the fact that tstclnt is capable of\nbeing an IPv4 or IPv6 client, while strsclnt and selfserv are only \ncapable of IPv4.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When IPv6 is enabled on Windows, and host name resolution is done with \nPR_GetAddrInfoByName and PR_EnumerateAddrInfo, \"localhost\" resolves to \nthe IPv6 loopback address [::1] rather than to 127.0.0.1, and other \nhostnames that are listed in the hosts file with an Ip address of", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "127.0.0.1 also resolve to [::1] instead.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Consequently, a program\nsuch as tstclnt that uses PR_GetAddrInfoByName to resolve addresses, \nand uses either an IPv4 or IPv6 socket depending on the address family\nof the resolve address will always use IPv6 when trying to contact \nlocalhost (by any name).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "My tests seem to indicate that, on windows,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "a) a client using an AF_INET6 socket CANNOT connect to a server using an \nAF_INET listen socket.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "b) SOME clients that use AF_INET sockets can connect to SOME (but not all) \nservers that use AF_INET6 listen sockets.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have not yet determined why\nthis works with some combinations and not with others.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I had no trouble\nconnecting to the test server program whose source is attached to bug \n387954 with an IPv4 client.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But when I put the same server code into \nselfserv and tried there, I could not connect to selfserv with an IPv4\nclient.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I need to repeat all these tests.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "c) when a client using a socket of one type tries to connect to a server \nthat uses a listen socket of the other type, and it fails to connect, the\nconnection error is WSAECONREF, connection refused.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Even though the \nclient and server are trying to use the same port number, the OS decides\nthere is no listen socket that satisfies the client's connect target, \nand so refuses the connection.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It fails immediately, but our tstclnt \nprogram waits a few seconds and retries, a large number of times, creating\nthe appearance that the tstclnt program is hung.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In an effort to get ssl.sh working again, I converted selfserv to use an\nAF_INET6 listen socket, using essentially the same code as in the attachment\nto bug 387954.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Then tstclnt immediately began to work with selfserv, but\nstrsclnt did not.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "strsclnt also began to appear to hang, and the connections\nto selfserv were not completing.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, then I converted strsclnt to use the \nsame code as tstclnt, code that can choose the type of socket based on the \nresolved address.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "With that change made, ssl.sh passes.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, I now have a patch for selfserv and another for strsclnt.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm satisfied\nwith the patch for strsclnt, but not entirely with the patch for selfserv.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Since selfserv doesn't do any address resolution call before trying to listen,\nit has no basis on which to decide whether to use an IPv4 or IPv6 listen \nsocket.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So the patch presently always chooses AF_INET6 (IPv6) for the listen\nsocket.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think this is doomed to fail on a system that does not have IPv6\nsupport enabled.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am now seaerching for the best way to choose between listening on an IPv4 \nor IPv6 socket.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Some ideas that occur to me include:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1) try IPv6 first, and if that fails, close that socket and try again with \nan IPv4 socket.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "2) try some other way to \"probe\" the system to see if it supports IPv6, and\nbase the choice on that.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "3) use BOTH IPv4 and IPv6 listen sockets on separate listen threads, or \nuse non-blocking IO on the listen sockets and a single thread to poll both\nof them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am attaching two patches, the strsclnt patch that I believe is ready for\nreview, and the selfserv patch that I think is NOT ready for review.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-07-13 21:23:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=272280) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "selfserv patch v1 - always listen on AF_INET6 socket", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This patch works on IPv6-enabled systems, but probably does not work on \nANY IPv4-only platform.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Needs work.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-07-13 21:34:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Wan-Teh can you suggest a good platform-independent way for an NSPR based\napplication to probe the system to determine IPv6 capability?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Some ideas that occur to me include:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "a) try to resolve \"localhost\" with PR_GetAddrInfoByName and use the \naddress family in the resolved address.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "b) try to open an AF_INET6 socket and bind it to PR_Ip_Addr_any.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is there a better solution?", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-07-15 00:17:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In comment 0, I wrote:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> b) SOME clients that use AF_INET sockets can connect to SOME (but not all) \n> servers that use AF_INET6 listen sockets.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I can no longer get ANY AF_INET clients to connect to ANY AF_INET6 servers.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So, I think my original observation was mistaken regarding this one point.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I fear it will be necessary to use two listen sockets for a server to be \nable to receive connections from either type of client.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":(", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-07-16 10:28:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 272279 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On some Unix platforms, an AF_INET6 listening socket can accept\nboth IPv4 and IPv6 connections unless the listening socket is\nmarked as IPv6 only (there is a socket option for that).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This convenient feature does not work on Windows and other Unix\nplatforms.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So for portability, selfserv should have one listening\nsocket for each of AF_INET and AF_INET6, and the AF_INET6 listening\nsocket should be marked IPv6 only (by setting the IPV6_V6ONLY option\nto 1).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "NSPR doesn't expose the IPV6_V6ONLY socket option yet.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2007-07-16 10:37:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In reply to comment #2)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "NSPR detects the presence of IPv6 by trying to open an", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "AF_INET6 socket.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You'll need to implement this test by", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "calling the socket() function directly, because", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "PR_OpenTCPSocket(PR_AF_INET6) may return a fake IPv6", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "socket that only works with IPv4-mapped IPv6 addresses.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2007-07-16 11:25:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In reply to comment 5:  Oh dear, that's nasty.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Sounds like NSPR needs to offer a portable way for the application to \nprobe the local system's IPv6 capabilities.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am working on another patch to selfserv to use two listen sockets.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Unfortunately, it is going to be a rather large patch because it will add\nmore threads and need to manage them.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-07-17 16:19:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This bug now depends on bug 190467, which requests that NSPR support \nthe IPV6_V6ONLY socket option.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-07-17 17:11:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=272715) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "selfserv patch v2 - 2 listen sockets & 2 threads", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This patch implements two separate listen sockets, one for IPv4 and one \nfor IPv6, and separate threads to listen on them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It works on my WinXP box.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am attaching it to make it easily available to me on other systems for \nbuilding and testing.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It is not for review at this time, because it has\nat least the following problems:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "a) it uses the flawed NSPR method of determining if the system supports \nIPv6 or not.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "b) it does not set the IPV6_V6ONLY option, and it does not check to see \nif IPv6 sockets also can serve to listen on IPv4 ports.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "c) it does not generate a fatal error if it is running on an IPv6 system\nbut fails to bind an IPv6 socket.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It only generates a fatal error if it\nfails to bind both IPv4 and IPv6 sockets.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-07-17 17:19:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Nelson,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Is there possibly any way we could avoid requiring two listen sockets and\nlistener threads for IPv4 and IPv6 in a cross-platform way ?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is already a\nlot of new code for selfserv, and imagine what it will be for actual production\nserver applications to implement.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Julien Pierre", 
+            "email": "Julien Pierre"
+        }, 
+        {
+            "date": "2007-07-17 17:52:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In reply to comment #9, no, on Windows, there is no alternative to using\ntwo listen sockets, one for each address family.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not if we want the server\nto be able to answer requests received over either IPv4 or IPv6.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There are\nalso reportedly some Unix systems that behave this way, though I don't \nknow which ones exactly.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I believe we do want selfserv to be able to receive and respond to both\nIPv4 and IPv6 connections in the same process.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Presently, most NSS clients\nuse IPv4 only, but one (tstclnt) already uses IPv4 OR IPv6 automatically,\ndepending on the family of the address it gets back from the call that \nresolves the host name string to an IP address.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Given that our tests use\nlocalhost (or equivalent), on an IPv6 capable system tstclnt will use IPv6\nand the rest will use IPv4.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We can modify all our clients to automatically switch between IPv4 and Ipv6, \nas tstclnt does now.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The first patch attached to this bug does exactly that\nfor strsclnt, and bug 366614 requests that that also be done to all the \nother test programs.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But I think it is useful to test our ability to do \nboth, and also serves as an example for other NSPR-based products.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Yes, it's more complicated that one would like, but I think real-world \nproducts must do it.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(That is, I believe the ability to support both IPv4\nand IPv6 in the same server is (or will soon be) a common real-world \nrequirement for real server products.)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, it makes sense for our flagship \ntest server program (:-) to illuminate the path forward, IMO.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-07-17 18:12:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Nelson,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am not sure that we really need to make selfserv listen to both IPv4 and IPv6\nat the same time.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think doing them each separately is sufficient.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you can\nget it to work reliably cross-platform, great, but IMO we only need to make\nsure they both work separately.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As far as the tstclnt issue goes, we should be able to fix that independently.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Maybe selfserv should also take a hostname argument to select the binding\naddress.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Most real servers have an argument for that.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This way, we can be sure\nthat tstclnt and selfserv agree on what type of IP to use.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There are probably\nother ways to deal with this.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think production servers may use different approaches to deal with the\nproblem.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The accept logic in servers is already fairly optimized and this is\nprobably not something they will want to rewrite.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Most products already support\nvirtual servers and multiple listen sockets/threads.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The administrators can\njust use that feature to deal with having multiple listen sockets, some for\nIPv4 and others IPv6, as needed.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So in theory this may not require code changes\non the products' part.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Julien Pierre", 
+            "email": "Julien Pierre"
+        }, 
+        {
+            "date": "2007-07-17 18:25:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 272279 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This looks OK except that addr.inet.port is uninitialized in the case where a\nhostname string is passed in.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Julien Pierre", 
+            "email": "Julien Pierre"
+        }, 
+        {
+            "date": "2007-07-17 23:14:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 272279 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Julien: I believe the port member of the PRNetAddr is initialized by the \nfollowing call:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t    enumPtr = PR_EnumerateAddrInfo(enumPtr, addrInfo, port, &addr);", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-07-17 23:16:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Also, note that this code comes straight out of tstclnt, where it works \ncorrectly.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Tstclnt connects to the correct port number.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-07-18 00:14:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 272279 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "asking for re-review, in light of the preceding comments.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The code is tested\nin strsclnt and known to connect to the right port.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "All.sh passes.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-07-18 14:33:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 272279 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My bad.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Julien Pierre", 
+            "email": "Julien Pierre"
+        }, 
+        {
+            "date": "2007-07-23 21:53:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 272279 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "requesting second review for NSS 3.11 branch.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Wan-Teh has asked for someone else to do this review.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-07-23 21:54:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 272279 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "strclnt patch committed on trunk.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-08-07 18:01:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 272279 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committed strsclnt change on 3.11 branch.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-08-30 19:32:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 272715 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Wan-Teh,  You're our reigning IPv6 guru.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'd like you to review this patch.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I now use this patch in all my Windows test builds.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I must use it, or else ssl.sh stops at the first test", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "that uses selfserv.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is because my Windows system", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "has IPv6 enabled.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't know how well this will work on other platforms.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'd like to try it on the trunk, to see how well it does.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If it fails, it can be backed out.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It only patches one", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "source file, so it's not very invasive.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-08-31 23:04:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I won't have time to review this patch next week.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you need a review soon, please ask someone else.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sorry.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2007-09-08 09:34:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 272715 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r=wtc.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have some comments and suggested changes.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "First, an IPv6 NSPR socket may be one of the three kinds", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "depending on the platform.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- IPv6 only, for example, on IPv6-enabled Windows XP.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- IPv6/IPv4 dual stack, for example, on IPv6-enabled Solaris.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- IPv4 only (handled as IPv4-mapped IPv6 addresses), for", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "example on any system without IPv6 support.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "With your patch, selfserv will have an IPv4 listening", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "NSPR socket, plus one of these IPv6 listening NSPR socket.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On the latter two kinds of platforms, both listening", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "sockets will accept connections from IPv4 clients.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This should work.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I just want to point this out.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We should add the support of the IPV6_V6ONLY socket option", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "to NSPR, so that we can make sure we create an IPv6 only", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "NSPR socket.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Then, if we can't do that, we'll just have", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "an IPv4 listening socket in selfserv.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-static PRThread * acceptorThread;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+static PRThread * IPv4AcceptorThread;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+static PRThread * IPv6AcceptorThread;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I suggest naming these variables ipv4AcceptorThread", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "or acceptorThreadIPv4, so that their names begin with", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "a lowercase letter.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-    FPRINTF(stderr, \"selfserv: Closing listen socket.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\\n\");", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    FPRINTF(stderr, \"selfserv: do_accepts: exiting.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\\n\");", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">     VLOG((\"selfserv: do_accepts: exiting\"));", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-    if (listen_sock) {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-        PR_Close(listen_sock);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-    }", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Rather than updating the FPRINTF message, you should move", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "it along with the listen_sock closing code to the main function.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The new FPRINTF message is redundant with the VLOG message.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Why did you move the listen_sock closing code from do_accepts\nto the main function?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+acceptWrapper(void * arg)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I wanted to suggest that you rename this accept_wrapper to", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make it look like the related do_accepts function.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Then", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I discovered that this file doesn't have a consistent", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "naming convention for functions.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Both the foo_bar and", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fooBar styles are used.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sigh.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    do_accepts( args->listen_sock, args->model_sock, args->requestCert);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Delete the space after the opening parenthesis '('.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    if (prStatus !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "= PR_SUCCESS) {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\tif (af == PR_AF_INET)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t    errWarn(\"PR_Bind(PR_AF_INET)\");", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\telse", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t    errWarn(\"PR_BIND(PR_AF_INET6)\");", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\tPR_Close(listen_sock);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\tlisten_sock = NULL;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\treturn NULL;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">     }", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Since listen_sock is a local variable, it isn't necessary", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "to set it to NULL before returning from the function.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    if (listen_ipv4_sock && listen_ipv6_sock)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    \tuseModelSocket = PR_TRUE;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Why do we set useModelSocket to true if we have both", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "listen_ipv6_sock and listen_ipv6_sock?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\tdo {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t    /* We should really use some sort of \"dummy\" socket here.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "*/\n>+\t    model_sock = PR_OpenTCPSocket(af);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t    if (model_sock !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "= NULL)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t    \tbreak;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t    if (af == PR_AF_INET)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t\terrExit(\"PR_OpenTCPSocket for model socket\");", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t    errWarn(\"PR_OpenTCPSocket for model socket\");", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t    af = PR_AF_INET;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t} while (model_sock == NULL);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "At the end of each iteration, model_sock is NULL, so", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "model_sock == NULL is true.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You can replace this", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "do-while loop with for (;;)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "or while (1).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Unrolling", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "this loop may make the logic clearer.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    if (listen_ipv4_sock && listen_ipv6_sock) {", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    \t/* start two acceptor threads, and wait for them.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "*/", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Why don't you use the main thread to listen on one of", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "the listening sockets?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+                        useLocalThreads ?", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "PR_LOCAL_THREAD:PR_GLOBAL_THREAD,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Add spaces before and after the colon (:).", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There are", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "two instances of this.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-\texit(0);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\texit(!", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "listen_ipv4_sock && !", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "listen_ipv6_sock);", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This change is incorrect in the case where the platform", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "supports both IPv4 and IPv6.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If a previous selfserv", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "process has freed the IPv4 TCP port but not the IPv6", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TCP port, you'll get an exit status of 0 (success)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "because we can bind to the IPv4 TCP port, but the new", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "selfserv process won't be able to bind to the IPv6 TCP", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "port.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It should be OK to ignore this issue.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t    /* Must have at least one good listen socket */", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+\t    errExit(\"Got no Listen sockets\");", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Use lowercase \"listen\".", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There are two instances of this.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2007-09-10 19:00:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created an attachment (id=280420) [details]", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "patch v4 - address Wan-Teh's review comments", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This patch is undoubtedly much bigger than the last one,", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "because I addressed Wan-Teh's remarks about inconsistent", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function naming style.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-09-10 21:44:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On trunk:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checking in selfserv.c;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new revision: 1.79;", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "previous revision: 1.78\nWatching to see what happens on Tinderbox.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2007-09-11 09:39:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "One problem with this patch is that if something goes wrong,\nselfserv may still work in a degraded functionality mode, and\nit's hard for us to detect that has happened.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "An example is that on some platforms, PR_OpenTCPSocket(PR_AF_INET6)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "may return an emulated IPv6 NSPR socket, which is implemented\nby NSPR IO layering.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But a layered socket can't be inherited\nby a child process.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So PR_GetInheritedFD(inheritableIPv6SockName)", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "will fail in a child process.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But this failure can't be easily\ndetected because the parent process will accept connections", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "and hide this problem.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "These issues aren't necessarily serious, but with these issues\nselfserv isn't a good sample server for listening for IPv4 and\nIPv6 connection requests.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wan-Teh Chang", 
+            "email": "Wan-Teh Chang"
+        }, 
+        {
+            "date": "2007-09-11 10:02:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I checked in patch v4 yesterday, after running ssl.sh with it on my WinXP\nPC, and it passed 100%.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But when I checked it in, tinderbox went orange \non some of the Solaris boxes and even on the one Windows box, which \nsurprised me quite a bit.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On Solaris, after succesfully running some (non-zero) number of tests,\nit failed.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The log file contained these lines:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "selfserv: PR_Bind(PR_AF_INET) returned error -5982:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Local Network address is in use.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "selfserv: PR_BIND(PR_AF_INET6) returned error -5982:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Local Network address is in use.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "selfserv: Got no listen sockets returned error -5982:", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Local Network address is in use.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "selfserv: normal termination", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On Windows, the very first SSL test failed.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It behaved as if selfserv had \nsimply not run.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "tstclnt got error ECONNREF.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But there were no error \nmessages from selfserv, at all.", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I do not understand that behavior.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }, 
+        {
+            "date": "2008-06-15 15:37:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(From update of attachment 280420 [details])", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Note that the patch that is now correctly identified as v3, is the patch that\nwas erroneously described as v4 in several preceding comments.", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nelson Bolyard (:MisterSSL)", 
+            "email": "Nelson Bolyard (:MisterSSL)"
+        }
+    ], 
+    "title": "ssl.sh hangs or fails on Windows when IPv6 is enabled"
+}
