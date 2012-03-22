@@ -36,9 +36,8 @@ ActiveRecord::Schema.define(:version => 20120320170349) do
     t.string   "project"
     t.string   "original_link"
     t.integer  "experiment_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.integer  "participant_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   add_index "bug_reports", ["experiment_id"], :name => "index_bug_reports_on_experiment_id"
@@ -77,8 +76,10 @@ ActiveRecord::Schema.define(:version => 20120320170349) do
     t.integer  "experiment_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "bug_report_id"
   end
 
+  add_index "participants", ["bug_report_id"], :name => "index_participants_on_bug_report_id"
   add_index "participants", ["experiment_id"], :name => "index_participants_on_experiment_id"
 
   create_table "rails_admin_histories", :force => true do |t|
