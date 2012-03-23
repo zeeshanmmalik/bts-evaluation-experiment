@@ -23,7 +23,7 @@
         - if sen.text.empty?
           %p
         - elsif sen.is_in_lex_summary?
-          %span{ :class => "sentence" }
+          %span.sentence
             = raw sen.text.gsub("\n","<br>")
 
   %fieldset.summary
@@ -81,3 +81,119 @@
             - else
               %span.sentence
                 = raw sen.text.gsub("\n","<br>")
+
+.clear-both
+  
+.survey-form
+  .question-container
+    .question
+      Q1: Important points of the bug report are represented in the summary.
+    .answer
+      .choices
+        Summary 1:
+        %ul
+          - 0.upto(5) do |i|
+            %li
+              = radio_button_tag "q1_s1", i
+              = label_tag "q1_s1_#{i}", i
+      .choices
+        Summary 2:
+        %ul
+          - 0.upto(5) do |i|
+            %li
+              = radio_button_tag "q1_s2", i
+              = label_tag "q1_s2_#{i}", i
+
+  .question-container
+    .question
+      Q2: The summary avoids redundancy.
+    .answer
+      .choices
+        Summary 1:
+        %ul
+          - 0.upto(5) do |i|
+            %li
+              = radio_button_tag "q1_s1", i
+              = label_tag "q2_s1_#{i}", i
+      .choices
+        Summary 2:
+        %ul
+          - 0.upto(5) do |i|
+            %li
+              = radio_button_tag "q1_s2", i
+              = label_tag "q2_s2_#{i}", i
+
+  .question-container
+    .question
+      Q3: The summary does not contain unnecessary information.
+    .answer
+      .choices
+        Summary 1:
+        %ul
+          - 0.upto(5) do |i|
+            %li
+              = radio_button_tag "q1_s1", i
+              = label_tag "q3_s1_#{i}", i
+      .choices
+        Summary 2:
+        %ul
+          - 0.upto(5) do |i|
+            %li
+              = radio_button_tag "q1_s2", i
+              = label_tag "q3_s2_#{i}", i
+
+  .question-container
+    .question
+      Q4: The summary is coherent.
+    .answer
+      .choices
+        Summary 1:
+        %ul
+          - 0.upto(5) do |i|
+            %li
+              = radio_button_tag "q4_s1", i
+              = label_tag "q4_s1_#{i}", i
+      .choices
+        Summary 2:
+        %ul
+          - 0.upto(5) do |i|
+            %li
+              = radio_button_tag "q4_s2", i
+              = label_tag "q4_s2_#{i}", i
+
+  .question-container
+    .question
+      Q5: Do you prefer highlighted summary view or block view.
+    .answer
+      .choices
+        %ul
+          - ['highlighted','block'].each do |view|
+            %li
+              = radio_button_tag "q5", view
+              = label_tag "q5_#{view}", view.humanize
+
+  .question-container
+    .question
+      Q6: Do you think summarizing bug reports is helpful? Why?
+    .answer
+      .choices
+        %ul
+          - ['yes','no'].each do |choice|
+            %li
+              = radio_button_tag "q6", choice
+              = label_tag "q6_#{choice}", choice.humanize
+      .choices{ :style => 'display: block; padding: 0.5em 0 0 1.5em;' }
+        Why?
+        %br
+        = text_area_tag "q6_reason", nil, :size => "25x10"
+
+  .question-container
+    .question
+      Q7: Do you want to be contacted to know the results of this experiment?
+    .answer
+      .choices
+        %ul
+          - ['yes','no'].each do |choice|
+            %li
+              = radio_button_tag "q7", choice
+              = label_tag "q7_#{choice}", choice.humanize        
