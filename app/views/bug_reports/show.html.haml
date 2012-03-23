@@ -1,9 +1,9 @@
 = javascript_include_tag "bug_reports"
-- summary_1_pos = 'left'
-- summary_2_pos = 'right'
+- summary_1_pos = 'summary-one'
+- summary_2_pos = 'summary-two'
 - if rand > 0.5
-  - summary_1_pos = 'right'
-  - summary_2_pos = 'left'
+  - summary_1_pos = 'summary-two'
+  - summary_2_pos = 'summary-one'
 
 /%p#notice= notice
 
@@ -14,7 +14,7 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.brand{:href => "#"} BTS-Evaluation-Experiment
+      %a.brand{:href => "#"} Bug Report Summary Evaluation Experiment
       .nav-collapse
         %ul.nav.secondary-nav
           %li.active
@@ -34,7 +34,7 @@
         %h4{:style => "margin-top:7px;"}
           Project: "#{@bug_report.project}"
       .span3
-        %a.btn.btn-primary.large.pull-right{:href => "#{@bug_report.original_link}", :target => "_blank"}
+        %a.btn.btn-info.btn-large.pull-right{:href => "#{@bug_report.original_link}", :target => "_blank"}
           Original link
 
 .container-fluid
@@ -44,9 +44,14 @@
         .row-fluid
           .span12
             .summaries
-              %h2 Summaries
+              %h2 Bug Report Summaries
               .row-fluid
                 .span6
+                  %h3 Summary 1
+                .span6
+                  %h3 Summary 2
+              .row-fluid
+                .span6{ :class => "#{summary_1_pos}" }
                   %fieldset.summary
                     %legend Lex Summary
                     - @bug_report.comments.each do |com|
@@ -57,7 +62,7 @@
                           %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
                             = raw sen.text.gsub("\n","<br>")
 
-                .span6
+                .span6{ :class => "#{summary_2_pos}" }
                   %fieldset.summary
                     %legend Email Summary
                     - @bug_report.comments.each do |com|
@@ -79,7 +84,7 @@
                 .span6
                   %h3 Summary 2
               .row-fluid.fix-height
-                .span6
+                .span6{ :class => "#{summary_1_pos}" }
                   %fieldset.summary
                     %legend Lex Summary
                     - @bug_report.comments.order('number ASC').each do |com|
@@ -101,7 +106,7 @@
                               %span.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
                                 = raw sen.text.gsub("\n","<br>")
 
-                .span6
+                .span6{ :class => "#{summary_2_pos}" }
                   %fieldset.summary
                     %legend Email Summary
                     - @bug_report.comments.order('number ASC').each do |com|
@@ -131,22 +136,22 @@
                 .answer
                   .row-fluid
                     .span8
-                      .span4
+                      .span4.summary-one
                         %h4 Summary 1
-                      .span4
+                      .span4.summary-two
                         %h4 Summary 2
                   .row-fluid
                     .span8
-                      .span4
+                      .span4{ :class => "#{summary_1_pos}" }
                         .choices
-                          Summary 1:
+                          Lex Summary:
                           .radio-buttons
                             - 0.upto(5) do |i|
                               = radio_button_tag "q1_s1", i
                               = label_tag "q1_s1_#{i}", i
-                      .span4
+                      .span4{ :class => "#{summary_2_pos}" }
                         .choices
-                          Summary 2:
+                          Email Summary:
                           .radio-buttons
                             - 0.upto(5) do |i|
                               = radio_button_tag "q1_s2", i
@@ -158,16 +163,22 @@
                 .answer
                   .row-fluid
                     .span8
-                      .span4                  
+                      .span4.summary-one
+                        %h4 Summary 1
+                      .span4.summary-two
+                        %h4 Summary 2                  
+                  .row-fluid
+                    .span8
+                      .span4{ :class => "#{summary_1_pos}" }
                         .choices
-                          Summary 1:
+                          Lex Summary:
                           .radio-buttons
                             - 0.upto(5) do |i|
                               = radio_button_tag "q2_s1", i
                               = label_tag "q2_s1_#{i}", i
-                      .span4
+                      .span4{ :class => "#{summary_2_pos}" }
                         .choices
-                          Summary 2:
+                          Email Summary:
                           .radio-buttons
                             - 0.upto(5) do |i|
                               = radio_button_tag "q2_s2", i
@@ -179,16 +190,22 @@
                 .answer
                   .row-fluid
                     .span8
-                      .span4                  
+                      .span4.summary-one
+                        %h4 Summary 1
+                      .span4.summary-two
+                        %h4 Summary 2                  
+                  .row-fluid
+                    .span8
+                      .span4{ :class => "#{summary_1_pos}" }
                         .choices
-                          Summary 1:
+                          Lex Summary:
                           .radio-buttons
                             - 0.upto(5) do |i|
                               = radio_button_tag "q3_s1", i
                               = label_tag "q3_s1_#{i}", i
-                      .span4
+                      .span4{ :class => "#{summary_2_pos}" }
                         .choices
-                          Summary 2:
+                          Email Summary:
                           .radio-buttons
                             - 0.upto(5) do |i|
                               = radio_button_tag "q3_s2", i
@@ -200,16 +217,22 @@
                 .answer
                   .row-fluid
                     .span8
-                      .span4                  
+                      .span4.summary-one
+                        %h4 Summary 1
+                      .span4.summary-two
+                        %h4 Summary 2                  
+                  .row-fluid
+                    .span8
+                      .span4{ :class => "#{summary_1_pos}" }
                         .choices
-                          Summary 1:
+                          Lex Summary:
                           .radio-buttons
                             - 0.upto(5) do |i|
                               = radio_button_tag "q4_s1", i
                               = label_tag "q4_s1_#{i}", i
-                      .span4
+                      .span4{ :class => "#{summary_2_pos}" }
                         .choices
-                          Summary 2:
+                          Email Summary:
                           .radio-buttons
                             - 0.upto(5) do |i|
                               = radio_button_tag "q4_s2", i
@@ -221,7 +244,7 @@
                 .answer
                   .row-fluid
                     .span8
-                      .span4                  
+                      .span4              
                         .choices
                           .radio-buttons
                             - ['highlighted','block'].each do |view|
