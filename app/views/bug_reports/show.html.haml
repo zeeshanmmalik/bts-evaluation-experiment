@@ -1,4 +1,13 @@
-.navbar.navbar-fixed-top
+= javascript_include_tag "bug_reports"
+- summary_1_pos = 'left'
+- summary_2_pos = 'right'
+- if rand > 0.5
+  - summary_1_pos = 'right'
+  - summary_2_pos = 'left'
+
+/%p#notice= notice
+
+.navbar
   .navbar-inner
     .container
       %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
@@ -15,195 +24,212 @@
           %li
             %a{:href => "#contact"} Contact
       / /.nav-collapse
-%p#notice= notice
 
 .hero-unit.bg-dark
   .container
     .row
       .span13
-        %h3.white
+        %h3
           Title: #{@bug_report.title}
-        %h4{:class => "white",:style => "margin-top:7px;"}
+        %h4{:style => "margin-top:7px;"}
           Project: "#{@bug_report.project}"
       .span3
         %a.btn.btn-primary.large.pull-right{:href => "#{@bug_report.original_link}", :target => "_blank"}
           Original link
 
-
 .container-fluid
   .row-fluid
-    .span1
-      %br
-    .span10
+    .span12
       .container-fluid.container-box
         .row-fluid
-          .sidebar.span12
+          .span12
             .summaries
               %h2 Summaries
-              %fieldset.summary
-                %legend Lex Summary
-                - @bug_report.comments.each do |com|
-                  - com.sentences.order('number ASC').each do |sen|
-                    - if sen.text.empty?
-                      %p
-                    - elsif sen.is_in_lex_summary?
-                      %span.sentence
-                        = raw sen.text.gsub("\n","<br>")
-
-              %fieldset.summary
-                %legend Email Summary
-                - @bug_report.comments.each do |com|
-                  - com.sentences.order('number ASC').each do |sen|
-                    - if sen.text.empty?
-                      %p
-                    - elsif sen.is_in_email_summary?
-                      %span.sentence
-                        = raw sen.text.gsub("\n","<br>")
-            .clear-both
-
-            .summaries
-              %h2 Interlaced Summaries
-              %fieldset.summary
-                %legend Lex Summary
-                - @bug_report.comments.order('number ASC').each do |com|
-                  .comment
-                    .comment-header
-                      = com.number
-                      \|
-                      = com.submitted_at
-                      \|
-                      = com.participant.email
-                    .comment-body
+              .row-fluid
+                .span6
+                  %fieldset.summary
+                    %legend Lex Summary
+                    - @bug_report.comments.each do |com|
                       - com.sentences.order('number ASC').each do |sen|
                         - if sen.text.empty?
                           %p
                         - elsif sen.is_in_lex_summary?
-                          %span.sentence.highlight
-                            = raw sen.text.gsub("\n","<br>")
-                        - else
-                          %span.sentence
+                          %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
                             = raw sen.text.gsub("\n","<br>")
 
-              %fieldset.summary
-                %legend Email Summary
-                - @bug_report.comments.order('number ASC').each do |com|
-                  .comment
-                    .comment-header
-                      = com.number
-                      \|
-                      = com.submitted_at
-                      \|
-                      = com.participant.email
-                    .comment-body
+                .span6
+                  %fieldset.summary
+                    %legend Email Summary
+                    - @bug_report.comments.each do |com|
                       - com.sentences.order('number ASC').each do |sen|
                         - if sen.text.empty?
                           %p
                         - elsif sen.is_in_email_summary?
-                          %span.sentence.highlight
+                          %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
                             = raw sen.text.gsub("\n","<br>")
-                        - else
-                          %span.sentence
-                            = raw sen.text.gsub("\n","<br>")
-            .clear-both
+                .clear-both
+
+        .row-fluid
+          .span12
+            .summaries
+              %h2 Interlaced Summaries
+              .row-fluid
+                .span6
+                  %fieldset.summary
+                    %legend Lex Summary
+                    - @bug_report.comments.order('number ASC').each do |com|
+                      .comment
+                        .comment-header
+                          = com.number
+                          \|
+                          = com.submitted_at
+                          \|
+                          = com.participant.email
+                        .comment-body
+                          - com.sentences.order('number ASC').each do |sen|
+                            - if sen.text.empty?
+                              %p
+                            - elsif sen.is_in_lex_summary?
+                              %span.sentence.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
+                                = raw sen.text.gsub("\n","<br>")
+                            - else
+                              %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
+                                = raw sen.text.gsub("\n","<br>")
+
+                .span6
+                  %fieldset.summary
+                    %legend Email Summary
+                    - @bug_report.comments.order('number ASC').each do |com|
+                      .comment
+                        .comment-header
+                          = com.number
+                          \|
+                          = com.submitted_at
+                          \|
+                          = com.participant.email
+                        .comment-body
+                          - com.sentences.order('number ASC').each do |sen|
+                            - if sen.text.empty?
+                              %p
+                            - elsif sen.is_in_email_summary?
+                              %span.sentence.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
+                                = raw sen.text.gsub("\n","<br>")
+                            - else
+                              %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
+                                = raw sen.text.gsub("\n","<br>")
+                .clear-both
 
             .survey-form
               .question-container
                 .question
                   Q1: Important points of the bug report are represented in the summary.
                 .answer
-                  .choices
-                    Summary 1:
-                    %ul
-                      - 0.upto(5) do |i|
-                        %li
-                          = radio_button_tag "q1_s1", i
-                          = label_tag "q1_s1_#{i}", i
-                  .choices
-                    Summary 2:
-                    %ul
-                      - 0.upto(5) do |i|
-                        %li
-                          = radio_button_tag "q1_s2", i
-                          = label_tag "q1_s2_#{i}", i
+                  .row-fluid
+                    .span8
+                      .span4
+                        .choices
+                          Summary 1:
+                          .radio-buttons
+                            - 0.upto(5) do |i|
+                              = radio_button_tag "q1_s1", i
+                              = label_tag "q1_s1_#{i}", i
+                      .span4
+                        .choices
+                          Summary 2:
+                          .radio-buttons
+                            - 0.upto(5) do |i|
+                              = radio_button_tag "q1_s2", i
+                              = label_tag "q1_s2_#{i}", i
 
               .question-container
                 .question
                   Q2: The summary avoids redundancy.
                 .answer
-                  .choices
-                    Summary 1:
-                    %ul
-                      - 0.upto(5) do |i|
-                        %li
-                          = radio_button_tag "q1_s1", i
-                          = label_tag "q2_s1_#{i}", i
-                  .choices
-                    Summary 2:
-                    %ul
-                      - 0.upto(5) do |i|
-                        %li
-                          = radio_button_tag "q1_s2", i
-                          = label_tag "q2_s2_#{i}", i
+                  .row-fluid
+                    .span8
+                      .span4                  
+                        .choices
+                          Summary 1:
+                          .radio-buttons
+                            - 0.upto(5) do |i|
+                              = radio_button_tag "q2_s1", i
+                              = label_tag "q2_s1_#{i}", i
+                      .span4
+                        .choices
+                          Summary 2:
+                          .radio-buttons
+                            - 0.upto(5) do |i|
+                              = radio_button_tag "q2_s2", i
+                              = label_tag "q2_s2_#{i}", i
 
               .question-container
                 .question
                   Q3: The summary does not contain unnecessary information.
                 .answer
-                  .choices
-                    Summary 1:
-                    %ul
-                      - 0.upto(5) do |i|
-                        %li
-                          = radio_button_tag "q1_s1", i
-                          = label_tag "q3_s1_#{i}", i
-                  .choices
-                    Summary 2:
-                    %ul
-                      - 0.upto(5) do |i|
-                        %li
-                          = radio_button_tag "q1_s2", i
-                          = label_tag "q3_s2_#{i}", i
+                  .row-fluid
+                    .span8
+                      .span4                  
+                        .choices
+                          Summary 1:
+                          .radio-buttons
+                            - 0.upto(5) do |i|
+                              = radio_button_tag "q3_s1", i
+                              = label_tag "q3_s1_#{i}", i
+                      .span4
+                        .choices
+                          Summary 2:
+                          .radio-buttons
+                            - 0.upto(5) do |i|
+                              = radio_button_tag "q3_s2", i
+                              = label_tag "q3_s2_#{i}", i
 
               .question-container
                 .question
                   Q4: The summary is coherent.
                 .answer
-                  .choices
-                    Summary 1:
-                    %ul
-                      - 0.upto(5) do |i|
-                        %li
-                          = radio_button_tag "q4_s1", i
-                          = label_tag "q4_s1_#{i}", i
-                  .choices
-                    Summary 2:
-                    %ul
-                      - 0.upto(5) do |i|
-                        %li
-                          = radio_button_tag "q4_s2", i
-                          = label_tag "q4_s2_#{i}", i
+                  .row-fluid
+                    .span8
+                      .span4                  
+                        .choices
+                          Summary 1:
+                          .radio-buttons
+                            - 0.upto(5) do |i|
+                              = radio_button_tag "q4_s1", i
+                              = label_tag "q4_s1_#{i}", i
+                      .span4
+                        .choices
+                          Summary 2:
+                          .radio-buttons
+                            - 0.upto(5) do |i|
+                              = radio_button_tag "q4_s2", i
+                              = label_tag "q4_s2_#{i}", i
 
               .question-container
                 .question
                   Q5: Do you prefer highlighted summary view or block view.
                 .answer
-                  .choices
-                    %ul
-                      - ['highlighted','block'].each do |view|
-                        %li
-                          = radio_button_tag "q5", view
-                          = label_tag "q5_#{view}", view.humanize
+                  .row-fluid
+                    .span8
+                      .span4                  
+                        .choices
+                          .radio-buttons
+                            - ['highlighted','block'].each do |view|
+                              = radio_button_tag "q5", view
+                              = label_tag "q5_#{view}", view.humanize
 
               .question-container
                 .question
                   Q6: Do you think summarizing bug reports is helpful? Why?
                 .answer
-                  .choices
-                    %ul
-                      - ['yes','no'].each do |choice|
-                        %li
-                          = radio_button_tag "q6", choice
-                          = label_tag "q6_#{choice}", choice.humanize
+                  .row-fluid
+                    .span8
+                      .span4                  
+                        .choices
+                          .radio-buttons
+                            - ['yes','no'].each do |choice|
+                              = radio_button_tag "q6", choice
+                              = label_tag "q6_#{choice}", choice.humanize
+                        
                   .choices{ :style => 'display: block; padding: 0.5em 0 0 1.5em;' }
                     Why?
                     %br
@@ -213,14 +239,14 @@
                 .question
                   Q7: Do you want to be contacted to know the results of this experiment?
                 .answer
-                  .choices
-                    %ul
-                      - ['yes','no'].each do |choice|
-                        %li
-                          = radio_button_tag "q7", choice
-                          = label_tag "q7_#{choice}", choice.humanize
-    .span1
-      %br
+                  .row-fluid
+                    .span8
+                      .span4                  
+                        .choices
+                          .radio-buttons
+                            - ['yes','no'].each do |choice|
+                              = radio_button_tag "q7", choice
+                              = label_tag "q7_#{choice}", choice.humanize
 
   %hr
 
