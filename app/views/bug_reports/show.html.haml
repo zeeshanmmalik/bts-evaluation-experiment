@@ -1,3 +1,9 @@
+- summary_1_pos = 'left'
+- summary_2_pos = 'right'
+- if rand > 0.5
+  - summary_1_pos = 'right'
+  - summary_2_pos = 'left'
+  
 %p#notice= notice
 
 %p
@@ -23,7 +29,7 @@
         - if sen.text.empty?
           %p
         - elsif sen.is_in_lex_summary?
-          %span.sentence
+          %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
             = raw sen.text.gsub("\n","<br>")
 
   %fieldset.summary
@@ -33,7 +39,7 @@
         - if sen.text.empty?
           %p
         - elsif sen.is_in_email_summary?
-          %span.sentence
+          %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
             = raw sen.text.gsub("\n","<br>")
 
 .clear-both
@@ -55,10 +61,10 @@
             - if sen.text.empty?
               %p
             - elsif sen.is_in_lex_summary?
-              %span.sentence.highlight
+              %span.sentence.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
                 = raw sen.text.gsub("\n","<br>")
             - else
-              %span.sentence
+              %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
                 = raw sen.text.gsub("\n","<br>")
 
   %fieldset.summary
@@ -76,10 +82,10 @@
             - if sen.text.empty?
               %p            
             - elsif sen.is_in_email_summary?
-              %span.sentence.highlight
+              %span.sentence.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
                 = raw sen.text.gsub("\n","<br>")
             - else
-              %span.sentence
+              %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
                 = raw sen.text.gsub("\n","<br>")
 
 .clear-both
