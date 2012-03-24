@@ -5,7 +5,8 @@
 
 	var sentences_class       = ".eval-sen";
 
-	var hover_highlight_class = "hover-highlight";
+	var hover_selected_highlight_class = "hover-selected-highlight";
+	var hover_unselected_highlight_class = "hover-unselected-highlight";
 	var click_highlight_class = "click-highlight";
 	var wrong_highlight_class = "wrong-highlight";
 
@@ -44,10 +45,12 @@
 
 		var suggestion_message = (sentence.hasClass(click_highlight_class))? click_to_remove_suggestion_msg : click_to_add_suggestion_msg;
 		//if not highlighted then highlight
-		if(sentence.hasClass(hover_highlight_class)){
-			corresponding_sentences.removeClass(hover_highlight_class);
+		if(sentence.hasClass(hover_selected_highlight_class) || sentence.hasClass(hover_unselected_highlight_class)){
+			corresponding_sentences.removeClass(hover_selected_highlight_class).removeClass(hover_unselected_highlight_class);
 		}else{
-			corresponding_sentences.addClass(hover_highlight_class);
+			corresponding_sentences.each(function(index){
+				($(this).hasClass('highlight'))? $(this).addClass(hover_selected_highlight_class) : $(this).addClass(hover_unselected_highlight_class);
+			});
 		}
 
 		//show suggestion_message
