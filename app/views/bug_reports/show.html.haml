@@ -14,7 +14,7 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.brand{:href => "#"} Bug Report Summary Evaluation Experiment
+      %a.brand{:href => "#"} Bug Report Summary Evaluation
       .nav-collapse
         %ul.nav.secondary-nav
           %li.active
@@ -147,138 +147,137 @@
             .survey-form
               .question-container
                 .question
-                  Q1: Important points of the bug report are represented in the summary.
-                .answer
-                  .row-fluid
-                    .span8
-                      .span4.summary-one
-                        %h4 Summary 1
-                      .span4.summary-two
-                        %h4 Summary 2
-                  .row-fluid
-                    .span8
-                      .span4{ :class => "#{summary_1_pos}" }
-                        .choices
-                          .radio-buttons
-                            - 0.upto(5) do |i|
-                              = radio_button_tag "q1_s1", i
-                              = label_tag "q1_s1_#{i}", i
-                      .span4{ :class => "#{summary_2_pos}" }
-                        .choices
-                          .radio-buttons
-                            - 0.upto(5) do |i|
-                              = radio_button_tag "q1_s2", i
-                              = label_tag "q1_s2_#{i}", i
+                  Q1: Please give a score, from 1-5, for how much each of the following statements is true for each summary:
+                  .subquestion
+                    Important points of the bug report are represented in the summary.
+                  .answer 
+                    .row-fluid
+                      .span8
+                        .span4.summary-one
+                          %h4 Summary 1
+                        .span4.summary-two
+                          %h4 Summary 2
+                    .row-fluid
+                      .span8
+                        .span4{ :class => "#{summary_1_pos}" }
+                          .choices
+                            .radio-buttons
+                              - 0.upto(5) do |i|
+                                = radio_button_tag "q1_s1", i
+                                = label_tag "q1_s1_#{i}", i
+                        .span4{ :class => "#{summary_2_pos}" }
+                          .choices
+                            .radio-buttons
+                              - 0.upto(5) do |i|
+                                = radio_button_tag "q1_s2", i
+                                = label_tag "q1_s2_#{i}", i
+
+                  .subquestion
+                    Q2: The summary avoids redundancy.
+                  .answer
+                    .row-fluid
+                      .span8
+                        .span4.summary-one
+                          %h4 Summary 1
+                        .span4.summary-two
+                          %h4 Summary 2                  
+                    .row-fluid
+                      .span8
+                        .span4{ :class => "#{summary_1_pos}" }
+                          .choices
+                            .radio-buttons
+                              - 0.upto(5) do |i|
+                                = radio_button_tag "q2_s1", i
+                                = label_tag "q2_s1_#{i}", i
+                        .span4{ :class => "#{summary_2_pos}" }
+                          .choices
+                            .radio-buttons
+                              - 0.upto(5) do |i|
+                                = radio_button_tag "q2_s2", i
+                                = label_tag "q2_s2_#{i}", i
+
+                  .subquestion
+                    Q3: The summary does not contain unnecessary information.
+                  .answer
+                    .row-fluid
+                      .span8
+                        .span4.summary-one
+                          %h4 Summary 1
+                        .span4.summary-two
+                          %h4 Summary 2                  
+                    .row-fluid
+                      .span8
+                        .span4{ :class => "#{summary_1_pos}" }
+                          .choices
+                            .radio-buttons
+                              - 0.upto(5) do |i|
+                                = radio_button_tag "q3_s1", i
+                                = label_tag "q3_s1_#{i}", i
+                        .span4{ :class => "#{summary_2_pos}" }
+                          .choices
+                            .radio-buttons
+                              - 0.upto(5) do |i|
+                                = radio_button_tag "q3_s2", i
+                                = label_tag "q3_s2_#{i}", i
+
+                  .subquestion
+                    Q4: The summary is coherent.
+                  .answer
+                    .row-fluid
+                      .span8
+                        .span4.summary-one
+                          %h4 Summary 1
+                        .span4.summary-two
+                          %h4 Summary 2                  
+                    .row-fluid
+                      .span8
+                        .span4{ :class => "#{summary_1_pos}" }
+                          .choices
+                            .radio-buttons
+                              - 0.upto(5) do |i|
+                                = radio_button_tag "q4_s1", i
+                                = label_tag "q4_s1_#{i}", i
+                        .span4{ :class => "#{summary_2_pos}" }
+                          .choices
+                            .radio-buttons
+                              - 0.upto(5) do |i|
+                                = radio_button_tag "q4_s2", i
+                                = label_tag "q4_s2_#{i}", i
 
               .question-container
                 .question
-                  Q2: The summary avoids redundancy.
+                  Q5: Do you prefer reading such summaries in condensed form or highlighted form? 
                 .answer
-                  .row-fluid
-                    .span8
-                      .span4.summary-one
-                        %h4 Summary 1
-                      .span4.summary-two
-                        %h4 Summary 2                  
-                  .row-fluid
-                    .span8
-                      .span4{ :class => "#{summary_1_pos}" }
-                        .choices
-                          .radio-buttons
-                            - 0.upto(5) do |i|
-                              = radio_button_tag "q2_s1", i
-                              = label_tag "q2_s1_#{i}", i
-                      .span4{ :class => "#{summary_2_pos}" }
-                        .choices
-                          .radio-buttons
-                            - 0.upto(5) do |i|
-                              = radio_button_tag "q2_s2", i
-                              = label_tag "q2_s2_#{i}", i
+                  .choices{ :style => 'display: block; padding: 0.5em 0 0 1.5em;' }
+                    .radio-buttons
+                      - ['condensed','highlighted'].each do |view|
+                        = radio_button_tag "q5", view
+                        = label_tag "q5_#{view}", view.humanize
+                    What do you consider are the advantages of one over the other?
+                    %br
+                    = text_area_tag "q5_reason", nil, :size => "250x6"
 
               .question-container
                 .question
-                  Q3: The summary does not contain unnecessary information.
+                  Q6: What do you consider is the most important information a bug report summary should contain?
                 .answer
-                  .row-fluid
-                    .span8
-                      .span4.summary-one
-                        %h4 Summary 1
-                      .span4.summary-two
-                        %h4 Summary 2                  
-                  .row-fluid
-                    .span8
-                      .span4{ :class => "#{summary_1_pos}" }
-                        .choices
-                          .radio-buttons
-                            - 0.upto(5) do |i|
-                              = radio_button_tag "q3_s1", i
-                              = label_tag "q3_s1_#{i}", i
-                      .span4{ :class => "#{summary_2_pos}" }
-                        .choices
-                          .radio-buttons
-                            - 0.upto(5) do |i|
-                              = radio_button_tag "q3_s2", i
-                              = label_tag "q3_s2_#{i}", i
-
-              .question-container
-                .question
-                  Q4: The summary is coherent.
-                .answer
-                  .row-fluid
-                    .span8
-                      .span4.summary-one
-                        %h4 Summary 1
-                      .span4.summary-two
-                        %h4 Summary 2                  
-                  .row-fluid
-                    .span8
-                      .span4{ :class => "#{summary_1_pos}" }
-                        .choices
-                          .radio-buttons
-                            - 0.upto(5) do |i|
-                              = radio_button_tag "q4_s1", i
-                              = label_tag "q4_s1_#{i}", i
-                      .span4{ :class => "#{summary_2_pos}" }
-                        .choices
-                          .radio-buttons
-                            - 0.upto(5) do |i|
-                              = radio_button_tag "q4_s2", i
-                              = label_tag "q4_s2_#{i}", i
-
-              .question-container
-                .question
-                  Q5: Do you prefer highlighted summary view or block view.
-                .answer
-                  .row-fluid
-                    .span8
-                      .span4              
-                        .choices
-                          .radio-buttons
-                            - ['highlighted','block'].each do |view|
-                              = radio_button_tag "q5", view
-                              = label_tag "q5_#{view}", view.humanize
-
-              .question-container
-                .question
-                  Q6: Do you think summarizing bug reports is helpful? Why?
-                .answer
-                  .row-fluid
-                    .span8
-                      .span4                  
-                        .choices
-                          .radio-buttons
-                            - ['yes','no'].each do |choice|
-                              = radio_button_tag "q6", choice
-                              = label_tag "q6_#{choice}", choice.humanize
-                        
                   .choices{ :style => 'display: block; padding: 0.5em 0 0 1.5em;' }
                     Why?
                     %br
-                    = text_area_tag "q6_reason", nil, :size => "25x10"
+                    = text_area_tag "q6_reason", nil, :size => "25x6"
 
               .question-container
                 .question
-                  Q7: Do you want to be contacted to know the results of this experiment?
+                  Q7: In what situations do you consider that bug report summaries could be helpful?
+                .answer
+                  .choices{ :style => 'display: block; padding: 0.5em 0 0 1.5em;' }
+                    Why?
+                    %br
+                    = text_area_tag "q6_reason", nil, :size => "25x6"
+
+              .question-container
+                .question
+                  Q8: Would you like to contacted about the results of this experiment?
                 .answer
                   .row-fluid
                     .span8
