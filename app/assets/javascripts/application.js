@@ -13,5 +13,5 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require jquery.qtip-1.0.0-rc3.min.js
 //= require_tree .
-
