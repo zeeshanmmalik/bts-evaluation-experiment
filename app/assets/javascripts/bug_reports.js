@@ -36,7 +36,6 @@
 
 	}
 
-
 	summary_evaluator.prototype.handle_in_out_event = function(event){
 		var sentence = $(this), sen_id_to_match = sentence.attr("sen_id"), corresponding_sentences = $(sentences_class).filter(function(index){
 			return $(this).attr("sen_id") == sen_id_to_match;
@@ -46,8 +45,10 @@
 		//if not highlighted then highlight
 		if(sentence.hasClass(hover_highlight_class)){
 			corresponding_sentences.removeClass(hover_highlight_class);
+			//corresponding_sentences.qtip('hide');
 		}else{
-			corresponding_sentences.addClass(hover_highlight_class);
+			corresponding_sentences.addClass(hover_highlight_class); 
+			//corresponding_sentences.qtip('show');
 		}
 
 		//show suggestion_message
@@ -83,5 +84,37 @@ $(document).ready(function(){
 	$(".radio-buttons").buttonset();
 
 	var user_summary_evaluator = new summary_eveluator();
+
+	$('.highlight').qtip({
+		content: '&check;',
+		style: {
+			name: 'green'
+		},
+		position:{
+			corner:{
+				target: 'topLeft',
+				tooltip: 'bottomLeft'
+			}
+		},
+		show: false,
+		hide: false
+	});
+
+	$($(".eval-sen").filter(function(index){
+		return !$(this).hasClass('highlight');
+	})).qtip({
+		content: '&cross;',
+		style: {
+			name: 'red'
+		},
+		position:{
+			corner:{
+				target: 'topLeft',
+				tooltip: 'bottomLeft'
+			}
+		},
+		show: false,
+		hide: false
+	});
 
 });
