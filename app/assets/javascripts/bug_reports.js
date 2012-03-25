@@ -30,14 +30,14 @@
 	summary_evaluator.prototype.attach_events = function(){
 		var that = this;
 		//attach hover event
-		$(sentences_class).live("hover",that.handle_in_out_event);
+		$(sentences_class).bind("hover",that.handle_in_out_event);
 
 		//attach click event
-		$(sentences_class).live("click",that.handle_click_event);
+		$(sentences_class).bind("click",that.handle_click_event);
 
 	}
 
-	summary_evaluator.prototype.handle_in_out_event = function(event){
+	summary_evaluator.prototype.handle_in_out_event = function(){
 		var sentence = $(this), sen_id_to_match = sentence.attr("sen_id"), corresponding_sentences = $(sentences_class).filter(function(index){
 			return $(this).attr("sen_id") == sen_id_to_match;
 		});
@@ -57,7 +57,7 @@
 
 	}
 
-	summary_evaluator.prototype.handle_click_event = function(event){
+	summary_evaluator.prototype.handle_click_event = function(){
 		var that = this;
 		var sentence = $(this), sen_id_to_match = sentence.attr("sen_id"), corresponding_sentence = $(sentences_class).filter(function(index){
 			return $(this).attr("sen_id") == sen_id_to_match && that != this;
@@ -86,40 +86,33 @@ $(document).ready(function(){
 
 	var user_summary_evaluator = new summary_eveluator();
 
-	$('.eval-sen').qtip({
-		content: '<a href="#">Importan</a> | <a href="#">Not Important</a>',
-		style: {
-			name: 'green'
-		},
-		position:{
-			corner:{
-				target: 'bottomLeft',
-				tooltip: 'topLeft'
-			}
-		},
-		hide: { 
-			fixed: true,
-			when: 'mouseout'
-		}
-	});
 
-	/*
-	$($(".eval-sen").filter(function(index){
-		return !$(this).hasClass('highlight');
-	})).qtip({
-		content: '&cross;',
-		style: {
-			name: 'red'
-		},
-		position:{
-			corner:{
-				target: 'topLeft',
-				tooltip: 'bottomLeft'
-			}
-		},
-		show: false,
-		hide: false
-	});
-	*/
+$('.eval-sen').each(function(index,item){
+  var ele = $(item);
+  ele.cluetip(function(){return '<a href="#">Importan</a> | <a href="#">Not Important</a>'},{
+    cluetipClass: 'rounded',
+    positionBy: 'bottomTop',
+    showTitle:false,
+    arrows: false,
+    dropShadow: false,
+    hoverIntent: false,
+    sticky: true,
+    mouseOutClose: true,
+    closePosition:'bottom',
+    closeText:'close',
+    topOffset:0,
+    leftOffset:0,
+    onShow: function(ct, c){
+      var offset = ele.offset();
+      var left = offset.left, top = offset.top;
+      var height = ele.height();
+
+      $(ct).css("left",left+'px');
+      $(ct).css("top",top+height+0+'px');
+
+    }
+  });
+});
+
 
 });
