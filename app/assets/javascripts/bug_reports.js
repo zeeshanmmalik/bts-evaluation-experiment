@@ -87,32 +87,34 @@ $(document).ready(function(){
 	var user_summary_evaluator = new summary_eveluator();
 
 
-$('.eval-sen').each(function(index,item){
-  var ele = $(item);
-  ele.cluetip(function(){return '<a href="#">Importan</a> | <a href="#">Not Important</a>'},{
-    cluetipClass: 'rounded',
-    positionBy: 'bottomTop',
-    showTitle:false,
-    arrows: false,
-    dropShadow: false,
-    hoverIntent: false,
-    sticky: true,
-    mouseOutClose: true,
-    closePosition:'bottom',
-    closeText:'close',
-    topOffset:0,
-    leftOffset:0,
-    onShow: function(ct, c){
-      var offset = ele.offset();
-      var left = offset.left, top = offset.top;
-      var height = ele.height();
+	$('.eval-sen').each(function(index,item){
+		var ele = $(item);
+		ele.cluetip(function(){
+			return '<a href="#" title="click to mark as important">Importan</a> | <a href="#" title="click to mark as Unimportant">Not Important</a>';
+		},{cluetipClass: 'rounded',
+		   positionBy: 'bottomTop',
+		   showTitle:false,
+		   arrows: false,
+		   dropShadow: false,
+		   hoverIntent: false,
+		   sticky: true,
+		   mouseOutClose: true,
+		   closePosition:'bottom',
+		   closeText:'x',
+		   topOffset:0,
+		   leftOffset:0,
+		   width: 190,
+		   onShow: function(ct, c){
+			   var offset = ele.offset();
+			   var left = offset.left, top = offset.top;
+			   var height = ele.height();
 
-      $(ct).css("left",left+'px');
-      $(ct).css("top",top+height+0+'px');
+			   $(ct).css("left",left+'px');
+			   $(ct).css("top",top+height+0+'px');
 
-    }
-  });
-});
+		   }
+		  });
+	});
 
 
 });
