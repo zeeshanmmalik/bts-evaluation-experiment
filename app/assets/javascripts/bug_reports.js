@@ -30,10 +30,10 @@
 	summary_evaluator.prototype.attach_events = function(){
 		var that = this;
 		//attach hover event
-		$(sentences_class).bind("hover",that.handle_in_out_event);
+		$(sentences_class).live("hover",that.handle_in_out_event);
 
 		//attach click event
-		$(sentences_class).bind("click",that.handle_click_event);
+		$(sentences_class).live("click",that.handle_click_event);
 
 	}
 
