@@ -21,6 +21,7 @@
 	}
 
 	summary_evaluator.prototype.init = function(){
+		console.log('in init');
 		//set internal state vars
 
 		//attach events
@@ -38,6 +39,7 @@
 	}
 
 	summary_evaluator.prototype.handle_in_out_event = function(){
+		console.log('in inout');
 		var sentence = $(this), sen_id_to_match = sentence.attr("sen_id"), corresponding_sentences = $(sentences_class).filter(function(index){
 			return $(this).attr("sen_id") == sen_id_to_match;
 		});
@@ -85,12 +87,23 @@ $(document).ready(function(){
 	$(".radio-buttons").buttonset();
 
 	var user_summary_evaluator = new summary_eveluator();
+	var imp_toggle = function(add_class,remove_class){
+		var link_ele = $(this);
+		var sen_id = link_ele.attr('sen_id');
 
+		$('span[sen_id="'+sen_id+'"].eval-sen').addClass(add_class).removeClass(remove_class);
+
+		$('#cluetip').hide();
+	};
+
+	$('.btn-imp-sen').live('click', function(){imp_toggle.apply(this,['imp-sen','non-imp-sen']);});
+	$('.btn-non-imp-sen').live('click', function(){imp_toggle.apply(this,['non-imp-sen','imp-sen']);});
+	
 
 	$('.eval-sen').each(function(index,item){
 		var ele = $(item);
 		ele.cluetip(function(){
-			return '<a href="#" title="click to mark as important">Importan</a> | <a href="#" title="click to mark as Unimportant">Not Important</a>';
+			return '<a href="javascript:void(0)" sen_id="'+ ele.attr('sen_id') +'" class="btn-imp-sen" title="click to mark as important">Importan</a> | <a href="javascript:void(0)" sen_id="'+ ele.attr('sen_id') +'" class="btn-non-imp-sen" title="click to mark as Unimportant">Not Important</a>';
 		},{cluetipClass: 'rounded',
 		   positionBy: 'bottomTop',
 		   showTitle:false,

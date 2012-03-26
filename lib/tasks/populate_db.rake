@@ -34,7 +34,7 @@ begin
                 # create new comment
                 comment = Comment.new(:number => com_num,
                                       :submitted_at => com['date'])
-#                                      :submitted_at => Time.at(com['date']))
+                #                                      :submitted_at => Time.at(com['date']))
                 comment.participant = participant
                 comment.bug_report = bug_report
                 comment.save!
@@ -60,6 +60,30 @@ begin
         abort "bug-reports-data directory does not exists"
       end
     end
+
+	task :assign_bug_reports_to_participants => :environment do
+      if ENV['title'].nil?
+        abort "Title of the experiment not provided.\nUsage: rake experiment:assign_bug_reports_to_participants title=<title of experiment/study>"
+      end
+      exp = Experiment.where(:title => ENV['title']).first
+      if exp.nil?
+        abort "Experiment titled '#{ENV['title']}' not found."
+      end
+
+      exp.participants.each do |p|
+        rand_id = rand(exp.bug_reports.count)
+        rand_bug = BugReport.first(:conditions => [ "id >= ?", rand_id])
+        if rand_bug
+          # access_token: <current time stamp>-<bug report id>_<alpha-numeric hex string of length 16>-<participant id> 
+          p.access_token = "#{Time.new.to_time.to_i}-#{rand_bug.id}_#{SecureRandom.hex(8)}-#{p.id}"
+          p.bug_report = rand_bug
+          p.save!
+        else
+          puts "Random Bug Report not found."
+        end
+      end
+    end
+
   end
 end
 

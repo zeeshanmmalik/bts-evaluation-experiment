@@ -1,5 +1,6 @@
 class BugReport < ActiveRecord::Base
   belongs_to :experiment
-  belongs_to :participant
+  has_many :participants
   has_many :comments, :dependent => :destroy
+  has_many :responses, :dependent => :destroy
 end

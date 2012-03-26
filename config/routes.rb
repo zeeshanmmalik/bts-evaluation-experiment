@@ -1,5 +1,9 @@
 BtsEvalExpApp::Application.routes.draw do
-  resources :bug_reports, :only => [:index, :show]
+
+  match 'survey/:access_token/access' => 'survey#access', :via => :get, :as => 'access_survey'
+  match 'survey/:access_token/submit' => 'survey#submit', :via => :put, :as => 'submit_survey'
+
+  resources :bug_reports#, :only => [:index, :show]
 
   devise_for :admins
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
@@ -60,4 +64,8 @@ BtsEvalExpApp::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+
+  unless Rails.application.config.consider_all_requests_local
+    match '*not_found', to: 'errors#error_404'
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320170349) do
+ActiveRecord::Schema.define(:version => 20120324114438) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -94,6 +94,30 @@ ActiveRecord::Schema.define(:version => 20120320170349) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "responses", :force => true do |t|
+    t.integer  "imp_points_incl_lex_sum"
+    t.integer  "imp_points_incl_email_sum"
+    t.integer  "redundancy_lex_sum"
+    t.integer  "redundancy_email_sum"
+    t.integer  "unnecessary_info_lex_sum"
+    t.integer  "unnecessary_info_email_sum"
+    t.integer  "coherence_lex_sum"
+    t.integer  "coherence_email_sum"
+    t.string   "summary_view_pref"
+    t.text     "view_pref_reason"
+    t.boolean  "is_summarizing_br_helpful"
+    t.text     "summarizing_reason"
+    t.text     "important_info_in_summary"
+    t.string   "contact_for_results"
+    t.integer  "participant_id"
+    t.integer  "bug_report_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  add_index "responses", ["bug_report_id"], :name => "index_responses_on_bug_report_id"
+  add_index "responses", ["participant_id"], :name => "index_responses_on_participant_id"
 
   create_table "sentences", :force => true do |t|
     t.integer  "number"
