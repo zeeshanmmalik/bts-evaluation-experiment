@@ -96,7 +96,7 @@ $(document).ready(function(){
 		var link_ele = $(this);
 		var sen_id = link_ele.attr('sen_id');
 
-		$('span[sen_id="'+sen_id+'"].eval-sen').addClass(add_class).removeClass(remove_class).removeClass('eval-begin');
+		$('span[sen_id="'+sen_id+'"].eval-sen').addClass(add_class).removeClass(remove_class).removeClass('eval-begin').removeClass('cluetip-clicked').css('cursor','');
 		
 		$('#cluetip').hide();
 	};
@@ -105,7 +105,7 @@ $(document).ready(function(){
 	$('.btn-non-imp-sen').live('click', function(){imp_toggle.apply(this,['non-imp-sen','imp-sen']);});
 
 	$('.summaries .fix-height').bind('click scroll', function(){
-		$('.eval-begin').removeClass('eval-begin');
+		$('.eval-begin').removeClass('eval-begin').removeClass('cluetip-clicked').css('cursor','');
 		$('#cluetip').hide();
 	});
 	
@@ -127,7 +127,7 @@ $(document).ready(function(){
 		   width: 72,
 		   height: 'auto',
 		   onShow: function(ct, c){
-			   $('.eval-begin').removeClass('eval-begin');
+			   $('.eval-begin').removeClass('eval-begin').removeClass('cluetip-clicked').css('cursor','');
 			   $('span[sen_id="'+ele.attr('sen_id')+'"].eval-sen').addClass('eval-begin');
 		   },
 		   onHide: function(ct, c){
