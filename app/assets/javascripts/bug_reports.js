@@ -34,8 +34,10 @@
 		$(sentences_class).live("hover",that.handle_in_out_event);
 
 		//attach click event
-		$(sentences_class).live("click",that.handle_click_event);
+		//$(sentences_class).live("click",that.handle_click_event);
 
+		//apply tooltip events
+		that.apply_tooltip();
 	}
 
 	summary_evaluator.prototype.handle_in_out_event = function(){
@@ -65,7 +67,6 @@
 			return $(this).attr("sen_id") == sen_id_to_match && that != this;
 		});
 
-		/*
 		//if not highlighted then highlight
 		if(sentence.hasClass(click_highlight_class)){
 			sentence.removeClass(click_highlight_class).removeClass(wrong_highlight_class);
@@ -77,9 +78,62 @@
 			sentence.addClass(click_class_to_apply_to_sentence).addClass(click_highlight_class);
 			corresponding_sentence.addClass(click_class_to_apply_to_corresponding_sentence).addClass(click_highlight_class);
 		}
-		*/
+	}
 
+	summary_evaluator.prototype.apply_tooltip = function(){
+		var imp_toggle = function(add_class,remove_class){
+			var link_ele = $(this);
+			var sen_id = link_ele.attr('sen_id');
+
+			$('span[sen_id="'+sen_id+'"].eval-sen').addClass(add_class).removeClass(remove_class).removeClass('eval-begin').removeClass('cluetip-clicked').css('cursor','');
+			
+			$('#cluetip').hide();
+		};
+
+		$('.btn-imp-sen').live('click', function(){imp_toggle.apply(this,['imp-sen','non-imp-sen']);});
+		$('.btn-non-imp-sen').live('click', function(){imp_toggle.apply(this,['non-imp-sen','imp-sen']);});
+
+		$('.summaries .fix-height').bind('click scroll', function(){
+			$('.eval-begin').removeClass('eval-begin').removeClass('cluetip-clicked').css('cursor','');
+			$('#cluetip').hide();
+		});
 		
+
+		$('.eval-sen').each(function(index,item){
+			var ele = $(item);
+			ele.cluetip(function(){
+				return '<a href="javascript:void(0)" sen_id="'+ ele.attr('sen_id') +'" class="btn-imp-sen" title="click to mark as important"><img src="/assets/arrow_up_green.png" alt="important"/></a><span style="border: 1px solid;margin: 0px 10px;"></span><a href="javascript:void(0)" sen_id="'+ ele.attr('sen_id') +'" class="btn-non-imp-sen" title="click to mark as Unimportant"><img src="/assets/arrow_down_red.gif" alt="not important"/></a>';
+			},{cluetipClass: 'rounded',
+			   positionBy: 'bottomTop',
+			   showTitle:false,
+			   arrows: false,
+			   dropShadow: false,
+			   hoverIntent: false,
+			   sticky: true,
+			   activation: 'click',
+			   topOffset:7,
+			   leftOffset:0,
+			   width: 72,
+			   height: 'auto',
+			   onShow: function(ct, c){
+				   $('.eval-begin').removeClass('eval-begin').removeClass('cluetip-clicked').css('cursor','');
+				   $('span[sen_id="'+ele.attr('sen_id')+'"].eval-sen').addClass('eval-begin');
+			   },
+			   onHide: function(ct, c){
+				   $('span[sen_id="'+ele.attr('sen_id')+'"].eval-sen').removeClass('eval-begin');
+			   }
+			   /*
+				 onShow: function(ct, c){
+				 var offset = ele.offset();
+				 var left = offset.left, top = offset.top;
+				 var height = ele.height();
+
+				 //$(ct).css("left",left+'px');
+				 //$(ct).css("top",top+height+0+'px');
+				 $(ct).css("top",top+15+'px');
+				 }*/
+			  });
+		});
 	}
 
 	window.summary_eveluator = summary_evaluator;
@@ -91,59 +145,9 @@ $(document).ready(function(){
 	$(".radio-buttons").buttonset();
 
 	var user_summary_evaluator = new summary_eveluator();
-	var imp_toggle = function(add_class,remove_class){
-		var link_ele = $(this);
-		var sen_id = link_ele.attr('sen_id');
 
-		$('span[sen_id="'+sen_id+'"].eval-sen').addClass(add_class).removeClass(remove_class).removeClass('eval-begin').removeClass('cluetip-clicked').css('cursor','');
-		
-		$('#cluetip').hide();
-	};
-
-	$('.btn-imp-sen').live('click', function(){imp_toggle.apply(this,['imp-sen','non-imp-sen']);});
-	$('.btn-non-imp-sen').live('click', function(){imp_toggle.apply(this,['non-imp-sen','imp-sen']);});
-
-	$('.summaries .fix-height').bind('click scroll', function(){
-		$('.eval-begin').removeClass('eval-begin').removeClass('cluetip-clicked').css('cursor','');
-		$('#cluetip').hide();
-	});
-	
-
-	$('.eval-sen').each(function(index,item){
-		var ele = $(item);
-		ele.cluetip(function(){
-			return '<a href="javascript:void(0)" sen_id="'+ ele.attr('sen_id') +'" class="btn-imp-sen" title="click to mark as important"><img src="/assets/arrow_up_green.png" alt="important"/></a><span style="border: 1px solid;margin: 0px 10px;"></span><a href="javascript:void(0)" sen_id="'+ ele.attr('sen_id') +'" class="btn-non-imp-sen" title="click to mark as Unimportant"><img src="/assets/arrow_down_red.gif" alt="not important"/></a>';
-		},{cluetipClass: 'rounded',
-		   positionBy: 'bottomTop',
-		   showTitle:false,
-		   arrows: false,
-		   dropShadow: false,
-		   hoverIntent: false,
-		   sticky: true,
-		   activation: 'click',
-		   topOffset:7,
-		   leftOffset:0,
-		   width: 72,
-		   height: 'auto',
-		   onShow: function(ct, c){
-			   $('.eval-begin').removeClass('eval-begin').removeClass('cluetip-clicked').css('cursor','');
-			   $('span[sen_id="'+ele.attr('sen_id')+'"].eval-sen').addClass('eval-begin');
-		   },
-		   onHide: function(ct, c){
-			   $('span[sen_id="'+ele.attr('sen_id')+'"].eval-sen').removeClass('eval-begin');
-		   }
-		   /*
-		   onShow: function(ct, c){
-			   var offset = ele.offset();
-			   var left = offset.left, top = offset.top;
-			   var height = ele.height();
-
-			   //$(ct).css("left",left+'px');
-			   //$(ct).css("top",top+height+0+'px');
-			   $(ct).css("top",top+15+'px');
-		   }*/
-		  });
-	});
 
 
 });
+
+
