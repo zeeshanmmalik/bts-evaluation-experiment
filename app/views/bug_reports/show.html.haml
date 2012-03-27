@@ -1,8 +1,6 @@
-- summary_1_pos = 'summary-one'
-- summary_2_pos = 'summary-two'
+- summary_shown = 'lex'
 - if rand > 0.5
-  - summary_1_pos = 'summary-two'
-  - summary_2_pos = 'summary-one'
+  - summary_shown = 'email'
 
 /%p#notice= notice
 
@@ -40,254 +38,142 @@
   .row-fluid
     .span12
       .container-fluid.container-box
-        .row-fluid
+        .row-fluid.summaries
           .span12
-            .summaries
-              %h2 Bug Report Summaries
-              .row-fluid
-                .span6
-                  %h3 Summary 1
-                .span6
-                  %h3 Summary 2
-              .row-fluid
-                .span6{ :class => "#{summary_1_pos}" }
-                  %fieldset.summary
-                    / %legend Lex Summary
-                    - @bug_report.comments.each do |com|
-                      - if com.sentences.where( :is_in_lex_summary => true ).count > 0
-                        .comment-header
-                          = com.number
-                          \|
-                          = com.submitted_at
-                          \|
-                          = com.participant.email
-                        .comment-body
-                          - com.sentences.order('number ASC').each do |sen|
-                            - if sen.text.strip.empty?
-                              %p
-                            - elsif sen.is_in_lex_summary?
-                              %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                                = raw sen.text
-                .span6{ :class => "#{summary_2_pos}" }
-                  %fieldset.summary
-                    / %legend Email Summary
-                    - @bug_report.comments.each do |com|
-                      - if com.sentences.where( :is_in_email_summary => true ).count > 0
-                        .comment-header
-                          = com.number
-                          \|
-                          = com.submitted_at
-                          \|
-                          = com.participant.email
-                        .comment-body
-                          - com.sentences.order('number ASC').each do |sen|
-                            - if sen.text.strip.empty?
-                              %p
-                            - elsif sen.is_in_email_summary?
-                              %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                                = raw sen.text
-                .clear-both
+            .row-fluid
+              .span12
+                %h2 Condensed Summary
+            .row-fluid
+              .span12
+                %fieldset.summary.fix-height
+                  / %legend Lex Summary
+                  / select a summary randomly
+                  - @bug_report.comments.each do |com|
+                    - if com.sentences.where( 'is_in_'+summary_shown+'_summary' => true ).count > 0
+                      .comment-header
+                        = com.number
+                        \|
+                        = com.submitted_at
+                        \|
+                        = com.participant.email
+                      .comment-body
+                        - com.sentences.order('number ASC').each do |sen|
+                          - if sen.text.strip.empty?
+                            %p
+                          - elsif sen.send('is_in_'+summary_shown+'_summary')
+                            %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
+                              = raw sen.text
 
-        .row-fluid
+        .row-fluid.summaries
           .span12
-            .summaries
-              %h2 Interlaced Summaries
-              .row-fluid
-                .span6
-                  %h3 Summary 1
-                .span6
-                  %h3 Summary 2
-              .row-fluid.fix-height
-                .span6{ :class => "#{summary_1_pos}" }
-                  %fieldset.summary
-                    / %legend Lex Summary
-                    - @bug_report.comments.order('number ASC').each do |com|
-                      .comment
-                        .comment-header
-                          = com.number
-                          \|
-                          = com.submitted_at
-                          \|
-                          = com.participant.email
-                        .comment-body
-                          - com.sentences.order('number ASC').each do |sen|
-                            - if sen.text.strip.empty?
-                              %p
-                            - elsif sen.is_in_lex_summary?
-                              %span.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                                = raw sen.text
-                            - else
-                              %span.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                                = raw sen.text
+            .row-fluid
+              .span12
+                %h2 Interlaced Summary
+            .row-fluid
+              .span12
+                %fieldset.summary.fix-height
+                  / %legend #{summary_shown.humanize} Summary
+                  - @bug_report.comments.order('number ASC').each do |com|
+                    .comment
+                      .comment-header
+                        = com.number
+                        \|
+                        = com.submitted_at
+                        \|
+                        = com.participant.email
+                      .comment-body
+                        - com.sentences.order('number ASC').each do |sen|
+                          - if sen.text.strip.empty?
+                            %p
+                          - elsif sen.send('is_in_'+summary_shown+'_summary')
+                            %span.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
+                              = raw sen.text
+                          - else
+                            %span.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
+                              = raw sen.text
 
-                .span6{ :class => "#{summary_2_pos}" }
-                  %fieldset.summary
-                    / %legend Email Summary
-                    - @bug_report.comments.order('number ASC').each do |com|
-                      .comment
-                        .comment-header
-                          = com.number
-                          \|
-                          = com.submitted_at
-                          \|
-                          = com.participant.email
-                        .comment-body
-                          - com.sentences.order('number ASC').each do |sen|
-                            - if sen.text.strip.empty?
-                              %p
-                            - elsif sen.is_in_email_summary?
-                              %span.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                                = raw sen.text
-                            - else
-                              %span.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                                = raw sen.text
-                .clear-both
+        .row-fluid.survey-form
+          = form_for @participant.response, :url => @bug_report, :method => :get do |f|
+            = hidden_field_tag :bug_report_id, @participant.id
+            = hidden_field_tag :participant_id, @bug_report.id
+            = hidden_field_tag :access_token, @participant.access_token
+            .question-container
+              .question
+                Q1: Please give a score, from 1-5, for how much each of the following statements is true for each summary:
+                .subquestion
+                  a) Important points of the bug report are represented in the summary.
+                .answer.subanswer 
+                  .radio-buttons
+                    - 0.upto(5) do |i|
+                      = f.radio_button 'imp_points_incl_'+summary_shown+'_sum', i
+                      = f.label 'imp_points_incl_'+summary_shown+'_sum', i, :value => i
 
-            .survey-form
-              .question-container
-                .question
-                  Q1: Please give a score, from 1-5, for how much each of the following statements is true for each summary:
-                  .subquestion
-                    i) Important points of the bug report are represented in the summary.
-                  .answer 
-                    .row-fluid
-                      .span10
-                        .span5.summary-one
-                          %h4 Summary 1
-                        .span5.summary-two
-                          %h4 Summary 2
-                    .row-fluid
-                      .span10
-                        .span5{ :class => "#{summary_1_pos}" }
-                          .choices
-                            .radio-buttons
-                              - 0.upto(5) do |i|
-                                = radio_button_tag "q1_s1", i
-                                = label_tag "q1_s1_#{i}", i
-                        .span5{ :class => "#{summary_2_pos}" }
-                          .choices
-                            .radio-buttons
-                              - 0.upto(5) do |i|
-                                = radio_button_tag "q1_s2", i
-                                = label_tag "q1_s2_#{i}", i
+                .subquestion
+                  b) The summary avoids redundancy.
+                .answer.subanswer
+                  .radio-buttons
+                    - 0.upto(5) do |i|
+                      = f.radio_button 'redundancy_'+summary_shown+'_sum', i
+                      = f.label 'redundancy_'+summary_shown+'_sum', i, :value => i
 
-                  .subquestion
-                    ii) The summary avoids redundancy.
-                  .answer
-                    .row-fluid
-                      .span10
-                        .span5.summary-one
-                          %h4 Summary 1
-                        .span5.summary-two
-                          %h4 Summary 2                  
-                    .row-fluid
-                      .span10
-                        .span5{ :class => "#{summary_1_pos}" }
-                          .choices
-                            .radio-buttons
-                              - 0.upto(5) do |i|
-                                = radio_button_tag "q2_s1", i
-                                = label_tag "q2_s1_#{i}", i
-                        .span5{ :class => "#{summary_2_pos}" }
-                          .choices
-                            .radio-buttons
-                              - 0.upto(5) do |i|
-                                = radio_button_tag "q2_s2", i
-                                = label_tag "q2_s2_#{i}", i
+                .subquestion
+                  c) The summary does not contain unnecessary information.
+                .answer.subanswer
+                  .radio-buttons
+                    - 0.upto(5) do |i|
+                      = f.radio_button 'unnecessary_info_'+summary_shown+'_sum', i
+                      = f.label 'unnecessary_info_'+summary_shown+'_sum', i, :value => i
 
-                  .subquestion
-                    iii) The summary does not contain unnecessary information.
-                  .answer
-                    .row-fluid
-                      .span10
-                        .span5.summary-one
-                          %h4 Summary 1
-                        .span5.summary-two
-                          %h4 Summary 2                  
-                    .row-fluid
-                      .span10
-                        .span5{ :class => "#{summary_1_pos}" }
-                          .choices
-                            .radio-buttons
-                              - 0.upto(5) do |i|
-                                = radio_button_tag "q3_s1", i
-                                = label_tag "q3_s1_#{i}", i
-                        .span5{ :class => "#{summary_2_pos}" }
-                          .choices
-                            .radio-buttons
-                              - 0.upto(5) do |i|
-                                = radio_button_tag "q3_s2", i
-                                = label_tag "q3_s2_#{i}", i
+                .subquestion
+                  d) The summary is coherent.
+                .answer.subanswer
+                  .radio-buttons
+                    - 0.upto(5) do |i|
+                      = f.radio_button 'coherence_'+summary_shown+'_sum', i
+                      = f.label 'coherence_'+summary_shown+'_sum', i, :value => i
 
-                  .subquestion
-                    iv) The summary is coherent.
-                  .answer
-                    .row-fluid
-                      .span10
-                        .span5.summary-one
-                          %h4 Summary 1
-                        .span5.summary-two
-                          %h4 Summary 2                  
-                    .row-fluid
-                      .span10
-                        .span5{ :class => "#{summary_1_pos}" }
-                          .choices
-                            .radio-buttons
-                              - 0.upto(5) do |i|
-                                = radio_button_tag "q4_s1", i
-                                = label_tag "q4_s1_#{i}", i
-                        .span5{ :class => "#{summary_2_pos}" }
-                          .choices
-                            .radio-buttons
-                              - 0.upto(5) do |i|
-                                = radio_button_tag "q4_s2", i
-                                = label_tag "q4_s2_#{i}", i
+            .question-container
+              .question
+                Q2: Do you prefer reading such summaries in condensed form or highlighted form? 
+              .answer
+                .radio-buttons
+                  - ['condensed','highlighted'].each do |view|
+                    = f.radio_button :summary_view_pref, view
+                    = f.label :summary_view_pref, view.humanize, :value => view
+                What do you consider are the advantages of one over the other?
+                %br
+                = f.text_area :view_pref_reason
 
-              .question-container
-                .question
-                  Q2: Do you prefer reading such summaries in condensed form or highlighted form? 
-                .answer
-                  .choices{ :style => 'display: block; padding: 0.5em 0 0 1.5em;' }
-                    .radio-buttons
-                      - ['condensed','highlighted'].each do |view|
-                        = radio_button_tag "q5", view
-                        = label_tag "q5_#{view}", view.humanize
-                    What do you consider are the advantages of one over the other?
-                    %br
-                    = text_area_tag "q5_reason", nil, :size => "250x6"
+            .question-container
+              .question
+                Q3: What do you consider is the most important information a bug report summary should contain?
+              .answer
+                Why?
+                %br
+                = f.text_area :important_info_in_summary
 
-              .question-container
-                .question
-                  Q3: What do you consider is the most important information a bug report summary should contain?
-                .answer
-                  .choices{ :style => 'display: block; padding: 0.5em 0 0 1.5em;' }
-                    Why?
-                    %br
-                    = text_area_tag "q6_reason", nil, :size => "60x6"
+            .question-container
+              .question
+                Q4: In what situations do you consider that bug report summaries could be helpful?
+              .answer
+                Why?
+                %br
+                = f.text_area :summarizing_reason
 
-              .question-container
-                .question
-                  Q4: In what situations do you consider that bug report summaries could be helpful?
-                .answer
-                  .choices{ :style => 'display: block; padding: 0.5em 0 0 1.5em;' }
-                    Why?
-                    %br
-                    = text_area_tag "q6_reason", nil, :size => "25x6"
+            .question-container
+              .question
+                Q5: Would you like to be contacted about the results of this experiment?
+              .answer
+                .radio-buttons
+                  - ['yes','no'].each do |choice|
+                    = f.radio_button :contact_for_results, choice
+                    = f.label :contact_for_results, choice.humanize, :value => choice
 
-              .question-container
-                .question
-                  Q5: Would you like to contacted about the results of this experiment?
-                .answer
-                  .row-fluid
-                    .span8
-                      .span4                  
-                        .choices
-                          .radio-buttons
-                            - ['yes','no'].each do |choice|
-                              = radio_button_tag "q7", choice
-                              = label_tag "q7_#{choice}", choice.humanize
-
+            .question-container
+              = f.submit 'Submit Response', :class => 'btn-submit-form btn btn-success btn-large'
   %hr
 
   %footer
     %p BTS Evaluation Experiment 2012
+
+

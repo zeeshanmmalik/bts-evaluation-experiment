@@ -34,10 +34,10 @@
 		$(sentences_class).live("hover",that.handle_in_out_event);
 
 		//attach click event
-		//$(sentences_class).live("click",that.handle_click_event);
+		$(sentences_class).live("click",that.handle_click_event);
 
 		//apply tooltip events
-		that.apply_tooltip();
+		//that.apply_tooltip();
 	}
 
 	summary_evaluator.prototype.handle_in_out_event = function(){
@@ -145,9 +145,6 @@ $(document).ready(function(){
 	$(".radio-buttons").buttonset();
 
 	var user_summary_evaluator = new summary_eveluator();
-
-
-
 });
 
 

@@ -15,6 +15,10 @@ class BugReportsController < ApplicationController
   def show
     @bug_report = BugReport.find(params[:id])
 
+    # just for the page to work... very bad practice... you should be flogged for doing this
+    @participant = Participant.new
+    @participant.response = Response.new
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @bug_report }
