@@ -25,6 +25,15 @@ class BugReportsController < ApplicationController
     end
   end
 
+  def compare_summary
+    @bug_report = BugReport.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @bug_report }
+    end    
+  end
+
   # GET /bug_reports/new
   # GET /bug_reports/new.json
   def new

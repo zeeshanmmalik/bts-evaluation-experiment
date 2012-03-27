@@ -3,7 +3,11 @@ BtsEvalExpApp::Application.routes.draw do
   match 'survey/:access_token/access' => 'survey#access', :via => :get, :as => 'access_survey'
   match 'survey/:access_token/submit' => 'survey#submit', :via => :put, :as => 'submit_survey'
 
-  resources :bug_reports#, :only => [:index, :show]
+  resources :bug_reports, :only => [:index, :show] do
+    member do
+      get 'compare_summary'
+    end
+  end
 
   devise_for :admins
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
