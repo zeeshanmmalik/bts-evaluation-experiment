@@ -65,6 +65,7 @@
 			return $(this).attr("sen_id") == sen_id_to_match && that != this;
 		});
 
+		/*
 		//if not highlighted then highlight
 		if(sentence.hasClass(click_highlight_class)){
 			sentence.removeClass(click_highlight_class).removeClass(wrong_highlight_class);
@@ -76,6 +77,9 @@
 			sentence.addClass(click_class_to_apply_to_sentence).addClass(click_highlight_class);
 			corresponding_sentence.addClass(click_class_to_apply_to_corresponding_sentence).addClass(click_highlight_class);
 		}
+		*/
+
+		
 	}
 
 	window.summary_eveluator = summary_evaluator;
@@ -91,19 +95,24 @@ $(document).ready(function(){
 		var link_ele = $(this);
 		var sen_id = link_ele.attr('sen_id');
 
-		$('span[sen_id="'+sen_id+'"].eval-sen').addClass(add_class).removeClass(remove_class);
-
+		$('span[sen_id="'+sen_id+'"].eval-sen').addClass(add_class).removeClass(remove_class).removeClass('eval-begin');
+		
 		$('#cluetip').hide();
 	};
 
 	$('.btn-imp-sen').live('click', function(){imp_toggle.apply(this,['imp-sen','non-imp-sen']);});
 	$('.btn-non-imp-sen').live('click', function(){imp_toggle.apply(this,['non-imp-sen','imp-sen']);});
+
+	$('.summaries .fix-height').bind('click scroll', function(){
+		$('.eval-begin').removeClass('eval-begin');
+		$('#cluetip').hide();
+	});
 	
 
 	$('.eval-sen').each(function(index,item){
 		var ele = $(item);
 		ele.cluetip(function(){
-			return '<a href="javascript:void(0)" sen_id="'+ ele.attr('sen_id') +'" class="btn-imp-sen" title="click to mark as important">Importan</a> | <a href="javascript:void(0)" sen_id="'+ ele.attr('sen_id') +'" class="btn-non-imp-sen" title="click to mark as Unimportant">Not Important</a>';
+			return '<a href="javascript:void(0)" sen_id="'+ ele.attr('sen_id') +'" class="btn-imp-sen" title="click to mark as important"><img src="/assets/arrow_up_green.png" alt="important"/></a><span style="border: 1px solid;margin: 0px 10px;"></span><a href="javascript:void(0)" sen_id="'+ ele.attr('sen_id') +'" class="btn-non-imp-sen" title="click to mark as Unimportant"><img src="/assets/arrow_down_red.gif" alt="not important"/></a>';
 		},{cluetipClass: 'rounded',
 		   positionBy: 'bottomTop',
 		   showTitle:false,
@@ -111,21 +120,28 @@ $(document).ready(function(){
 		   dropShadow: false,
 		   hoverIntent: false,
 		   sticky: true,
-		   mouseOutClose: true,
-		   closePosition:'bottom',
-		   closeText:'x',
-		   topOffset:0,
+		   activation: 'click',
+		   topOffset:7,
 		   leftOffset:0,
-		   width: 190,
+		   width: 72,
+		   height: 'auto',
+		   onShow: function(ct, c){
+			   $('.eval-begin').removeClass('eval-begin');
+			   $('span[sen_id="'+ele.attr('sen_id')+'"].eval-sen').addClass('eval-begin');
+		   },
+		   onHide: function(ct, c){
+			   $('span[sen_id="'+ele.attr('sen_id')+'"].eval-sen').removeClass('eval-begin');
+		   }
+		   /*
 		   onShow: function(ct, c){
 			   var offset = ele.offset();
 			   var left = offset.left, top = offset.top;
 			   var height = ele.height();
 
-			   $(ct).css("left",left+'px');
-			   $(ct).css("top",top+height+0+'px');
-
-		   }
+			   //$(ct).css("left",left+'px');
+			   //$(ct).css("top",top+height+0+'px');
+			   $(ct).css("top",top+15+'px');
+		   }*/
 		  });
 	});
 
