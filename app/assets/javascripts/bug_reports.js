@@ -75,7 +75,8 @@
 			var click_class_to_apply_to_corresponding_sentence = (corresponding_sentence.hasClass(rails_highlight_class))? '' : wrong_highlight_class;
 
 			sentence.addClass(click_class_to_apply_to_sentence).addClass(click_highlight_class);
-			corresponding_sentence.addClass(click_class_to_apply_to_corresponding_sentence).addClass(click_highlight_class);
+                        if (sentence.hasClass(rails_highlight_class) == corresponding_sentence.hasClass(rails_highlight_class))
+			    corresponding_sentence.addClass(click_class_to_apply_to_corresponding_sentence).addClass(click_highlight_class);
 		}
 		*/
 
