@@ -95,9 +95,22 @@
             = hidden_field_tag :bug_report_id, @participant.id
             = hidden_field_tag :participant_id, @bug_report.id
             = hidden_field_tag :access_token, @participant.access_token
+
             .question-container
               .question
-                Q1: Please give a score, from 1-5, for how much each of the following statements is true for each summary:
+                Q1: Do you prefer reading such summaries in condensed form or highlighted form? 
+              .answer
+                .radio-buttons
+                  - ['condensed','highlighted'].each do |view|
+                    = f.radio_button :summary_view_pref, view
+                    = f.label :summary_view_pref, view.humanize, :value => view
+                What do you consider are the advantages of one over the other?
+                %br
+                = f.text_area :view_pref_reason
+
+            .question-container
+              .question
+                Q2: Please give a score, from 1-5, for how much each of the following statements is true for each summary:
                 .subquestion
                   a) Important points of the bug report are represented in the summary.
                 .answer.subanswer 
@@ -129,18 +142,6 @@
                     - 0.upto(5) do |i|
                       = f.radio_button 'coherence_'+summary_shown+'_sum', i
                       = f.label 'coherence_'+summary_shown+'_sum', i, :value => i
-
-            .question-container
-              .question
-                Q2: Do you prefer reading such summaries in condensed form or highlighted form? 
-              .answer
-                .radio-buttons
-                  - ['condensed','highlighted'].each do |view|
-                    = f.radio_button :summary_view_pref, view
-                    = f.label :summary_view_pref, view.humanize, :value => view
-                What do you consider are the advantages of one over the other?
-                %br
-                = f.text_area :view_pref_reason
 
             .question-container
               .question
