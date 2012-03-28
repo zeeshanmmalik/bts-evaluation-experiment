@@ -40,7 +40,28 @@
           .span12
             .row-fluid
               .span12
-                %h2 Condensed Summary
+                %h3 Intructions
+                %p
+                %p 
+                  In order to help us evaluate our bug report summary generator, we kindly 
+                  ask you to evaluate a summary we have created for a #{@bug_report.project} 
+                  bug report. Since this is a bug you have commented on, we presume you
+                  should have some familiarity with the bug, facilitating the evaluation
+                  process and judgement.
+                %p
+                  Our approach for creating this summary uses a combination of heuristics, 
+                  machine learning, and sentiment analysis to select revelant sentences from the
+                  bug report, that together will form the summary.
+                %p
+                  Bellow we present two different views for the same summary: a <i>condensed</i> and 
+                  <i>interlaced</i> view.
+                  The condensed summary view presents only the extracted sentences.
+                  Alternatively, the interlaced view presents the complete bug report, but with
+                  the extracted sentences highlighted out from the rest of the sentences.
+                %p 
+                  After assessing both summary views, we ask you to answer 5 questions.
+
+                %h3 Condensed Summary
             .row-fluid
               .span12
                 %fieldset.summary.fix-height
@@ -61,12 +82,16 @@
                           - elsif sen.send('is_in_'+summary_shown+'_summary')
                             %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
                               = raw sen.text
-
+        %hz
         .row-fluid.summaries
           .span12
             .row-fluid
               .span12
-                %h2 Interlaced Summary
+                %h3 Interlaced Summary
+                %p
+                  Below is an <b>interlaced</b> view of the summary. In this view, the
+                  extracted sentences are highlighted out from the rest of the sentences.
+                  
             .row-fluid
               .span12
                 %fieldset.summary.fix-height
