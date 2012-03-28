@@ -1,4 +1,5 @@
 class EmailsController < ApplicationController
+  before_filter :authenticate_admin!
   # GET /emails
   # GET /emails.json
   def index
