@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120328121436) do
+ActiveRecord::Schema.define(:version => 20120328190459) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -36,8 +36,9 @@ ActiveRecord::Schema.define(:version => 20120328121436) do
     t.string   "project"
     t.string   "original_link"
     t.integer  "experiment_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "bug_identifier"
   end
 
   add_index "bug_reports", ["experiment_id"], :name => "index_bug_reports_on_experiment_id"
@@ -53,6 +54,17 @@ ActiveRecord::Schema.define(:version => 20120328121436) do
 
   add_index "comments", ["bug_report_id"], :name => "index_comments_on_bug_report_id"
   add_index "comments", ["participant_id"], :name => "index_comments_on_participant_id"
+
+  create_table "emails", :force => true do |t|
+    t.string   "subject"
+    t.text     "body"
+    t.string   "email_type"
+    t.integer  "experiment_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "emails", ["experiment_id"], :name => "index_emails_on_experiment_id"
 
   create_table "experiments", :force => true do |t|
     t.string   "title"
