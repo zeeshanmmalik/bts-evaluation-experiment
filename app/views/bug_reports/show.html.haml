@@ -1,6 +1,6 @@
 - summary_shown = 'lex'
-- if rand > 0.5
-  - summary_shown = 'email'
+-# - if rand > 0.5
+-#   - summary_shown = 'email'
 
 /%p#notice= notice
 
@@ -34,69 +34,73 @@
         %a.btn.btn-info.btn-large.pull-right{:href => "#{@bug_report.original_link}", :target => "_blank"}
           Original link
 
-.container-fluid
-  .row-fluid
-    .span12
-      .container-fluid.container-box
-        .row-fluid.summaries
-          .span12
-            .row-fluid
-              .span12
-                %h2 Condensed Summary
-            .row-fluid
-              .span12
-                %fieldset.summary.fix-height
-                  / %legend Lex Summary
-                  / select a summary randomly
-                  - @bug_report.comments.each do |com|
-                    - if com.sentences.where( 'is_in_'+summary_shown+'_summary' => true ).count > 0
-                      .comment-header
-                        = com.number
-                        \|
-                        = com.submitted_at
-                        \|
-                        = com.participant.email
-                      .comment-body
-                        - com.sentences.order('number ASC').each do |sen|
-                          - if sen.text.strip.empty?
-                            %p
-                          - elsif sen.send('is_in_'+summary_shown+'_summary')
-                            %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                              = raw sen.text
+= form_for @participant.response, :url => @bug_report, :method => :get do |f|
+  = hidden_field_tag :bug_report_id, @participant.id
+  = hidden_field_tag :participant_id, @bug_report.id
+  = hidden_field_tag :access_token, @participant.access_token        
+  .container-fluid
+    .row-fluid
+      .span12
+        .container-fluid.container-box
+          .row-fluid.summaries
+            .span12
+              .row-fluid
+                .span12
+                  %h2 Condensed Summary
+              .row-fluid
+                .span12
+                  %fieldset.summary.fix-height
+                    / %legend Lex Summary
+                    / select a summary randomly
+                    - @bug_report.comments.each do |com|
+                      - if com.sentences.where( 'is_in_'+summary_shown+'_summary' => true ).count > 0
+                        .comment-header
+                          = com.number
+                          \|
+                          = com.submitted_at
+                          \|
+                          = com.participant.email
+                        .comment-body
+                          - com.sentences.order('number ASC').each do |sen|
+                            - if sen.text.strip.empty?
+                              %p
+                            - elsif sen.send('is_in_'+summary_shown+'_summary')
+                              %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
+                                = raw sen.text
 
-        .row-fluid.summaries
-          .span12
-            .row-fluid
-              .span12
-                %h2 Interlaced Summary
-            .row-fluid
-              .span12
-                %fieldset.summary.fix-height
-                  / %legend #{summary_shown.humanize} Summary
-                  - @bug_report.comments.order('number ASC').each do |com|
-                    .comment
-                      .comment-header
-                        = com.number
-                        \|
-                        = com.submitted_at
-                        \|
-                        = com.participant.email
-                      .comment-body
-                        - com.sentences.order('number ASC').each do |sen|
-                          - if sen.text.strip.empty?
-                            %p
-                          - elsif sen.send('is_in_'+summary_shown+'_summary')
-                            %span.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                              = raw sen.text
-                          - else
-                            %span.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                              = raw sen.text
+          .row-fluid.summaries
+            .span12
+              .row-fluid
+                .span12
+                  %h2 Interlaced Summary
+              .row-fluid
+                .span12
+                  %fieldset.summary.fix-height
+                    / %legend #{summary_shown.humanize} Summary
+                    - @bug_report.comments.order('number ASC').each do |com|
+                      .comment
+                        .comment-header
+                          = com.number
+                          \|
+                          = com.submitted_at
+                          \|
+                          = com.participant.email
+                        .comment-body
+                          - com.sentences.order('number ASC').each do |sen|
+                            - part_sen = @participant.sentence_evaluations.where(:sentence_id => sen.id).first
+                            - sen_imp = part_sen ? part_sen.importance : nil
+                            - if sen.text.strip.empty?
+                              %p
+                            - elsif sen.send('is_in_'+summary_shown+'_summary')
+                              =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '1'
+                              %span.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 1}", :class => "#{(sen_imp and sen_imp == -1) ? 'wrong-highlight' : ''}" }
+                                = raw sen.text
+                            - else
+                              %span.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 0}", :class => "#{(sen_imp and sen_imp == 1) ? 'important-highlight' : ''}" }
+                                =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '0'
+                                = raw sen.text
 
-        .row-fluid.survey-form
-          = form_for @participant.response, :url => @bug_report, :method => :get do |f|
-            = hidden_field_tag :bug_report_id, @participant.id
-            = hidden_field_tag :participant_id, @bug_report.id
-            = hidden_field_tag :access_token, @participant.access_token
+          .row-fluid.survey-form
             .question-container
               .question
                 Q1: Please give a score, from 1-5, for how much each of the following statements is true for each summary:
@@ -171,9 +175,9 @@
 
             .question-container
               = f.submit 'Submit Response', :class => 'btn-submit-form btn btn-success btn-large'
-  %hr
+    %hr
 
-  %footer
-    %p BTS Evaluation Experiment 2012
+    %footer
+      %p BTS Evaluation Experiment 2012
 
 
