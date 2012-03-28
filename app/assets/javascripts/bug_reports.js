@@ -9,6 +9,7 @@
 	var hover_unselected_highlight_class = "hover-unselected-highlight";
 	var click_highlight_class = "click-highlight";
 	var wrong_highlight_class = "wrong-highlight";
+	var important_highlight_class = "important-highlight";
 
 	var rails_highlight_class = "highlight";
 
@@ -52,7 +53,7 @@
 			corresponding_sentences.removeClass(hover_selected_highlight_class).removeClass(hover_unselected_highlight_class);
 		}else{
 			corresponding_sentences.each(function(index){
-				($(this).hasClass('highlight'))? $(this).addClass(hover_selected_highlight_class) : $(this).addClass(hover_unselected_highlight_class);
+				($(this).hasClass(rails_highlight_class))? $(this).addClass(hover_selected_highlight_class) : $(this).addClass(hover_unselected_highlight_class);
 			});
 		}
 
@@ -63,10 +64,38 @@
 
 	summary_evaluator.prototype.handle_click_event = function(){
 		var that = this;
-		var sentence = $(this), sen_id_to_match = sentence.attr("sen_id"), corresponding_sentence = $(sentences_class).filter(function(index){
-			return $(this).attr("sen_id") == sen_id_to_match && that != this;
+		var sentence = $(this), sen_id = sentence.attr("sen_id");
+		
+		/*
+		corresponding_sentence = $(sentences_class).filter(function(index){
+			return $(this).attr("sen_id") == sen_id && that != this;
 		});
+		*/
 
+		sen_imp = sentence.attr("importance");
+		if( sen_imp == '1' ){
+			if( sentence.hasClass(rails_highlight_class) ){
+				sentence.addClass(wrong_highlight_class);
+				sentence.attr("importance", "-1");
+				$("#sentences__"+sen_id).val("-1");
+			}else{
+				sentence.removeClass(important_highlight_class);
+				sentence.attr("importance", "0");
+				$("#sentences__"+sen_id).val("0");
+			}
+		}
+		else if( sen_imp == '-1' ){
+			sentence.removeClass(wrong_highlight_class);
+			sentence.attr("importance", "1");
+			$("#sentences__"+sen_id).val("1");
+		}
+		else{
+			sentence.addClass(important_highlight_class);
+			sentence.attr("importance", "1");
+			$("#sentences__"+sen_id).val("1");
+		}
+
+        /*
 		//if not highlighted then highlight
 		if(sentence.hasClass(click_highlight_class)){
 			sentence.removeClass(click_highlight_class).removeClass(wrong_highlight_class);
@@ -78,6 +107,7 @@
 			sentence.addClass(click_class_to_apply_to_sentence).addClass(click_highlight_class);
 			corresponding_sentence.addClass(click_class_to_apply_to_corresponding_sentence).addClass(click_highlight_class);
 		}
+        */
 	}
 
 	summary_evaluator.prototype.apply_tooltip = function(){

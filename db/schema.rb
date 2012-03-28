@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120324114438) do
+ActiveRecord::Schema.define(:version => 20120327222554) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -81,6 +81,17 @@ ActiveRecord::Schema.define(:version => 20120324114438) do
 
   add_index "participants", ["bug_report_id"], :name => "index_participants_on_bug_report_id"
   add_index "participants", ["experiment_id"], :name => "index_participants_on_experiment_id"
+
+  create_table "participants_sentences", :force => true do |t|
+    t.integer  "participant_id"
+    t.integer  "sentence_id"
+    t.integer  "importance"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "participants_sentences", ["participant_id"], :name => "index_participants_sentences_on_participant_id"
+  add_index "participants_sentences", ["sentence_id"], :name => "index_participants_sentences_on_sentence_id"
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
