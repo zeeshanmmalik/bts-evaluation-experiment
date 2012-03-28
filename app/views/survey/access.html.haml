@@ -1,6 +1,6 @@
 - summary_shown = 'lex'
-- if rand > 0.5
-  - summary_shown = 'email'
+-# - if rand > 0.5
+-#   - summary_shown = 'email'
 
 /%p#notice= notice
 
@@ -88,15 +88,17 @@
                           = com.participant.email
                         .comment-body
                           - com.sentences.order('number ASC').each do |sen|
+                            - part_sen = @participant.sentence_evaluations.where(:sentence_id => sen.id).first
+                            - sen_imp = part_sen ? part_sen.importance : nil
                             - if sen.text.strip.empty?
                               %p
                             - elsif sen.send('is_in_'+summary_shown+'_summary')
-                              = hidden_field_tag 'sentences[]['+sen.id.to_s+']', '1'
-                              %span.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "1" }
+                              = hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '1'
+                              %span.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 1}", :class => "#{(sen_imp and sen_imp == -1) ? 'wrong-highlight' : ''}" }
                                 = raw sen.text
                             - else
-                              %span.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "0" }
-                                = hidden_field_tag 'sentences[]['+sen.id.to_s+']', '0'
+                              %span.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 0}", :class => "#{(sen_imp and sen_imp == 1) ? 'important-highlight' : ''}" }
+                                = hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '0'
                                 = raw sen.text
 
           .row-fluid.survey-form

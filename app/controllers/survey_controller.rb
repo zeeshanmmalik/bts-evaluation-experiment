@@ -11,8 +11,12 @@ class SurveyController < ApplicationController
     @participant.response.update_attributes(params[:response])
     redirect_to access_survey_path
 
-    params[:sentences].each do |sen_id, imp|
-      ParticipantsSentences.create(:participant_id => @participant.id, :sentence_id => sen_id, :importance => imp)
+    params[:sentences].each do |sen_imp|
+      sen_imp.each do |sen_id, imp|
+        pse = @participant.sentence_evaluations.find_or_initialize_by_sentence_id(:sentence_id => sen_id)
+        pse.importance = imp
+        pse.save!
+      end
     end
   end
 end
