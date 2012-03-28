@@ -2,6 +2,7 @@ BtsEvalExpApp::Application.routes.draw do
 
   match 'survey/:access_token/access' => 'survey#access', :via => :get, :as => 'access_survey'
   match 'survey/:access_token/submit' => 'survey#submit', :via => :put, :as => 'submit_survey'
+  match 'survey/:access_token/thanks' => 'survey#thanks', :via => :get, :as => 'thanks_survey'
 
   resources :bug_reports, :only => [:index, :show] do
     member do
