@@ -9,12 +9,10 @@
     .row
       .span13
         %h3
-          Title: #{@bug_report.title}
-        %h4{:style => "margin-top:7px;"}
-          Project: "#{@bug_report.project}"
-      .span3
-        %a.btn.btn-info.btn-large.pull-right{:href => "#{@bug_report.original_link}", :target => "_blank"}
-          Original link
+          #{@bug_report.project} Bug 123456FIXME
+        %h4
+          %a.btn.btn-info.btn-large.pull-right{:href => "#{@bug_report.original_link}", :target => "_blank"}
+            #{@bug_report.title}
 
 = form_for @participant.response, :url => @bug_report, :method => :get do |f|
   = hidden_field_tag :bug_report_id, @participant.id
@@ -28,7 +26,28 @@
             .span12
               .row-fluid
                 .span12
-                  %h2 Condensed Summary
+                  %h3 Intructions
+                  %p
+                  %p 
+                    In order to help us evaluate our bug report summary generator, we kindly 
+                    ask you to evaluate a summary we have created for a #{@bug_report.project} 
+                    bug report. Since this is a bug you have commented on, we presume you
+                    should have some familiarity with the bug, facilitating the evaluation
+                    process and judgement.
+                  %p
+                    Our approach for creating this summary uses a combination of heuristics, 
+                    machine learning, and sentiment analysis to select revelant sentences from the
+                    bug report, that together will form the summary.
+                  %p
+                    Bellow we present two different views for the same summary: a <i>condensed</i> and 
+                    <i>interlaced</i> view.
+                    The condensed summary view presents only the extracted sentences.
+                    Alternatively, the interlaced view presents the complete bug report, but with
+                    the extracted sentences highlighted out from the rest of the sentences.
+                  %p 
+                    After assessing both summary views, we ask you to answer 5 questions.
+
+                  %h3 Condensed Summary
               .row-fluid
                 .span12
                   %fieldset.summary.fix-height
@@ -36,7 +55,7 @@
                     / select a summary randomly
                     - @bug_report.comments.each do |com|
                       - if com.sentences.where( 'is_in_'+summary_shown+'_summary' => true ).count > 0
-                        .comment-header
+                        .comment-header.ui-state-default.ui-corner-right.ui-corner-left
                           = com.number
                           \|
                           = com.submitted_at
@@ -54,14 +73,14 @@
             .span12
               .row-fluid
                 .span12
-                  %h2 Interlaced Summary
+                  %h3 Interlaced Summary
               .row-fluid
                 .span12
                   %fieldset.summary.fix-height
                     / %legend #{summary_shown.humanize} Summary
                     - @bug_report.comments.order('number ASC').each do |com|
                       .comment
-                        .comment-header
+                        .comment-header.ui-state-default.ui-corner-right.ui-corner-left
                           = com.number
                           \|
                           = com.submitted_at
@@ -85,7 +104,7 @@
           .row-fluid.survey-form
             .question-container
               .question
-                Q1: Please give a score, from 1-5, for how much each of the following statements is true for each summary:
+                Q2: Please give a score, from 1-5, for how much each of the following statements is true for each summary:
                 .subquestion
                   a) Important points of the bug report are represented in the summary.
                 .answer.subanswer 
@@ -117,18 +136,6 @@
                     - 0.upto(5) do |i|
                       = f.radio_button 'coherence_'+summary_shown+'_sum', i
                       = f.label 'coherence_'+summary_shown+'_sum', i, :value => i
-
-            .question-container
-              .question
-                Q2: Do you prefer reading such summaries in condensed form or highlighted form? 
-              .answer
-                .radio-buttons
-                  - ['condensed','highlighted'].each do |view|
-                    = f.radio_button :summary_view_pref, view
-                    = f.label :summary_view_pref, view.humanize, :value => view
-                What do you consider are the advantages of one over the other?
-                %br
-                = f.text_area :view_pref_reason
 
             .question-container
               .question
