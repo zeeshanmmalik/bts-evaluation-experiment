@@ -1,5 +1,7 @@
 BtsEvalExpApp::Application.routes.draw do
 
+  resources :emails
+
   match 'survey/:access_token/access' => 'survey#access', :via => :get, :as => 'access_survey'
   match 'survey/:access_token/submit' => 'survey#submit', :via => :put, :as => 'submit_survey'
   match 'survey/:access_token/thanks' => 'survey#thanks', :via => :get, :as => 'thanks_survey'

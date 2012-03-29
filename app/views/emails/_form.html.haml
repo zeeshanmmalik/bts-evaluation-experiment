@@ -1,0 +1,40 @@
+= form_for @email do |f|
+  -if @email.errors.any?
+    /#error_explanation
+    .alert.alert-error
+      %h4.alert-heading= "#{pluralize(@email.errors.count, "error")} prohibited this email from being saved:"
+      %ul
+        - @email.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :subject
+    = f.text_field :subject, :style => 'width: 600px;'
+  .field
+    = f.label :body
+    .row-fluid
+      .span8
+        = f.text_area :body, :style => 'width:600px;height:400px;'
+      .span4
+        %p Email Body: Use following as markers to be replaced by the data in the database. For example [bug_report_id] will be replaced in the email with the id of the bug report assigned to the participant.
+        %ul
+          %li [user_name]
+          %li [experiment_title]
+          %li [experiment_start_date]
+          %li [experiment_start_time]
+          %li [experiment_end_date]
+          %li [experiment_end_time]
+          %li [bug_report_id]
+          %li [bug_report_title]
+          %li [summary_link]
+
+        #btn_preview_email.btn.btn-info.btn-large Preview
+        %p#email_preview{:style=>'margin-top:10px;'}
+  .field
+    = f.label :email_type
+    = f.select :email_type, Email.TYPES.map{|type| [type.humanize, type]}, {:prompt => "- Select email type"}
+  .field
+    = f.label :experiment_id
+    = f.select :experiment_id, Experiment.all.collect {|exp| [exp.title, exp.id]}, {:prompt => "- Select an experiment"}
+  .actions
+    = f.submit 'Save', :class => 'btn btn-large btn-success'
