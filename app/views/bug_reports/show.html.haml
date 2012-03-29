@@ -72,8 +72,8 @@
                               - if sen.text.strip.empty?
                                 %p
                               - elsif sen.send('is_in_'+summary_shown+'_summary')
-                                %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                                  = raw sen.text.sub("\n","<br>")
+                                %pre.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
+                                  = raw sen.text.gsub("\n","<br>")
 
                     .question
                       Please read the summary, and, based on your expert knowledge of this bug,
@@ -127,33 +127,31 @@
                         You can mark the sentences you find have been incorrectly included or omitted by
                         clicking on the sentence. The sentences you mark will be highlighted in red.
 
-                    .row-fluid
-                      .span12
-                        %fieldset.summary.fix-height
-                          <b>Title</b>: #{@bug_report.title}
-                          / %legend #{summary_shown.humanize} Summary
-                          - @bug_report.comments.order('number ASC').each do |com|
-                            .comment
-                              .comment-header.ui-state-default.ui-corner-right.ui-corner-left
-                                = com.number
-                                \|
-                                = com.submitted_at
-                                \|
-                                = com.participant.email
-                              .comment-body
-                                - com.sentences.order('number ASC').each do |sen|
-                                  - part_sen = @participant.sentence_evaluations.where(:sentence_id => sen.id).first
-                                  - sen_imp = part_sen ? part_sen.importance : nil
-                                  - if sen.text.strip.empty?
-                                    %p
-                                  - elsif sen.send('is_in_'+summary_shown+'_summary')
-                                    =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '1'
-                                    %span.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 1}", :class => "#{(sen_imp and sen_imp == -1) ? 'wrong-highlight' : ''}" }
-                                      = raw sen.text.sub("\n","<br>")
-                                  - else
-                                    %span.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 0}", :class => "#{(sen_imp and sen_imp == 1) ? 'important-highlight' : ''}" }
-                                      =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '0'
-                                      = raw sen.text.sub("\n","<br>")
+                    %fieldset.summary.fix-height
+                      <b>Title</b>: #{@bug_report.title}
+                      / %legend #{summary_shown.humanize} Summary
+                      - @bug_report.comments.order('number ASC').each do |com|
+                        .comment
+                          .comment-header.ui-state-default.ui-corner-right.ui-corner-left
+                            = com.number
+                            \|
+                            = com.submitted_at
+                            \|
+                            = com.participant.email
+                          .comment-body
+                            - com.sentences.order('number ASC').each do |sen|
+                              - part_sen = @participant.sentence_evaluations.where(:sentence_id => sen.id).first
+                              - sen_imp = part_sen ? part_sen.importance : nil
+                              - if sen.text.strip.empty?
+                                %p
+                              - elsif sen.send('is_in_'+summary_shown+'_summary')
+                                =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '1'
+                                %pre.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 1}", :class => "#{(sen_imp and sen_imp == -1) ? 'wrong-highlight' : ''}" }
+                                  = raw sen.text.gsub("\n","<br>")
+                              - else
+                                %pre.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 0}", :class => "#{(sen_imp and sen_imp == 1) ? 'important-highlight' : ''}" }
+                                  =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '0'
+                                  = raw sen.text.gsub("\n","<br>")
 
                   .question-container
                     .question
@@ -203,12 +201,12 @@
                                     %p
                                   - elsif sen.send('is_in_'+summary_shown+'_summary')
                                     =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '1'
-                                    %span.sentence.highlight.user-summary{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 1}", :class => "#{(sen_imp and sen_imp == -1) ? 'wrong-highlight' : ''}" }
-                                      = raw sen.text.sub("\n","<br>")
+                                    %pre.sentence.highlight.user-summary{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 1}", :class => "#{(sen_imp and sen_imp == -1) ? 'wrong-highlight' : ''}" }
+                                      = raw sen.text.gsub("\n","<br>")
                                   - else
-                                    %span.sentence.user-summary{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 0}", :class => "#{(sen_imp and sen_imp == 1) ? 'important-highlight' : ''}" }
+                                    %pre.sentence.user-summary{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 0}", :class => "#{(sen_imp and sen_imp == 1) ? 'important-highlight' : ''}" }
                                       =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '0'
-                                      = raw sen.text.sub("\n","<br>")
+                                      = raw sen.text.gsub("\n","<br>")
 
                     Given such an optimal summary, in what situations do you consider bug 
                     report summaries could be helpful?
