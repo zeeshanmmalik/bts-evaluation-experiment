@@ -44,6 +44,7 @@ class ApplicationController < ActionController::Base
 
   def render_500(exception)
     @error = exception
+    AdminMailer.exception_notification_email(exception).deliver
     respond_to do |format|
       format.html { render template: 'errors/error_500', layout: 'layouts/application', status: 500 }
       format.all { render nothing: true, status: 500}

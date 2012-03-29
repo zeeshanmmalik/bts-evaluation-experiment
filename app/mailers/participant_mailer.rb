@@ -1,5 +1,6 @@
 class ParticipantMailer < ActionMailer::Base
-  default from: "bugsummary@gsd.uwaterloo.ca"
+  #set in environment cnofiguration files
+  #default from: "bugsummary@gsd.uwaterloo.ca"
 
   def invitation_email(participant)
     @participant = participant
