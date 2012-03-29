@@ -1,6 +1,9 @@
 class SurveyController < ApplicationController
   before_filter :authenticate_participant
+  before_filter :validate_experiment
   rescue_from Exceptions::ParticipantNotAuthenticated, :with => :participant_not_authenticated
+  rescue_from Exceptions::ExperimentNotStarted, :with => :experiment_not_started
+  rescue_from Exceptions::ExperimentEnded, :with => :experiment_ended
 
   def access
     @participant.response = @participant.response || Response.new

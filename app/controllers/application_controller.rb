@@ -1,7 +1,7 @@
 require 'exceptions'
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  ### Following don't work in Rails 3 because now routing is done in middleware (ActionDispatch) and hence ApplicationController never gets invoked
+  ### Followings don't work in Rails 3 because now routing is done in middleware (ActionDispatch) and hence ApplicationController never gets invoked
   #rescue_from ActionController::RoutingError, :with => :route_not_found
   #rescue_from ActionController::MethodNotAllowed, :with => :invalid_method
 
@@ -47,6 +47,32 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { render template: 'errors/error_500', layout: 'layouts/application', status: 500 }
       format.all { render nothing: true, status: 500}
+    end
+  end
+
+  def validate_experiment
+    raise ActiveRecord::RecordNotFound unless @participant
+    exp = @participant.experiment
+    raise ActiveRecord::RecordNotFound unless exp
+    start_at = exp.start_at
+    raise Exceptions::ExperimentNotStarted.new(exp) if start_at and start_at > Time.now
+    end_at = exp.end_at
+    raise Exceptions::ExperimentEnded.new(exp) if end_at and end_at < Time.now
+  end
+
+  def experiment_not_started(exception)
+    @experiment = exception.experiment
+    respond_to do |format|
+      format.html { render template: 'errors/experiment_not_started', layout: 'layouts/application', status: 401 }
+      format.all { render nothing: true, status: 401 }
+    end
+  end
+
+  def experiment_ended(exception)
+    @experiment = exception.experiment
+    respond_to do |format|
+      format.html { render template: 'errors/experiment_ended', layout: 'layouts/application', status: 401 }
+      format.all { render nothing: true, status: 401 }
     end
   end
 
