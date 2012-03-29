@@ -25,8 +25,13 @@ class ApplicationController < ActionController::Base
   end
 
   def participant_not_authenticated
-    message = "Don't you feel lucky by not been selected by our pseudo random algos!"
-    render :text => message, :status => :not_found
+    #message = "Don't you feel lucky by not been selected by our pseudo random algos!"
+    #render :text => message, :status => :not_found
+
+    respond_to do |format|
+      format.html { render template: 'errors/error_401', layout: 'layouts/application', status: 401 }
+      format.all { render nothing: true, status: 401 }
+    end
   end
 
   def render_404(exception)

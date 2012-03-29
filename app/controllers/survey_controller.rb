@@ -9,6 +9,20 @@ class SurveyController < ApplicationController
 
   def submit
     @participant.response.update_attributes(params[:response])
-    redirect_to access_survey_path
+
+    # amazing... code continues after redirecting
+    #redirect_to access_survey_path
+    redirect_to thanks_survey_path
+
+    params[:sentences].each do |sen_imp|
+      sen_imp.each do |sen_id, imp|
+        pse = @participant.sentence_evaluations.find_or_initialize_by_sentence_id(:sentence_id => sen_id)
+        pse.importance = imp
+        pse.save!
+      end
+    end
+  end
+
+  def thanks    
   end
 end

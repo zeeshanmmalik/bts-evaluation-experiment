@@ -1,26 +1,8 @@
 - summary_shown = 'lex'
-- if rand > 0.5
-  - summary_shown = 'email'
+-# - if rand > 0.5
+-#   - summary_shown = 'email'
 
 /%p#notice= notice
-
-.navbar
-  .navbar-inner
-    .container
-      %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a.brand{:href => "#"} Bug Report Summary Evaluation
-      .nav-collapse
-        %ul.nav.secondary-nav
-          %li.active
-            %a{:href => "#"} Home
-          %li
-            %a{:href => "#about"} Help
-          %li
-            %a{:href => "#contact"} Contact
-      / /.nav-collapse
 
 .hero-unit.bg-dark
   .container
@@ -32,107 +14,94 @@
           %a.btn.btn-info.btn-large.pull-right{:href => "#{@bug_report.original_link}", :target => "_blank"}
             #{@bug_report.title}
 
-.container-fluid
-  .row-fluid
-    .span12
-      .container-fluid.container-box
-        .row-fluid.summaries
-          .span12
-            .row-fluid
-              .span12
-                %h3 Intructions
-                %p
-                %p 
-                  In order to help us evaluate our bug report summary generator, we kindly 
-                  ask you to evaluate a summary we have created for a #{@bug_report.project} 
-                  bug report. Since this is a bug you have commented on, we presume you
-                  should have some familiarity with the bug, facilitating the evaluation
-                  process and judgement.
-                %p
-                  Our approach for creating this summary uses a combination of heuristics, 
-                  machine learning, and sentiment analysis to select revelant sentences from the
-                  bug report, that together will form the summary.
-                %p
-                  Bellow we present two different views for the same summary: a <i>condensed</i> and 
-                  <i>interlaced</i> view.
-                  The condensed summary view presents only the extracted sentences.
-                  Alternatively, the interlaced view presents the complete bug report, but with
-                  the extracted sentences highlighted out from the rest of the sentences.
-                %p 
-                  After assessing both summary views, we ask you to answer 5 questions.
+= form_for @participant.response, :url => @bug_report, :method => :get do |f|
+  = hidden_field_tag :bug_report_id, @participant.id
+  = hidden_field_tag :participant_id, @bug_report.id
+  = hidden_field_tag :access_token, @participant.access_token        
+  .container-fluid
+    .row-fluid
+      .span12
+        .container-fluid.container-box
+          .row-fluid.summaries
+            .span12
+              .row-fluid
+                .span12
+                  %h3 Intructions
+                  %p
+                  %p 
+                    In order to help us evaluate our bug report summary generator, we kindly 
+                    ask you to evaluate a summary we have created for a #{@bug_report.project} 
+                    bug report. Since this is a bug you have commented on, we presume you
+                    should have some familiarity with the bug, facilitating the evaluation
+                    process and judgement.
+                  %p
+                    Our approach for creating this summary uses a combination of heuristics, 
+                    machine learning, and sentiment analysis to select revelant sentences from the
+                    bug report, that together will form the summary.
+                  %p
+                    Bellow we present two different views for the same summary: a <i>condensed</i> and 
+                    <i>interlaced</i> view.
+                    The condensed summary view presents only the extracted sentences.
+                    Alternatively, the interlaced view presents the complete bug report, but with
+                    the extracted sentences highlighted out from the rest of the sentences.
+                  %p 
+                    After assessing both summary views, we ask you to answer 5 questions.
 
-                %h3 Condensed Summary
-            .row-fluid
-              .span12
-                %fieldset.summary.fix-height
-                  / %legend Lex Summary
-                  / select a summary randomly
-                  - @bug_report.comments.each do |com|
-                    - if com.sentences.where( 'is_in_'+summary_shown+'_summary' => true ).count > 0
-                      .comment-header.ui-state-default.ui-corner-right.ui-corner-left
-                        = com.number
-                        \|
-                        = com.submitted_at
-                        \|
-                        = com.participant.email
-                      .comment-body
-                        - com.sentences.order('number ASC').each do |sen|
-                          - if sen.text.strip.empty?
-                            %p
-                          - elsif sen.send('is_in_'+summary_shown+'_summary')
-                            %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                              = raw sen.text
-        %hz
-        .row-fluid.summaries
-          .span12
-            .row-fluid
-              .span12
-                %h3 Interlaced Summary
-                %p
-                  Below is an <b>interlaced</b> view of the summary. In this view, the
-                  extracted sentences are highlighted out from the rest of the sentences.
-                  
-            .row-fluid
-              .span12
-                %fieldset.summary.fix-height
-                  / %legend #{summary_shown.humanize} Summary
-                  - @bug_report.comments.order('number ASC').each do |com|
-                    .comment
-                      .comment-header.ui-state-default.ui-corner-right.ui-corner-left
-                        = com.number
-                        \|
-                        = com.submitted_at
-                        \|
-                        = com.participant.email
-                      .comment-body
-                        - com.sentences.order('number ASC').each do |sen|
-                          - if sen.text.strip.empty?
-                            %p
-                          - elsif sen.send('is_in_'+summary_shown+'_summary')
-                            %span.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                              = raw sen.text
-                          - else
-                            %span.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
-                              = raw sen.text
+                  %h3 Condensed Summary
+              .row-fluid
+                .span12
+                  %fieldset.summary.fix-height
+                    / %legend Lex Summary
+                    / select a summary randomly
+                    - @bug_report.comments.each do |com|
+                      - if com.sentences.where( 'is_in_'+summary_shown+'_summary' => true ).count > 0
+                        .comment-header.ui-state-default.ui-corner-right.ui-corner-left
+                          = com.number
+                          \|
+                          = com.submitted_at
+                          \|
+                          = com.participant.email
+                        .comment-body
+                          - com.sentences.order('number ASC').each do |sen|
+                            - if sen.text.strip.empty?
+                              %p
+                            - elsif sen.send('is_in_'+summary_shown+'_summary')
+                              %span.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
+                                = raw sen.text
 
-        .row-fluid.survey-form
-          = form_for @participant.response, :url => @bug_report, :method => :get do |f|
-            = hidden_field_tag :bug_report_id, @participant.id
-            = hidden_field_tag :participant_id, @bug_report.id
-            = hidden_field_tag :access_token, @participant.access_token
+          .row-fluid.summaries
+            .span12
+              .row-fluid
+                .span12
+                  %h3 Interlaced Summary
+              .row-fluid
+                .span12
+                  %fieldset.summary.fix-height
+                    / %legend #{summary_shown.humanize} Summary
+                    - @bug_report.comments.order('number ASC').each do |com|
+                      .comment
+                        .comment-header.ui-state-default.ui-corner-right.ui-corner-left
+                          = com.number
+                          \|
+                          = com.submitted_at
+                          \|
+                          = com.participant.email
+                        .comment-body
+                          - com.sentences.order('number ASC').each do |sen|
+                            - part_sen = @participant.sentence_evaluations.where(:sentence_id => sen.id).first
+                            - sen_imp = part_sen ? part_sen.importance : nil
+                            - if sen.text.strip.empty?
+                              %p
+                            - elsif sen.send('is_in_'+summary_shown+'_summary')
+                              =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '1'
+                              %span.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 1}", :class => "#{(sen_imp and sen_imp == -1) ? 'wrong-highlight' : ''}" }
+                                = raw sen.text
+                            - else
+                              %span.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 0}", :class => "#{(sen_imp and sen_imp == 1) ? 'important-highlight' : ''}" }
+                                =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '0'
+                                = raw sen.text
 
-            .question-container
-              .question
-                Q1: Do you prefer reading such summaries in condensed form or highlighted form? 
-              .answer
-                .radio-buttons
-                  - ['condensed','highlighted'].each do |view|
-                    = f.radio_button :summary_view_pref, view
-                    = f.label :summary_view_pref, view.humanize, :value => view
-                What do you consider are the advantages of one over the other?
-                %br
-                = f.text_area :view_pref_reason
-
+          .row-fluid.survey-form
             .question-container
               .question
                 Q2: Please give a score, from 1-5, for how much each of the following statements is true for each summary:
@@ -195,9 +164,9 @@
 
             .question-container
               = f.submit 'Submit Response', :class => 'btn-submit-form btn btn-success btn-large'
-  %hr
+    %hr
 
-  %footer
-    %p BTS Evaluation Experiment 2012
+    %footer
+      %p BTS Evaluation Experiment 2012
 
 
