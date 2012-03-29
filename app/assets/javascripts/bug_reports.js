@@ -58,42 +58,43 @@
 		}
 
 		//show suggestion_message
-
-
 	}
 
 	summary_evaluator.prototype.handle_click_event = function(){
 		var that = this;
-		var sentence = $(this), sen_id = sentence.attr("sen_id");
-		
-		/*
-		corresponding_sentence = $(sentences_class).filter(function(index){
-			return $(this).attr("sen_id") == sen_id && that != this;
+		var sentence = $(this), sen_id = sentence.attr("sen_id"), corresponding_sentences = $(".user-summary").filter(function(index){
+			return $(this).attr("sen_id") == sen_id;
 		});
-		*/
-
+		
 		sen_imp = sentence.attr("importance");
 		if( sen_imp == '1' ){
 			if( sentence.hasClass(rails_highlight_class) ){
 				sentence.addClass(wrong_highlight_class);
+				corresponding_sentences.addClass(wrong_highlight_class);
 				sentence.attr("importance", "-1");
 				$("#sentences__"+sen_id).val("-1");
 			}else{
 				sentence.removeClass(important_highlight_class);
+				corresponding_sentences.removeClass(important_highlight_class);
 				sentence.attr("importance", "0");
 				$("#sentences__"+sen_id).val("0");
 			}
 		}
 		else if( sen_imp == '-1' ){
 			sentence.removeClass(wrong_highlight_class);
+			corresponding_sentences.removeClass(wrong_highlight_class);
 			sentence.attr("importance", "1");
 			$("#sentences__"+sen_id).val("1");
 		}
 		else{
 			sentence.addClass(important_highlight_class);
+			corresponding_sentences.addClass(important_highlight_class);
 			sentence.attr("importance", "1");
 			$("#sentences__"+sen_id).val("1");
 		}
+
+                var comment_id = sentence.attr("com_id");
+                handle_comment_headers(comment_id);
 
         /*
 		//if not highlighted then highlight
@@ -170,11 +171,34 @@
 
 })();
 
+       function handle_comment_headers(comment_id) {
+            // after every click, check if there are any other selected sentences
+            // for the same comment. apply style to hide/show comment for user-summary
+            var comment_sentences = $("[com_id=" + comment_id+"]");
+            var highlighted_sentences = comment_sentences.filter(function(index) { 
+                                                                     return (!$(this).hasClass("wrong-highlight")) &&
+                                                                         $(this).hasClass("highlight") || 
+                                                                         $(this).hasClass("important-highlight");
+                                                                 });
+            if (highlighted_sentences.length > 0) {
+                $("#" + comment_id).addClass("show-header")
+            }
+            else {
+                $("#" + comment_id).removeClass("show-header")
+            }
+         }
+
+
 
 $(document).ready(function(){
 	$(".radio-buttons").buttonset();
 
 	var user_summary_evaluator = new summary_eveluator();
+            
+        var all_comments = $(".comment-header.user-summary");
+        all_comments.each(function(index, c) { 
+                              return handle_comment_headers($(c).attr("id")); 
+                          } );
 });
 
 
