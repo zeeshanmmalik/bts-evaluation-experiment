@@ -1,3 +1,7 @@
+- email_markers = APP_CONFIG[:email_markers_example]
+%script{:type => "text/javascript"}
+  email_markers = #{raw email_markers.to_json};
+  
 = form_for @email do |f|
   -if @email.errors.any?
     /#error_explanation
@@ -13,20 +17,13 @@
   .field
     = f.label :body
     .row-fluid
-      .span8
-        = f.text_area :body, :style => 'width:600px;height:400px;'
-      .span4
+      .span9
+        = f.text_area :body, :style => 'width:100%;height:400px;'
+      .span3
         %p Email Body: Use following as markers to be replaced by the data in the database. For example [bug_report_id] will be replaced in the email with the id of the bug report assigned to the participant.
         %ul
-          %li [user_name]
-          %li [experiment_title]
-          %li [experiment_start_date]
-          %li [experiment_start_time]
-          %li [experiment_end_date]
-          %li [experiment_end_time]
-          %li [bug_report_id]
-          %li [bug_report_title]
-          %li [summary_link]
+          - email_markers.each do |key,val|
+            %li [#{key}]
 
         #btn_preview_email.btn.btn-info.btn-large Preview
         %p#email_preview{:style=>'margin-top:10px;'}

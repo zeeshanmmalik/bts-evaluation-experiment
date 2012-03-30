@@ -17,4 +17,12 @@ module Exceptions
       @experiment
     end
   end
+  class EmailDoesNotExist < StandardError
+    def initialize(msg)
+      @message = msg
+    end
+    def message
+      @message
+    end
+  end
 end
