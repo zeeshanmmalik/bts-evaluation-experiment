@@ -1,4 +1,5 @@
 class ExperimentsController < ApplicationController
+  before_filter :authenticate_admin!
   # GET /experiments
   # GET /experiments.json
   def index
