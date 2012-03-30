@@ -1,25 +1,28 @@
-%h1 Listing emails
+.container
+  %h1 Listing emails
 
-%table
-  %tr
-    %th Subject
-    %th Body
-    %th Email type
-    %th Experiment
-    %th
-    %th
-    %th
-
-  - @emails.each do |email|
+  %table
     %tr
-      %td= email.subject
-      %td= email.body
-      %td= email.email_type
-      %td= email.experiment.title
-      %td= link_to 'Show', email
-      %td= link_to 'Edit', edit_email_path(email)
-      %td= link_to 'Destroy', email, :confirm => 'Are you sure?', :method => :delete
+      %th Subject
+      %th Body
+      %th Email type
+      %th Experiment
+      %th Actions
 
-%br
+    - @emails.each do |email|
+      %tr
+        %td= truncate email.subject
+        %td= truncate email.body
+        %td= email.email_type
+        %td= email.experiment.title
+        %td
+          = link_to 'Show', email
+          \|
+          = link_to 'Edit', edit_email_path(email)
+          \|
+          = link_to 'Destroy', email, :confirm => 'Are you sure?', :method => :delete
 
-= link_to 'New Email', new_email_path, :class => 'btn btn-small'
+  %br
+
+  = link_to 'New Email', new_email_path, :class => 'btn btn-large'
+  = link_to 'Experiments', experiments_path, :class => 'btn btn-large'

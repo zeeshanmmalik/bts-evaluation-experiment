@@ -3,7 +3,11 @@ class EmailsController < ApplicationController
   # GET /emails
   # GET /emails.json
   def index
-    @emails = Email.all
+    if params[:exp_id] and Experiment.exists?(params[:exp_id])
+      @emails = Experiment.find(params[:exp_id]).emails
+    else
+      @emails = Email.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
