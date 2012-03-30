@@ -1,26 +1,27 @@
-%h1 Listing experiments
+.container
+  %h1 Listing experiments
 
-%table
-  %tr
-    %th Title
-    %th Start at
-    %th End at
-    %th Actions
-
-  - @experiments.each do |experiment|
+  %table
     %tr
-      %td= experiment.title
-      %td= experiment.start_at
-      %td= experiment.end_at
-      %td
-        = link_to 'Bugs', bug_reports_path(:exp_id => experiment.id)
-        \| 
-        = link_to 'Show', experiment
-        \| 
-        = link_to 'Edit', edit_experiment_path(experiment)
-        \|
-        = link_to 'Destroy', experiment, :confirm => 'Are you sure?', :method => :delete
+      %th Title
+      %th Start at
+      %th End at
+      %th Actions
 
-%br
+    - @experiments.each do |experiment|
+      %tr
+        %td= experiment.title
+        %td= experiment.start_at
+        %td= experiment.end_at
+        %td
+          = link_to 'Bugs', bug_reports_path(:exp_id => experiment.id)
+          \| 
+          = link_to 'Show', experiment
+          \| 
+          = link_to 'Edit', edit_experiment_path(experiment)
+          \|
+          = link_to 'Destroy', experiment, :confirm => 'Are you sure?', :method => :delete
 
-= link_to 'New Experiment', new_experiment_path
+  %br
+
+  = link_to 'New Experiment', new_experiment_path, :class => 'btn btn-large'

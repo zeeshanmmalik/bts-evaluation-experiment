@@ -4,6 +4,8 @@ class Experiment < ActiveRecord::Base
   has_many :bug_reports, :dependent => :destroy
   has_many :emails, :dependent => :destroy
 
+  validates :title, :presence => true, :uniqueness => true
+
   def email(e_type)
     email = emails.where(:email_type => e_type).first
     raise Exceptions::EmailDoesNotExist.new("#{e_type.humanize} email for experiment '#{title}' does NOT exist!") unless email
