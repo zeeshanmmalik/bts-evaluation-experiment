@@ -208,17 +208,35 @@
                                       =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '0'
                                       = raw sen.text.gsub("\n","<br>")
 
-                    Given such an optimal summary, in what situations do you consider bug 
-                    report summaries could be helpful?
-                    .answer
-                      %input{ :type => "checkbox" } When looking for a similar or duplicate bug; 
-                      %br
-                      %input{ :type => "checkbox" } When looking for a solution or workaround to a bug;
-                      %br
-                      %input{ :type => "checkbox" } When trying to understand the status of a bug and its open issues;
-                      %br
-                      Feel free to elaborate, or include any other situations in which summaries would be helpful.
-                      = f.text_area :summarizing_reason
+                    .question
+                      Given such an optimal summary, in what situations do you consider bug report summaries could be helpful?
+                      .subquestion
+                        a)
+                        %i When looking for a similar or duplicate bug; 
+                      .answer.subanswer
+                        .radio-buttons
+                          - 0.upto(5) do |i|
+                            = radio_button_tag :sum_help_similar_bug, i
+                            = label_tag "sum_help_similar_bug_#{i}", i, :value => i
+                      .subquestion
+                        b)
+                        %i When looking for a solution or workaround to a bug;
+                      .answer.subanswer
+                        .radio-buttons
+                          - 0.upto(5) do |i|
+                            = radio_button_tag :sum_help_workaround_bug, i
+                            = label_tag "sum_help_workaround_bug_#{i}", i, :value => i
+                      .subquestion
+                        c)
+                        %i When trying to understand the status of a bug and its open issues;
+                      .answer.subanswer
+                        .radio-buttons
+                          - 0.upto(5) do |i|
+                            = radio_button_tag :sum_help_status_bug, i
+                            = label_tag "sum_help_status_bug_#{i}", i, :value => i
+                      .answer
+                        Feel free to elaborate, or include any other situations in which summaries would be helpful.
+                        = f.text_area :summarizing_reason
 
                   .question-container
                     .question
