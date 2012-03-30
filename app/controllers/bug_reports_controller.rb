@@ -3,8 +3,11 @@ class BugReportsController < ApplicationController
   # GET /bug_reports
   # GET /bug_reports.json
   def index
-    @bug_reports = BugReport.all
-
+    if params[:exp_id] and Experiment.exists?(params[:exp_id])
+      @bug_reports = Experiment.find(params[:exp_id]).bug_reports
+    else
+      @bug_reports = BugReport.all
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @bug_reports }
