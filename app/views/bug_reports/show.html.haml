@@ -15,8 +15,8 @@
             #{@bug_report.title}
 
 = form_for @participant.response, :url => @bug_report, :method => :get do |f|
-  = hidden_field_tag :bug_report_id, @participant.id
-  = hidden_field_tag :participant_id, @bug_report.id
+  = hidden_field_tag :bug_report_id, @bug_report.id
+  = hidden_field_tag :participant_id, @participant.id
   = hidden_field_tag :access_token, @participant.access_token        
   .container-fluid
     .row-fluid
@@ -26,7 +26,7 @@
             .span12
               .row-fluid
                 .span12
-                  %h3 Intructions
+                  %h3 Introduction
                   %p
                   %p 
                     In order to help us evaluate our bug report summary generator, we kindly 
@@ -41,8 +41,8 @@
                     The summary we have created reduces the length of the bug report, in number
                     of words, to 25% of its original size.
                   %p
-                    This evaluation asks you to read and the summary carefuly, judging it quality
-                    and usefulness, and to answer 5 questions.
+                    This evaluation asks you to read the summary carefuly, judging its quality
+                    and usefulness, and to answer 5 questions.#{@bug_report.experiment.end_at.blank? ? '' : ' Please submit your response before survey close time '+@bug_report.experiment.end_at.to_s+'.'} 
 
           .row-fluid.summaries
             .span12
@@ -66,7 +66,7 @@
                             \|
                             = com.submitted_at
                             \|
-                            = com.participant.email
+                            = com.participant.username
                           .comment-body
                             - com.sentences.order('number ASC').each do |sen|
                               - if sen.text.strip.empty?
@@ -216,24 +216,24 @@
                       .answer.subanswer
                         .radio-buttons
                           - 0.upto(5) do |i|
-                            = radio_button_tag :sum_help_similar_bug, i
-                            = label_tag "sum_help_similar_bug_#{i}", i, :value => i
+                            = f.radio_button :sum_help_bug_similar, i
+                            = f.label "sum_help_bug_similar", i, :value => i
                       .subquestion
                         b)
                         %i When looking for a solution or workaround to a bug;
                       .answer.subanswer
                         .radio-buttons
                           - 0.upto(5) do |i|
-                            = radio_button_tag :sum_help_workaround_bug, i
-                            = label_tag "sum_help_workaround_bug_#{i}", i, :value => i
+                            = f.radio_button :sum_help_bug_workaround, i
+                            = f.label "sum_help_bug_workaround", i, :value => i
                       .subquestion
                         c)
                         %i When trying to understand the status of a bug and its open issues;
                       .answer.subanswer
                         .radio-buttons
                           - 0.upto(5) do |i|
-                            = radio_button_tag :sum_help_status_bug, i
-                            = label_tag "sum_help_status_bug_#{i}", i, :value => i
+                            = f.radio_button :sum_help_bug_status, i
+                            = f.label "sum_help_bug_status", i, :value => i
                       .answer
                         Feel free to elaborate, or include any other situations in which summaries would be helpful.
                         = f.text_area :summarizing_reason
@@ -254,5 +254,5 @@
     %hr
     %footer
       %center
-        %a.bla{:href => "http://gsd.uwaterloo.ca"}
+        %a.bla{:href => "http://gsd.uwaterloo.ca", :target => '_blank'}
           GSD Lab, University of Waterloo
