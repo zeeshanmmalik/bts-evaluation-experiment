@@ -72,7 +72,7 @@
                               - if sen.text.strip.empty?
                                 %p
                               - elsif sen.send('is_in_'+summary_shown+'_summary')
-                                %pre.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
+                                .pre.sentence{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}" }
                                   = raw sen.text.gsub("\n","<br>")
 
                     .question
@@ -147,10 +147,10 @@
                                 %p
                               - elsif sen.send('is_in_'+summary_shown+'_summary')
                                 =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '1'
-                                %pre.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 1}", :class => "#{(sen_imp and sen_imp == -1) ? 'wrong-highlight' : ''}" }
+                                .pre.sentence.eval-sen.highlight{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 1}", :class => "#{(sen_imp and sen_imp == -1) ? 'wrong-highlight' : ''}" }
                                   = raw sen.text.gsub("\n","<br>")
                               - else
-                                %pre.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 0}", :class => "#{(sen_imp and sen_imp == 1) ? 'important-highlight' : ''}" }
+                                .pre.sentence.eval-sen{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 0}", :class => "#{(sen_imp and sen_imp == 1) ? 'important-highlight' : ''}" }
                                   =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '0'
                                   = raw sen.text.gsub("\n","<br>")
 
@@ -202,10 +202,10 @@
                                     %p
                                   - elsif sen.send('is_in_'+summary_shown+'_summary')
                                     =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '1'
-                                    %pre.sentence.highlight.user-summary{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 1}", :class => "#{(sen_imp and sen_imp == -1) ? 'wrong-highlight' : ''}" }
+                                    .pre.sentence.highlight.user-summary{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 1}", :class => "#{(sen_imp and sen_imp == -1) ? 'wrong-highlight' : ''}" }
                                       = raw sen.text.gsub("\n","<br>")
                                   - else
-                                    %pre.sentence.user-summary{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 0}", :class => "#{(sen_imp and sen_imp == 1) ? 'important-highlight' : ''}" }
+                                    .pre.sentence.user-summary{ :sen_id => "#{sen.id}", :bug_id => "#{@bug_report.id}", :com_id => "#{com.id}", :importance => "#{sen_imp || 0}", :class => "#{(sen_imp and sen_imp == 1) ? 'important-highlight' : ''}" }
                                       =# hidden_field_tag 'sentences[]['+sen.id.to_s+']', sen_imp || '0'
                                       = raw sen.text.gsub("\n","<br>")
 
