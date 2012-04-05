@@ -1,0 +1,391 @@
+{
+    "contributors": [
+        [
+            "pp-c", 
+            "email"
+        ], 
+        [
+            "dev-mahara", 
+            "lexrank"
+        ], 
+        [
+            "richard-mansfield", 
+            "email"
+        ]
+    ], 
+    "title": "commit 011c5039656b4d22a08c7aa8da70abffa5fa8b52 on master broke our local remote avatars", 
+    "comments": [
+        {
+            "date": "2012-02-01 11:07:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      Using lastest Mahara 1.5dev from master at gitorious\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We git pulled yesterday the latest changes from master and found that all displaying of user's profile icon via a call to thumb.php were now broken and display an 'not found' icon.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We are using a local remote gravatar server (running with the usual gravatar protocol, i.e via a md5 of user's email) and everything was working OK until we merged the commit 011c5039656b4d22a08c7aa8da70abffa5fa8b52 Author: Richard Mansfield <email address hidden>\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date:   Thu Jan 12 17:25:56 2012 +1300\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is due to the fact that since we have a local gravatar server, none of our 7500 users bother to upload a profile icon to their profile and thus have NULL in the column profilicon of the table usr. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We even advised them not to do so ! ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Previously it worked since thumb.php was called with type=profileicon and id= $user->id  (never empty)  so there was a DB request to fetch user's email that was later passed to the remote avatar fetching call .\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Now that type is profileiconbyid , and id is now usr->profileicon, that is almost always empty, the database call DO not occurs and the user's email is not fetched, so it stays null and the following critical call is not executed ... ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // Look for an appropriate image on gravatar.com\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        if ($useremail and $gravatarurl = remote_avatar($useremail, $size, $notfound)) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            redirect($gravatarurl);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Displaying profile icons still works when code generate the img src value by a call to profile_icon_url function like in group, user ... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lists  but not anymore when code make use of an img src=\"https://mymahara/thumb.php?xxxxx \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cheers\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "pp-c", 
+            "email": "pp-c"
+        }, 
+        {
+            "date": "2012-02-01 11:07:01", 
+            "sentences": [], 
+            "name": "pp-c", 
+            "email": "pp-c"
+        }, 
+        {
+            "date": "2012-02-02 03:32:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sorry Patrick, I should have remembered about the remove avatars when making that change. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " All the ones I broke in that commit are fixed by https://reviews.mahara.org/1035\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "At some stage I'll go through the rest of the code and check if there are any other uses of profileiconbyid that need to be changed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I suspect this was done at the time the remote avatar option was introduced, but more may have crept in since then.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "richard-mansfield", 
+            "email": "richard-mansfield"
+        }, 
+        {
+            "date": "2012-02-02 11:56:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Richard,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Sounds good to me by \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "git fetch git://reviews.mahara.org/git/mahara refs/changes/35/1035/1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "git checkout local_mahara\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "git merge  FETCH_HEAD\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Back to normal ;-)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "pp-c", 
+            "email": "pp-c"
+        }, 
+        {
+            "date": "2012-02-07 03:16:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reviewed:  https://reviews.mahara.org/1035\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committed: http://gitorious.org/mahara/mahara/commit/ab3b5a19ee7103ae3f9761376fc5cc8dff8904d4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Submitter: Francois Marier (<email address hidden>)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Branch:    master\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "commit ab3b5a19ee7103ae3f9761376fc5cc8dff8904d4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Author: Richard Mansfield <email address hidden>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date:   Thu Feb 2 16:08:54 2012 +1300\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Fix remote avatars broken by 'profileiconbyid' commit (bug #924777)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Commit 011c503965 changed lot of thumb.php urls to use the     type=profileiconbyid parameter (which takes an artefact id) rather     than type=profileicon (which takes a user id, and which cannot be     cached).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Unfortunately, when a user has no locally stored profile icon, use of     type=profileiconbyid stops their remote gravatar image from being     displayed.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    This commit updates the thumb.php urls that were changed in commit     011c503965 to use the profile_icon_url() function, which respects     remote avatars when no local profileicon is available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    In some cases this requires a new size of the no_userphoto.png image,     so three new sizes are added in the raw theme. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The four no_userphoto     images in the custom theme were duplicates of those in raw, and are     removed.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Finally, the type=profileiconbyid change from commit 011c503965 in the     viewacl.tpl template has been reverted back to type=profileicon.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Because this url is constructed in javascript, it is not worth the     trouble to use a profile_icon_url call here until the number of     requests to thumb.php really becomes a problem.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Change-Id: I7dce7090842999fe090dc2d8c481cb4aca7720d5\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Signed-off-by: Richard Mansfield <email address hidden>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "dev-mahara", 
+            "email": "dev-mahara"
+        }
+    ], 
+    "id": "924777", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/924777"
+}

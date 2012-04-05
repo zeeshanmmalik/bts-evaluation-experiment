@@ -1,0 +1,416 @@
+{
+    "contributors": [
+        [
+            "vaab", 
+            "lexrank"
+        ], 
+        [
+            "skh-openerp", 
+            "email"
+        ]
+    ], 
+    "title": "timesheet don't get updated as I feed a task with new works", 
+    "comments": [
+        {
+            "date": "2012-03-07 15:39:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've installed 'hr_timesheet_sheet' and 'project_timesheet'.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am working with \"6.1.0\" and \"6.1.1\" revision of all three components (openerp-web, openobject-server, openobject-addons)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Feeding a task (project.task) with work lines (project.task.work) won't update the \"My timesheet\" form view.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm expecting to see these work lines to be displayed in the \"My timesheet\" as I add them in the \"project.task\" form.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "To be more specific: I'm expecting to see them in the one2many tree view of field 'timesheet_ids' of the \"My timesheet\" form.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "They seem to be collected correctly (and thus displayed in \"My timesheet\") at the timesheet creation time. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But not after.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "A way to get them to be correctly gathered in \"My timesheet\" is to go in the \"Timesheet lines\" where they are displayed. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Then edit the line that was not reported in \"My timesheet\", and force the \"form\" view, then use the calendar widget to select the same date. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Then press on \"save\". ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The line of work will now be correctly gathered in the \"My timesheet\".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "MY DIAGNOSIS ATTEMPT:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've digged deeply to try to diagnose the issue. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And these are my conclusions:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- The table 'hr_analytic_timesheet' have a 'sheet_id' column which relates to the 'sheet_id' stored function declared in hr_timesheet_sheet/hr_timesheet_sheet.py\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- this function is not pre-calculated (and thus the 'sheet_id' value is not set) at 'project.task.work' creation time.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- when rendering the \"My timesheet\" form view, a '.search' is performed to filter out lines from the 'hr_analytic_timesheet' based on the 'sheet_id' value (based on the sheet_id column table value...)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- A '.read' is then performed on remaining ids, which will trigger the 'sheet_id' calculation, but only on lines that had already the correct 'sheet_id' valuated and stored.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "PROPOSITIONS:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Solutions can be found, but they would be different depending on what behavior we'd like to get (of which i'm not aware):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1 - should this be set at write time ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(ie: upon \"create\" of project.task.work)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2 - should this be set at read time ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(ie: in \"get()\" of \"one2many_mod\")\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vaab", 
+            "email": "vaab"
+        }, 
+        {
+            "date": "2012-03-12 13:08:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello Valentin, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have checked your issue . ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "According to your  #comment 1::   \"To be more specific\":  I'm expecting to see them in the one2many tree view of field 'timesheet_ids' of the \"My timesheet\" form. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's working fine and collected correctly at my end.For your more reference ,I have attached video .Please take a look. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As you have ask in PROPOSITIONS Portion :: This is set at write time in \"project.task.work\" at line no 157 in write method .Due to this write method when you save  time-sheet then and then you will see project. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "task.work (Task) in time sheet line.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hope this will help you!!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks!!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "rmu-openerp", 
+            "email": "rmu-openerp"
+        }, 
+        {
+            "date": "2012-03-13 11:41:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You must have been mistaken, but I'm speaking of \".create()\"  of \"project.task.work\"... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It writes in project_timesheet/project_timesheet.py:112  as of revision tagged 6.1.1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      timeline_id = obj_timesheet.create(cr, uid, vals=vals_line, context=context)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Which writes the line with id=2 in the SQL 'hr_analytic_timesheet' table:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lp_hrtimesheet=# select * from hr_analytic_timesheet;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " id | create_uid |        create_date         |         write_date         | write_uid | line_id | partner_id | sheet_id \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "----+------------+----------------------------+----------------------------+-----------+---------+------------+----------   2 |          1 | 2012-03-13 10:08:03.123667 | 2012-03-13 10:08:03.123667 |         1 |       2 |            |         \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  1 |          1 | 2012-03-13 10:06:59.523923 | 2012-03-13 10:08:03.123667 |         1 |       1 |            |        1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You can observe that sheet_id is not pre-calculated as a storage for function field \"sheet_id\".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thus, at \".search()\" time, when displaying the \"My Timesheet\" form, it cannot be displayed as expected.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please consult my video to see a reproduction of the bug from scratch.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vaab", 
+            "email": "vaab"
+        }, 
+        {
+            "date": "2012-03-28 10:34:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello Valentin,\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "it has been fixed in lp:~openerp-dev/openobject-addons/6.1-opw-573090-skh with,\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Revision ID: <email address hidden>\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Rev-no: 6707\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This branch is under the review of our experts and will be merged soon with stable 6.1 branch.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "skh-openerp", 
+            "email": "skh-openerp"
+        }
+    ], 
+    "id": "949078", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/949078"
+}

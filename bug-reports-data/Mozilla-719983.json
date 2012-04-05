@@ -1,0 +1,743 @@
+{
+    "contributors": [
+        [
+            "Jim Mathies [:jimm]", 
+            "email"
+        ], 
+        [
+            "Masatoshi Kimura [:emk]", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Replace uses of nsUXThemeData::sIsVistaOrLater with WinUtils version routines", 
+    "comments": [
+        {
+            "date": "2012-01-20 13:35:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We could add a new method to WinUtils to support checking for great than (WinVersion) to do this.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://mxr.mozilla.org/mozilla-central/search?string=sIsVistaOrLater\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-01-20 14:30:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 590353 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "winutils v.1\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-01-23 09:56:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 590760 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "winutils v.1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I like the idea of centralizing this. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The calls feel a little overly verbose though.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-01-23 16:30:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't see much point in these when you can just write\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if (GetWindowsVersion() >= VISTA_VERSION)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The only other idea I had was to provide NO_MINIMUM and NO_MAXIMUM enumeration constants for use with WindowsVersionWithinRange() i.e.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if (WindowsVersionWithinRange(VISTA_VERSION, NO_MAXIMUM))\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "neil@parkwaycc.co.uk", 
+            "email": "neil@parkwaycc.co.uk"
+        }, 
+        {
+            "date": "2012-01-24 03:58:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 590760 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "winutils v.1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to neil@parkwaycc.co.uk from comment #3)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I don't see much point in these when you can just write\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> if (GetWindowsVersion() >= VISTA_VERSION)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The only other idea I had was to provide NO_MINIMUM and NO_MAXIMUM > enumeration constants for use with WindowsVersionWithinRange() i.e.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> if (WindowsVersionWithinRange(VISTA_VERSION, NO_MAXIMUM))\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yeah, I started implementing the sIsVistaOrLater removal code with these and decided they were overkill.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-01-24 08:33:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 591114 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-01-29 16:13:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1. My understanding is that we will shortly be dropping W2K support, so maybe you should hold off until that is done or just incorporate those changes.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "neil@parkwaycc.co.uk", 
+            "email": "neil@parkwaycc.co.uk"
+        }, 
+        {
+            "date": "2012-01-30 08:02:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to neil@parkwaycc.co.uk from comment #6)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 1. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "My understanding is that we will shortly be dropping W2K support, so > maybe you should hold off until that is done or just incorporate those > changes.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 2. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It looks confusing to have the negation of version >= VISTA be version <= > XP but with the dropping of W2K perhaps you should go with != XP or == XP?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is there a bug on stripping out 2K specific code? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think something like that recently passed through my inbox, but now can't find it.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-01-30 10:10:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Found it - bug 699247\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-02-07 18:16:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 595282 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Updated to the latest in bug 699247, and I changed <=/>= vista checks to xp checks.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-02-07 18:21:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 595283 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Missed a few.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-02-07 20:17:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<= XP and > XP (or < VISTA and >= VISTA) would be better than == XP and != XP unless we ensure that Firefox will never run under Compatibility Mode somehow.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Masatoshi Kimura [:emk]", 
+            "email": "Masatoshi Kimura [:emk]"
+        }, 
+        {
+            "date": "2012-02-07 20:40:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<= XP and > XP was obviously wrong because Win2k3 would be identified as \"Vista or later\". ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It must be < VISTA and >= VISTA.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Masatoshi Kimura [:emk]", 
+            "email": "Masatoshi Kimura [:emk]"
+        }, 
+        {
+            "date": "2012-02-08 03:24:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Masatoshi Kimura [:emk] from comment #11)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> <= XP and > XP (or < VISTA and >= VISTA) would be better than == XP and !=\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> XP unless we ensure that Firefox will never run under Compatibility Mode > somehow.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ive never understood why people would do this, is there some reasonable utilitarian reason to turn this on for fx?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-02-08 03:30:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Masatoshi Kimura [:emk] from comment #12)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> <= XP and > XP was obviously wrong because Win2k3 would be identified as > \"Vista or later\". ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It must be < VISTA and >= VISTA.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hmm, good catch, sVistaOrLater was: |version >= WinUtils::VISTA_VERSION| so I guess I will have to change these back.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-02-08 04:10:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 595372 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-02-08 04:13:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 595374 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fix incorrect test in nsWindow::InitMouseWheelScrollData(). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This should do it.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-02-08 05:24:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 595374 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">     case NS_THEME_TOOLTIP:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-      // BUG #161600: XP/2K3 should force a classic treatment of tooltips\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-      return nsUXThemeData::sIsVistaOrLater ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "nsUXThemeData::GetTheme(eUXTooltip) : NULL;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+      // XP should force a classic treatment of tooltips\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+      return WinUtils::GetWindowsVersion() <  WinUtils::VISTA_VERSION ?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+        NULL : nsUXThemeData::GetTheme(eUXTooltip);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Why the comment change? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Also, a double space crept in after the <, and the indentation on the various wrapped ?:s looks wrong but I don't know what correct style would be.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "neil@parkwaycc.co.uk", 
+            "email": "neil@parkwaycc.co.uk"
+        }, 
+        {
+            "date": "2012-02-08 07:50:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to neil@parkwaycc.co.uk from comment #17)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Comment on attachment 595374 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >     case NS_THEME_TOOLTIP:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >-      // BUG #161600: XP/2K3 should force a classic treatment of tooltips\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >-      return nsUXThemeData::sIsVistaOrLater ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "nsUXThemeData::GetTheme(eUXTooltip) : NULL;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >+      // XP should force a classic treatment of tooltips > >+      return WinUtils::GetWindowsVersion() <  WinUtils::VISTA_VERSION ?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >+        NULL : nsUXThemeData::GetTheme(eUXTooltip);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Why the comment change? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Also, a double space crept in after the <, and the > indentation on the various wrapped ?:s looks wrong but I don't know what > correct style would be.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I put the 2K3 back in, but left the bug number out, we have blame for that.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not sure about the wrapping - looks ok to me.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-02-08 08:01:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/f1acc52a59da\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-02-08 13:07:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Backed out of inbound along with bug 699247 at Jim's request, until the cause of a 30% WinXP Ts regression (https://groups.google.com/d/topic/mozilla.dev.tree-management/_yUe9mobQHA) is known.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/07da69ba7e52\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ed Morley [:edmorley]", 
+            "email": "Ed Morley [:edmorley]"
+        }, 
+        {
+            "date": "2012-02-08 17:00:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Try run for e63463016916 is complete.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Detailed breakdown of the results available here:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    https://tbpl.mozilla.org/?tree=Try&rev=e63463016916\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Results (out of 17 total builds):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    success: 17\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Builds (or logs if builds failed) available at:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://ftp.mozilla.org/pub/mozilla.org/firefox/try-builds/jmathies@mozilla.com-e63463016916\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mozilla RelEng Bot", 
+            "email": "Mozilla RelEng Bot"
+        }, 
+        {
+            "date": "2012-02-08 18:18:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This will reland after the perf issues with bug 699247 get fixed.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-02-15 11:13:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/ffd20a1557e0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Went ahead and cleaned this up for landing.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Mathies [:jimm]", 
+            "email": "Jim Mathies [:jimm]"
+        }, 
+        {
+            "date": "2012-02-16 02:56:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/ffd20a1557e0\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marco Bonardo [:mak]", 
+            "email": "Marco Bonardo [:mak]"
+        }
+    ], 
+    "id": "719983", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=719983"
+}

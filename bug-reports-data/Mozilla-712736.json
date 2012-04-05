@@ -1,0 +1,373 @@
+{
+    "contributors": [
+        [
+            "Stuart Morgan", 
+            "email"
+        ], 
+        [
+            "Mehmet Sahin", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Add a hidden pref to allow turning off title autocompletion as a temporary measure", 
+    "comments": [
+        {
+            "date": "2011-12-21 12:19:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Per discussions, we're going to temporarily honor a pref that allows the user to disable titles as a data source for autocomplete.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Long-term, we want to continue to tweak scoring and implement learning to make results better without forcing people to disable titles to get an equivalent desired result set to URL-only autocomplete.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Smokey Ardisson (not following bugs - do not email)", 
+            "email": "Smokey Ardisson (not following bugs - do not email)"
+        }, 
+        {
+            "date": "2011-12-21 20:45:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 583718 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Don't generate keywords for titles if the pref is set, v1.1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here's the implementation, complete with comment about how we'd like things to work in a world where Sam buys us all ponies. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1) This seemed like the only place in the autocomplete flow where we dealt with titles, and thus the only place to short-circuit it.  However, you know that code far better than I do, so please let me know if there's a better place.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2) The existing Gecko pref that controls data sources (browser.urlbar.default.behavior) is one of those bizarre binary-bitwise things, with a super-bizarre set and number of options, and it makes no sense to match the name when we're not matching but one of the options and really just want a simple boolean.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Smokey Ardisson (not following bugs - do not email)", 
+            "email": "Smokey Ardisson (not following bugs - do not email)"
+        }, 
+        {
+            "date": "2011-12-21 22:59:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 583718 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Don't generate keywords for titles if the pref is set, v1.1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Rather than do this every time keywords are made, it would be better to make a public setGeneratesTitleKeywords:(BOOL)useTitles method on AutoCompleteKeywordGenerator, then add a member BOOL to that class to store the value, default it to YES in |init|, and then at http://mxr.mozilla.org/camino/source/camino/src/browser/AutoCompleteDataSource.mm#349\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "call that method with the result of a pref look-up.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Stuart Morgan", 
+            "email": "Stuart Morgan"
+        }, 
+        {
+            "date": "2011-12-21 23:45:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Stuart Morgan from comment #2)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Rather than do this every time keywords are made\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"this\" is just the pref lookup, right? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Because we'd still have to check mShouldUseTitles in |keywordsForItem:| to not generate keywords from titles, unless I've really missed something?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Smokey Ardisson (not following bugs - do not email)", 
+            "email": "Smokey Ardisson (not following bugs - do not email)"
+        }, 
+        {
+            "date": "2011-12-22 13:04:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 583908 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Don't generate keywords for titles if the pref is set, v1.2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Revised per comment 2.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Smokey Ardisson (not following bugs - do not email)", 
+            "email": "Smokey Ardisson (not following bugs - do not email)"
+        }, 
+        {
+            "date": "2012-01-02 06:39:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 583908 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Don't generate keywords for titles if the pref is set, v1.2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "sr=smorgan with one nit:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+  if (mGeneratesTitleKeywords)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+    [keys addObjectsFromArray:[[[item valueForKey:@\"title\"] lowercaseString]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+                                  componentsSeparatedByString:@\" \"]];\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Add {} around this, since it continues to a second line.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Stuart Morgan", 
+            "email": "Stuart Morgan"
+        }, 
+        {
+            "date": "2012-01-03 14:28:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Stuart Morgan from comment #5)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Add {} around this, since it continues to a second line.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Oops :O:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/camino/rev/1dbc4d951a14 with that corrected.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't know how (if?) we want to relnote this specifically, but regardless I need to remember to update the hidden prefs page for this.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Smokey Ardisson (not following bugs - do not email)", 
+            "email": "Smokey Ardisson (not following bugs - do not email)"
+        }, 
+        {
+            "date": "2012-01-03 21:42:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<h3 class=\"hidden\" id=\"AutocompleteOnlyURLs\">Complete based only on <abbr title=\"Uniform Resource Locator\">URL</abbr>s, not titles</h3>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          <p class=\"hidden\">When Camino offers suggestions for completing typing in the location bar, it normally uses both the URL and the page title to provide possible matches. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You can make Camino only match against page URLs by setting the <code>camino.autocomplete_from_titles</code> hidden preference to <code>false</code>.</p>           <p class=\"hidden\">Note that changes to this setting will only have an effect after restarting Camino.</p>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm not fond of the text, but it's something. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It's currently hidden from everyone pending some resolution to bug 715064.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Smokey Ardisson (not following bugs - do not email)", 
+            "email": "Smokey Ardisson (not following bugs - do not email)"
+        }, 
+        {
+            "date": "2012-01-04 14:46:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Many thanks for the hidden pref. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "!!!!!!!!!!!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Works fine for me with Version 2.1.1pre (1.9.2.26pre 20120104001458) on Mac OS 10.6.8\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mehmet Sahin", 
+            "email": "Mehmet Sahin"
+        }, 
+        {
+            "date": "2012-03-17 18:15:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to comment #7)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I'm not fond of the text, but it's something. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It's currently hidden from > everyone pending some resolution to bug 715064.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Since bug 715064 was never resolved, this never got unhidden, until I noticed today :-(\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://caminobrowser.org/documentation/hiddenprefs/#AutocompleteOnlyURLs\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Smokey Ardisson (not following bugs - do not email)", 
+            "email": "Smokey Ardisson (not following bugs - do not email)"
+        }
+    ], 
+    "id": "712736", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=712736"
+}

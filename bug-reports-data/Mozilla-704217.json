@@ -1,0 +1,274 @@
+{
+    "contributors": [
+        [
+            "Brad Lassey [:blassey]", 
+            "email"
+        ], 
+        [
+            "Cristian Nicolae (:xti)", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Quit doesn't work before Gecko is up", 
+    "comments": [
+        {
+            "date": "2011-11-21 10:58:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "STR:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1. Start Fennec\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "2. Immediately select \"Quit\" from the menu (do this before Gecko comes up and the placeholder is replaced by a real page loading)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Expected behaviour: Fennec quits\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Observed behaviour: Nothing happens.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Kartikaya Gupta (:kats)", 
+            "email": "Kartikaya Gupta (:kats)"
+        }, 
+        {
+            "date": "2011-11-21 11:34:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 575922 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "this patch checks that gecko is running according to our state enum and then sets it to \"GeckoExiting\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This essentially works, except that its possible to send the quit message after gecko is running but before the listener is registered in browser.js, which looks like it could be an issue in many other places. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll look at rectifying that with a follow up patch.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-11-21 12:28:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 575939 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch v.2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "minor change, set the state to exiting after we send the message to quit. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is what I was actually testing before, attempted to clean up the logic and obviously didn't test it fully. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "By setting the state to exiting before sending the message, we never send the message.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-11-21 12:30:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 575940 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch to set GeckoRunning on the Gecko:Ready message\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "this eliminates the possibility of sending the message between when the appshell is up and when the observers are registered. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Technically, I think I was actually seeing the issue from the last comment where the state was set to exiting and the message wasn't sent. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But there is a few millisecond window where this race condition could occur and this eliminates that window (and removes some code).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-11-21 13:20:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 575950 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "optional follow up patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-11-21 16:15:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 575940 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch to set GeckoRunning on the Gecko:Ready message\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "remove Cu.reportError(\"got quit quit message\");.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Doug Turner (:dougt)", 
+            "email": "Doug Turner (:dougt)"
+        }, 
+        {
+            "date": "2011-11-28 13:50:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pushed https://hg.mozilla.org/projects/birch/rev/498a331fe654\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2012-02-17 09:26:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Verified fixed on:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Firefox 13.0a1 (2012-02-17)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20120217031227\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/mozilla-central/rev/2271cb92cc05\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Device: Motorola Droid PRO\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "OS: Android 2.3.3\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Cristian Nicolae (:xti)", 
+            "email": "Cristian Nicolae (:xti)"
+        }
+    ], 
+    "id": "704217", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=704217"
+}

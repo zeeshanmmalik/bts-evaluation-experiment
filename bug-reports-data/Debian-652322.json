@@ -1,0 +1,869 @@
+{
+    "contributors": [
+        [
+            "Yann Orlarey <orlarey@grame.fr>", 
+            "email"
+        ], 
+        [
+            "Adrian Knoth <adi@drcomp.erfurt.thur.de>", 
+            "lexrank"
+        ], 
+        [
+            "peter green <peter.green@postgrad.manchester.ac.uk>", 
+            "email"
+        ]
+    ], 
+    "title": "\nfaust: FTBFS on almost all arches, error: 'atoi' was not declared in this scope", 
+    "comments": [
+        {
+            "date": "2011-12-16 04:56:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "package: faust\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "serverity: serious\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "version: 0.9.43-1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "justification: causes another package (which built successfully in the  past) to FTBFS\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Building foo-yc20 on most architectures* gives\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "g++ src/faust-dsp-standalone.cpp -O2 -ffast-math -ftree-vectorize -fPIC -DVERSION=1.3.0 -I/usr/lib/faust -Isrc/ -Iinclude/ -DPREFIX=/usr -Wall -c -o src/faust-dsp-standalone.o\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In file included from src/../gen/yc20-dsp-standalone.cpp:36:0,                 from src/faust-dsp-standalone.cpp:31:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "/usr/lib/faust/misc.h: In function 'long int lopt(char**, const char*, long int)':\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "/usr/lib/faust/misc.h:45:75: error: 'atoi' was not declared in this scope make[2]: *** [src/faust-dsp-standalone.o] Error 1\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It seems that misc.h is using atoi but not including stdlib.h. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "A c  program will get away with this (with an implicit declaration warning)  but a c++ program will not\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This does not seem to affect the version in testing.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* local tests show foo-yc20 building fine on amd64, I dunno why. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Buildd  logs show foo-yc20 building fine on kfreebsd and hurd, presumablly  because there the latest version of faust isn't built there.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "peter green <peter.green@postgrad.manchester.ac.uk>", 
+            "email": "peter green <peter.green@postgrad.manchester.ac.uk>"
+        }, 
+        {
+            "date": "2012-01-16 12:14:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please find attached the proposed patch against current faust release that will (hopefully) fix the build issue (untested).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Yann: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=652322\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cheers\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "PS: Mario, how about maintaining faust in pkg-multimedia-maintainers?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Adrian Knoth <adi@drcomp.erfurt.thur.de>", 
+            "email": "Adrian Knoth <adi@drcomp.erfurt.thur.de>"
+        }, 
+        {
+            "date": "2012-01-17 14:54:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Adrian and Mario,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for the patch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have updated the git repository accordingly.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Again many thanks for packaging Faust !\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cheers\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yann\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On 16/01/2012 12:14, Adrian Knoth wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Hi!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Please find attached the proposed patch against current faust release > that will (hopefully) fix the build issue (untested).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">   Yann: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=652322\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Cheers\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> PS: Mario, how about maintaining faust in pkg-multimedia-maintainers?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Yann Orlarey <orlarey@grame.fr>", 
+            "email": "Yann Orlarey <orlarey@grame.fr>"
+        }, 
+        {
+            "date": "2012-02-19 12:11:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yann Orlarey <orlarey@grame.fr> (17/01/2012):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Thanks for the patch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have updated the git repository accordingly.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Again many thanks for packaging Faust !\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Any timeline for an upload? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Need a sponsor?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thanks to IRILL for sponsoring this BSP in Paris.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mraw,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "KiBi.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Cyril Brulebois <kibi@debian.org>", 
+            "email": "Cyril Brulebois <kibi@debian.org>"
+        }, 
+        {
+            "date": "2012-03-09 09:35:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "tags 644590 + pending\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "tags 652322 + pending\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Dear maintainer,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've prepared an NMU for faust (versioned as 0.9.43-1.1) and uploaded it to DELAYED/2. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please feel free to tell me if I\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "should delay it longer.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Best regards,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Nobuhiro\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nobuhiro Iwamatsu\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " iwamatsu at {nigauri.org / debian.org}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " GPG ID: 40AD1FA6\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nobuhiro Iwamatsu <iwamatsu@nigauri.org>", 
+            "email": "Nobuhiro Iwamatsu <iwamatsu@nigauri.org>"
+        }, 
+        {
+            "date": "2012-03-11 00:47:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: faust\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source-Version: 0.9.43-1.1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We believe that the bug you reported is fixed in the latest version of faust, which is due to be installed in the Debian FTP archive:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "faust_0.9.43-1.1.diff.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/f/faust/faust_0.9.43-1.1.diff.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "faust_0.9.43-1.1.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/f/faust/faust_0.9.43-1.1.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "faust_0.9.43-1.1_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/f/faust/faust_0.9.43-1.1_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A summary of the changes between this version and the previous one is attached.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thank you for reporting the bug, which will now be closed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If you have further comments please address them to 652322@bugs.debian.org, and the maintainer will reopen the bug report if appropriate.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Debian distribution maintenance software\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pp.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nobuhiro Iwamatsu <iwamatsu@debian.org> (supplier of updated faust package)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(This message was generated automatically at their request; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if you believe that there is a problem with it please contact the archive administrators by mailing ftpmaster@debian.org)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----BEGIN PGP SIGNED MESSAGE-----\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hash: SHA256\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Format: 1.8\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date: Fri, 09 Mar 2012 08:43:21 +0900\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: faust\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Binary: faust\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Architecture: source amd64\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: 0.9.43-1.1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Distribution: unstable\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Urgency: low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Maintainer: Mario Lang <mlang@debian.org>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed-By: Nobuhiro Iwamatsu <iwamatsu@debian.org>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Description: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " faust      - functional programming language for realtime audio applications Closes: 644590 652322\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changes: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " faust (0.9.43-1.1) unstable; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   * Non-maintainer upload.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "   * Fix FTBFS on Kfreebsd. (Closes: #644590)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     Add kfreebsd support to architecture/osclib/oscpack/Makefile.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "   * Fix FTBFS on all architecture by atoi. (Closes: #652322)      Add \"#include <stdlib.h>\" to architecture/misc.h.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checksums-Sha1: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " fab41fb4c15d7cfd0db3f66c7f8cb7d3e7a2446a 1640 faust_0.9.43-1.1.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 8817db33a8e053d0cbd57a4bbc4176a0b87aed59 3429 faust_0.9.43-1.1.diff.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 38e3458f5d82fc51b74cf30571416c1fec939b60 7299528 faust_0.9.43-1.1_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checksums-Sha256: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 90f1011454c0bbfc122e9ebae1f1fc6020e558273af15812f3d980ff897a8774 1640 faust_0.9.43-1.1.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 631791238cc5053d5ad07c91c1a64676d5c46ca1a1f45359a61c88aa38751ba9 3429 faust_0.9.43-1.1.diff.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 564eb37a0a8b481c58f324bb79dccb56d04328fc1a5a464823d21c050a511250 7299528 faust_0.9.43-1.1_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Files: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 0a3effbc32df1444bde3cc1a9f641d7c 1640 sound optional faust_0.9.43-1.1.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " ba9556f3a7d2327d3125926f4dbb4d96 3429 sound optional faust_0.9.43-1.1.diff.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b2a044fee1af2463ef824597b6875149 7299528 sound optional faust_0.9.43-1.1_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----BEGIN PGP SIGNATURE-----\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: GnuPG v1.4.12 (GNU/Linux)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "iQIcBAEBCAAGBQJPWU3zAAoJEDIkf7tArR+m9I8P/ivlf29xiZw3gyXMXzFpyeeV\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "POXeCQ2ai2qn7O3NaOdA9N4wfq+HIsJrYqMgxf2fJ7iBndxg09CFseD7X/kCzygi\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ou5qPzQs0/ht2aLnQJvWBT2zg0xqMn31+ff7al9yCrajhWbm7GNnSjlAwljveIlL\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "tVeUUgD9bYZMYEiI+4JhxWbipVdfd8NY4Hm2ozIp9L32rqNn+I1dln3RUthhK3Wm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pnC/PZxiLVlgeyM78IAHXbBEIf1xYg6juwJcaSmzfR6rsIxtACr5kNetQMDGC4PK\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "oQC8EU6/5mDCukg29bIlIvI9J1bAYyFyQeklTntuGmaC8WROMdmWQ7HxLcH1Z/L+\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BKkF1xN4ej6hGRsSWkLH+hZEWs9q2WBNr3Kae30dCaib9FHCwtxoKTUozZgFyLqJ\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "kPfjqg5CnIuNchmz1/CNvAz9Or1tBkk3fcBL/dNcKkN565SKHxwPkCA7l2LTYnDv\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "zE0bAKb1kNUjjxXUJh6ZKLQhClMD2kTcCDqSQpREyP51V375Etu1FyZdl5sN5axf\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "RpnHRWvdyNtjMMtCjAlyViaZSiaaSWXQHJZ+/piA+EJuCwo3lKw3pwPv2m01oQqZ\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "LQF9myY0BgGP1YMjvF4UFgfqDbiUh0Rn+pZUN8XIFnQMFdwvx9Bs/btgGEPw8PYf\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "oY+7UPn9q2yXDZD6viDU\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "=6mEo\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----END PGP SIGNATURE-----\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nobuhiro Iwamatsu <iwamatsu@debian.org>", 
+            "email": "Nobuhiro Iwamatsu <iwamatsu@debian.org>"
+        }
+    ], 
+    "id": "652322", 
+    "project": "Debian", 
+    "original_link": "http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=652322"
+}

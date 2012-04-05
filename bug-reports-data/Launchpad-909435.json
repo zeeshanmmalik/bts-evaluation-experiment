@@ -1,0 +1,133 @@
+{
+    "contributors": [
+        [
+            "pali", 
+            "lexrank"
+        ], 
+        [
+            "losinggeneration", 
+            "email"
+        ]
+    ], 
+    "title": "CMake from Wargus", 
+    "comments": [
+        {
+            "date": "2011-12-28 16:58:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The attached patch duplicates the CMake build system found in Wargus. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The patch also removes the duplicate code between stargus.c and stratagus-game-launcher.h I've only tested it on Linux, but everything seems to build correctly. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This doesn't outright remove the old Makefile in case there are any bugs.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "losinggeneration", 
+            "email": "losinggeneration"
+        }, 
+        {
+            "date": "2011-12-28 16:58:08", 
+            "sentences": [], 
+            "name": "losinggeneration", 
+            "email": "losinggeneration"
+        }, 
+        {
+            "date": "2011-12-28 17:09:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nice patch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But Stargus extractor (startool) has one problem: It works only on 32bit system. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm trying to port mpq part for 64bit systems too and after that I will release new version of Stargus too (of cource with CMake build system + using stratagus*.h files in stargus.c) So I will include your patch after adding 64bit support.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "pali", 
+            "email": "pali"
+        }, 
+        {
+            "date": "2011-12-28 17:39:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Oh yes, I can see the issue with 64bit support just from the following:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#define UInt8          unsigned char\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#define UInt16         unsigned short\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#define SInt16         short\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#define UInt32         unsigned long\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#define SInt32         int\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Switching that to use stdint.h and using the int typedefs makes it pretty clear there's lots of unsafe casting going on.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "losinggeneration", 
+            "email": "losinggeneration"
+        }, 
+        {
+            "date": "2011-12-28 17:50:54", 
+            "sentences": [], 
+            "name": "pali", 
+            "email": "pali"
+        }, 
+        {
+            "date": "2012-01-04 21:50:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Your attached commit was merged.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "pali", 
+            "email": "pali"
+        }
+    ], 
+    "id": "909435", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/909435"
+}

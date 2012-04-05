@@ -1,0 +1,1704 @@
+{
+    "contributors": [
+        [
+            "Sylvestre Ledru <sylvestre@debian.org>", 
+            "email"
+        ], 
+        [
+            "Marc Lehmann <schmorp@schmorp.de>", 
+            "lexrank"
+        ], 
+        [
+            "Marc Lehmann <debian-reportbug@plan9.de>", 
+            "email"
+        ]
+    ], 
+    "title": "\nllvm-2.9: llvm-ld-2.9 generates broken wrapper scripts", 
+    "comments": [
+        {
+            "date": "2011-11-26 06:36:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Package: llvm-2.9\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: 2.9+dfsg-4\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Severity: normal\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When llvm-ld-2.9 is asked to link bitcode files, it normally creates a wrapper script as output, and a .bc file that the wrapper executes via lli.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The wrapper created for an output file \"x\" looks like:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   #!/bin/sh\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   lli=${LLVMINTERP-lli}\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   exec $lli \\\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "       xx.bc ${1+\"$@\"}\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, lli is not part of the llvm-2.9-runtime package, but lli-2.9 is - I think the wrapper should default to lli-2.9, not lli.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- System Information:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Debian Release: 6.0.3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  APT prefers stable\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  APT policy: (990, 'stable'), (500, 'unstable'), (500, 'testing'), (1, 'experimental')\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Architecture: amd64 (x86_64)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Kernel: Linux 3.0.0-2-amd64 (SMP w/4 CPU cores)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Locale: LANG=C, LC_CTYPE=en_US.UTF-8 (charmap=UTF-8)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Shell: /bin/sh linked to /bin/bash\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Versions of packages llvm-2.9 depends on:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "hi  libc6                         2.11.2-10  Embedded GNU C Library: Shared lib\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libffi5                       3.0.9-3    Foreign Function Interface library\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libgcc1                       1:4.6.0-10 GCC support library\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libllvm2.9                    2.9+dfsg-4 Low-Level Virtual Machine (LLVM), \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ii  libstdc++6                    4.6.0-10   The GNU Standard C++ Library v3\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  llvm-2.9-runtime              2.9+dfsg-4 Low-Level Virtual Machine (LLVM), \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Versions of packages llvm-2.9 recommends:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  llvm-2.9-dev                  2.9+dfsg-4 Low-Level Virtual Machine (LLVM), \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Versions of packages llvm-2.9 suggests:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pn  llvm-2.9-doc                  <none>     (no description available)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- no debconf information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marc Lehmann <debian-reportbug@plan9.de>", 
+            "email": "Marc Lehmann <debian-reportbug@plan9.de>"
+        }, 
+        {
+            "date": "2011-11-26 09:16:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Le samedi 26 novembre 2011  06:36 +0100, Marc Lehmann a crit :\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> When llvm-ld-2.9 is asked to link bitcode files, it normally creates > a wrapper script as output, and a .bc file that the wrapper executes via lli.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The wrapper created for an output file \"x\" looks like:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    #!/bin/sh\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    lli=${LLVMINTERP-lli}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    exec $lli \\\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">        xx.bc ${1+\"$@\"}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "OK.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Could you provide a way to regenerate this script ?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "S\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sylvestre Ledru <sylvestre@debian.org>", 
+            "email": "Sylvestre Ledru <sylvestre@debian.org>"
+        }, 
+        {
+            "date": "2011-12-10 22:14:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Le samedi 26 novembre 2011  06:36 +0100, Marc Lehmann a crit :\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Package: llvm-2.9\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Version: 2.9+dfsg-4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Severity: normal\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> When llvm-ld-2.9 is asked to link bitcode files, it normally creates > a wrapper script as output, and a .bc file that the wrapper executes via lli.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The wrapper created for an output file \"x\" looks like:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    #!/bin/sh\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    lli=${LLVMINTERP-lli}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    exec $lli \\\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">        xx.bc ${1+\"$@\"}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> However, lli is not part of the llvm-2.9-runtime package, but lli-2.9 is -\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I think the wrapper should default to lli-2.9, not lli.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ping ?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Could you provide a way to regenerate this script ?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "S\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sylvestre Ledru <sylvestre@debian.org>", 
+            "email": "Sylvestre Ledru <sylvestre@debian.org>"
+        }, 
+        {
+            "date": "2011-12-10 23:54:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Sat, Dec 10, 2011 at 10:14:52PM +0100, Sylvestre Ledru <sylvestre@debian.org> wrote:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Ping ?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Could you provide a way to regenerate this script ?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Oh, many times sorry, I completely forgot you :(\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Take any bitcode object file (e.g. http://data.plan9.de/xx.bc) and link it with llvm-ld-2.9:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "   llvm-ld-2.9 -o xx xx.bc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "this generates a script called \"xx\" which tries to call lli instead of lli-2.9.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                The choice of a       Deliantra, the free code+content MORPG\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      -----==-     _GNU_              http://www.deliantra.net\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "      ----==-- _       generation\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      ---==---(_)__  __ ____  __      Marc Lehmann\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      --==---/ / _ \\/ // /\\ \\/ /      schmorp@schmorp.de\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      -=====/_/_//_/\\_,_/ /_/\\_\\\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marc Lehmann <schmorp@schmorp.de>", 
+            "email": "Marc Lehmann <schmorp@schmorp.de>"
+        }, 
+        {
+            "date": "2012-03-11 08:48:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: llvm-2.9\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source-Version: 2.9+dfsg-5\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We believe that the bug you reported is fixed in the latest version of llvm-2.9, which is due to be installed in the Debian FTP archive:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libllvm-2.9-ocaml-dev_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-2.9/libllvm-2.9-ocaml-dev_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libllvm2.9_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-2.9/libllvm2.9_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-2.9-dev_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-2.9/llvm-2.9-dev_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-2.9-doc_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-2.9/llvm-2.9-doc_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-2.9-examples_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-2.9/llvm-2.9-examples_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-2.9-runtime_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-2.9/llvm-2.9-runtime_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-2.9-source_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-2.9/llvm-2.9-source_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-2.9_2.9+dfsg-5.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-2.9/llvm-2.9_2.9+dfsg-5.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-2.9_2.9+dfsg-5.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-2.9/llvm-2.9_2.9+dfsg-5.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-2.9_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-2.9/llvm-2.9_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "A summary of the changes between this version and the previous one is attached.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thank you for reporting the bug, which will now be closed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " If you have further comments please address them to 650065@bugs.debian.org, and the maintainer will reopen the bug report if appropriate.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Debian distribution maintenance software\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pp.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sylvestre Ledru <sylvestre@debian.org> (supplier of updated llvm-2.9 package)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(This message was generated automatically at their request; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "if you believe that there is a problem with it please contact the archive administrators by mailing ftpmaster@debian.org)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----BEGIN PGP SIGNED MESSAGE-----\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hash: SHA1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Format: 1.8\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date: Sat, 10 Mar 2012 18:14:48 +0100\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: llvm-2.9\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Binary: libllvm2.9 llvm-2.9 llvm-2.9-runtime llvm-2.9-dev libllvm-2.9-ocaml-dev llvm-2.9-doc llvm-2.9-examples llvm-2.9-source\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Architecture: source amd64 all\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: 2.9+dfsg-5\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Distribution: unstable\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Urgency: low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Maintainer: LLVM Packaging Team <pkg-llvm-team@lists.alioth.debian.org>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed-By: Sylvestre Ledru <sylvestre@debian.org>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Description: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libllvm-2.9-ocaml-dev - Low-Level Virtual Machine (LLVM), bindings for OCaml\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libllvm2.9 - Low-Level Virtual Machine (LLVM), runtime library\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-2.9   - Low-Level Virtual Machine (LLVM)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-2.9-dev - Low-Level Virtual Machine (LLVM), libraries and headers\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-2.9-doc - Low-Level Virtual Machine (LLVM), documentation\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-2.9-examples - Low-Level Virtual Machine (LLVM), examples\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-2.9-runtime - Low-Level Virtual Machine (LLVM), bytecode interpreter\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-2.9-source - Low-Level Virtual Machine (LLVM), source code\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Closes: 650065\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changes: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-2.9 (2.9+dfsg-5) unstable; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "   * llvm-ld-2.9 generated broken wrapper scripts.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "     Now, the wrapper will:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      - Check if lli-X.Y exists or not\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      - If not. try lli\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      - If not, triggers an error\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      (Closes: #650065)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "   * Fix the FTBFS under HURD\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   * Standards-Version updated to 3.9.3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checksums-Sha1: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 7061f7608f715b5b8148b75a8c41ed8df9841573 2001 llvm-2.9_2.9+dfsg-5.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 11ea00bdaf04c15ed6859857c3c8c2f385df55ba 31552 llvm-2.9_2.9+dfsg-5.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 85719ca2f3732001daf84767dcceb4ac2e9f5776 6671150 libllvm2.9_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 0c96b94ff0b3e9fa1c98b3adbdff79013256287e 1355354 llvm-2.9_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 4c227d4ea26f964944ce6d993715956c65b423a2 34230 llvm-2.9-runtime_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2b9b827e155bf2e3d05a7b1b1b1ed648f589f43f 11054774 llvm-2.9-dev_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " cce5ac4fa0c0f33b102125572180fc5663f1a928 253464 libllvm-2.9-ocaml-dev_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " cf2995004676dfd9dbf0b31360c7a1e6272ccd58 966548 llvm-2.9-doc_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b8a3bfdbe71029c632e2c6adf910afcfba7d59e7 111176 llvm-2.9-examples_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " d249721c5509c64ab9502d64aa93569e85207443 6740810 llvm-2.9-source_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checksums-Sha256: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 75b3bf2e42d3b48dd5180a8676cefca20bd865ce5a5e847f32586449e886528c 2001 llvm-2.9_2.9+dfsg-5.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 7a5fa8f18c66aae7acd9d6bed4de16c6f02ef23990f91f6140f976aeecdc412d 31552 llvm-2.9_2.9+dfsg-5.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 229eb3f65f18ba54aebda2c54551f37de3db4f60bb5696e075397846e93b6da7 6671150 libllvm2.9_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 52d029426fdc8d6dec7917525a428f0f303d5261b60762c50496ca2636037385 1355354 llvm-2.9_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 93fb7dd250231c37c4f0dac93e860f370ebe3e924fab3ed4dc28701cca70974a 34230 llvm-2.9-runtime_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 13215b98567d8d8167c3cc7b9ed1afd3ad8419dd97624b2a3d34ab2690292c4f 11054774 llvm-2.9-dev_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " f313553f817222416dd21836e45a6d6ebcc950d10bf10a6a1e4aa83601ce01b2 253464 libllvm-2.9-ocaml-dev_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 8d424fec2a00ec3dfc6bb7d663b5a0bf729673234414d57c167dea8c4375c1fd 966548 llvm-2.9-doc_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " bcef7c7d0199f0762a9b02b3b17e55059f810e3a9e4cd4aef8022d798210b6c1 111176 llvm-2.9-examples_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 0e1c6486a45088f74c0e496ecb4c53d12a96e492ef31d4ea9618d2ab8254e30d 6740810 llvm-2.9-source_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Files: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 51c13f52ea1e2ca787c4b9818b631729 2001 devel optional llvm-2.9_2.9+dfsg-5.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " d69f4902fbb3d2392b8d9878172905f0 31552 devel optional llvm-2.9_2.9+dfsg-5.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 6d76932e6597bd30031cd3fa1fc18b4b 6671150 libs optional libllvm2.9_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 538073fe6ca954a6cdbd522442f7f0a3 1355354 devel optional llvm-2.9_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 48818aac8883db0ab32fdbaa60cb26c0 34230 devel optional llvm-2.9-runtime_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " cf66dc7f34b08d3b8f265a6e3417c3a2 11054774 devel optional llvm-2.9-dev_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 797434625223e14013e992e10433f19c 253464 ocaml optional libllvm-2.9-ocaml-dev_2.9+dfsg-5_amd64.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " bdc45d1d74f892f59ad3ffd8b326a9a6 966548 doc optional llvm-2.9-doc_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 589308a3ade7888fc209e88df03f7c39 111176 doc optional llvm-2.9-examples_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 46b24c67d02e0e9a5c020e54720773ad 6740810 devel optional llvm-2.9-source_2.9+dfsg-5_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----BEGIN PGP SIGNATURE-----\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: GnuPG v1.4.11 (GNU/Linux)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "iEYEARECAAYFAk9cXrQACgkQiOXXM92JlhAy/ACdFOWoT0G7xHrTyNfoyHMb7B7m\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lsEAn2CjPwsnERsZcnRhuoPl7XgfJ+yW\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "=d61a\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----END PGP SIGNATURE-----\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sylvestre Ledru <sylvestre@debian.org>", 
+            "email": "Sylvestre Ledru <sylvestre@debian.org>"
+        }, 
+        {
+            "date": "2012-03-11 08:49:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: llvm-3.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source-Version: 3.0-7\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We believe that the bug you reported is fixed in the latest version of llvm-3.0, which is due to be installed in the Debian FTP archive:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libllvm-3.0-ocaml-dev_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-3.0/libllvm-3.0-ocaml-dev_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libllvm3.0_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-3.0/libllvm3.0_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-3.0-dev_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-3.0/llvm-3.0-dev_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-3.0-doc_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-3.0/llvm-3.0-doc_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-3.0-examples_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-3.0/llvm-3.0-examples_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-3.0-runtime_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-3.0/llvm-3.0-runtime_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-3.0-source_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-3.0/llvm-3.0-source_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-3.0_3.0-7.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-3.0/llvm-3.0_3.0-7.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-3.0_3.0-7.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-3.0/llvm-3.0_3.0-7.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "llvm-3.0_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/l/llvm-3.0/llvm-3.0_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "A summary of the changes between this version and the previous one is attached.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thank you for reporting the bug, which will now be closed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " If you have further comments please address them to 650065@bugs.debian.org, and the maintainer will reopen the bug report if appropriate.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Debian distribution maintenance software\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pp.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sylvestre Ledru <sylvestre@debian.org> (supplier of updated llvm-3.0 package)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(This message was generated automatically at their request; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "if you believe that there is a problem with it please contact the archive administrators by mailing ftpmaster@debian.org)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----BEGIN PGP SIGNED MESSAGE-----\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hash: SHA1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Format: 1.8\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date: Sat, 10 Mar 2012 18:36:04 +0100\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: llvm-3.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Binary: libllvm3.0 llvm-3.0 llvm-3.0-runtime llvm-3.0-dev libllvm-3.0-ocaml-dev llvm-3.0-doc llvm-3.0-examples llvm-3.0-source\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Architecture: source i386 all\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: 3.0-7\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Distribution: unstable\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Urgency: low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Maintainer: LLVM Packaging Team <pkg-llvm-team@lists.alioth.debian.org>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed-By: Sylvestre Ledru <sylvestre@debian.org>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Description: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libllvm-3.0-ocaml-dev - Low-Level Virtual Machine (LLVM), bindings for OCaml\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libllvm3.0 - Low-Level Virtual Machine (LLVM), runtime library\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-3.0   - Low-Level Virtual Machine (LLVM)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-3.0-dev - Low-Level Virtual Machine (LLVM), libraries and headers\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-3.0-doc - Low-Level Virtual Machine (LLVM), documentation\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-3.0-examples - Low-Level Virtual Machine (LLVM), examples\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-3.0-runtime - Low-Level Virtual Machine (LLVM), bytecode interpreter\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-3.0-source - Low-Level Virtual Machine (LLVM), source code\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Closes: 650065\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changes: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " llvm-3.0 (3.0-7) unstable; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "   * llvm-ld-3.0 generated broken wrapper scripts.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "     Now, the wrapper will:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      - Check if lli-X.Y exists or not\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      - If not. try lli\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      - If not, triggers an error\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      (Closes: #650065)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      Sync from the version 2.9 (patch 0034-ld-wrapper.patch)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checksums-Sha1: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " d2cf1bb1f1fbb74d025c76f6d0b95485e8be582c 1954 llvm-3.0_3.0-7.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " da1ce21a4c91109105c4aa755ac3143a033c7701 31722 llvm-3.0_3.0-7.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 422d93123ceda3b898df43f4f160a31595fefd2c 7457768 libllvm3.0_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 60a5aa7a9890f30db61d889010de89b3c5ae5f95 1360784 llvm-3.0_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " f42560bf9768a0bf8b607fb4b0e1fce4f6b9c363 42280 llvm-3.0-runtime_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " dc9e3849c765ece4d31e9090dc313769b133932e 12603974 llvm-3.0-dev_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 87cbc85d008c527e4ed6a09c19b064e307b9cd9c 278300 libllvm-3.0-ocaml-dev_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 521a49244c3289435f615193b075a216b90ac861 986102 llvm-3.0-doc_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 5350ecdd6505628e6719a572e42feab282fa694a 111190 llvm-3.0-examples_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 9e3483394c99dd190008aa9a854704f3cbb788fa 7154766 llvm-3.0-source_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checksums-Sha256: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 3ffc440dc8a2ed1182a7f5cd5141ebf4e622e38b2d52adc9d0d27ce7ca590320 1954 llvm-3.0_3.0-7.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 37a927883b4b7b536c09b7aa3bb13776d4181e37096979b32ca79151eedf1acf 31722 llvm-3.0_3.0-7.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 1b5f71885a719f6818e95bc500f3ae68de9377a3216c5edcbba569da56b595b1 7457768 libllvm3.0_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 714a715a54409c04cfe7822a65973d7914a219267df4ba4c5513f478642a7f6f 1360784 llvm-3.0_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 30290812b84f68f4498d851a25bc6df423c9fb8071dc3cfa67776fe8fa12048a 42280 llvm-3.0-runtime_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 9f5d9df307c963d7777975da08b85ecfc27f1cd132bc25c395d6f52ea61ec941 12603974 llvm-3.0-dev_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " f82a7f95f3dfe17c1ad02585ce99e3873602dfb026b2ec820de009b04952314c 278300 libllvm-3.0-ocaml-dev_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 144780b436edbe80d6b7405edac56c21cc7523e4ad3a39a679362858ee0df7c3 986102 llvm-3.0-doc_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 38be785acd8a2c94d97616e979b3219581b3558c1d0fb2af54172dcbb6f46ecb 111190 llvm-3.0-examples_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 73e2f766b7827c16f6e2d3fee87cf07806fb8eb39ca2c89952e2997613cb2866 7154766 llvm-3.0-source_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Files: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2de7d04a186c1b0b85a763b3c85a1449 1954 devel optional llvm-3.0_3.0-7.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 1a1d35d9827c2782e6dc39740e4a9536 31722 devel optional llvm-3.0_3.0-7.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 93eb3976685457088a00152de8a07221 7457768 libs optional libllvm3.0_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 53b1e7939ee549e736f90ac496836d50 1360784 devel optional llvm-3.0_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 8b4da8e931f2aa69237c0ebcd2b1e030 42280 devel optional llvm-3.0-runtime_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 352f4c15a126ab812eda41317765cb37 12603974 devel optional llvm-3.0-dev_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 67c4fd7c59cfa9d8d7465bb528e4c151 278300 ocaml optional libllvm-3.0-ocaml-dev_3.0-7_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " c114a2b8c10e7b8edd605a5649d09578 986102 doc optional llvm-3.0-doc_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2094340cee5bd2a0ba91c25c3e0d9bb2 111190 doc optional llvm-3.0-examples_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2fbd96ac006e48b3236d5d0a3579c7e1 7154766 devel optional llvm-3.0-source_3.0-7_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----BEGIN PGP SIGNATURE-----\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: GnuPG v1.4.11 (GNU/Linux)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "iEYEARECAAYFAk9cXbwACgkQiOXXM92JlhCAlQCfcVFhEXszFjNMiaXi5/lPavkB\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "mhQAoI4L8ymVv5kTR9Jsk4MoVmmkTm76\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "=D9Hc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----END PGP SIGNATURE-----\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sylvestre Ledru <sylvestre@debian.org>", 
+            "email": "Sylvestre Ledru <sylvestre@debian.org>"
+        }
+    ], 
+    "id": "650065", 
+    "project": "Debian", 
+    "original_link": "http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=650065"
+}

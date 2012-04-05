@@ -1,0 +1,1107 @@
+{
+    "contributors": [
+        [
+            "valavanisalex", 
+            "email"
+        ], 
+        [
+            "leon3000", 
+            "lexrank"
+        ], 
+        [
+            "kris-degussem", 
+            "email"
+        ], 
+        [
+            "tweenk", 
+            "lexrank"
+        ], 
+        [
+            "cafuego", 
+            "email"
+        ]
+    ], 
+    "title": "device-manager.cpp FTBFS with GSEAL enabled", 
+    "comments": [
+        {
+            "date": "2012-01-03 11:02:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "GTK+ 3 hides all private fields of objects using GSEAL. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " device-manager.cpp fails to build, because it uses private fields of GdkDevice (buildlog attached).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The trouble is that we are defining our own \"input devices\" by modifying fields of GdkDevice. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " The GDK+ API does not support setting these fields, so we need to find another way of doing this.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Please could someone who is familiar with device-manager take a look at this?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-03 11:02:13", 
+            "sentences": [], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-03 11:03:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(reported with lp:inkscape r10829)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-03 11:24:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "@Jon - assigning this report to you: AFAIK you wrote the new input device configuration and hardware test dialog.\r", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Please revert the assignment if you you don't agree and think this was done in error.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "suv-lp", 
+            "email": "suv-lp"
+        }, 
+        {
+            "date": "2012-01-03 13:27:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Removing milestone and dropping priority. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is relevant for GTK3 migration which is a longer term goal.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "tweenk", 
+            "email": "tweenk"
+        }, 
+        {
+            "date": "2012-01-03 20:21:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The latest modification in revision 10829 in device-manager.cpp seems to have introduced an error. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Did not try myself, but I got this from the log of the latest fail of the launchpad build system:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "device-manager.cpp: In member function 'virtual gint Inkscape::InputDeviceImpl::getNumKeys() const':\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "device-manager.cpp:147: error: 'gdk_device_get_n_keys' was not declared in this scope\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "kris-degussem", 
+            "email": "kris-degussem"
+        }, 
+        {
+            "date": "2012-01-03 20:32:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Kris,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, that's another error on my part... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "the gdk_device_get_n_keys function arrived with GTK+ 2.24. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I guess you're using an older version. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Give me 5 mins to upload a fix. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Sorry about this!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-03 20:52:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fixed gdk_device_get_n_keys issue in r10832. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Hope everything's OK now!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-05 01:03:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fix committed in lp:inkscape r10842.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "...it turns out I completely knackered the backward compatibility with my previous patch.[1]  In the process of fixing it, I have also had a go at fixing the GSEAL issues myself.\r", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@jon - Please could you check I haven't made a complete mess?\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A couple of things to note:\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* I defined a GdkDeviceFake structure that contains fields which match the private fields of GdkDevice.  I then filled in this structure in the CreateFakeList function instead of trying to fill in private fields of GdkDevice.\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* The isValidDevice function now does a field-by-field comparison, rather than comparing pointer addresses.\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* I didn't include the axes or keys arrays in the comparison... I figured that the rest of the fields would be enough to identify the devices.\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* I don't have any fancy input devices, so I couldn't do any proper testing... please check carefully!\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* I'm completely new to Gdk device management - apologies if I did anything stupid.\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[1] https://launchpadlibrarian.net/89096206/buildlog_ubuntu-lucid-amd64.inkscape_0.49~devel%2B10838%2B6~lucid1_FAILEDTOBUILD.txt.gz\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-05 10:47:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "@Alex - it appears that the gdk_device related changes to 'src/desktop-events.cpp' in r10826 (Cleanup GSEAL issues and deprecated GtkTooltips) broke again building with Gtk+ 2.20: fails for Ubuntu Lucid [1], and was reported on the irc channel for r10842 on Debian  as well.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "AFAICT gdk_device_get_name(), gdk_device_get_source() only exist since 2.22:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<http://developer.gnome.org/gdk/2.24/gdk-Input-Devices.html#gdk-device-get-name>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<http://developer.gnome.org/gdk/2.24/gdk-Input-Devices.html#gdk-device-get-source>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[1] See cafuego's build logs:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<https://launchpad.net/~cafuego/+archive/inkscape/+packages?field.name_filter=&field.status_filter=&field.series_filter=lucid>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "build failure:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    desktop-events.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "desktop-events.cpp: In function 'void init_extended()':\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "desktop-events.cpp:529: error: 'gdk_device_get_name' was not declared in this scope desktop-events.cpp:531: error: 'gdk_device_get_source' was not declared in this scope desktop-events.cpp: In function 'void snoop_extended(GdkEvent*, SPDesktop*)':\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "desktop-events.cpp:566: error: 'gdk_device_get_source' was not declared in this scope desktop-events.cpp:567: error: 'gdk_device_get_name' was not declared in this scope desktop-events.cpp:579: error: 'gdk_device_get_source' was not declared in this scope desktop-events.cpp:580: error: 'gdk_device_get_name' was not declared in this scope desktop-events.cpp:589: error: 'gdk_device_get_source' was not declared in this scope desktop-events.cpp:590: error: 'gdk_device_get_name' was not declared in this scope desktop-events.cpp:600: error: 'gdk_device_get_source' was not declared in this scope desktop-events.cpp:601: error: 'gdk_device_get_name' was not declared in this scope make[4]: *** [desktop-events.o] Error 1\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[4]: Leaving directory `/build/buildd/inkscape-0.49~devel+10838+6~lucid1/src'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[3]: *** [all] Error 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[3]: Leaving directory `/build/buildd/inkscape-0.49~devel+10838+6~lucid1/src'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[2]: *** [all-recursive] Error 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[2]: Leaving directory `/build/buildd/inkscape-0.49~devel+10838+6~lucid1'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: *** [all] Error 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: Leaving directory `/build/buildd/inkscape-0.49~devel+10838+6~lucid1'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make: *** [build] Error 2\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "suv-lp", 
+            "email": "suv-lp"
+        }, 
+        {
+            "date": "2012-01-05 11:02:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@~suv: Already taken care of in r10842 hopefully :)  See comment #8.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-05 11:03:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Oops... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "sorry, I didn't see the \"reported on the irc channel for r10842 on Debian as well\" bit.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll look into it now...\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-05 11:11:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "OK, without a lucid buildlog for r10842 I can't be 100% sure, but it looks like the GDK API reference didn't mention that the gdk_device_get_has_cursor() function was unavailable before 2.22. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Hopefully it's fixed in r10844!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-05 11:46:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i'm using Debian 6 , \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "inkscape : revision 10844\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i can't build, and i get errors:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make  all-recursive\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: Entering directory `/home/svn/0.49.x'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Making all in src\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[2]: Entering directory `/home/svn/0.49.x/src'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make  all-am\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[3]: Entering directory `/home/svn/0.49.x/src'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    arc-context.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    attributes.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    attribute-rel-svg.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    attribute-rel-css.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    attribute-rel-util.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    axis-manip.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    box3d-context.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    box3d.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    box3d-side.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    color.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    color-profile.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    common-context.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    composite-undo-stack-observer.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    conditions.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    connection-points.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    conn-avoid-ref.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    connector-context.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    console-output-undo-observer.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    context-fns.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    desktop.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    desktop-events.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "desktop-events.cpp: In function void init_extended():\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "desktop-events.cpp:529: error: gdk_device_get_name was not declared in this scope desktop-events.cpp:531: error: gdk_device_get_source was not declared in this scope desktop-events.cpp: In function void snoop_extended(GdkEvent*, SPDesktop*):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "desktop-events.cpp:566: error: gdk_device_get_source was not declared in this scope desktop-events.cpp:567: error: gdk_device_get_name was not declared in this scope desktop-events.cpp:579: error: gdk_device_get_source was not declared in this scope desktop-events.cpp:580: error: gdk_device_get_name was not declared in this scope desktop-events.cpp:589: error: gdk_device_get_source was not declared in this scope desktop-events.cpp:590: error: gdk_device_get_name was not declared in this scope desktop-events.cpp:600: error: gdk_device_get_source was not declared in this scope desktop-events.cpp:601: error: gdk_device_get_name was not declared in this scope make[3]: *** [desktop-events.o] Error 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[3]: Leaving directory `/home/svn/0.49.x/src'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[2]: *** [all] Error 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[2]: Leaving directory `/home/svn/0.49.x/src'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: *** [all-recursive] Error 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: Leaving directory `/home/svn/0.49.x'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make: *** [all] Error 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "leon3000", 
+            "email": "leon3000"
+        }, 
+        {
+            "date": "2012-01-05 12:40:42", 
+            "sentences": [], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-05 13:48:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fix committed for desktop-events issues in r10846. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Let me know if there are still any problems!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-05 14:10:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "hey Alex :)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "just one error:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make  all-recursive\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: Entering directory `/home/svn/0.49.x'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Making all in src\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[2]: Entering directory `/home/svn/0.49.x/src'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make  all-am\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[3]: Entering directory `/home/svn/0.49.x/src'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    arc-context.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    attributes.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    attribute-rel-svg.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    attribute-rel-css.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    attribute-rel-util.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    axis-manip.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    box3d-context.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    box3d.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    box3d-side.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    color.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    color-profile.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    common-context.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    composite-undo-stack-observer.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    conditions.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    connection-points.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    conn-avoid-ref.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    connector-context.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    console-output-undo-observer.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    context-fns.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    desktop.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    desktop-events.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    desktop-handles.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    desktop-style.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  CXX    device-manager.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "device-manager.cpp: In member function virtual void Inkscape::DeviceManagerImpl::saveConfig():\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "device-manager.cpp:440: error: struct _GdkDevice has no member named axis\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[3]: *** [device-manager.o] Error 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[3]: Leaving directory `/home/svn/0.49.x/src'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[2]: *** [all] Error 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[2]: Leaving directory `/home/svn/0.49.x/src'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: *** [all-recursive] Error 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: Leaving directory `/home/svn/0.49.x'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make: *** [all] Error 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "leon3000", 
+            "email": "leon3000"
+        }, 
+        {
+            "date": "2012-01-05 14:39:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Gaah! ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Typo corrected in r10847. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Any joy?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-05 15:05:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "another one :)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " CXX    interface.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "interface.cpp: In function void sp_ui_drag_data_received(GtkWidget*, GdkDragContext*, gint, gint, GtkSelectionData*, guint, guint, void*):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "interface.cpp:1244: error: gdk_drag_context_get_actions was not declared in this scope interface.cpp:1347: error: gdk_drag_context_get_actions was not declared in this scope make[3]: *** [interface.o] Error 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[3]: Leaving directory `/home/svn/0.49.x/src'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[2]: *** [all] Error 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[2]: Leaving directory `/home/svn/0.49.x/src'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: *** [all-recursive] Error 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: Leaving directory `/home/svn/0.49.x'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make: *** [all] Error 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "leon3000", 
+            "email": "leon3000"
+        }, 
+        {
+            "date": "2012-01-05 15:35:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "interface.cpp hopefully fixed in r10848.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you want to compile multiple files at once, you can use something like \"make -j4\", where the number indicates the number of parallel compilations. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " You should probably keep this >~ the number of cores in your machine.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "valavanisalex", 
+            "email": "valavanisalex"
+        }, 
+        {
+            "date": "2012-01-05 16:26:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "compiled without errors :)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i appreciate your help and efforts.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thank you.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "leon3000", 
+            "email": "leon3000"
+        }, 
+        {
+            "date": "2012-01-06 22:19:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yay, 10849 happily builds on Lucid.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "cafuego", 
+            "email": "cafuego"
+        }
+    ], 
+    "id": "911174", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/911174"
+}

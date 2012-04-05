@@ -1,0 +1,588 @@
+{
+    "contributors": [
+        [
+            "amai", 
+            "lexrank"
+        ], 
+        [
+            "Ryan VanderMeulen", 
+            "email"
+        ], 
+        [
+            "Caolan McNamara", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Firefox Crash [@ AffixMgr::parse_file(char const*, char const*) ]", 
+    "comments": [
+        {
+            "date": "2011-12-14 17:11:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Seen while looking at trunk crash reports. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Crashes started showing up using the 2011121400 build on trunk but the crash is seen on other versions as well. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://crash-stats.mozilla.com/report/list?signature=AffixMgr::parse_file%28char%20const*,%20char%20const*%29. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Some of the reports look like they are probably the same person, but not all.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not sure what caused the spike on trunk, but here is what was checked in: http://hg.mozilla.org/mozilla-central/pushloghtml?fromchange=3c321d2c9884&tochange=fd6ab19f312c\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://crash-stats.mozilla.com/report/index/3114185e-8dee-4790-ad92-f01352111214\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Frame \tModule \tSignature [Expand] \tSource\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "0 \txul.dll \tAffixMgr::parse_file \textensions/spellcheck/hunspell/src/affixmgr.cpp:808\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1 \txul.dll \tAffixMgr::AffixMgr \textensions/spellcheck/hunspell/src/affixmgr.cpp:167\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2 \txul.dll \tHunspell::Hunspell \textensions/spellcheck/hunspell/src/hunspell.cpp:84\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3 \txul.dll \tmozHunspell::SetDictionary \textensions/spellcheck/hunspell/src/mozHunspell.cpp:220\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4 \txul.dll \tPromiseFlatString \tobj-firefox/dist/include/nsTPromiseFlatString.h:134\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5 \txul.dll \tmozSpellChecker::SetCurrentDictionary \textensions/spellcheck/src/mozSpellChecker.cpp:385\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marcia Knous [:marcia]", 
+            "email": "Marcia Knous [:marcia]"
+        }, 
+        {
+            "date": "2011-12-21 22:05:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "At #7 on the top crash list for the trunk. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Adding the keyword.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sheila Mooney", 
+            "email": "Sheila Mooney"
+        }, 
+        {
+            "date": "2012-01-03 14:34:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is a real bug which has existed since forever. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Our implementation of get_current_cs can return null. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " hunspell's implementation can't, and relies on this assumption all over the place. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " We should stop returning null, and just return dummy data in case of failures, just as hunspell's implementation does.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have a patch for this.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }, 
+        {
+            "date": "2012-01-03 14:37:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 585563 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch (v1)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }, 
+        {
+            "date": "2012-01-06 13:32:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Around 52% of these happen in < 1 min.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sheila Mooney", 
+            "email": "Sheila Mooney"
+        }, 
+        {
+            "date": "2012-01-07 11:54:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 585563 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch (v1)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> // XXX This function was rewritten for mozilla. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Instead of storing the > // conversion tables static in this file, create them when needed > // with help the mozilla backend.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> struct cs_info * get_current_cs(const char * es) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-  struct cs_info *ccs;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+  struct cs_info *ccs = new cs_info[256];\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+  // Initialze the array with dummy data so that we wouldn't need >+  // to return null in case of failures.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+  for (int i = 0; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i < 256; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "++i) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Could you use 0xff here, so that the loop looks like the one below.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Olli Pettay [:smaug]", 
+            "email": "Olli Pettay [:smaug]"
+        }, 
+        {
+            "date": "2012-01-09 16:04:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 587186 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review comments addressed\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Approval Request Comment]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Regression caused by (bug #): This has been broken since forever.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "User impact if declined: A crash not being fixed.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Testing completed (on m-c, etc.): I tested this patch locally, and I believe the code changes are sane.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Risk to taking this patch (and alternatives if risky):  This is relatively low-risk. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " The alternative is patching all of the callers of get_current_cs, which is way more risky.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }, 
+        {
+            "date": "2012-01-09 16:07:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/b4778618b053\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }, 
+        {
+            "date": "2012-01-09 16:09:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nemeth/Caolan, can you land this upstream please?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ryan VanderMeulen", 
+            "email": "Ryan VanderMeulen"
+        }, 
+        {
+            "date": "2012-01-09 16:16:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Ryan VanderMeulen from comment #8)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Nemeth/Caolan, can you land this upstream please?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is a bug in Mozilla specific customizations to hunspell, it doesn't need to be upstreamed.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }, 
+        {
+            "date": "2012-01-09 16:22:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The MOZILLA_CLIENT code is upstream as well. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It will make future updates easier if it's included there as well.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ryan VanderMeulen", 
+            "email": "Ryan VanderMeulen"
+        }, 
+        {
+            "date": "2012-01-10 01:58:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/b4778618b053\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marco Bonardo [:mak]", 
+            "email": "Marco Bonardo [:mak]"
+        }, 
+        {
+            "date": "2012-01-10 02:01:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "upstreamed this fix to hunspell cvs\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Caolan McNamara", 
+            "email": "Caolan McNamara"
+        }, 
+        {
+            "date": "2012-01-10 10:19:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Ryan VanderMeulen from comment #10)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The MOZILLA_CLIENT code is upstream as well. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It will make future updates > easier if it's included there as well.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ah, I didn't know that, thanks!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }, 
+        {
+            "date": "2012-01-10 14:56:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 587186 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review comments addressed\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Triage Comment]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Approving for Aurora, but since this has been broken forever, we'll let it ride 11 and up.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alex Keybl [:akeybl]", 
+            "email": "Alex Keybl [:akeybl]"
+        }, 
+        {
+            "date": "2012-01-10 15:50:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/releases/mozilla-aurora/rev/3301ea9d78b0\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }, 
+        {
+            "date": "2012-01-28 09:23:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Since that is an old bug blocking functionality and a no-risk fix (w/o it is just segfaulting) I vote for bring the fix to a version <11!\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "amai", 
+            "email": "amai"
+        }, 
+        {
+            "date": "2012-01-28 09:23:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to amai from comment #16)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Where the old bug is Bug 608639\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amai", 
+            "email": "amai"
+        }, 
+        {
+            "date": "2012-02-01 13:03:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is there anything that QA can do to verify this fix (apart from checking crashstats)?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Anthony Hughes, Mozilla QA (irc: ashughes)", 
+            "email": "Anthony Hughes, Mozilla QA (irc: ashughes)"
+        }, 
+        {
+            "date": "2012-03-18 05:21:18", 
+            "sentences": [], 
+            "name": "Wayne Mery (:wsmwk)", 
+            "email": "Wayne Mery (:wsmwk)"
+        }, 
+        {
+            "date": "2012-03-19 09:37:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Anthony Hughes, Mozilla QA (irc: ashughes) from comment #18)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Is there anything that QA can do to verify this fix (apart from checking > crashstats)?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No, I think that is all which can be done here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to amai from comment #16)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Since that is an old bug blocking functionality and a no-risk fix (w/o it is > just segfaulting) I vote for bring the fix to a version <11!\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Firefox <11 is no longer being maintained, and Firefox 11 has fixed this bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " You should upgrade to the latest version of Firefox.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }
+    ], 
+    "id": "710940", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=710940"
+}

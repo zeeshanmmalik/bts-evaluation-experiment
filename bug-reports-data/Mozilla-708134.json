@@ -1,0 +1,1020 @@
+{
+    "contributors": [
+        [
+            "Gregory Szorc [:gps]", 
+            "lexrank"
+        ], 
+        [
+            "Blair McBride (:Unfocused)", 
+            "email"
+        ], 
+        [
+            "Justin Scott [:fligtar]", 
+            "lexrank"
+        ], 
+        [
+            "Daniel Einspanjer :dre [:deinspanjer]", 
+            "email"
+        ], 
+        [
+            "Wil Clouser [:clouserw]", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Add-on sync AMO downloads should not skew metrics", 
+    "comments": [
+        {
+            "date": "2011-12-06 16:56:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is a follow-up to add-on sync to address the problem of downloads from AMO skewing download metrics.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We don't want automatic add-on installs via Sync to increment the download count. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This likely involves changing the \"src=api\" query string parameter to \"src=sync\" or something similar.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Gregory Szorc [:gps]", 
+            "email": "Gregory Szorc [:gps]"
+        }, 
+        {
+            "date": "2011-12-20 15:22:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is targeted for Firefox 11 because we don't want this to go to the masses as stable and skew metrics. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm hoping to get this fixed while 11 is still in Aurora.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gregory Szorc [:gps]", 
+            "email": "Gregory Szorc [:gps]"
+        }, 
+        {
+            "date": "2011-12-20 15:50:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Daniel on the metrics team handles the processing here.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wil Clouser [:clouserw]", 
+            "email": "Wil Clouser [:clouserw]"
+        }, 
+        {
+            "date": "2011-12-20 17:51:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is mainly needed for add-on installs; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "updates are pulled from the mirrors and don't get counted in metrics at all.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If possible, it would also be good to add a parameter to the post-install add-on metadata ping so it can be differentiated from the post-install ping of a real installation. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Justin Scott [:fligtar]", 
+            "email": "Justin Scott [:fligtar]"
+        }, 
+        {
+            "date": "2011-12-20 18:41:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "At the moment, the location of the XPI is found out via querying AMO's API, via AddonRepository (RepositoryAddon.sourceURI). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That URL has ?src=api in it... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "doing a string replace on that will work and is easily contained within the sync code. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Although it does feel rather awkward, IMO.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Gregory mentioned maybe switching to using Addon.sourceURI - for addons that have been updated since they were installed, this will point to the location of the last update, which isn't tracked (see comment 3). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That kinda solves not counting those installs in normal metrics... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "but it means we can never have metrics for how many addons are installed via sync (which we want want to do in the future). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For addons that haven't been updated, it will point to a URL that does count towards the download count, and that URL should have a src=whatever parameter.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Rewriting URLs is fine when it's a AMO URL, but what to do if it's not a AMO URL? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "IIRC, we don't support syncing those addons now, but plan to in the future. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Rewriting those URLs could potentially break them.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As for the post-install metadata ping... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "that seems like it would be doable, but awkward - kinda feels like contaminating the AddonsManager API :\\ AMO is queried as soon as the XPI is downloaded and the install.rdf manifest can be read - ie, before the install starts. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Would need to add a flag to AddonManager.getInstallForURL(), and pass that all the way through to eventually where AddonRepoistory.cacheAddons() is called. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you do want to do that, having it generic and work like the AddonManager.UPDATE_WHEN_* constants would be nice.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Blair McBride (:Unfocused)", 
+            "email": "Blair McBride (:Unfocused)"
+        }, 
+        {
+            "date": "2011-12-22 08:18:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When the src param changes, just remember to add the new one to the valid list in the amo db table so we pick it up and export the id.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Daniel Einspanjer :dre [:deinspanjer]", 
+            "email": "Daniel Einspanjer :dre [:deinspanjer]"
+        }, 
+        {
+            "date": "2012-01-10 16:20:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 587531 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Part 1: Rewrite sourceURI when installing add-ons through Sync, v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This patch changes the src query string parameter on sourceURI when an add-on is installed by Sync.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm not 100% confident I changed the right value. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Blair can verify that.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I also haven't explicitly tested through the browser. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But, the patch includes an xpcshell test verifying the URL rewriting does work, so I have no reason to believe it won't work in the real world.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gregory Szorc [:gps]", 
+            "email": "Gregory Szorc [:gps]"
+        }, 
+        {
+            "date": "2012-01-10 18:19:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fligtar: can you provide guidance on your long-term vision for the install ping? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Currently, the request is just a repository search: it contains a list (likely of 1 element) of the public add-on IDs and the API version. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We're trying to figure out what exactly we need to add to the request.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Should we add a parameter that says how the add-on was installed? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Should we add a one-off identifying Sync as the source?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "To further complicate things, the API sending this metadata ping is the same one used for the daily ping AFAICT (AddonRepository.getAddonsByIDs). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It is the same one that was patched in bug 682356 and is now being reverted in bug 716736. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "What about recurring pings from Sync installs? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Do these need to identify they came from Sync (necessitating new storage support for this field)?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As far as metrics go, is there some kind of logic on the server that distinguishes between the daily \"performance ping\" and the \"install ping?\" If so, perhaps now is a good time to explicitly call out the differences between these pings and expose the differences through different APIs in the client? ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Currently, everything is amassed in one function and it is impossible to tell from looking at the code what the expectations are.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gregory Szorc [:gps]", 
+            "email": "Gregory Szorc [:gps]"
+        }, 
+        {
+            "date": "2012-01-10 18:24:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Gregory Szorc [:gps] from comment #7)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> To further complicate things, the API sending this metadata ping is the same > one used for the daily ping AFAICT (AddonRepository.getAddonsByIDs). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It is > the same one that was patched in bug 682356 and is now being reverted in bug > 716736.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If it's good enough to differentiate metadata pings related to the periodic background update check, and *everything* else (installs, installs done by Sync, addons querying for their own reasons, etc), then that kills two birds with one much simpler stone.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Blair McBride (:Unfocused)", 
+            "email": "Blair McBride (:Unfocused)"
+        }, 
+        {
+            "date": "2012-01-11 00:22:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 587531 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 1: Rewrite sourceURI when installing add-ons through Sync, v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 587531 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: services/sync/modules/engines/addons.js\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +975,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +          }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +          let params = addon.sourceURI.query.split(\"&\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +          for (let [index, param] in Iterator(params)) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +            if (param.substr(0, 4) == \"src=\") {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ".indexOf(\"src\") == 0, please.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +976,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +          let params = addon.sourceURI.query.split(\"&\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +          for (let [index, param] in Iterator(params)) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +            if (param.substr(0, 4) == \"src=\") {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +              params[index] = \"src=sync\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "*momentary double-take about whether JS allows modification during iteration*\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is that the param that metrics wants?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is there ever likely to be some other kind of attribute here? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "E.g., Sync version, storage version of add-on sync, discriminating between different products? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"sync\" seems like an awfully large net to cast. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Pretty soon you'll be in Python-land with \"sync2\".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +980,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +              params[index] = \"src=sync\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +            }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +          }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +          addon.sourceURI.query = params.join(\"&\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Oh, if only JS had a proper URL-managing library.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2012-01-11 11:53:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 587772 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 1: Rewrite sourceURI when installing add-ons through Sync, v2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Use indexOf and Array.map in response to feedback.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gregory Szorc [:gps]", 
+            "email": "Gregory Szorc [:gps]"
+        }, 
+        {
+            "date": "2012-01-11 17:03:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 587772 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 1: Rewrite sourceURI when installing add-ons through Sync, v2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 587772 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In getInstallFromSearchResult(), you'll need to make it so it never uses AddonSearchResult.install, which will be using the old URL (with src=api).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Blair McBride (:Unfocused)", 
+            "email": "Blair McBride (:Unfocused)"
+        }, 
+        {
+            "date": "2012-01-11 18:29:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 587914 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 1: Rewrite sourceURI when installing add-ons through Sync, v3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Good catch, Blair! ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I made the modification so we always obtain the AddonInstall explicitly. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And, I added a test to ensure the change is reflected in the AddonInstall.sourceURI.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gregory Szorc [:gps]", 
+            "email": "Gregory Szorc [:gps]"
+        }, 
+        {
+            "date": "2012-01-11 18:46:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 587914 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 1: Rewrite sourceURI when installing add-ons through Sync, v3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rnewman: when you r+, please specify how you would like me to land this. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'd like to keep the bug around to track the metadata ping issue. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But I don't want the patch to linger either. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Since the metadata ping issue fix is stalled (waiting on fligtar), I think I'd be OK with filing a follow-up for that. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If so, I'll commit minus the \"Part 1\" in the commit message, pending r+ of course.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gregory Szorc [:gps]", 
+            "email": "Gregory Szorc [:gps]"
+        }, 
+        {
+            "date": "2012-01-12 17:43:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sorry, missed the question.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Land in m-i, follow-up for ping.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2012-01-12 17:50:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Pushed to inbound: https://hg.mozilla.org/integration/mozilla-inbound/rev/6bf79cb6e973\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Will file follow-up to deal with ping.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gregory Szorc [:gps]", 
+            "email": "Gregory Szorc [:gps]"
+        }, 
+        {
+            "date": "2012-01-13 03:00:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/6bf79cb6e973\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ms2ger", 
+            "email": "Ms2ger"
+        }, 
+        {
+            "date": "2012-01-17 10:50:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Gregory Szorc [:gps] from comment #7)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The metadata ping and install ping are pretty much the same, and the way we tell them apart for metrics purposes is that the metadata ping will have the default theme's GUID in it, while an install ping will only have the add-on that was just installed. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Explicitly differentiating them would be helpful, especially for other apps like mobile which doesn't have a default theme so we can't tell the difference at all.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "My main concern regarding install sources was with the API download URL, which should indicate it was downloaded via sync and not the user. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A parameter on the metadata install lookup would be interesting but isn't necessary -- we don't currently use that ping for anything metrics-wise and simply filter them out of the daily metadata background checks.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Justin Scott [:fligtar]", 
+            "email": "Justin Scott [:fligtar]"
+        }, 
+        {
+            "date": "2012-01-18 08:33:53", 
+            "sentences": [], 
+            "name": "Tracy Walker [:tracy]", 
+            "email": "Tracy Walker [:tracy]"
+        }, 
+        {
+            "date": "2012-02-13 09:20:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 587914 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 1: Rewrite sourceURI when installing add-ons through Sync, v3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Approval Request Comment]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Regression caused by (bug #): 534956 (initial add-on sync landing)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "User impact if declined: No user impact. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "AMO metrics would be skewed.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Testing completed (on m-c, etc.): Code has baked in 12 and 13 for a few weeks.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Risk to taking this patch (and alternatives if risky): Not much.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "String changes made by this patch: None\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I should have asked for 11 approval shortly after this landed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I forgot. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Firefox 11 (currently Aurora) is still impacted. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If we don't take this patch, AMO metrics could be skewed for add-on sync users using Firefox 11.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gregory Szorc [:gps]", 
+            "email": "Gregory Szorc [:gps]"
+        }, 
+        {
+            "date": "2012-02-13 09:54:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Tracy Walker [:tracy] from comment #18)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> gps:  from QA pov, what should be looking for to verify this bug? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " STR's > much appreciated\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you attempt to sync an add-on installed from AMO, the first time you install the add-on, its XPI URL will have 'src=api' in the query string or something similar. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I believe the URL will be dumped to the Error Console if extensions.logging.enabled is true. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When this add-on is synced, the 'src' query string argument should be set to 'sync'.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gregory Szorc [:gps]", 
+            "email": "Gregory Szorc [:gps]"
+        }, 
+        {
+            "date": "2012-02-13 12:14:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 587914 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 1: Rewrite sourceURI when installing add-ons through Sync, v3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Triage Comment]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is blocking 725083 due to bitrot, is considered low-risk, prevents skewing of metrics, and has STR for QA to verify. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Approved for Beta 11. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please land today.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alex Keybl [:akeybl]", 
+            "email": "Alex Keybl [:akeybl]"
+        }, 
+        {
+            "date": "2012-02-13 12:21:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/releases/mozilla-beta/rev/d26f36024d3c\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gregory Szorc [:gps]", 
+            "email": "Gregory Szorc [:gps]"
+        }
+    ], 
+    "id": "708134", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=708134"
+}

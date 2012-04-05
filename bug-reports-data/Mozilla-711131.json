@@ -1,0 +1,328 @@
+{
+    "contributors": [
+        [
+            "Jason Smith", 
+            "email"
+        ], 
+        [
+            "Ian Bicking (:ianb)", 
+            "lexrank"
+        ], 
+        [
+            "Michael Hanson", 
+            "email"
+        ], 
+        [
+            "dclarke@mozilla.com", 
+            "lexrank"
+        ]
+    ], 
+    "title": "implement uninstall() method", 
+    "comments": [
+        {
+            "date": "2011-12-15 09:50:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For parity with the Gecko API [1], the HTML implementation should support an uninstall() method exposed to content.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It should be subject to stringent security checks: The current algorithm is that an application in allowed to uninstall itself, or an application that it installed.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[1] http://mxr.mozilla.org/mozilla-central/source/dom/interfaces/apps/nsIDOMApplicationRegistry.idl\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Michael Hanson", 
+            "email": "Michael Hanson"
+        }, 
+        {
+            "date": "2011-12-15 10:17:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The current implementation is even more stringent: only application having the \"webapps-manage\" privilege can use uninstall().\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There's no reason a store could silently delete apps you buyed/installed I think.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Fabrice Desr [:fabrice]", 
+            "email": "Fabrice Desr [:fabrice]"
+        }, 
+        {
+            "date": "2011-12-15 10:31:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There's a corner-case, though: handling refunds.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If the user has requested a refund, and the store has processed it, the user is left with an app which will never work. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " We could choose to make deleting this app the user's responsibility, but that is probably error-prone. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " So providing some path for the store to delete the app in this case is probably useful.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There's nothing that says it has to be \"silent\", though - we could definitely do a consent step.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Michael Hanson", 
+            "email": "Michael Hanson"
+        }, 
+        {
+            "date": "2011-12-19 11:19:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Michael Hanson from comment #2)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> There's a corner-case, though: handling refunds.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> If the user has requested a refund, and the store has processed it, the user > is left with an app which will never work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " We could choose to make deleting > this app the user's responsibility, but that is probably error-prone. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " So > providing some path for the store to delete the app in this case is probably > useful.> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The store should have a way to remove invalid receipts (though we don't have any methods for that currently). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If the app (through its manifest) could indicate it required a receipt, would it be sensible to hide the application once the store has removed the last valid receipt? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This also adds an application state that is essentially available-but-probably-won't-work, which is perhaps a good state to have, we could present these apps elsewhere in a way that helps the user track what has happened. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (For that matter, being able to mark a receipt as invalid without removing the receipt might itself be a useful feature.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ian Bicking (:ianb)", 
+            "email": "Ian Bicking (:ianb)"
+        }, 
+        {
+            "date": "2011-12-30 10:33:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Addition to just the HTML implementation:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://github.com/mozilla/openwebapps/pull/158\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This does not change the permission model for HTML (which is currently just a whitelist).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ian Bicking (:ianb)", 
+            "email": "Ian Bicking (:ianb)"
+        }, 
+        {
+            "date": "2012-03-21 13:00:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is a API-level bug in the HTML implementation. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Probably should have David Clarke verify this bug.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jason Smith", 
+            "email": "Jason Smith"
+        }, 
+        {
+            "date": "2012-03-26 15:38:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ian, to verify this bug, what should QA be looking for? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Are we testing to make sure uninstalling an application still works on the HTML 5 dashboard?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jason Smith", 
+            "email": "Jason Smith"
+        }, 
+        {
+            "date": "2012-03-26 15:40:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Also - On the API-level, should I basically test this function (https://developer.mozilla.org/en/Apps/Apps_JavaScript_API/navigator.mozApps.mgmt.uninstall) in the specification and make sure it abides by the specification?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Jason Smith", 
+            "email": "Jason Smith"
+        }, 
+        {
+            "date": "2012-03-26 15:42:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Actually disregard comment 7 (the API has changed, uninstall() takes no params according to the first comment).\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Jason Smith", 
+            "email": "Jason Smith"
+        }, 
+        {
+            "date": "2012-03-26 15:43:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Something like this should work (on a privileged page):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "navigator.mozApps.getAll().onsuccess = function () {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  this.result[0].uninstall().onsuccess = function () {alert('success!');};\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "};\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There are also tests in repo_api.html for this.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ian Bicking (:ianb)", 
+            "email": "Ian Bicking (:ianb)"
+        }, 
+        {
+            "date": "2012-03-30 11:54:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Verified 03/30/2012. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Works for me.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "dclarke@mozilla.com", 
+            "email": "dclarke@mozilla.com"
+        }
+    ], 
+    "id": "711131", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=711131"
+}

@@ -1,0 +1,810 @@
+{
+    "contributors": [
+        [
+            "Jesse Ruderman", 
+            "email"
+        ], 
+        [
+            "David Keeler", 
+            "lexrank"
+        ], 
+        [
+            "Tom Lowenthal [:StrangeCharm]", 
+            "email"
+        ], 
+        [
+            "Ian Melven :imelven", 
+            "lexrank"
+        ], 
+        [
+            "Curtis Koenig [:curtisk]", 
+            "email"
+        ]
+    ], 
+    "title": "implement click to play permission model", 
+    "comments": [
+        {
+            "date": "2011-12-16 14:29:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+++ This bug was initially created as a clone of Bug #711552 +++\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "limi: \"If you've activated a click-to-play plugin on a certain URL 3 times, make it activate on subsequents loads *of that page* (to handle the intranet/bank Java app use case)\", \"and the way to clear the \"click to play -> automatic after 3 times\" is to change the state of that plugin to either always on or always off and then back to click-to-play. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This avoids having a management interface for the list of URLs that will always load. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":P\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "gkn: \"When a page is removed from the history (and isn't bookmarked) it should also be removed from this list.\"\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Question: what's a good way to store this list of URLs/plugins?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "David Keeler", 
+            "email": "David Keeler"
+        }, 
+        {
+            "date": "2011-12-16 15:27:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This should be per-origin, not per-URL.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jesse Ruderman", 
+            "email": "Jesse Ruderman"
+        }, 
+        {
+            "date": "2011-12-16 15:30:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm not convinced. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I go to youtube a lot, and I'll probably choose to play at least three videos on youtube, but I don't want youtube videos to load automatically.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Tom Lowenthal [:StrangeCharm]", 
+            "email": "Tom Lowenthal [:StrangeCharm]"
+        }, 
+        {
+            "date": "2011-12-16 17:02:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This reminds me of bug 682455 and it does have security consequences since we know that plugins are often a frequent (successful) target for exploitation. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Also, don't we already have about:permissions for a management interface for this ?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ian Melven :imelven", 
+            "email": "Ian Melven :imelven"
+        }, 
+        {
+            "date": "2011-12-16 17:07:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If a site repeatedly provides useful content through plugins, it's not especially likely to attack you the 4th time. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And the user is likely to click through, like they did the first 3 times.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Would you be happier if the permission went away after 30 days of not being used?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jesse Ruderman", 
+            "email": "Jesse Ruderman"
+        }, 
+        {
+            "date": "2011-12-16 17:39:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Jesse Ruderman from comment #4)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> If a site repeatedly provides useful content through plugins, it's not > especially likely to attack you the 4th time. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And the user is likely to > click through, like they did the first 3 times.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ok, these are good points. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to David Keeler from comment #0)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\"and the way to clear the \"click to play -> automatic after 3 times\" is to change the state of that plugin to either always on or always off and then back to click-to-play.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to David Keeler from comment #0)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +++ This bug was initially created as a clone of Bug #711552 +++ > \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> limi: \"If you've activated a click-to-play plugin on a certain URL 3 times,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> make it activate on subsequents loads *of that page* (to handle the > intranet/bank Java app use case)\", \"and the way to clear the \"click to play > -> automatic after 3 times\" is to change the state of that plugin to either > always on or always off and then back to click-to-play. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This avoids having a > management interface for the list of URLs that will always load. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":P\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "does this mean disable and re-enable the plugin in the Add-On Manager ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> gkn: \"When a page is removed from the history (and isn't bookmarked) it > should also be removed from this list.\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "what's the link between clearing history and resetting plugin click to play permissions ?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ian Melven :imelven", 
+            "email": "Ian Melven :imelven"
+        }, 
+        {
+            "date": "2011-12-17 11:35:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Ian Melven :imelven from comment #5)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > limi: \"If you've activated a click-to-play plugin on a certain URL 3 times,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > make it activate on subsequents loads *of that page* (to handle the > > intranet/bank Java app use case)\", \"and the way to clear the \"click to play > > -> automatic after 3 times\" is to change the state of that plugin to either > > always on or always off and then back to click-to-play. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This avoids having a > > management interface for the list of URLs that will always load. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":P\" > \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> does this mean disable and re-enable the plugin in the Add-On Manager ?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That's my understanding. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It would be something like \"click to play\" -> \"disable\" -> \"click to play\" (or \"click to play\" -> \"enable\" -> \"click to play\"). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This would reset all of the sites for that plugin.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > gkn: \"When a page is removed from the history (and isn't bookmarked) it > > should also be removed from this list.\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> what's the link between clearing history and resetting plugin click to play > permissions ?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "My understanding is if a page is removed from history, a plugin that had been click-to-played on that page >= 3 times will go back to click-to-play. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, if this feature is on a per-site basis rather than a per-URL basis, this won't work unless all pages from that site are removed from history.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Keeler", 
+            "email": "David Keeler"
+        }, 
+        {
+            "date": "2011-12-17 13:36:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to David Keeler from comment #6)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > does this mean disable and re-enable the plugin in the Add-On Manager ?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> That's my understanding. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It would be something like \"click to play\" ->\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \"disable\" -> \"click to play\" (or \"click to play\" -> \"enable\" -> \"click to\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> play\"). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This would reset all of the sites for that plugin.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Wait ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "What? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " You mean to use the feature one will have to open the Addon manager ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I had assumed there would be a marker or something on the site visited similar to the way Flashblock works for example that can be 'clicked' to play a flash object. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " If one has to open the Addon manager every-time one wants to view a flash video for each site this feature will be virtually useless as it will be become quickly very annoying to jump to Addon manager. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I understand that after 3 times it will be automatic, but still for each site to have to leap around to 'click to play' ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " And as stated above what about those users that never want flash objects to play unless clicked ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Some flash ads are so poorly written they 'eat cpu' thus the reason for full-time blocking.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Jeffery not reading bug-mail 1/2/11", 
+            "email": "Jim Jeffery not reading bug-mail 1/2/11"
+        }, 
+        {
+            "date": "2011-12-18 00:39:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think users will understand \"always load this plugin for this site\" much better than they will understand \"it works automatically after three times.\"\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Especially in China it is common to have site-specific plugins. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For example, banks and many e-commerce sites (eBay and amazon.com analogs) have plugins specific to their site. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "These are sites that are used by basically everybody in China. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In particular, it is common to use plugins to implement a \"secure login\" form that attempts to prevent keyloggers from stealing the user's password. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "AFAICT, the login form is often on multiple pages of the site, and users expect to be able to log in easily on any page of the site. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We are working now to make these plugins work better (e.g. bug 611253) and be less confusing to end-users, to help with adoption of Firefox in China; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "my concern is that the proposed policy will make things more confusing than necessary, and make new Firefox users think Firefox is less convenient than other browsers.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think that having a per-origin auto-load setting and making it an explicit choice (\"enable now\" and \"always enable for this site\") would be a lot less confusing. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(And, the same applies to geo-location prompting.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We should not be afraid of site-specific settings. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "With WebAPIs, we are going to be asking users to enable MANY features on a per-site/origin basis. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We have to make a usable UI for site-specific settings anyway; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "in fact, I thought we already had a UI design for site-specific settings ready to go. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We might as well start doing it with this (and geolocation).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brian Smith (:bsmith)", 
+            "email": "Brian Smith (:bsmith)"
+        }, 
+        {
+            "date": "2011-12-19 11:56:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 582909 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I agree that having the option to \"load this time\" or \"always load for this site\" make more sense. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here's a patch for how that could work.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "limi/UX team: input?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Keeler", 
+            "email": "David Keeler"
+        }, 
+        {
+            "date": "2011-12-21 03:43:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Jesse Ruderman from comment #4)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> If a site repeatedly provides useful content through plugins, it's not > especially likely to attack you the 4th time. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And the user is likely to > click through, like they did the first 3 times.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Blocking plugins can help resist attacks, but that's not the only reason. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As comment 7 points out, performance is a very good reason not to load plugins media by default. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Another reason is that it can just be annoying: I hate opening a tab in the background and having sound start to play.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Any non-obvious behavior like changing the default after three accepts, or only being able to remove the preference by removing the site from history creates a bad UX. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We should default to well-understood concepts like Allow Once / Allow Always, and integrate this feature into the up-and-coming site-specific preferences manager which currently lives at about:permissions.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Tom Lowenthal [:StrangeCharm]", 
+            "email": "Tom Lowenthal [:StrangeCharm]"
+        }, 
+        {
+            "date": "2011-12-24 15:25:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yeah, I'd prefer an explicit \"always\" action over this automatic behavior. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And we need plugin activation to be based on context menus rather than single-left-click anyway, for basic safety, so there's plenty of space to put an \"always\" option.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(It's fine with me if left-click opens a context menu in this case, fwiw.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jesse Ruderman", 
+            "email": "Jesse Ruderman"
+        }, 
+        {
+            "date": "2012-01-02 17:41:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 585342 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch v2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here's the latest:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* this builds on bug 711552 (so, no hanger unless necessary, etc.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* adds the option to always play a given plugin for the current site (still left/right click / menu-based)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Keeler", 
+            "email": "David Keeler"
+        }, 
+        {
+            "date": "2012-01-11 14:59:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "need to schedule a secteam review\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Curtis Koenig [:curtisk]", 
+            "email": "Curtis Koenig [:curtisk]"
+        }, 
+        {
+            "date": "2012-01-11 19:53:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"Left-click menu\" is the right UI when this is being used as a security measure. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But for some plugins/users, it might be used only as an anti-annoyance measure, in which case it would be good to have a \"Left-click play\" implemented as well.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Jesse Ruderman", 
+            "email": "Jesse Ruderman"
+        }, 
+        {
+            "date": "2012-02-27 16:55:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Jesse Ruderman from comment #14)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \"Left-click menu\" is the right UI when this is being used as a security > measure.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You mean right-click (context) menu, I assume?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But more generally, as a security measure it just needs to be some place in chrome where context can't get at (or easily trick a user into doing)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Justin Dolske [:Dolske]", 
+            "email": "Justin Dolske [:Dolske]"
+        }, 
+        {
+            "date": "2012-02-27 18:26:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I mean that left-clicking should do the same thing as right-clicking.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Chrome UI would be even more secure, yes.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jesse Ruderman", 
+            "email": "Jesse Ruderman"
+        }, 
+        {
+            "date": "2012-03-23 10:34:31", 
+            "sentences": [], 
+            "name": "Jared Wein [:jaws]", 
+            "email": "Jared Wein [:jaws]"
+        }
+    ], 
+    "id": "711618", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=711618"
+}

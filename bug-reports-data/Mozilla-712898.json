@@ -1,0 +1,981 @@
+{
+    "contributors": [
+        [
+            "lvm", 
+            "email"
+        ], 
+        [
+            "Karl Tomlinson (:karlt)", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Gecko doesn't apply system default scale [X11]", 
+    "comments": [
+        {
+            "date": "2011-12-22 02:54:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "User Agent: Mozilla/5.0 (X11; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Linux i686; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rv:9.0) Gecko/20111217 Firefox/9.0 SeaMonkey/2.6\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Build ID: 20111217095157\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Steps to reproduce:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "to make fonts larger in the whole system I set screen resolution to 200 DPI\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "root@htpc:/temp# xdpyinfo | grep resolution\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  resolution:    200x200 dots per inch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "it worked for all system and application components including seamonkey 1.x but 2.x versions are ignoring system-wide dpi settings when rendering html. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Skins are almost ok although in url autocomplete picklist line spacing is too small and lines merge and cover one another. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Setting layout.css.dpi to 200 is not helping\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Expected results:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "lvm", 
+            "email": "lvm"
+        }, 
+        {
+            "date": "2011-12-22 09:03:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Can you reproduce with Firefox? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(which version(s)?)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Serge Gautherie (:sgautherie)", 
+            "email": "Serge Gautherie (:sgautherie)"
+        }, 
+        {
+            "date": "2011-12-22 09:05:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This appears to be a support question. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please in future use our support forum for issues such as this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Are you using Ubuntu? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If so please try the solution described in:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<http://forums.mozillazine.org/viewtopic.php?p=9176615#p9176615>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"The problem is that (non-repository) Firefox builds in Ubuntu or any Linux distro, by default, uses it's own Cairo rather than system Cairo for rendering UI fonts. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I forgot which bug report (Bugzilla, Launchpad) I found this in since it was some time ago but the fix is fairly easy.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Note: The reference for the following about:config setting is here: http://kb.mozillazine.org/Layout.css.dpi\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In about.config set layout.css.dpi to 0. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Then restart Firefox and the Firefox UI fonts should now follow system font settings and should look a lot better. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This assumes a few things though.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1. You have an LCD display and...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "2. You've already set sub-pixel rendering to your liking (slight, medium or full) so the rest of the system fonts look best to you.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Philip Chee", 
+            "email": "Philip Chee"
+        }, 
+        {
+            "date": "2011-12-22 12:01:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "wontfix on the seamonkey side as well, this would be a core bug. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But you can surely try SeaMonkey Specific support venues.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Justin Wood (:Callek)", 
+            "email": "Justin Wood (:Callek)"
+        }, 
+        {
+            "date": "2011-12-23 07:31:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Gentlemen, you are not reading carefully: this issue has nothing to do with fonts or UI. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It concerns html rendering as a whole - fonts AND images, both should be scaled as specified in the X screeen resolution settings. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am afraid I've been a bit imprecise when I mentioned 1.x, I did a bit of regression testing and found out that this bug has been introduced in 2.1 - 2.0.14 is the last version that works correctly. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And yes, I was able to reproduce this bug with firefox 8.0 from the distro repository (and by the way it is kubuntu 11.10).\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "lvm", 
+            "email": "lvm"
+        }, 
+        {
+            "date": "2011-12-27 19:48:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to lvm from comment #4)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Gentlemen, you are not reading carefully: this issue has nothing to do with > fonts or UI. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It concerns html rendering as a whole - fonts AND images, both > should be scaled as specified in the X screeen resolution settings.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No, they shouldn't. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In the past people filed bugs when screen DPI changes alone resulted in automatic rescaling of content. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We fixed those bugs by decoupling these things.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We *should* be automatically making fonts and form elements match those used by your desktop. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If those automatically change size when you change screen resolution, we should follow suit. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But I'm not sure how that works in GTK currently.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert O'Callahan (:roc) (Mozilla Corporation)", 
+            "email": "Robert O'Callahan (:roc) (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2011-12-28 00:39:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Robert O'Callahan (:roc) (Mozilla Corporation) from comment #5)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (In reply to lvm from comment #4)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Gentlemen, you are not reading carefully: this issue has nothing to do with > > fonts or UI. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It concerns html rendering as a whole - fonts AND images, both > > should be scaled as specified in the X screeen resolution settings.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> No, they shouldn't. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In the past people filed bugs when screen DPI changes > alone resulted in automatic rescaling of content. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We fixed those bugs by > decoupling these things.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I am sorry but I cannot agree with this at all. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "DPI is a grapical device parameter with one specific purpose: match pixel and physical resolution of the deivce so that *all* output may be scaled to make it readable regardless of physical pixel density. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Given that pixel density of the modern displays tends to increase the approach you suggesting is a dead end, all output must be scaled, there may be no pixel-sizing at all - it is as grave a mistake as a hardcoding. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If someone has been sufficiently unwise to consider these complaints as bugs and 'fix' them, it should be undone with utmost expedience. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Incidentally when you say 'decoupled' do you mean that you introduced a configuration option to apply a global non-1 zoom factor to all HTML documents? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Can't find it (please, no nosquint)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> We *should* be automatically making fonts and form elements match those used > by your desktop. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If those automatically change size when you change screen > resolution, we should follow suit. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But I'm not sure how that works in GTK > currently.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As I said before , it is exactly what happens: all system interface elements, application programs I use  e.g. LibreOffce and even Seamonkey's UI are automaticlly scaled to match screen DPI, only HTML document itself is not. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Same bug in windows (XP SP3).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "lvm", 
+            "email": "lvm"
+        }, 
+        {
+            "date": "2012-01-05 00:08:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "LibreOffice is not really a native application so can't be relied on for things like this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "What matters here is the default device pixel size of text and controls rendered by system UI, such as a plain GNOME app or KDE app. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If setting the X screen DPI changes those default automatically, we need to figure out by how much, and automatically do the same thing by implementing nsWindow::GetDefaultScale for GTK.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please let us know if you're using GNOME or KDE.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert O'Callahan (:roc) (Mozilla Corporation)", 
+            "email": "Robert O'Callahan (:roc) (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2012-01-05 00:09:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll let Karl figure out what, if anything, we should do here :-).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert O'Callahan (:roc) (Mozilla Corporation)", 
+            "email": "Robert O'Callahan (:roc) (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2012-01-05 06:36:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Robert O'Callahan (:roc) (Mozilla Corporation) from comment #7)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> What matters here is the default device pixel size of text and controls > rendered by system UI, such as a plain GNOME app or KDE app. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If setting the > X screen DPI changes those default automatically\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, it does. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BTW as I said before it is not X-specific, Seamonkey for windows behaves the same way - not the way almost all other windows programs do, so I removed the linux bit from the title.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Please let us know if you're using GNOME or KDE.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "on linux I am using KDE\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "lvm", 
+            "email": "lvm"
+        }, 
+        {
+            "date": "2012-01-05 12:42:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The code in question is platform-specific, so we need platform-specific bugs. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We already have a different bug about this on Windows.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert O'Callahan (:roc) (Mozilla Corporation)", 
+            "email": "Robert O'Callahan (:roc) (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2012-01-05 18:56:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comparing with a reference situation with the xrandr dpi set to 96 and Xft.dpi set to 192.0, these are my observations:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "With xrandr dpi 96, Xft.dpi: 192.0:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Enlarges fonts in Qt Designer and Kuickshow but not icons, sliders, radio\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  buttons or checkboxes.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Similarly for GNOME Character Map, Evince, gtk-lsw.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  LibreOffice is similar, and also changes the document zoom at 100% zoom factor.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Firefox UI and html text inputs seem to mimic the same behavior.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "With xrandr dpi 192, Xft.dpi: 96.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Same as reference 96/96.0.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "With xrandr dpi 192, Xft.dpi not set\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  same as 96/192.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As far as I can see, everything seems to be scaling based on Xft.dpi if set, and if not falling back to xrandr / Screen dimensions.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "LibreOffice is the only application here to scale anything but fonts, that being only the document zoom at 100% zoom factor. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Have I missed anything?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Most of this looks ugly to me, but Firefox UI seems consistent with desktop apps.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There isn't much guide here for how to treat web content that specifies font sizes.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There might be a good case for scaling default font sizes for html.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Karl Tomlinson (:karlt)", 
+            "email": "Karl Tomlinson (:karlt)"
+        }, 
+        {
+            "date": "2012-01-05 19:19:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Setting layout.css.devPixelsPerPx to 2.0 scales HTML (without double-scaling text inputs and UI fonts), and scales icons, but not radio buttons and checkboxes.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The icons are now in proportion to double sized fonts but blurry and inconsistent with other apps.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Karl Tomlinson (:karlt)", 
+            "email": "Karl Tomlinson (:karlt)"
+        }, 
+        {
+            "date": "2012-01-05 19:26:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If other apps aren't scaling their icons or images, neither should we.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Automatically scaling content font sizes to match the rest of the system sounds good though.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert O'Callahan (:roc) (Mozilla Corporation)", 
+            "email": "Robert O'Callahan (:roc) (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2012-01-07 23:21:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Robert O'Callahan (:roc) (Mozilla Corporation) from comment #10)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The code in question is platform-specific, so we need platform-specific > bugs. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We already have a different bug about this on Windows.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For html it can be done via the global zoom function (as in view-zoom) - is it platform-specific too?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I cannot confirm that system icons do not resize - see the attaches screenshots, one at 96 DPI running seamonkey 2.6, the other at 200 DPI running seamonkey 2.0.14 - this is how it should look, note icons on the system task panel (KDE 4.7.3). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I myself have no strong opinion about the interface icons - trying to avoid them as much as possible, but they look ok to me zoomed.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Resizing text but not images is not a good idea, I remember earlier versions did exactly that and it looked ugly - page formatting was frequently disrupted to say nothing about image readability. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Actually 2.6 has an option to zoom just text or both text and images in preferences-appearance-content, perhaps DPI-initiated scaling should use the zoom method set by this option.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "lvm", 
+            "email": "lvm"
+        }, 
+        {
+            "date": "2012-01-07 23:22:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 586762 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "screenshot at 96 DPI\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "lvm", 
+            "email": "lvm"
+        }, 
+        {
+            "date": "2012-01-07 23:24:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 586763 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "screenshot at 200 DPI\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "lvm", 
+            "email": "lvm"
+        }, 
+        {
+            "date": "2012-01-08 00:54:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to lvm from comment #14)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I cannot confirm that system icons do not resize - see the attaches > screenshots, one at 96 DPI running seamonkey 2.6, the other at 200 DPI\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> running seamonkey 2.0.14 - this is how it should look, note icons on the > system task panel (KDE 4.7.3).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, in those screenshots dock icons have changed size.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In comment #11 Karl reported that Qt app icons did not change size.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We need to investigate further to understand when system icons change size and when they don't.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Can you repeat Karl's experiment on a single system? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Maybe the setups on your two computers had other differences than just the dpi setting.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert O'Callahan (:roc) (Mozilla Corporation)", 
+            "email": "Robert O'Callahan (:roc) (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2012-01-08 13:09:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "KDE Task Manager and Panel icons scale when the size of the Panel changes.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "System Tray icons remain the same size (even in the screenshots).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I haven't tested, by restarting the session, what effect dpi has on these.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The scaled icons in Seamonkey 2.0.14 look like they use nearest neighbour interpolation. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " -moz-crisp-edges might be worth considering to get the same effect, if we were to scale icons.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Karl Tomlinson (:karlt)", 
+            "email": "Karl Tomlinson (:karlt)"
+        }
+    ], 
+    "id": "712898", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=712898"
+}

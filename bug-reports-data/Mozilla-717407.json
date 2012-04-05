@@ -1,0 +1,659 @@
+{
+    "contributors": [
+        [
+            ":aceman", 
+            "lexrank"
+        ], 
+        [
+            "neil@parkwaycc.co.uk", 
+            "email"
+        ]
+    ], 
+    "title": "add null-arg checks and cleanup in mailnews/mime/src", 
+    "comments": [
+        {
+            "date": "2012-01-11 14:14:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'll try to do some null-arg check in files of that directory. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Also there are some possibilities to optimize 'if (!unlikely problem) return ERR' to 'NS_ENSURE_TRUE(unlikely problem, ERR)'.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Also, I'll add these from bug 413548:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--- a/mailnews/mime/src/nsMimeConverter.cpp\tTue Jan 22 16:02:08 2008 -0500 +++ b/mailnews/mime/src/nsMimeConverter.cpp\tTue Jan 22 16:31:14 2008 -0500\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ -136,7 +136,8 @@ nsMimeConverter::EncodeMimePartIIStr(con\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                                            PRInt32 encodedWordSize, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                                            char          **encodedString)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+  NS_ENSURE_ARG_POINTER(header);\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+  NS_ENSURE_ARG_POINTER(mailCharset);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   // Encoder needs utf-8 string.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   nsAutoString tempUnicodeString;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   nsresult rv = ConvertToUnicode(mailCharset, header, tempUnicodeString);\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": ":aceman", 
+            "email": ":aceman"
+        }, 
+        {
+            "date": "2012-01-18 14:25:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 589647 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "null checks, whitespace cleanup and NS_ENSUREs\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": ":aceman", 
+            "email": ":aceman"
+        }, 
+        {
+            "date": "2012-03-04 13:42:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 589647 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "null checks, whitespace cleanup and NS_ENSUREs\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+  NS_ENSURE_ARG_POINTER(mailCharset);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Are you sure mailCharset can't be null? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(I think it just defaults to ASCII.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-    char *allHeaders = (char *) PR_MALLOC(mHeaders->all_headers_fp + 1);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+  char *allHeaders = (char *) PR_MALLOC(mHeaders->all_headers_fp + 1);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[This should actually use NS_Alloc. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sadly all_headers isn't null-terminated, so we can't simply clone it.]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+  NS_ASSERTION (allHeaders, \"nsMimeHeaders - out of memory\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+  NS_ENSURE_TRUE(allHeaders, NS_ERROR_OUT_OF_MEMORY);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not sure we need both checks here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> static int\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Initialize(MimeObject *obj)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, the rest of the file has a 4 space indent, which is fair enough, except that you changed this function from a 2 space indent to a weird 4+2 indent...\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "neil@parkwaycc.co.uk", 
+            "email": "neil@parkwaycc.co.uk"
+        }, 
+        {
+            "date": "2012-03-05 12:35:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to neil@parkwaycc.co.uk from comment #2)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >+  NS_ENSURE_ARG_POINTER(mailCharset);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Are you sure mailCharset can't be null? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(I think it just defaults to ASCII.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "No idea, I took this from Joey Minta's patch in bug 413548.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can remove it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >-    char *allHeaders = (char *) PR_MALLOC(mHeaders->all_headers_fp + 1);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >+  char *allHeaders = (char *) PR_MALLOC(mHeaders->all_headers_fp + 1);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> [This should actually use NS_Alloc. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sadly all_headers isn't null-terminated,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> so we can't simply clone it.]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I assume I should not do anything about this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >+  NS_ASSERTION (allHeaders, \"nsMimeHeaders - out of memory\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >+  NS_ENSURE_TRUE(allHeaders, NS_ERROR_OUT_OF_MEMORY);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Not sure we need both checks here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Who will decide? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": ":aceman", 
+            "email": ":aceman"
+        }, 
+        {
+            "date": "2012-03-06 08:31:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to aceman from comment #3)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (In reply to comment #2)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > >+  NS_ENSURE_ARG_POINTER(mailCharset);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Are you sure mailCharset can't be null? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(I think it just defaults to ASCII.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> No idea, I took this from Joey Minta's patch in bug 413548.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Ah, well not all null in arguments are invalid. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This was the only one that I spotted though; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I guess if you mistakenly trap other null in arguments then exceptions will get thrown...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > >-    char *allHeaders = (char *) PR_MALLOC(mHeaders->all_headers_fp + 1);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > >+  char *allHeaders = (char *) PR_MALLOC(mHeaders->all_headers_fp + 1);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > [This should actually use NS_Alloc. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sadly all_headers isn't null-terminated,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > so we can't simply clone it.]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I assume I should not do anything about this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Well, I would appreciate it if you switched from PR_MALLOC to NS_Alloc.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > >+  NS_ASSERTION (allHeaders, \"nsMimeHeaders - out of memory\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > >+  NS_ENSURE_TRUE(allHeaders, NS_ERROR_OUT_OF_MEMORY);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Not sure we need both checks here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Who will decide? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Well, unlike the previous code, NS_ENSURE_TRUE does log an error to stdout, which might make the assertion less useful.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "neil@parkwaycc.co.uk", 
+            "email": "neil@parkwaycc.co.uk"
+        }, 
+        {
+            "date": "2012-03-06 10:21:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to neil@parkwaycc.co.uk from comment #4)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (In reply to aceman from comment #3)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > (In reply to comment #2)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > >+  NS_ENSURE_ARG_POINTER(mailCharset);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > Are you sure mailCharset can't be null? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(I think it just defaults to ASCII.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > No idea, I took this from Joey Minta's patch in bug 413548.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Ah, well not all null in arguments are invalid. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This was the only one that I > spotted though; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I guess if you mistakenly trap other null in arguments then > exceptions will get thrown...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Yes, I try to only check OUT parameters that are dereferenced and would cause a crash.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "only this 'mailCharset' and 'header' IN parameters are checked because Joey had it that was. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can drop those 2.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > >-    char *allHeaders = (char *) PR_MALLOC(mHeaders->all_headers_fp + 1);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > >+  char *allHeaders = (char *) PR_MALLOC(mHeaders->all_headers_fp + 1);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > [This should actually use NS_Alloc. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sadly all_headers isn't null-terminated,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > so we can't simply clone it.]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > I assume I should not do anything about this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Well, I would appreciate it if you switched from PR_MALLOC to NS_Alloc.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If it is just replacing the function name I can do that.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > >+  NS_ASSERTION (allHeaders, \"nsMimeHeaders - out of memory\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > >+  NS_ENSURE_TRUE(allHeaders, NS_ERROR_OUT_OF_MEMORY);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > Not sure we need both checks here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Who will decide? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Well, unlike the previous code, NS_ENSURE_TRUE does log an error to stdout, > which might make the assertion less useful.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ok, I'll remove it.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": ":aceman", 
+            "email": ":aceman"
+        }, 
+        {
+            "date": "2012-03-06 11:38:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 603387 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch v2\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": ":aceman", 
+            "email": ":aceman"
+        }, 
+        {
+            "date": "2012-03-07 16:48:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/comm-central/rev/1bb9b9a58eea\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BTW Neil, the Modules wiki doesn't list you as a peer for MailNews Core::MIME. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You should probably update that.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://wiki.mozilla.org/Modules/MailNews_Core\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ryan VanderMeulen", 
+            "email": "Ryan VanderMeulen"
+        }
+    ], 
+    "id": "717407", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=717407"
+}

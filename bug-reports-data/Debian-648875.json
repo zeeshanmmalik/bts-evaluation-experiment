@@ -1,0 +1,664 @@
+{
+    "contributors": [
+        [
+            "Bdale Garbee <bdale@gag.com>", 
+            "email"
+        ], 
+        [
+            "Mathieu Trudel-Lapierre <mathieu.tl@gmail.com>", 
+            "lexrank"
+        ]
+    ], 
+    "title": "\nFTBFS in restrictive chroots", 
+    "comments": [
+        {
+            "date": "2011-11-15 14:16:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Package: uaputl\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: 1.12-1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Tags: patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "User: ubuntu-devel@lists.ubuntu.com\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Usertags: origin-ubuntu oneiric ubuntu-patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We're discovered an issue with uaputl 1.12-1 while building it for Ubuntu precise: it attempts to copy (install) compiled files to an unreachable or restricted path:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: Entering directory `/build/buildd/uaputl-1.12'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "cc  -Wall -c -o uaputl.o uaputl.c\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "uaputl.c: In function 'apcmd_sys_config':\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "uaputl.c:3817:29: warning: 'argv_dummy' may be used uninitialized in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "this function [-Wuninitialized]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "cc  -Wall -c -o uapcmd.o uapcmd.c\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "cc -lrt -o uaputl uaputl.o uapcmd.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "cp: cannot create regular file `../../uaputl': Permission denied make[1]: *** [build] Error 1\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make[1]: Leaving directory `/build/buildd/uaputl-1.12'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dh_auto_build: make -j1 returned exit code 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make: *** [build] Error 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dpkg-buildpackage: error: debian/rules build gave error exit status 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On our buildds, this would essentially mean /, but on my system it also means it tries to clobber the actual source directory used, and fortunately fails to do so ;)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I was able to workaround the issue by adding a simple override to dh_auto_build that would set INSTALLDIR to an absolute directory, thus avoiding it being rewritten with \"../..\":\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "override_dh_auto_build:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tinstall -d $(CURDIR)/debian/tmp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        INSTALLDIR=$(CURDIR)/debian/tmp dh_auto_build\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Regards,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mathieu Trudel-Lapierre <mathieu.tl@gmail.com>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Freenode: cyphermox, Jabber: mathieu.tl@gmail.com\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4096R/EE018C93 1967 8F7D 03A1 8F38 732E  FF82 C126 33E1 EE01 8C93\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mathieu Trudel-Lapierre <mathieu.tl@gmail.com>", 
+            "email": "Mathieu Trudel-Lapierre <mathieu.tl@gmail.com>"
+        }, 
+        {
+            "date": "2011-11-15 18:44:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "tags 648875 +pending\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Tue, 15 Nov 2011 14:16:19 -0500, Mathieu Trudel-Lapierre <mathieu.tl@gmail.com> wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> We're discovered an issue with uaputl 1.12-1 while building it for > Ubuntu precise: it attempts to copy (install) compiled files to an > unreachable or restricted path\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks, I hadn't noticed that. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Will be fixed on my next upload.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bdale\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Bdale Garbee <bdale@gag.com>", 
+            "email": "Bdale Garbee <bdale@gag.com>"
+        }, 
+        {
+            "date": "2011-11-16 01:43:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: uaputl\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source-Version: 1.12-2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We believe that the bug you reported is fixed in the latest version of uaputl, which is due to be installed in the Debian FTP archive:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "uaputl_1.12-2.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/u/uaputl/uaputl_1.12-2.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "uaputl_1.12-2.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/u/uaputl/uaputl_1.12-2.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "uaputl_1.12-2_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/u/uaputl/uaputl_1.12-2_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A summary of the changes between this version and the previous one is attached.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thank you for reporting the bug, which will now be closed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If you have further comments please address them to 648875@bugs.debian.org, and the maintainer will reopen the bug report if appropriate.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Debian distribution maintenance software\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pp.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bdale Garbee <bdale@gag.com> (supplier of updated uaputl package)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(This message was generated automatically at their request; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if you believe that there is a problem with it please contact the archive administrators by mailing ftpmaster@debian.org)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----BEGIN PGP SIGNED MESSAGE-----\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hash: SHA512\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Format: 1.8\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date: Tue, 15 Nov 2011 18:48:50 -0600\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: uaputl\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Binary: uaputl\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Architecture: source i386\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: 1.12-2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Distribution: unstable\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Urgency: low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Maintainer: Bdale Garbee <bdale@gag.com>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed-By: Bdale Garbee <bdale@gag.com>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Description: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " uaputl     - admin utility for Marvell uAP wireless driver\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Closes: 648875\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changes: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " uaputl (1.12-2) unstable; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "   * work around Makefile's inappropriate use of ../.., which breask builds in      some chroot environments, closes: #648875\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checksums-Sha1: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 0b582ea75f04b7c1af5e4fba54674da4e6c687a5 1711 uaputl_1.12-2.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 64ee35d29958214216cb7cbbc0abfae2823baec3 3318 uaputl_1.12-2.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 40b8dd679421f65fa0ed638b52904c7d605726c4 48574 uaputl_1.12-2_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checksums-Sha256: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " e269b712579c9eb1db4f65b8f47745286d8d775f664d5e3fc451da159948018d 1711 uaputl_1.12-2.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " f979f3637456946387836a6664a18aaf0ceaae3318dee7e03c9bdc217745f796 3318 uaputl_1.12-2.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 16d55b8b49e995c707b619231143dcbeedae27f13bdd9a6dc400bfa1d5b8b5b6 48574 uaputl_1.12-2_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Files: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 4f3650db9bf5cb6d33da387e163b1ae5 1711 net optional uaputl_1.12-2.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 614b6d758f716357782bb1933d59fbe6 3318 net optional uaputl_1.12-2.debian.tar.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " d1d5148169c7b6c56b2e966e058d0851 48574 net optional uaputl_1.12-2_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----BEGIN PGP SIGNATURE-----\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: GnuPG v1.4.11 (GNU/Linux)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "iQIVAwUBTsMMfzqTYZbAldlBAQp/AA//YMxbzOWHEkXhbbUlvuy8mTJc9oyudoDI\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ZIpujRU4MxO9pKNDFP85R1/3Jdj/2BNBYtdp9TqH7Q91eqorcHTRv4KFjynb4IZV\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pUH2olR2IoXfOj6YcvFL3utKz7a4Vb4JoxslF5BM4LGmeIFJg+/NSNWO8BGOftoI\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "coqWZ+edu4qrwjQscEpWz4IZJ7RcOdMRAkFn7I8ih8aZ2aIRNk1bawp0p6CtrUmW\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "flC4tr10ej046TQSYeGkstA/VWtQ7/ZpnXXkLhuOpPy6dCooZkuBR7gEriHHGRxt\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ka1HGjqgh2hPZDjQ2V0LMuQaBqqZtzr02nttaWIYIvGBOXVezYzn7qp8sWZmRu6F\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3JO/5BwysUm0LhLRuU0Aa10Gx3Dt/BGznWYJAhMtX1cEYFPnyj4+ZyN9XBTFP0Cs\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ougoZvQtDDMTdReOI8dFl4HqWTE+y9I1o0rx66sJoLjT14qOwbVNbymWhM1iakR6\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dxF/4fIwRBjeVaAcyelqCyWBDkujTLYhP5Fuh4axTjAmT4ZyhHJavcq2B+KZNRB1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "B5KnsIG+1s7GrLMx9ESRTwiVOI+FFVO2TpFAapqgrs64kTMnmbBDb1NE5Xpv5tsK\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "RadN2DZffEIM2NPnNF3hWeQctu1v6AJdo2b9QREs1dIEjD+i0CSfQ6JAuzNajdOa\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gFSKk+OkKcM=\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "=MncE\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----END PGP SIGNATURE-----\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Bdale Garbee <bdale@gag.com>", 
+            "email": "Bdale Garbee <bdale@gag.com>"
+        }
+    ], 
+    "id": "648875", 
+    "project": "Debian", 
+    "original_link": "http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=648875"
+}

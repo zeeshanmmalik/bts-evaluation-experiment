@@ -1,0 +1,761 @@
+{
+    "contributors": [
+        [
+            "mbaker3", 
+            "email"
+        ], 
+        [
+            "niel-cyanescent", 
+            "lexrank"
+        ]
+    ], 
+    "title": "this.standardExtent not updated when children grow beyond bounds", 
+    "comments": [
+        {
+            "date": "2011-11-25 18:30:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Given the following code:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "class TestNME extends Sprite {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tprivate var text_txt:TextField;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tpublic function new () {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tsuper ();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tinitialize ();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tprivate function initialize():Void \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\taddEventListener(Event.ADDED_TO_STAGE, onAdded);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tprivate function onAdded(e:Event):Void\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tremoveEventListener(Event.ADDED_TO_STAGE, onAdded);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\ttext_txt = new TextField();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\ttext_txt.autoSize = TextFieldAutoSize.LEFT;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\ttext_txt.text = \"This is a shorter String\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\taddChild(text_txt);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tstage.addEventListener(MouseEvent.CLICK, onClick);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tprivate function onClick(e:MouseEvent):Void\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\ttext_txt.text = \"This is a much much longer stright that gets cut off\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t// Entry point\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tpublic static function main () {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tLib.current.addChild (new TestNME ());\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The TextField does not resize properly to show all of the text once the stage is clicked. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've looked through the generated JS and found its not an issue with the textfield itself reporting its width. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The problem seems to exist because of a few oddities in Graphics that I don't yet understand. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---FIRST---\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "First it looks like the jeashAdjustSurface() only gets called if the width AND the height of the standardExtent change. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is checked in jeash.display.Graphics.prototype.jeashRender at:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if (standardExtent.width - standardExtent.x != jeashSurface.width && standardExtent.height - standardExtent.y != jeashSurface.height) jeashAdjustSurface();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "else\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tif (standardExtent.width - standardExtent.x < jeashSurface.width && standardExtent.height - standardExtent.y < jeashSurface.height) jeashAdjustSurface();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Shouldn't it be if the height OR width change? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Also the else if seems to be a little redundant, is there a reason for this?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---SECOND---\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "the standardExtent doesn't have any obvious way of changing. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Looking at getStadardExtent() it returns immediately if standardExtent is not null. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I checked the source and couldn't find a place where the standardExtent is nulled out. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This means that regardless of what happens to a sprites content the standardExtent will never be recalculated.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I did find some commented out code in ClosePolygon but uncommenting that caused some other issues with the x,y position of the sprite's canvas when elements went into negative coordinates.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "mbaker3", 
+            "email": "mbaker3"
+        }, 
+        {
+            "date": "2011-11-25 18:32:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My setup:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "windows 7\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "haxe 2.08\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "nme 3.1rc3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "jeash 0.8.6\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll take a stab at fixing it this weekend and supply a patch if successful. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hopefully I haven't made any incorrect assumptions!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mbaker3", 
+            "email": "mbaker3"
+        }, 
+        {
+            "date": "2011-11-25 20:27:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for taking a look, it's not immediately obvious why this code is there, but it's there for a  good reason.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For your first comment, you may be right, and this could be changed.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The standardExtent code took a while to get right - the reason is 1) that the canvas cannot draw outside of its bounds, whereas flash can, and 2) it's not obvious how big a canvas should be until you draw into it, and 3) the size of a canvas affects how mouse events are calculated, because they are triggered at the canvas boundaries.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The standardExtent is only recalculated when the graphics object is drawn into. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This can happen at any time, and will then trigger a redraw of the canvas to a larger or smaller canvas. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ideally, the jeashAdjustSurface should run as few times as possible, as it is incurring an overhead, but it also fixes a good number of bugs too.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The code in the repo introduces a workaround for the standardExtent of Textfields, and adds some pixels so that the entire Textfield is rendered - I don't know exactly why this bug exists... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't think getStandardExtent bothers to understand non-linear paths, and Textfields are a bit less mature than the rest of the framework.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Let me know if I can help with anything else..\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "niel-cyanescent", 
+            "email": "niel-cyanescent"
+        }, 
+        {
+            "date": "2011-11-25 20:38:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please check against tip @  http://repo.or.cz/w/jeash.git \n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "niel-cyanescent", 
+            "email": "niel-cyanescent"
+        }, 
+        {
+            "date": "2011-11-29 02:23:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Change didn't fix the test case. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is because the standardExtent doesn't get recalculated after the first time its calculated. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Looking into how to signal that change to the getStandardExtent() method without calculating more than once per frame.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mbaker3", 
+            "email": "mbaker3"
+        }, 
+        {
+            "date": "2011-11-29 03:12:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1) I see what you were talking about now. You don't want to loop through all of the points twice per render, first to check the bounds and second to do the actual drawing. Is the performance hit significant?  What if we kept track of \"dirty point\"(points which are new or have changed since the last frame), in a separate array?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2) In a few places that there are calculations like this:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "standardExtent.width - standardExtent.x\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "What does this calculation get you? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "are you using the width property as right coordinate of the rectangle?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mbaker3", 
+            "email": "mbaker3"
+        }, 
+        {
+            "date": "2011-11-29 05:37:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I guess the second condition for triggering jeashAdjustSurface is legacy code and redundant, I will check if I can remove it. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It used to be the case that we started with a large canvas and didn't resize until the rendering pass was larger than the canvas, but currently we start with a zero sized canvas and adjust the size after a certain number of frames.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In fact jeashAdjustSurface should nearly always be triggered, it's only in the case if someone draws the same content using a different color where this does not trigger - http://jeash.com/examples/xDe0/main.html is an example where the performance would suffer if the adjustment occurs every frame, because it uses a sprites with a fixed size and just draws inside that size.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't know about adding dirty points, generally the drawList is cleared when something is drawn into it, and calculating the difference between drawLists is perhaps an idea, but it would have to work quite well and it might not be fast.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The calculation of finding its bounding area and adjusting the transformation matrix is because of this case:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                circle.graphics.beginFill(0xFFCC00);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                circle.graphics.drawCircle(0, 0, 30);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                circle.x = 0;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                circle.y = -20;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                container.x = 30;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                container.y = 50;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                addChild(container);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                container.addChild(circle);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Unless we shift the canvas before the drawCircle is drawn, and re-adjust its position afterwards, the canvas will only get drawn in the bottom right corner with the 15px radius of a circle\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I will check your test case this week, I can only imagine that the text gets cut off on the last few characters, not by the difference to the size of the first string.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "niel-cyanescent", 
+            "email": "niel-cyanescent"
+        }, 
+        {
+            "date": "2011-12-09 07:34:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello, you were right, the standardExtent was not recalculated, due to a commented out section in Graphics::ClosePolygon.. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks for catching!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "niel-cyanescent", 
+            "email": "niel-cyanescent"
+        }, 
+        {
+            "date": "2011-12-09 13:55:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Great! ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I played around with uncommenting that line and it seemed to cause other problems (some Sprites would shift as their contents changed). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I meant to look further into it but the end of year rush has hit at work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll take another look once I get the chance and file another test case if the bug still exists.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for looking at this!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mbaker3", 
+            "email": "mbaker3"
+        }
+    ], 
+    "id": "896373", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/896373"
+}

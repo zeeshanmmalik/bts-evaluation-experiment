@@ -1,0 +1,350 @@
+{
+    "contributors": [
+        [
+            "odo-openerp", 
+            "email"
+        ], 
+        [
+            "opentia", 
+            "lexrank"
+        ], 
+        [
+            "sunlxy", 
+            "email"
+        ]
+    ], 
+    "title": "Translations not working after overwrite a report", 
+    "comments": [
+        {
+            "date": "2011-11-22 07:37:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "After overwriting an existing report, the translation will not work.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For example, I need to rewrite the template of payslip.pdf, the following definition works well:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<report auto=\"False\" id=\"hr_payroll.salary_payslip\" model=\"hr.payslip\"\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\tname=\"payslip.pdf\" rml=\"mymodule/report/payslip.rml\" string=\"Employee PaySlip\" />\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But there is also a method has to be override in payslip_report class, so I create a new class to extend it like this:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "from datetime import datetime\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "from hr_payroll.report.report_payslip import payslip_report\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "class payslip_report(payslip_report):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    def get_month(self, obj):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        return datetime.strptime(obj.date, '%Y-%m-%d').strftime('%Y-%m')\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As we know, to make it effect, we must register it with report_sxw:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "report_sxw.report_sxw('report.payslip.pdf', 'hr.payslip', 'mymodule/report/payslip.rml', parser=payslip_report)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This brings the error: The report \"report.payslip.pdf\" already exists!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Then I change both report definition and register name to 'report.my.payslip.pdf', but the translation never works.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Look into report relative classes, I realize the name is used for searching translation table in report_sxw._translate method.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Any solution?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sunlxy", 
+            "email": "sunlxy"
+        }, 
+        {
+            "date": "2011-11-28 11:55:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It also occurs when deleting a record (i.e. a menuitem one) from a custom module and putting it back in place by reinstalling the original module that creates it.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Example:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "a) 'crm' module creates menuitem with id = 'menu_crm_case_categ0_act_leads'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "b) 'my_custom_module' deletes the record:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<delete model=\"ir.ui.menu\" id=\"crm.menu_crm_case_categ0_act_leads\" />\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "c) Reinstall 'crm' module\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "d) Recharge official translation\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "^ The terms are still being shown in english, even when the translation terms exists in ir_translation\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "opentia", 
+            "email": "opentia"
+        }, 
+        {
+            "date": "2011-11-29 12:34:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Sean,\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is not a bug, everything is working as expected in the framework:\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Translations are based on the name of the report, so you can use different translations for the same term in different reports. If you define a new report with a different name, the translations are not shared.\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- You also can't define several reports with the same name, due to the way the report service endpoint works. So that is forbidden, as expected.\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Your problem is that you're registering the report twice when you instantiate report_sxw.report_sxw() a second time. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is not correct and not supported. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Before registering the new report, you could try to unregister the previous one in your python code, as you really mean to replace it. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Something like Service.remove('report.payslip.pdf') in 6.1/trunk should do the trick.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In the future we should look for a way to allow report objects to use the same inheritance mechanism as normal ORM objects, or possibly merge them... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "but that is a long-term idea.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks,\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "odo-openerp", 
+            "email": "odo-openerp"
+        }, 
+        {
+            "date": "2011-11-29 12:47:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@Equipo OPENTIA: I think the case you describe is different, here you are removing module data and re-creating later. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The problem is that the link between a translation and the resource it translates is established during the initial module import. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "When you re-create that resource, the link is not reconnected. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is quite a low priority issue, but if you can reproduce it, please feel free to report a separate bug for that. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It would be even better if you can make a patch (merge proposal) for improving the translation system to support this uncommon use case.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "odo-openerp", 
+            "email": "odo-openerp"
+        }
+    ], 
+    "id": "893474", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/893474"
+}

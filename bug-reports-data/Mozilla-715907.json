@@ -1,0 +1,684 @@
+{
+    "contributors": [
+        [
+            "Wesley W. Garland", 
+            "lexrank"
+        ], 
+        [
+            "Reuben Morais [:reuben]", 
+            "email"
+        ], 
+        [
+            "JP Rosevear [:jpr]", 
+            "lexrank"
+        ]
+    ], 
+    "title": "crash in jsd_NewValue @ JSCompartment::wrap with Firebug", 
+    "comments": [
+        {
+            "date": "2012-01-06 08:04:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This bug was filed from the Socorro interface and is \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "report bp-f3d791f8-6814-4e22-b2ee-0a8282120106 .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "============================================================= \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "A friend of mine reported constant crashes with Firebug 1.8.4 or 1.9b5 on Linux.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "He said introducing an error in the page can trigger the crash, but it's not 100% reliable.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Frame \tModule \tSignature \tSource\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "0 \tlibxul.so \tJSCompartment::wrap \tjscompartment.cpp:210\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1 \tlibxul.so \tJS_WrapValue \tjsapi.cpp:1309\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "2 \tlibxul.so \tjsd_NewValue \tjsd_val.c:331\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3 \tlibxul.so \t_newProperty \tjsd_val.c:412\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4 \tlibxul.so \t_buildProps \tjsd_val.c:476\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5 \tlibxul.so \tjsd_IterateProperties \tjsd_val.c:557\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "6 \tlibxul.so \tjsd_GetValueProperty \tjsd_val.c:592\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "7 \tlibxul.so \tjsdValue::GetProperty \tjsd_xpc.cpp:2425\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "8 \tlibxul.so \tlibxul.so@0xd546b3 \t\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "9 \tlibxul.so \tXPCWrappedNative::CallMethod \txpcwrappednative.cpp:3147\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "10 \tlibxul.so \tXPC_WN_CallMethod \txpcwrappednativejsops.cpp:1629\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "11 \tlibxul.so \tjs::mjit::stubs::UncachedCallHelper \tjscntxtinlines.h:296\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "12 \tlibxul.so \tjs::mjit::stubs::UncachedCall \tInvokeHelpers.cpp:434\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "13 \t\t@0xabbe66a5 \t\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "14 \tlibxul.so \tlibxul.so@0x146a0c7 \t\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "15 \tlibxul.so \tjs::mjit::EnterMethodJIT \tMethodJIT.cpp:884\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "16 \tlibxul.so \tjs::mjit::JaegerShot \tMethodJIT.cpp:945\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "17 \tlibxul.so \tjs::RunScript \tjsinterp.cpp:611\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "18 \tlibxul.so \tjs::InvokeKernel \tjsinterp.cpp:678\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "19 \tlibxul.so \tjs_fun_apply \tjsinterp.h:167\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20 \tlibxul.so \tjs::mjit::stubs::UncachedCallHelper \tjscntxtinlines.h:296\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "21 \tlibxul.so \tjs::mjit::stubs::UncachedCall \tInvokeHelpers.cpp:434\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "22 \t\t@0xac734605 \t\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "23 \tlibxul.so \tlibxul.so@0x146a0c7 \t\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "24 \tlibxul.so \tjs::mjit::EnterMethodJIT \tMethodJIT.cpp:884\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "25 \tlibxul.so \tjs::mjit::JaegerShot \tMethodJIT.cpp:945\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "26 \tlibxul.so \tjs::RunScript \tjsinterp.cpp:611\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "27 \tlibxul.so \tjs::InvokeKernel \tjsinterp.cpp:678\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "28 \tlibxul.so \tjs::Invoke \tjsinterp.h:167\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "29 \tlibxul.so \tJS_CallFunctionValue \tjsapi.cpp:5039\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "30 \tlibxul.so \tnsXPCWrappedJSClass::CallMethod \txpcwrappedjsclass.cpp:1660\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "31 \tlibxul.so \tnsXPCWrappedJS::CallMethod \txpcwrappedjs.cpp:585\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "32 \tlibxul.so \tPrepareAndDispatch \txptcstubs_gcc_x86_unix.cpp:92\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "33 \tlibxul.so \tjsds_ExecutionHookProc \tjsd_xpc.cpp:694\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "34 \tlibxul.so \tjsd_CallExecutionHook \tjsd_hook.c:177\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "35 \tlibxul.so \tjsd_DebugErrorHook \tjsd_high.c:401\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "36 \tlibxul.so \tReportError \tjscntxt.cpp:664\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "37 \tlibxul.so \tjs_ReportErrorNumberVA \tjscntxt.cpp:1007\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "38 \tlibxul.so \tJS_ReportErrorFlagsAndNumber \tjsapi.cpp:5759\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "39 \tlibxul.so \tjs_ReportValueErrorFlags \tjscntxt.cpp:1137\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "40 \tlibxul.so \tjs_ReportIsNotFunction \tjsfun.cpp:2665\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "41 \tlibxul.so \tjs::InvokeKernel \tjsinterp.cpp:650\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "42 \tlibxul.so \tjs::Interpret \tjsinterp.cpp:4036\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "43 \tlibxul.so \tjs::InvokeKernel \tjsinterp.cpp:678\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "44 \tlibxul.so \tjs::Invoke \tjsinterp.h:167\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "45 \tlibxul.so \tJS_CallFunctionValue \tjsapi.cpp:5039\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "46 \tlibxul.so \tnsXPCWrappedJSClass::CallMethod \txpcwrappedjsclass.cpp:1660\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "47 \tlibxul.so \tnsXPCWrappedJS::CallMethod \txpcwrappedjs.cpp:585\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "48 \tlibxul.so \tPrepareAndDispatch \txptcstubs_gcc_x86_unix.cpp:92\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "49 \tlibxul.so \tnsDOMEventListenerWrapper::HandleEvent \tnsDOMEventTargetHelper.cpp:65\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "50 \tlibxul.so \tnsEventListenerManager::HandleEventSubType \tnsEventListenerManager.cpp:722\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "51 \tlibxul.so \tnsEventListenerManager::HandleEventInternal \tnsEventListenerManager.cpp:776\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "52 \tlibxul.so \tnsEventTargetChainItem::HandleEvent \tnsEventDispatcher.cpp:215\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "53 \tlibxul.so \tnsEventTargetChainItem::HandleEventTargetChain \tnsEventDispatcher.cpp:344\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "54 \tlibxul.so \tnsEventDispatcher::Dispatch \tnsEventDispatcher.cpp:672\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "55 \tlibxul.so \tnsEventDispatcher::DispatchDOMEvent \tnsEventDispatcher.cpp:735\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "56 \tlibxul.so \tnsXMLHttpRequest::ChangeState \tnsXMLHttpRequest.cpp:2852\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "57 \tlibxul.so \tnsXMLHttpRequest::OnStopRequest \tnsXMLHttpRequest.cpp:2055\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "58 \tlibxul.so \tnsCORSListenerProxy::OnStopRequest \tnsCrossSiteListenerProxy.cpp:622\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "59 \tlibxul.so \tmozilla::net::nsStreamListenerWrapper::OnStopRequest \tHttpBaseChannel.cpp:1391\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "60 \tlibxul.so \tnsStreamListenerTee::OnStopRequest \tnsStreamListenerTee.cpp:71\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "61 \tlibxul.so \tnsHttpChannel::OnStopRequest \tnsHttpChannel.cpp:4253\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "62 \tlibxul.so \tnsInputStreamPump::OnStateStop \tnsInputStreamPump.cpp:578\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "63 \tlibxul.so \tnsInputStreamPump::OnInputStreamReady \tnsInputStreamPump.cpp:403\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "64 \tlibxul.so \tnsInputStreamReadyEvent::Run \tnsStreamUtils.cpp:114\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "65 \tlibxul.so \tnsThread::ProcessNextEvent \tnsThread.cpp:631\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "66 \tlibxul.so \tNS_ProcessNextEvent_P \tnsThreadUtils.cpp:245\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "67 \tlibxul.so \tmozilla::ipc::MessagePump::Run \tMessagePump.cpp:110\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "68 \tlibxul.so \tMessageLoop::RunInternal \tmessage_loop.cc:208\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "69 \tlibxul.so \tMessageLoop::Run \tmessage_loop.cc:201\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "70 \tlibxul.so \tnsBaseAppShell::Run \tnsBaseAppShell.cpp:189\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "71 \tlibxul.so \tnsAppStartup::Run \tnsAppStartup.cpp:228\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "72 \tlibxul.so \tXRE_main \tnsAppRunner.cpp:3557\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "73 \tfirefox \tmain \tnsBrowserApp.cpp:198\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "74 \tlibc-2.13.so \tlibc-2.13.so@0x16e36 \t\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "75 \tfirefox \tfirefox@0x1550 \t\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "76 \tfirefox \tnsGetterAddRefs<nsILocalFile>::operator nsILocalFile** \tnsCOMPtr.h:874\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "77 \t\t@0x0 \t\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "78 \tld-2.13.so \tld-2.13.so@0xea4f \t\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "79 \tld-2.13.so \tld-2.13.so@0x1d917\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Reuben Morais [:reuben]", 
+            "email": "Reuben Morais [:reuben]"
+        }, 
+        {
+            "date": "2012-01-08 05:46:20", 
+            "sentences": [], 
+            "name": "Scoobidiver", 
+            "email": "Scoobidiver"
+        }, 
+        {
+            "date": "2012-01-12 04:24:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It looks like I can pretty reliably get this crash in Zimbra on the Jan 11 nightly.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "JP Rosevear [:jpr]", 
+            "email": "JP Rosevear [:jpr]"
+        }, 
+        {
+            "date": "2012-01-13 00:51:27", 
+            "sentences": [], 
+            "name": "Scoobidiver", 
+            "email": "Scoobidiver"
+        }, 
+        {
+            "date": "2012-01-16 07:57:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This looks pretty much like my stack, https://crash-stats.mozilla.com/report/index/bp-81c3defb-f358-4ebf-b794-278f82120116\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It's crashing in code introduced here, where the jsd wrapping code tries to flatten the string:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/releases/mozilla-release/diff/87dc60c12d24/js/jsd/jsd_val.c\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The new code looks okay to me; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I wonder if that jsval has been \"bad\" for a long time, and just never de-referenced until now?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wesley W. Garland", 
+            "email": "Wesley W. Garland"
+        }, 
+        {
+            "date": "2012-01-16 07:59:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Oh, I should mention, I'm on release Firefox 9 and release Firebug. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No beta stuff. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have triggered this at least twice in the last 30 hours of work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I use both the dev console and firebug extensively. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Firebug mostly for examining CSS.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wesley W. Garland", 
+            "email": "Wesley W. Garland"
+        }, 
+        {
+            "date": "2012-01-16 10:50:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "...and I just crashed again. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This is going to bite any working web developer regularly, and is bad enough that we're going to need ship Firefox 9.0.1 IMO.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Wes\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wesley W. Garland", 
+            "email": "Wesley W. Garland"
+        }, 
+        {
+            "date": "2012-01-16 10:57:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's fixed by bug 712289 that will land in 12.0a1/20120117 and maybe Aurora and Beta.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Scoobidiver", 
+            "email": "Scoobidiver"
+        }, 
+        {
+            "date": "2012-01-16 11:07:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ouch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So web developers on release browsers will have to tolerate regular crashes for 18 weeks?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Wesley W. Garland", 
+            "email": "Wesley W. Garland"
+        }, 
+        {
+            "date": "2012-01-16 11:16:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Wesley W. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Garland from comment #8)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Ouch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So web developers on release browsers will have to tolerate regular > crashes for 18 weeks?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Approval for landing on Beta and Aurora has been requested, so possibly less than that.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Reuben Morais [:reuben]", 
+            "email": "Reuben Morais [:reuben]"
+        }, 
+        {
+            "date": "2012-01-16 11:52:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Firefox 10 ships in two weeks (well, 15 days). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I'm aiming to land the fix for bug 712289 in Firefox 10.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2012-04-03 11:43:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fixed by bug 712289.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Reuben Morais [:reuben]", 
+            "email": "Reuben Morais [:reuben]"
+        }
+    ], 
+    "id": "715907", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=715907"
+}

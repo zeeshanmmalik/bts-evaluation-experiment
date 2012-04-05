@@ -1,0 +1,667 @@
+{
+    "contributors": [
+        [
+            "bcwaldon", 
+            "email"
+        ], 
+        [
+            "sahitya-k", 
+            "lexrank"
+        ], 
+        [
+            "sapan-kona", 
+            "email"
+        ]
+    ], 
+    "title": "Not able to associate a floating ip to a fixed ip address using OS api ", 
+    "comments": [
+        {
+            "date": "2012-01-16 08:52:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I was trying to associate a floating ip to a fixed ip address using OS api extension for floating ip which uses POST, but was unable to associate.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Got the following error:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Traceback (most recent call last):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"./apitool.py\", line 73, in <module>\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    resp, body = get_action_func(nclient, args.verb[0])(path, body=load(args.jsonfile) )\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/local/lib/python2.7/dist-packages/python_novaclient-2.6.8-py2.7.egg/novaclient/client.py\", line 137, in post\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    return self._cs_request(url, 'POST', **kwargs)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/local/lib/python2.7/dist-packages/python_novaclient-2.6.8-py2.7.egg/novaclient/client.py\", line 121, in _cs_request\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    **kwargs)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/local/lib/python2.7/dist-packages/python_novaclient-2.6.8-py2.7.egg/novaclient/client.py\", line 104, in request\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    raise exceptions.from_response(resp, body)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "novaclient.exceptions.NotFound: n/a (HTTP 404)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Stack trace from the nova-api.log:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2012-01-11 21:46:07,851 DEBUG nova.api.openstack [-] Successfully authenticated 'cloudroot' from (pid=1111) authenticate /usr/lib/python2.7/dist-packages/nova/api/openstack/auth.py:186\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2012-01-11 21:46:07,894 DEBUG routes.middleware [-] No route matched for POST /cloudproject/os-floating-ips/25/associate from (pid=1111) __call__ /usr/lib/pymodules/python2.7/routes/middleware.py:97\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2012-01-11 21:46:07,895 DEBUG routes.middleware [-] No route matched for POST /cloudproject/os-floating-ips/25/associate from (pid=1111) __call__ /usr/lib/pymodules/python2.7/routes/middleware.py:97\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But using EC2 API (euca-associate-address ) ,i was able to associate the ip address.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Following is the link where the respective api's are defined.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://wiki.openstack.org/os_api_floating_ip\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "verb: POST \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "URI : /os-floating-ips/id/associate\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "request: fixed ip\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sahitya-k", 
+            "email": "sahitya-k"
+        }, 
+        {
+            "date": "2012-01-27 17:29:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The correct request is \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "POST /<TENANT>/os-floating-ips/<ID>/action\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\"addFloatingIp\": {\"address\": ...} }\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "bcwaldon", 
+            "email": "bcwaldon"
+        }, 
+        {
+            "date": "2012-01-30 07:07:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi,\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Could you please modify the wiki with the correct request for floating ip association.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " http://wiki.openstack.org/os_api_floating_ip\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Regards,\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sahitya\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----Original Message-----\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "From: <email address hidden> [mailto:<email address hidden>] On Behalf Of Brian Waldon\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sent: Friday, January 27, 2012 11:00 PM\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "To: Sahitya K\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Subject: [Bug 917064] Re: Not able to associate a floating ip to a fixed ip address using OS api \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The correct request is\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "POST /<TENANT>/os-floating-ips/<ID>/action\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\"addFloatingIp\": {\"address\": ...} }\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "** Changed in: nova\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "       Status: New => Invalid\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You received this bug notification because you are subscribed to the bug report.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " https://bugs.launchpad.net/bugs/917064\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Title:\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  Not able to associate a floating ip to a fixed ip address using OS api\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Status in OpenStack Compute (Nova):\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Invalid\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bug description:\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  I was trying to associate a floating ip to a fixed ip address using OS\r   api extension for floating ip which uses POST, but was unable to\r   associate.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Got the following error:\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Traceback (most recent call last):\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    File \"./apitool.py\", line 73, in <module>\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      resp, body = get_action_func(nclient, args.verb[0])(path, body=load(args.jsonfile) )\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    File \"/usr/local/lib/python2.7/dist-packages/python_novaclient-2.6.8-py2.7.egg/novaclient/client.py\", line 137, in post\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      return self._cs_request(url, 'POST', **kwargs)\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    File \"/usr/local/lib/python2.7/dist-packages/python_novaclient-2.6.8-py2.7.egg/novaclient/client.py\", line 121, in _cs_request\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      **kwargs)\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    File \"/usr/local/lib/python2.7/dist-packages/python_novaclient-2.6.8-py2.7.egg/novaclient/client.py\", line 104, in request\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      raise exceptions.from_response(resp, body)\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  novaclient.exceptions.NotFound: n/a (HTTP 404)\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Stack trace from the nova-api.log:\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  2012-01-11 21:46:07,851 DEBUG nova.api.openstack [-] Successfully authenticated 'cloudroot' from (pid=1111) authenticate /usr/lib/python2.7/dist-packages/nova/api/openstack/auth.py:186\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  2012-01-11 21:46:07,894 DEBUG routes.middleware [-] No route matched for POST /cloudproject/os-floating-ips/25/associate from (pid=1111) __call__ /usr/lib/pymodules/python2.7/routes/middleware.py:97\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  2012-01-11 21:46:07,895 DEBUG routes.middleware [-] No route matched for POST /cloudproject/os-floating-ips/25/associate from (pid=1111) __call__ /usr/lib/pymodules/python2.7/routes/middleware.py:97\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  But using EC2 API (euca-associate-address ) ,i was able to associate the ip address.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Following is the link where the respective api's are defined.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   http://wiki.openstack.org/os_api_floating_ip\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  verb: POST\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  URI : /os-floating-ips/id/associate\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  request: fixed ip\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "To manage notifications about this bug go to:\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://bugs.launchpad.net/nova/+bug/917064/+subscriptions\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "DISCLAIMER\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "==========\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This e-mail may contain privileged and confidential information which is the property of Persistent Systems Ltd. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It is intended only for the use of the individual or entity to which it is addressed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you are not the intended recipient, you are not authorized to read, retain, copy, print, distribute or use this message. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you have received this communication in error, please notify the sender and delete all copies of this message. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Persistent Systems Ltd. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "does not accept any liability for virus infected mails.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sahitya-k", 
+            "email": "sahitya-k"
+        }, 
+        {
+            "date": "2012-01-30 16:39:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That wiki is actually a draft proposal the original authors of the code started before the code made it in. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I would be more in favor of deleting that wiki entry altogether.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "bcwaldon", 
+            "email": "bcwaldon"
+        }, 
+        {
+            "date": "2012-02-01 10:34:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Brian, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have used the correct request as given by you. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Still, I am unable to associate the floating IP to an address. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "REQ: curl -i http://10.233.52.171:8774/v1.1/cloudproject/os-floating-ips/2/addFloatingIp -X POST -H \"X-Auth-Project-Id: cloudproject\" -H \"User-Agent: python-novaclient\" -H \"Content-Type: application/json\" -H \"X-Auth-Token: a79f017c9429bdc0bc70950f620624f688c10e53\"\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "REQ BODY: {\"addFloatingIp\": {\"address\": \"15.2.0.7\"}}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "RESP:{'date': 'Wed, 01 Feb 2012 15:48:41 GMT', 'status': '404', 'content-length': '52', 'content-type': 'text/plain; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "charset=UTF-8'} 404 Not Found\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The resource could not be found.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Can you please help me out.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sapan-kona", 
+            "email": "sapan-kona"
+        }
+    ], 
+    "id": "917064", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/917064"
+}

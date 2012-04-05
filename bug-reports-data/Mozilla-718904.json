@@ -1,0 +1,906 @@
+{
+    "contributors": [
+        [
+            "Wesley Johnston (:wesj)", 
+            "lexrank"
+        ], 
+        [
+            "Lucas Rocha (:lucasr)", 
+            "email"
+        ]
+    ], 
+    "title": "java.lang.ClassCastException: java.lang.String at org.mozilla.gecko.AwesomeBar.onCreateContextMenu(AwesomeBar.java:421)", 
+    "comments": [
+        {
+            "date": "2012-01-17 17:51:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "From Soccoro Reports: \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://crash-stats.mozilla.com/report/index/ead225f7-821f-4074-83c7-b26c32120115\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://crash-stats.mozilla.com/report/index/128464cf-edb0-4bfd-b758-a64042120115\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Java Crash in app notes:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "java.lang.ClassCastException: java.lang.String\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat org.mozilla.gecko.AwesomeBar.onCreateContextMenu(AwesomeBar.java:421)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.View.createContextMenu(View.java:4363)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat com.android.internal.view.menu.ContextMenuBuilder.show(ContextMenuBuilder.java:81)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat com.android.internal.policy.impl.PhoneWindow$DecorView.showContextMenuForChild(PhoneWindow.java:1983)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.ViewGroup.showContextMenuForChild(ViewGroup.java:466)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.ViewGroup.showContextMenuForChild(ViewGroup.java:466)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.ViewGroup.showContextMenuForChild(ViewGroup.java:466)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.ViewGroup.showContextMenuForChild(ViewGroup.java:466)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.ViewGroup.showContextMenuForChild(ViewGroup.java:466)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.ViewGroup.showContextMenuForChild(ViewGroup.java:466)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Note: Occurs on Motorola Triumph\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Naoki Hirata :nhirata", 
+            "email": "Naoki Hirata :nhirata"
+        }, 
+        {
+            "date": "2012-01-17 18:33:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No idea if we can reproduce this crash, but based on the build (2012-01-15 12.0a1)it should be this line:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/mozilla-central/annotate/c98283f80ae7/mobile/android/base/AwesomeBar.java#l421\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cursor cursor = (Cursor)selectedItem;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The error would indicate that we are trying to cast selectedItem to a Cursor, but selectedItem is a String. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "How could that happen?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mark Finkle (:mfinkle)", 
+            "email": "Mark Finkle (:mfinkle)"
+        }, 
+        {
+            "date": "2012-01-23 04:16:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Mark Finkle (:mfinkle) from comment #1)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> No idea if we can reproduce this crash, but based on the build (2012-01-15 > 12.0a1)it should be this line:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://hg.mozilla.org/mozilla-central/annotate/c98283f80ae7/mobile/android/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> base/AwesomeBar.java#l421\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Cursor cursor = (Cursor)selectedItem;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The error would indicate that we are trying to cast selectedItem to a > Cursor, but selectedItem is a String. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "How could that happen?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Weird. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Both Bookmark and Top Sites ListViews are cursor-based. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The only explanation I can think of is that this bug is triggered by tapping-and-holding on top of a History section header (\"Today\", \"Yesterday\", \"7 days ago\", etc) which is a string element.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Lucas Rocha (:lucasr)", 
+            "email": "Lucas Rocha (:lucasr)"
+        }, 
+        {
+            "date": "2012-01-23 10:02:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is very brittle code. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " See bug 704467 for another workaround I added to protect against a similar situation.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Doug Turner (:dougt)", 
+            "email": "Doug Turner (:dougt)"
+        }, 
+        {
+            "date": "2012-01-24 13:42:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 591253 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This fixes A bug with tapping on the header rows in the history pane. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It does not touch the code that apparently crashed here. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nor does it happen on bing maps like the comments in the crash report suggest.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wesley Johnston (:wesj)", 
+            "email": "Wesley Johnston (:wesj)"
+        }, 
+        {
+            "date": "2012-01-25 03:25:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 591253 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 591253 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: mobile/android/base/AwesomeBar.java\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +408,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">              ExpandableListView exList = (ExpandableListView)list;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">              int childPosition = exList.getPackedPositionChild(info.packedPosition);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">              int groupPosition = exList.getPackedPositionGroup(info.packedPosition);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +            // check if long tap is on a header row\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "nit: \"Check\"\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Lucas Rocha (:lucasr)", 
+            "email": "Lucas Rocha (:lucasr)"
+        }, 
+        {
+            "date": "2012-01-25 09:00:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/d9120155ac87\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Landed on inbound. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "NOTE again this does NOT fix this particular bug, I was just apparently to lazy to file a follow up for it.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Wesley Johnston (:wesj)", 
+            "email": "Wesley Johnston (:wesj)"
+        }, 
+        {
+            "date": "2012-01-25 09:46:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 591253 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Approval Request Comment]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Regression caused by (bug #): bug 711905\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "User impact if declined: potential crashes when long tapping on headers (Today, Yesterday, etc).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Testing completed (on m-c, etc.): Landed on central Jan 25\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Risk to taking this patch (and alternatives if risky): Little risk.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wesley Johnston (:wesj)", 
+            "email": "Wesley Johnston (:wesj)"
+        }, 
+        {
+            "date": "2012-01-25 17:05:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 591253 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Triage Comment]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mobile only - approved for Aurora.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alex Keybl [:akeybl]", 
+            "email": "Alex Keybl [:akeybl]"
+        }, 
+        {
+            "date": "2012-01-25 18:07:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/d9120155ac87\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ed Morley [:edmorley]", 
+            "email": "Ed Morley [:edmorley]"
+        }, 
+        {
+            "date": "2012-01-26 17:35:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/releases/mozilla-aurora/rev/38d3435b65f0\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Matt Brubeck (:mbrubeck)", 
+            "email": "Matt Brubeck (:mbrubeck)"
+        }, 
+        {
+            "date": "2012-02-02 06:48:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's not fixed in Fx 11:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://crash-stats.mozilla.com/report/list?query_search=signature&query_type=contains&reason_type=contains&range_value=4&range_unit=weeks&hang_type=any&process_type=any&signature=java.lang.ClassCastException%3A%20java.lang.String%20at%20org.mozilla.gecko.AwesomeBar.onCreateContextMenu%28AwesomeBar.java%29\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Scoobidiver", 
+            "email": "Scoobidiver"
+        }, 
+        {
+            "date": "2012-02-07 14:37:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 595190 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm still not sure what causes this. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think we're best to catch it and hope that we can find a way to reproduce.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wesley Johnston (:wesj)", 
+            "email": "Wesley Johnston (:wesj)"
+        }, 
+        {
+            "date": "2012-02-07 14:39:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 595190 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "we should remove the logging at some point. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "not right away.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mark Finkle (:mfinkle)", 
+            "email": "Mark Finkle (:mfinkle)"
+        }, 
+        {
+            "date": "2012-02-07 16:44:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 595190 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Low risk. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mobile only. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Prevents a crash.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wesley Johnston (:wesj)", 
+            "email": "Wesley Johnston (:wesj)"
+        }, 
+        {
+            "date": "2012-02-07 17:08:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/82628a241e74\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wesley Johnston (:wesj)", 
+            "email": "Wesley Johnston (:wesj)"
+        }, 
+        {
+            "date": "2012-02-08 09:01:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/82628a241e74\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ed Morley [:edmorley]", 
+            "email": "Ed Morley [:edmorley]"
+        }, 
+        {
+            "date": "2012-02-09 13:54:23", 
+            "sentences": [], 
+            "name": "Wesley Johnston (:wesj)", 
+            "email": "Wesley Johnston (:wesj)"
+        }, 
+        {
+            "date": "2012-02-11 20:13:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Crash occurs on build : 20120209042012 on Model: 'SAMSUNG-SGH-I997'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not sure, maybe needs to clear data on the phone? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Waiting to see if there's another crash that reoccurs.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "From Socorro:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://crash-stats.mozilla.com/report/index/d3a96fb8-3281-4947-b880-0ed192120209\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "java.lang.ClassCastException: java.lang.String\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat org.mozilla.gecko.AwesomeBar.onCreateContextMenu(AwesomeBar.java:420)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.View.createContextMenu(View.java:4420)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat com.android.internal.view.menu.ContextMenuBuilder.show(ContextMenuBuilder.java:81)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat com.android.internal.policy.impl.PhoneWindow$DecorView.showContextMenuForChild(PhoneWindow.java:1933)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.ViewGroup.showContextMenuForChild(ViewGroup.java:460)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.ViewGroup.showContextMenuForChild(ViewGroup.java:460)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.ViewGroup.showContextMenuForChild(ViewGroup.java:460)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.ViewGroup.showContextMenuForChild(ViewGroup.java:460)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.ViewGroup.showContextMenuForChild(ViewGroup.java:460)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.view.ViewGroup.showContextMenuForChild(ViewGroup.java:460)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.widget.AbsListView.performLongPress(AbsListView.java:2032)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.widget.AbsListView.access$600(AbsListView.java:99)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.widget.AbsListView$CheckForLongPress.run(AbsListView.java:1985)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.os.Handler.handleCallback(Handler.java:587)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.os.Handler.dispatchMessage(Handler.java:92)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.os.Looper.loop(Looper.java:130)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat org.mozilla.gecko.GeckoApp$32.run(GeckoApp.java:1777)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.os.Handler.handleCallback(Handler.java:587)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.os.Handler.dispatchMessage(Handler.java:92)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.os.Looper.loop(Looper.java:130)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat android.app.ActivityThread.main(ActivityThread.java:3687)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat java.lang.reflect.Method.invokeNative(Native Method)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat java.lang.reflect.Method.invoke(Method.java:507)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:842)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:600)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\tat dalvik.system.NativeStart.main(Native Method)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Naoki Hirata :nhirata", 
+            "email": "Naoki Hirata :nhirata"
+        }, 
+        {
+            "date": "2012-02-17 09:27:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/releases/mozilla-aurora/rev/94a9071cf559\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wesley Johnston (:wesj)", 
+            "email": "Wesley Johnston (:wesj)"
+        }, 
+        {
+            "date": "2012-02-17 09:30:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/releases/mozilla-beta/rev/332a8c115a74\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Wesley Johnston (:wesj)", 
+            "email": "Wesley Johnston (:wesj)"
+        }, 
+        {
+            "date": "2012-03-01 09:27:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This crash doesn't occur on the latest Nightly build. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Closing bug as:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Verified fixed on:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Firefox 13.0a1 (2012-03-01)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20120301031135\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/mozilla-central/rev/1c3b291d0830\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Device: Samsung Galaxy S2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "OS: Android 2.3.4\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Cristian Nicolae (:xti)", 
+            "email": "Cristian Nicolae (:xti)"
+        }
+    ], 
+    "id": "718904", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=718904"
+}

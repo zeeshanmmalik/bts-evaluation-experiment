@@ -1,0 +1,487 @@
+{
+    "contributors": [
+        [
+            "mdeslaur", 
+            "email"
+        ], 
+        [
+            "corsac", 
+            "lexrank"
+        ]
+    ], 
+    "title": "lightdm doesn't drop privileges when reading ~/.dmrc", 
+    "comments": [
+        {
+            "date": "2011-10-30 15:11:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "LightDM doesn't drop privileges when reading the ~/.dmrc file. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This allows a local user to read configuration files he would normally not have read permissions for, for example, mysql configuration files that contain passwords.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "How to reproduce:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1- Create a /etc/app.conf file owned by root with 600 permissions, containing the following: [App]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "password=xyz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2- Log in as a regular user\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "3- rm ~/.dmrc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "4- ln -s /etc/app.conf ~/.dmrc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5- Log out, log back in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "6- look at ~/.dmrc\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mdeslaur", 
+            "email": "mdeslaur"
+        }, 
+        {
+            "date": "2011-11-06 18:25:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is CVE-2011-3153.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mdeslaur", 
+            "email": "mdeslaur"
+        }, 
+        {
+            "date": "2011-11-06 18:33:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This issue is embargoed and has not been disclosed publicly.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We are requesting a coordinated release date (CRD) of <2011-11-15 17:00 UTC>.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "mdeslaur", 
+            "email": "mdeslaur"
+        }, 
+        {
+            "date": "2011-11-08 07:03:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Note that it might be worth investigating for other issues like that. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For the write vulnerability both .dmrc and .Xauthority were concerned, so .Xautority file reading might be a good idea to look at.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "corsac", 
+            "email": "corsac"
+        }, 
+        {
+            "date": "2011-11-11 18:28:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here's a proposed patch.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Robert, does this look okay to you?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mdeslaur", 
+            "email": "mdeslaur"
+        }, 
+        {
+            "date": "2011-11-15 06:55:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, patch looks correct. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I've applied it to trunk and the stable branch.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "robert-ancell", 
+            "email": "robert-ancell"
+        }, 
+        {
+            "date": "2011-11-15 07:01:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Note that in Ubuntu we're using AccountsService and this file is not read under normal conditions. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It will affect any Ubuntu derivative that doesn't use Accounts Service however.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "robert-ancell", 
+            "email": "robert-ancell"
+        }, 
+        {
+            "date": "2011-11-15 12:03:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hmhmh, the commits break the embargo, afaict, since the repositories are public...\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "corsac", 
+            "email": "corsac"
+        }, 
+        {
+            "date": "2011-11-15 13:21:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, unfortunately the embargo is now broken since the commit is public.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@Robert: the file is most certainly read on Oneiric, I can reproduce the issue at will. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is something not working right with AccountsService?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mdeslaur", 
+            "email": "mdeslaur"
+        }, 
+        {
+            "date": "2011-11-15 13:22:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This would call it:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "void\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "user_set_xsession (User *user, const gchar *xsession)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    g_return_if_fail (user != NULL);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    call_method (user->priv->proxy, \"SetXSession\", g_variant_new (\"(s)\", xsession), \"()\", NULL);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    save_string_to_dmrc (user->priv->name, \"Desktop\", \"Session\", xsession);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mdeslaur", 
+            "email": "mdeslaur"
+        }, 
+        {
+            "date": "2011-11-15 19:03:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This bug was fixed in the package lightdm - 1.0.6-0ubuntu1.1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lightdm (1.0.6-0ubuntu1.1) oneiric-security; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * SECURITY UPDATE: file contents disclosure via hard link\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - debian/patches/04_CVE-2011-4105.patch: make sure file isn't a symlink       or a hard link before doing the chown on it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - CVE-2011-4105\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * SECURITY UPDATE: file contents disclosure via links (LP: #883865)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    - debian/patches/05_CVE-2011-3153.patch: drop privileges before       accessing file.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - CVE-2011-3153\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "janitor", 
+            "email": "janitor"
+        }, 
+        {
+            "date": "2011-11-15 20:01:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This bug was fixed in the package lightdm - 1.0.6-0ubuntu3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lightdm (1.0.6-0ubuntu3) precise; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * SECURITY UPDATE: file contents disclosure via hard link\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - debian/patches/04_CVE-2011-4105.patch: make sure file isn't a symlink       or a hard link before doing the chown on it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - CVE-2011-4105\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * SECURITY UPDATE: file contents disclosure via links (LP: #883865)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    - debian/patches/05_CVE-2011-3153.patch: drop privileges before       accessing file.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - CVE-2011-3153\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "janitor", 
+            "email": "janitor"
+        }, 
+        {
+            "date": "2011-11-22 21:50:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Note that the patch uses O_NOFOLLOW flag to open() which is Linux-only.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "corsac", 
+            "email": "corsac"
+        }, 
+        {
+            "date": "2011-11-26 09:03:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This patch seems to fix the problem.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "corsac", 
+            "email": "corsac"
+        }, 
+        {
+            "date": "2012-01-14 13:52:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Any news on this?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "corsac", 
+            "email": "corsac"
+        }, 
+        {
+            "date": "2012-01-15 14:00:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "News on what exactly? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The code isn't in trunk anymore, and we've applied the patch to our releases.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you're looking for a patch that doesn't use O_NOFOLLOW, you might as well remove the offending code from lightdm altogether, that would be the best solution.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "mdeslaur", 
+            "email": "mdeslaur"
+        }, 
+        {
+            "date": "2012-01-15 14:30:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, good point, code is removed now, sorry for that.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "corsac", 
+            "email": "corsac"
+        }
+    ], 
+    "id": "883865", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/883865"
+}

@@ -1,0 +1,498 @@
+{
+    "contributors": [
+        [
+            "Frdric Buclin", 
+            "lexrank"
+        ], 
+        [
+            "David Lawrence [:dkl]", 
+            "email"
+        ]
+    ], 
+    "title": "[SECURITY] The User.offer_account_by_email WebService method lets you create new user accounts independently of the value of Bugzilla::Auth::Verify::*::user_can_create_account", 
+    "comments": [
+        {
+            "date": "2011-12-17 05:54:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "createaccount.cgi rejects new account requests when $user->authorizer->user_can_create_account is false. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But when calling User.offer_account_by_email, an email is sent in all cases to the user, and the link in the email let's you create a new account independently of what user_can_create_account is set to.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Depending on how the authentication method is set, having an account in the DB may be enough to log in. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For e.g. LDAP or RADIUS, I doubt this is exploitable, because the validation would fail (having an account in the DB doesn't mean they will recognize you). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But with custom authentication methods where there is an external validator which only accepts to insert new accounts in the DB under some circumstances, I think this is exploitable.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think that User.offer_account_by_email should check what user_can_create_account is set to, and if set to false, no email should be sent. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And maybe token.cgi should also reject the new account request if this setting is false, in case the email has been sent before account creation has been disabled.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "User.offer_account_by_email exists since Bugzilla 2.23.3, see bug 350232.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Frdric Buclin", 
+            "email": "Frdric Buclin"
+        }, 
+        {
+            "date": "2011-12-17 14:24:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 582597 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch for trunk, v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I also fixed the POD in WebService/User.pm which had wrong error codes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This patch applies to trunk only.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Frdric Buclin", 
+            "email": "Frdric Buclin"
+        }, 
+        {
+            "date": "2011-12-18 22:11:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 582597 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch for trunk, v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 582597 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r=glob\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Byron Jones :glob (On leave until 5th Apr)", 
+            "email": "Byron Jones :glob (On leave until 5th Apr)"
+        }, 
+        {
+            "date": "2011-12-27 06:40:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 584428 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch for 4.2, v1\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Frdric Buclin", 
+            "email": "Frdric Buclin"
+        }, 
+        {
+            "date": "2011-12-27 07:40:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 584435 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch for 4.0 and older, v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This patch applies and works with 3.4, 3.6 and 4.0.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Frdric Buclin", 
+            "email": "Frdric Buclin"
+        }, 
+        {
+            "date": "2011-12-27 12:33:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Assigned CVE-2011-3667 to this issue\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Daniel Veditz [:dveditz]", 
+            "email": "Daniel Veditz [:dveditz]"
+        }, 
+        {
+            "date": "2011-12-27 14:30:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 584428 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch for 4.2, v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 584428 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r=dkl\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Lawrence [:dkl]", 
+            "email": "David Lawrence [:dkl]"
+        }, 
+        {
+            "date": "2011-12-27 15:27:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 584435 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch for 4.0 and older, v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 584435 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r=dkl\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Lawrence [:dkl]", 
+            "email": "David Lawrence [:dkl]"
+        }, 
+        {
+            "date": "2011-12-28 14:20:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committing to: bzr+ssh://lpsolit%40gmail.com@bzr.mozilla.org/bugzilla/trunk/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified createaccount.cgi\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified token.cgi\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/User.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/WebService/Constants.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/WebService/User.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committed revision 8054.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committing to: bzr+ssh://lpsolit%40gmail.com@bzr.mozilla.org/bugzilla/4.2/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified createaccount.cgi\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified token.cgi\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/User.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/WebService/Constants.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/WebService/User.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committed revision 7991.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committing to: bzr+ssh://lpsolit%40gmail.com@bzr.mozilla.org/bugzilla/4.0/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified createaccount.cgi\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified token.cgi\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/User.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/WebService/Constants.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/WebService/User.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committed revision 7672.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committing to: bzr+ssh://lpsolit%40gmail.com@bzr.mozilla.org/bugzilla/3.6/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified createaccount.cgi\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified token.cgi\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/User.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/WebService/Constants.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/WebService/User.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committed revision 7267.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committing to: bzr+ssh://lpsolit%40gmail.com@bzr.mozilla.org/bugzilla/3.4/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified createaccount.cgi\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified token.cgi\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/User.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/WebService/Constants.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "modified Bugzilla/WebService/User.pm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committed revision 6818.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Frdric Buclin", 
+            "email": "Frdric Buclin"
+        }, 
+        {
+            "date": "2011-12-29 09:03:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Security Advisory sent and is live on bugzilla.org. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Removing the security flag.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Frdric Buclin", 
+            "email": "Frdric Buclin"
+        }
+    ], 
+    "id": "711714", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=711714"
+}

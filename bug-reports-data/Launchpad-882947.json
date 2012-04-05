@@ -1,0 +1,472 @@
+{
+    "contributors": [
+        [
+            "dustin-virtualroadside", 
+            "email"
+        ], 
+        [
+            "reacocard", 
+            "lexrank"
+        ]
+    ], 
+    "title": "writing to readonly audio file is silently ignored", 
+    "comments": [
+        {
+            "date": "2011-10-28 07:15:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When exaile tries to write a tag to disk, it doesn't bother checking to see if it actually read it. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Now, it does pretend to persist the data and it is readily retrievable in the database, but the user is not aware that it is not actually persisted. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This patch makes the user aware of the problem, and also reloads the tags from the file. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It really should be a sync so that the user doesn't think a tag is set when it really isn't... ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "but its not clear to me the best way to do this. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've also pushed this to my dj_improvements branch.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "dustin-virtualroadside", 
+            "email": "dustin-virtualroadside"
+        }, 
+        {
+            "date": "2011-10-28 07:15:12", 
+            "sentences": [], 
+            "name": "dustin-virtualroadside", 
+            "email": "dustin-virtualroadside"
+        }, 
+        {
+            "date": "2011-10-28 07:41:07", 
+            "sentences": [], 
+            "name": "dustin-virtualroadside", 
+            "email": "dustin-virtualroadside"
+        }, 
+        {
+            "date": "2011-10-28 07:55:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part of the reason it behaves the way it does is because it's NEVER guaranteed that any particular tag will be written out to the file. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " The support for most tag formats handles only a fixed set of tags due to limitations of the tag format or our backend, so tags that cannot be synced to the file itself are kept in Exaile's DB to allow for some degree of storing metadata in those cases.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Definitely a good idea to warn the user when we fail to write out though. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It looks like your patch halts the entire batch of writes with a dialog? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Might be better to just aggregate the list of failures and display them all at once at the end, if necessary.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Wrt the comment about read_tags(), once the tags are read it should already be firing off a track_tags_changed event so that interested parties can update themselves properly. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm somewhat concerned about the use of read_tags() as a rollback mechanism however, since as noted above the tag backend's supported tags are not necessarily the same as those in the DB itself, so if the user has added tags that are not in the tag backend, those alterations would remain even though the other changes would be reverted. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A better approach might be to just keep a copy of the original tags around and to restore those if the write fails.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "reacocard", 
+            "email": "reacocard"
+        }, 
+        {
+            "date": "2011-10-29 05:29:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Interesting. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "While it may be true that we don't guarantee that any particular tag will be written out to file, it seems rather non-intuitive for what I would expect. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "At least, for basic types of tags.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I accidentally discovered this bug when I copied a bunch of mp3's from a data CD and it retained the readonly permissions. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Almost lost a bunch of work categorizing them before I realized it. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So, definitely want to warn the user that the write failed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I didn't realize you could use the dialog to write lots of files at a time, actually. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I suppose that was why it was in a loop.. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":p\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "dustin-virtualroadside", 
+            "email": "dustin-virtualroadside"
+        }, 
+        {
+            "date": "2011-10-29 07:33:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> the idea of the DB presenting a different view to the user than what > is actually in the file is a bit disturbing to me.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Well pretty much all players do this to some extent - things like rating and playcount are almost never stored in tags (for good reason), only in internal DBs. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The fact that we apply this to all metadata, including tags, is in part an artifact of how most of the code doesn't distinguish between internal tags and external tags for the sake of internal simplicity and consistency. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Many other player also do not allow editing of arbitrary tags as we do, only a fixed set of allowable tags, which is generally a subset of the set of tags which can be stored in all the tag formats the player supports, so the issue cannot actually arise for them.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Perhaps we could add a visual indicator in the tag editor about whether a given tag is actually capable of being written to the file or not? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Just an icon next to the field (with an explanatory tooltip) should suffice. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This probably requires exposing more info from xl.metadata however, since at the moment there's no way to know what tag format a given Track uses or what tags can be written to a given format.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "reacocard", 
+            "email": "reacocard"
+        }, 
+        {
+            "date": "2011-10-31 06:11:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "After some thought, I'll agree with you partially -- the track should not force a re-read of tags if there is a write failure. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This should be up to whoever called write_tags() originally. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I've adjusted my patch, and committed the relevant changes to my branch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I like the idea of a visual indicator of whether a tag is supported. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Perhaps add this to a TODO list somewhere. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The one thing that I really don't like is relying on the file to not change while Exaile isn't looking. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This makes it annoying to use the player with other tools that DO modify the file -- perhaps a favorite tag editor, or even editing the audio of the file in place. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The use case I imagine is as follows:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1) User adds file to exaile\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2) User edits some tag in external audio player\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3) User edits some other tag in exaile\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "When the user performs step 3, since exaile is only relying on cached data, the user will unexpectedly lose any changes made by the external program. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Other players such as Winamp reloads/updates metadata when the user plays a track. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Perhaps the solution for exaile is to have something that merges the tags on playback -- so it loads the tags from the file, and only replaces the tags that the file has, and keeps any tags that aren't currently in the file. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This last bit probably belongs in another bug.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "dustin-virtualroadside", 
+            "email": "dustin-virtualroadside"
+        }, 
+        {
+            "date": "2011-10-31 06:11:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "After some thought, I'll agree with you partially -- the track should not force a re-read of tags if there is a write failure. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This should be up to whoever called write_tags() originally. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I've adjusted my patch, and committed the relevant changes to my branch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I like the idea of a visual indicator of whether a tag is supported. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Perhaps add this to a TODO list somewhere. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The one thing that I really don't like is relying on the file to not change while Exaile isn't looking. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This makes it annoying to use the player with other tools that DO modify the file -- perhaps a favorite tag editor, or even editing the audio of the file in place. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The use case I imagine is as follows:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1) User adds file to exaile\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2) User edits some tag in external audio player\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3) User edits some other tag in exaile\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "When the user performs step 3, since exaile is only relying on cached data, the user will unexpectedly lose any changes made by the external program. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Other players such as Winamp reloads/updates metadata when the user plays a track. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Perhaps the solution for exaile is to have something that merges the tags on playback -- so it loads the tags from the file, and only replaces the tags that the file has, and keeps any tags that aren't currently in the file. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This last bit probably belongs in another bug.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "dustin-virtualroadside", 
+            "email": "dustin-virtualroadside"
+        }
+    ], 
+    "id": "882947", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/882947"
+}

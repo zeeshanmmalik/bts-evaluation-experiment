@@ -1,0 +1,381 @@
+{
+    "contributors": [
+        [
+            "Christian Holler (:decoder)", 
+            "lexrank"
+        ], 
+        [
+            "Lukas Blakk [:lsblakk]", 
+            "email"
+        ], 
+        [
+            "Gary Kwong [:gkw, :nth10sd]", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Assertion failure: !fe->isNotType(JSVAL_TYPE_DOUBLE), at methodjit/FrameState.cpp:820", 
+    "comments": [
+        {
+            "date": "2011-11-06 07:19:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following test asserts on mozilla-central revision 921e1db5cf11 (options -m -n -a):\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function addThis() {}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function Integer( value ) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  try {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    checkValue( value )\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  } catch (e) {  }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function checkValue( value ) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  if ( addThis() != value || value ) \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        throw value='foo'; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  return value;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Integer( 3 );\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Integer( NaN );\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Marking this s-s because this might be a type confusion/misinterpretation (stepping through the assert also yields an assertion \"isDouble\" failing). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not sure if this is critical in any way though.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Christian Holler (:decoder)", 
+            "email": "Christian Holler (:decoder)"
+        }, 
+        {
+            "date": "2011-11-09 11:29:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 573264 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The SSA analysis treats certain opcodes as having no fallthrough, and computes type information wrt the resulting CFG. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " The compiler would still generate code around two of these ops (JSOP_THROW and JSOP_RETRVAL) as if they had a fallthrough, and tripped this assert when generating code to transition from the state after a THROW to the state at the start of the next opcode. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The fix just makes the compiler behave consistently with the SSA analysis here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't think this is critical --- when merging the code the compiler can trip asserts but should not crash, and the code it is generating is dead. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " At the start of the next opcode it will have updated its internal state to reflect the type state at that op and will generate correct code afterwards.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brian Hackett (:bhackett)", 
+            "email": "Brian Hackett (:bhackett)"
+        }, 
+        {
+            "date": "2011-11-09 16:43:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Since the patch was in the Compiler is this unrelated to TI? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "or is it a regression from that rewriting? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In particular, do we need to worry about this affecting Firefox 8 (potential firedrill?) and need to get a patch into Firefox 9 ASAP?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Or is this simply not a security bug at all? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That seems to be what you're saying in comment 1.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Daniel Veditz [:dveditz]", 
+            "email": "Daniel Veditz [:dveditz]"
+        }, 
+        {
+            "date": "2011-11-09 16:47:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This change came in with the modifications TI made to JM, so it will not affect Firefox 8 or earlier. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It does affect 9+. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I don't think this is a security bug, nor do I think it can manifest in a crash or incorrect behavior. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " That said, it still might be a good idea to take it for Firefox 9 and 10, just to be sure.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brian Hackett (:bhackett)", 
+            "email": "Brian Hackett (:bhackett)"
+        }, 
+        {
+            "date": "2011-11-09 19:09:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/d6378aa32385\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brian Hackett (:bhackett)", 
+            "email": "Brian Hackett (:bhackett)"
+        }, 
+        {
+            "date": "2011-11-10 07:21:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/d6378aa32385\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brian Hackett (:bhackett)", 
+            "email": "Brian Hackett (:bhackett)"
+        }, 
+        {
+            "date": "2012-02-13 17:24:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Based upon the m-c check-in date, this should actually be resolved for FF11.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alex Keybl [:akeybl]", 
+            "email": "Alex Keybl [:akeybl]"
+        }, 
+        {
+            "date": "2012-02-23 16:46:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Triage comment]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug is being tracked for landing on ESR branch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Please land patches on http://hg.mozilla.org/releases/mozilla-esr10/by Thursday March 1, 2012 in order to be ready for go-to-build on Friday March 2, 2012.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "See https://wiki.mozilla.org/Release_Management/ESR_Landing_Process for more information.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Lukas Blakk [:lsblakk]", 
+            "email": "Lukas Blakk [:lsblakk]"
+        }, 
+        {
+            "date": "2012-02-23 17:21:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Doesn't sound like a security bug per comment 3, but given the small safe patch we should take it on the ESR just to be sure.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Daniel Veditz [:dveditz]", 
+            "email": "Daniel Veditz [:dveditz]"
+        }, 
+        {
+            "date": "2012-02-24 13:54:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Landed on ESR:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/releases/mozilla-esr10/rev/019cdcf42157\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Gary Kwong [:gkw, :nth10sd]", 
+            "email": "Gary Kwong [:gkw, :nth10sd]"
+        }, 
+        {
+            "date": "2012-03-05 10:13:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Verified fixed in Firefox 10.0.3esr.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Anthony Hughes, Mozilla QA (irc: ashughes)", 
+            "email": "Anthony Hughes, Mozilla QA (irc: ashughes)"
+        }, 
+        {
+            "date": "2012-03-07 14:15:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No assertion reproduce using test in comment 0 in js-shell built from today's mozilla-beta.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Anthony Hughes, Mozilla QA (irc: ashughes)", 
+            "email": "Anthony Hughes, Mozilla QA (irc: ashughes)"
+        }
+    ], 
+    "id": "700127", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=700127"
+}

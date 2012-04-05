@@ -1,0 +1,2095 @@
+{
+    "contributors": [
+        [
+            ":Ally Naaktgeboren", 
+            "lexrank"
+        ], 
+        [
+            "Kevin Brosnan [:kbrosnan]", 
+            "email"
+        ], 
+        [
+            "Tony Chung [:tchung]", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Implement short-term in-Fennec shipping solution", 
+    "comments": [
+        {
+            "date": "2011-12-09 15:56:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "critically important. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is joining mobile code & sync code to make the apk that we are going to ship.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": ":Ally Naaktgeboren", 
+            "email": ":Ally Naaktgeboren"
+        }, 
+        {
+            "date": "2011-12-09 22:38:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Working on this now.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-11 19:25:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 580815 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Proposed patch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This works. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I haven't tested without INCLUDE_NATIVE_SYNC for a while, so that might be busted. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is also hacky as shit, but within time constraints I'm happy.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Note that with INCLUDE_NATIVE_SYNC set, it relies on additions from running\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  https://github.com/mozilla-services/android-sync/blob/develop/fennec-merge-jar.sh\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "which generates all of the manifests and copies things.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-12 11:11:50", 
+            "sentences": [], 
+            "name": ":Ally Naaktgeboren", 
+            "email": ":Ally Naaktgeboren"
+        }, 
+        {
+            "date": "2011-12-14 02:54:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 581571 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Proposed patch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "First patch got bitrotted *twice*. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This seems to work.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Note that I removed all of the conditionals, mainly because I wasn't confident in testing propagation of variables from shell -> make -> Preprocessor.py (if it's even possible!), or how releng would actually specify what they want to build.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Depends on the import script to build.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It's 3am, so I'm dumping this here for review and going to bed :)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-14 20:24:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Comment on attachment 581571 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Proposed patch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 581571 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: mobile/android/base/Makefile.in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +57,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +SYNC_JAVA_CLASSPATH=$(SYNCDEPS)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +SYNC_JAVA_FILES=$(shell cat $(topsrcdir)/mobile/android/sync/java-sources.mn | tr '\\n' ' ';)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +SYNC_RES_LAYOUT=$(shell cat $(topsrcdir)/mobile/android/sync/android-layout-resources.mn | tr '\\n' ' ';)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +SYNC_RES_VALUES=$(shell cat $(topsrcdir)/mobile/android/sync/android-values-resources.mn | tr '\\n' ' ';)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +SYNC_RES_XML=$(shell cat $(topsrcdir)/mobile/android/sync/android-xml-resources.mn | tr '\\n' ' ';)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "might be cleaner to include a .mk file than to cat these\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-12-17 17:21:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 582612 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 1: basic makefile changes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here are three patches.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The first is the majority of the work.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The second is changes to the l10n build to include Sync's DTD.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The third extends the first to preprocess the SyncAdapter manifest. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is a little bit hacky, because Make wasn't cooperating, but that's life.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-17 17:22:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 582613 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 2: locale build. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(Not realistically expecting feedback from Axel; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I believe he's on holiday.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-17 17:23:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 582614 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 3: SyncAdapter preprocessing. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v1\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-17 17:28:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Example code drop MQ patch: <http://people.mozilla.com/~rnewman/sync-code-drop-patch-20111217T1724.tar.bz2>.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-18 12:47:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Comment on attachment 582612 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 1: basic makefile changes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 582612 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: mobile/android/base/Makefile.in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +58,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +SYNC_JAVA_FILES=$(shell cat $(topsrcdir)/mobile/android/sync/java-sources.mn | tr '\\n' ' ';)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +SYNC_PP_JAVA_FILES=$(shell cat $(topsrcdir)/mobile/android/sync/preprocess-sources.mn | tr '\\n' ' ';)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +SYNC_RES_LAYOUT=$(shell cat $(topsrcdir)/mobile/android/sync/android-layout-resources.mn | tr '\\n' ' ';)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +SYNC_RES_VALUES=$(shell cat $(topsrcdir)/mobile/android/sync/android-values-resources.mn | tr '\\n' ' ';)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +SYNC_RES_XML=$(shell cat $(topsrcdir)/mobile/android/sync/android-xml-resources.mn | tr '\\n' ' ';)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "as I said in comment 5, get rid of these calls to cat\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +385,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  MOZ_ANDROID_DRAWABLES += mobile/android/base/resources/drawable/crash_reporter.png\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  RES_LAYOUT += res/layout/crash_reporter.xml\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  endif\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +MOZ_ANDROID_DRAWABLES += $(shell cat $(topsrcdir)/mobile/android/sync/android-drawable-resources.mn | tr '\\n' ' ';)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "same here\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-12-18 12:49:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 582612 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 1: basic makefile changes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 582612 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: mobile/android/base/Makefile.in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +120,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    gfx/TextureReaper.java \\\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    gfx/TileLayer.java \\\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    gfx/ViewportMetrics.java \\\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    ui/PanZoomController.java \\\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +  $(SYNC_JAVA_FILES) \\\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-12-18 12:52:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 582613 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 2: locale build. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 582613 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: mobile/android/base/locales/Makefile.in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +51,1 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  STRINGSPATH = $(call core_abspath,$(call MERGE_FILE,android_strings.dtd))\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "should be able to do:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "STRINGSPATH = $(call core_abspath,$(call MERGE_FILE,android_strings.dtd sync_strings.dtd))\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-12-18 12:58:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 582614 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 3: SyncAdapter preprocessing. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 582614 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: mobile/android/base/Makefile.in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +457,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \t$(DX) --dex --output=$@ $(SYNCDEPS) classes\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +# This needs to be preprocessed to match Fennec's browser authority.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +# Right now this leaves the preprocessed file in base/resources. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Doing a direct > +# copy didn't seem to work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This needs fixing.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't understand this comment. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "What's not working and what needs fixing?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +460,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +# Right now this leaves the preprocessed file in base/resources. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Doing a direct > +# copy didn't seem to work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This needs fixing.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +$(topsrcdir)/mobile/android/base/resources/xml/sync_syncadapter.xml:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +\t$(PYTHON) $(topsrcdir)/config/Preprocessor.py \\\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +             $(AUTOMATION_PPARGS) $(DEFINES) $(ACDEFINES) $(topsrcdir)/mobile/android/base/resources/xml/sync_syncadapter.xml.in > $@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "add another \\'s to get this to reasonable line length\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +505,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \t$(NSINSTALL) $(srcdir)/resources/values-v11/*  res/values-v11\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  $(RES_XML): $(subst res/,$(srcdir)/resources/,$(RES_XML))\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \t$(NSINSTALL) -D res/xml\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +\t$(NSINSTALL) $(srcdir)/resources/xml/*.xml res/xml/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$(NSINSTALL $< $@\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-12-18 13:09:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Brad Lassey [:blassey] from comment #13)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I don't understand this comment. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "What's not working and what needs fixing?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My attempts to directly preprocess base/resources/xml/sync_syncadapter.xml.in to objdir/.../base/res/xml/sync_syncadapter.xml failed.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "These patches generate it in-place in base/resources, and allow the usual copy task to schlep it to the object directory.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am unwilling to spend *any* more time on this, so I wrote a comment to explain why `hg status` would show a new .xml file in the source tree after building.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> $(NSINSTALL $< $@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'd rather avoid making arbitrary improvements to the Makefile in this patch.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This one-line change just avoids the .in file being copied with the .xml files.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Please feel free to file a follow-up on someone with free time on the mobile team.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-18 13:11:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Brad Lassey [:blassey] from comment #10)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> as I said in comment 5, get rid of these calls to cat\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You actually said \"might be cleaner\", which in my world isn't an r- :)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Happy to fix these nits in a follow-up some time next year. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I will not be spending any more time on Makefiles until January 4th.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-19 18:37:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Brad Lassey [:blassey] from comment #12)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Comment on attachment 582613 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Part 2: locale build. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Review of attachment 582613 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> -----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ::: mobile/android/base/locales/Makefile.in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> @@ +51,1 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> >  STRINGSPATH = $(call core_abspath,$(call MERGE_FILE,android_strings.dtd))\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> should be able to do:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> STRINGSPATH = $(call core_abspath,$(call MERGE_FILE,android_strings.dtd\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> sync_strings.dtd))\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> and then the second variable isn't required here or in strings.xml.in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "MERGE_FILE basically switches between the merge dir, the l10n dir and en-US. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Now if one of the two files is merged due to a missing string and the other isn't, they'll be picked up from completely different places.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thus they need to be included seperately, and need to be merged seperately.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Axel Hecht [:Pike]", 
+            "email": "Axel Hecht [:Pike]"
+        }, 
+        {
+            "date": "2011-12-20 08:53:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Brad Lassey [:blassey] from comment #12)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Comment on attachment 582613 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Part 2: locale build. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Review of attachment 582613 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> and then the second variable isn't required here or in strings.xml.in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Axel confirmed that this is the correct approach. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please switch to r+. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-20 09:01:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 582612 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 1: basic makefile changes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-12-20 09:04:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 582614 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 3: SyncAdapter preprocessing. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 582614 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: mobile/android/base/Makefile.in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +457,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \t$(DX) --dex --output=$@ $(SYNCDEPS) classes\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +# This needs to be preprocessed to match Fennec's browser authority.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +# Right now this leaves the preprocessed file in base/resources. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Doing a direct > +# copy didn't seem to work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This needs fixing.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-12-20 17:19:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Pushed to try:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  https://tbpl.mozilla.org/?tree=Try&rev=913056d306e1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "blassey et al: please take a look at the commits in the try push, and let me know of any comments ASAP.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Note that this stacks on top of Sriram's patch (Bug 704682: Passwords needs to be exposed using a ContentProvider.). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I hope that's done by the time I need to land this!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There is an mq entry on the top that \"prefs off\" Sync for now.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This uses a source drop method. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As such, it has a public release dependency on about:license changes and MPL2. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Erin is on top of those.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If this is green in the morning, I'll land on m-c so I don't have to keep fighting bitrot.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks, everyone, for your help with this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/me zzzz\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-21 09:22:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Landed, with no dependency on outstanding mobile bugs (preffed off, so it doesn't matter if it doesn't work).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Filing follow-up right now.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks, everyone, for helping to get this done!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/81d34a32e031\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/7d1794f25fd3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/462e372310a3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/5c1e8120d743\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/b573033b92b6\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-30 05:45:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We want this on aurora still, right?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Axel Hecht [:Pike]", 
+            "email": "Axel Hecht [:Pike]"
+        }, 
+        {
+            "date": "2011-12-30 09:42:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Axel Hecht [:Pike] from comment #22)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> We want this on aurora still, right?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "FSVO \"this\", yes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm expecting to do another code drop soon, but there's no harm in having this base already in place on mozilla-aurora.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2011-12-30 09:44:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 582612 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Part 1: basic makefile changes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Requesting approval-mozilla-aurora for all of the commits in Comment 21, of which these patches are a subset.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Java-only preffed-off landing of first drop of Android Sync.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2012-01-04 16:00:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Richard Newman [:rnewman] from comment #24)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Comment on attachment 582612 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Part 1: basic makefile changes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "v3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Requesting approval-mozilla-aurora for all of the commits in Comment 21, of > which these patches are a subset.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Java-only preffed-off landing of first drop of Android Sync.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Would it be possible to build a try build of this on top of Aurora before landing it there? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "QA could then take a look. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My concern is that if there's some issue with the uplift, updates could somehow be affected (which may not be caught until after our testing audience updates).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Adding the qawanted keyword here regardless of how we move forward.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alex Keybl [:akeybl]", 
+            "email": "Alex Keybl [:akeybl]"
+        }, 
+        {
+            "date": "2012-01-04 16:16:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Alex Keybl [:akeybl] from comment #25)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Would it be possible to build a try build of this on top of Aurora before > landing it there? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "QA could then take a look. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "My concern is that if there's > some issue with the uplift, updates could somehow be affected (which may not > be caught until after our testing audience updates).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes indeed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And here it is!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://tbpl.mozilla.org/?tree=Try&rev=85fdd1f8db08\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2012-01-05 09:43:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Richard Newman [:rnewman] from comment #26)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://tbpl.mozilla.org/?tree=Try&rev=85fdd1f8db08\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " apparently Aurora branding breaks try:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "07:51:19 < philor> rnewman: you have to go back to the first few pushes after the merge, find one that talks about \"Android branding\" and back it out\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "07:52:36 < philor> or just know what it does and reverse it, if it's as simple as just changing the branding in the mozconfig, I never actually look\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "so here's a new try push for just Android:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://tbpl.mozilla.org/?tree=Try&rev=78883a55ceb8\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2012-01-05 19:00:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The builds are at https://ftp.mozilla.org/pub/mozilla.org/firefox/try-builds/rnewman@mozilla.com-78883a55ceb8/try-android/ is it ready for QA to examine the build to check the Sync functionality?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Kevin Brosnan [:kbrosnan]", 
+            "email": "Kevin Brosnan [:kbrosnan]"
+        }, 
+        {
+            "date": "2012-01-05 20:51:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Kevin Brosnan [:kbrosnan] from comment #28)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> is it ready for QA to examine the build to\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> check the Sync functionality?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There's nothing for QA to test; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "this is a preffed-off landing of code from December. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Code and resources build, but no functionality is visible.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The only thing QA could check at this point is that this landing doesn't affect the Fennec functionality in Aurora. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(Which is absolutely worth doing!)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(The goal of the m-c landing was to verify build integration and avoid bitrot for said integration. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The goal of this Aurora landing is simply to keep pace with m-c to facilitate future landings, not to get features in front of users. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That'll come soon.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2012-01-06 05:32:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Richard - Can QA test the sign up process that happens in Android's Accounts area?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Mark Finkle (:mfinkle)", 
+            "email": "Mark Finkle (:mfinkle)"
+        }, 
+        {
+            "date": "2012-01-06 08:56:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Mark Finkle (:mfinkle) from comment #30)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Richard - Can QA test the sign up process that happens in Android's Accounts > area?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nope. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I was intending for that to be live, but the discoverable UI in the Launcher to be hidden, but it didn't turn out that way. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Alas.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The UI will be visible for QA in my next drop (and I'd like to get something to Tony today), but that doesn't affect an Aurora landing of the build integration.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2012-01-06 12:21:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Richard Newman [:rnewman] from comment #29)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (In reply to Kevin Brosnan [:kbrosnan] from comment #28)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > is it ready for QA to examine the build to\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > check the Sync functionality?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The only thing QA could check at this point is that this landing doesn't > affect the Fennec functionality in Aurora. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(Which is absolutely worth doing!)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Let's re-nominate for Aurora once QA has had the opportunity to do some testing (especially around updates). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My biggest concern is basically breaking updates (or introducing a startup crash). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Everything else can be resolved through yet another update :)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alex Keybl [:akeybl]", 
+            "email": "Alex Keybl [:akeybl]"
+        }, 
+        {
+            "date": "2012-01-08 18:40:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Alex Keybl [:akeybl] from comment #32)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Let's re-nominate for Aurora once QA has had the opportunity to do some > testing (especially around updates). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My biggest concern is basically > breaking updates (or introducing a startup crash). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Everything else can be > resolved through yet another update :)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fair enough.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Over to mobile QA!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2012-01-08 18:41:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For the record: we'll probably also want to land Bug 714874 along with this, just to make sure that our source dependencies don't add warning chatter to the build.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2012-01-25 20:33:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Aurora (see Bug 720933):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/releases/mozilla-aurora/rev/2bf61c2d0e29\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/releases/mozilla-aurora/rev/7b15cf9b89fa\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/releases/mozilla-aurora/rev/50911c719782\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/releases/mozilla-aurora/rev/4c20c43a09a0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/releases/mozilla-aurora/rev/62cdb08ef4d3\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Richard Newman [:rnewman]", 
+            "email": "Richard Newman [:rnewman]"
+        }, 
+        {
+            "date": "2012-01-31 21:46:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Marking verified.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Tony Chung [:tchung]", 
+            "email": "Tony Chung [:tchung]"
+        }
+    ], 
+    "id": "709391", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=709391"
+}

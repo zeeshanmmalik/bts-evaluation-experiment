@@ -1,0 +1,430 @@
+{
+    "contributors": [
+        [
+            "Aryeh Gregor", 
+            "email"
+        ], 
+        [
+            "Mozilla RelEng Bot", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Selection.extend() with no ranges should throw standard exception type", 
+    "comments": [
+        {
+            "date": "2012-01-19 11:26:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Test case:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "data:text/html,<!doctype html>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<body>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<script>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "try {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "getSelection().extend(document.body, 0);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "} catch(e) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "document.body.textContent = e;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "throw e;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "document.body.textContent = getSelection().rangeCount;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "</script>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Chrome 17 dev outputs \"1\", Opera Next 12.00 alpha outputs \"0\", Firefox 12.0a1 outputs\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"\"\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Exception... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"Component returned failure code: 0xc1f30001 (NS_ERROR_NOT_INITIALIZED) [nsISelection.extend]\" nsresult: \"0xc1f30001 (NS_ERROR_NOT_INITIALIZED)\" location: \"JS frame :: data:text/html,<!doctype%20html><body><script>try%20{getSelection().extend(document.body,%200);}%20catch(e)%20{document.body.textContent%20=%20e;throw%20e;}document.body.textContent%20=%20getSelection().rangeCount;</script> :: <TOP_LEVEL> :: line 1\" data: no]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"\"\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "IE9 doesn't support extend(). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Since there's no interop here at all, I went with Gecko's implementation when I was speccing this a number of months back, since it's the oldest. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " But the exception type needs to be something standard, so I specced it as a DOMException, InvalidStateError:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"\"\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1. If the context object's range is null, throw an InvalidStateError exception and abort these steps. \"\"\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://dvcs.w3.org/hg/editing/raw-file/tip/editing.html#dom-selection-extend\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Gecko should change the exception thrown here to InvalidStateError.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This causes test failures in <http://dvcs.w3.org/hg/editing/raw-file/tip/selecttest/extend.html>. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " If this bug, bug 711047, and bug 719515 are fixed, it looks like Gecko will pass all the tests in that file.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Aryeh Gregor", 
+            "email": "Aryeh Gregor"
+        }, 
+        {
+            "date": "2012-03-14 11:28:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 605860 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch v1\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Aryeh Gregor", 
+            "email": "Aryeh Gregor"
+        }, 
+        {
+            "date": "2012-03-14 11:45:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Autoland Patchset:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tPatches: 605860\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tBranch: mozilla-central => try\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch 605860 could not be applied to mozilla-central.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "hg: unknown command 'qimport'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patchset could not be applied and pushed.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mozilla RelEng Bot", 
+            "email": "Mozilla RelEng Bot"
+        }, 
+        {
+            "date": "2012-03-14 12:11:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://tbpl.mozilla.org/?tree=Try&rev=a363a7c71a54\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ms2ger", 
+            "email": "Ms2ger"
+        }, 
+        {
+            "date": "2012-03-14 13:51:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The bug 719515 patch is causing failures on the try server, so I'll do a different run with just this patch to see if we can land this even if that one needs more revisions.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Aryeh Gregor", 
+            "email": "Aryeh Gregor"
+        }, 
+        {
+            "date": "2012-03-14 13:54:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Autoland Patchset:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tPatches: 605860\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tBranch: mozilla-central => try\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tDestination: http://hg.mozilla.org/try/pushloghtml?changeset=f6af7fe4f2ac\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Try run started, revision f6af7fe4f2ac. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "To cancel or monitor the job, see: https://tbpl.mozilla.org/?tree=Try&rev=f6af7fe4f2ac\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mozilla RelEng Bot", 
+            "email": "Mozilla RelEng Bot"
+        }, 
+        {
+            "date": "2012-03-15 00:46:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Try run for f6af7fe4f2ac is complete.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Detailed breakdown of the results available here:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    https://tbpl.mozilla.org/?tree=Try&rev=f6af7fe4f2ac\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Results (out of 216 total builds):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    exception: 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    success: 172\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    warnings: 42\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Builds (or logs if builds failed) available at:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://ftp.mozilla.org/pub/mozilla.org/firefox/try-builds/autolanduser@mozilla.com-f6af7fe4f2ac\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mozilla RelEng Bot", 
+            "email": "Mozilla RelEng Bot"
+        }, 
+        {
+            "date": "2012-03-15 08:36:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There are some xpcshell failures that I can't pin on any existing bug and that occur on all Windows builds, but are surely unrelated to this commit.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Aryeh Gregor", 
+            "email": "Aryeh Gregor"
+        }, 
+        {
+            "date": "2012-03-15 08:43:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Aryeh Gregor from comment #7)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> There are some xpcshell failures that I can't pin on any existing bug and > that occur on all Windows builds, but are surely unrelated to this commit.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "These are my fault, and I fixed them on m-c last night. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I'll push your patch now.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }, 
+        {
+            "date": "2012-03-15 08:44:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/895c2f503553\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ehsan Akhgari [:ehsan]", 
+            "email": "Ehsan Akhgari [:ehsan]"
+        }, 
+        {
+            "date": "2012-03-16 05:59:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/895c2f503553\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marco Bonardo [:mak]", 
+            "email": "Marco Bonardo [:mak]"
+        }
+    ], 
+    "id": "719518", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=719518"
+}

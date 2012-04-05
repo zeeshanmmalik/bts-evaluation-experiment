@@ -1,0 +1,306 @@
+{
+    "contributors": [
+        [
+            "Aaron", 
+            "lexrank"
+        ], 
+        [
+            "matthew zeier [:mrz]", 
+            "email"
+        ]
+    ], 
+    "title": "PHX network blip on 11/23 AM", 
+    "comments": [
+        {
+            "date": "2011-11-23 08:30:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "PHX had a major network blip beginning at around 07:32 AM 11/23 PDT. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The SJC1-PHX interconnect as well as external PHX connectivity were affected. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "AMO, Bugzilla, Support, Input among other external facing services were impacted. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Watchmouse alert timings indicate a window of about 5 minutes during which time these were unreachable.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "PHX Zeus nodes showed the message \"pp-zlb01.phx.mozilla.net can't contact its gateway and so will not raise any Traffic IPs\".\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Database servers at SJC1 alerted, unable to contact their PHX masters.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "07:37:30 < nagios-sjc1> [62] tm-sumo01-rw-zeus:MySQL is CRITICAL:   Lost connection to MySQL server at reading initial communication packet, system error: 0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Netapp server errors from mpt-netapp filers were reported on ip-ops02.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3crowd complained that irc:concrete was down and concrete isn't behind Zeus.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ashish Vijayaram [:ashish]", 
+            "email": "Ashish Vijayaram [:ashish]"
+        }, 
+        {
+            "date": "2011-11-23 08:41:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Everything had recovered by the time I got the page and logged in. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I'm digging through logs but so far haven't seen anything. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I suspect something somewhere failed over, but I haven't found proof yet.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Aaron", 
+            "email": "Aaron"
+        }, 
+        {
+            "date": "2011-11-23 13:19:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Aaron and I have been looking at this for the last hour and have not found anything obvious that failed/changed.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The consistent thing is that traffic dropped (but did not hit 0) on all interfaces (that we can tell) on the impacted VLANs during the window.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No interfaces flapped on the core or border during the window or within the last week.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ravi Pina [:ravi]", 
+            "email": "Ravi Pina [:ravi]"
+        }, 
+        {
+            "date": "2011-11-23 13:27:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The interruption was less than 5 mins and only affected a few vlans, but affected all devices on those vlans across the entire switching fabric. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Given those facts, we suspect a spanning-tree event. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Logging for spanning tree events tends to be sparse, so I'm sifting through logs trying to catch the smoking gun.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Aaron", 
+            "email": "Aaron"
+        }, 
+        {
+            "date": "2011-11-23 20:05:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Assuming it was STP, how do you avoid a repeat event?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "matthew zeier [:mrz]", 
+            "email": "matthew zeier [:mrz]"
+        }, 
+        {
+            "date": "2011-11-23 23:14:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The answer to that depends on what caused the STP event. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If a link flapped somewhere, we'll have to investigate that link (check/clean the optics etc.)  We can also examine the STP topology and make sure it is optimal so that we minimize and localize future STP events as much as possible.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Aaron", 
+            "email": "Aaron"
+        }, 
+        {
+            "date": "2011-11-23 23:55:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Get rid of spanning tree.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ravi Pina [:ravi]", 
+            "email": "Ravi Pina [:ravi]"
+        }, 
+        {
+            "date": "2011-11-24 08:00:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't know how practical that is and the STP domain in phoenix is pretty small. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " A 5 minute STP convergence is pretty extreme for something that's not that deep.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You have two core switches and a bunch of dual homed switches downstream. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Those switches aren't connected to each other right, so the entire domain is fairly small.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The only time I ever had STP events ~5 mins was with Vlan pruning turned on. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " That sucked.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "matthew zeier [:mrz]", 
+            "email": "matthew zeier [:mrz]"
+        }, 
+        {
+            "date": "2011-11-28 15:36:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Unfortunately, our logging level at the time of this incident was insufficent for me to determine explicitly what happened. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Given that there was a brief disruption on a few select vlans, my best guess is that there was a spanning tree event that caused a brief network flap on those vlans. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Other devices (Zeus, etc) saw this disruption and failed over through their own mechanisms, which actually slowed down the recovery.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We have increased the log level for spanning tree so that we can catch this type of thing if it happens again. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " We are also discussing adding a second log collector to help us better correlate log events across devices.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've reviewed our STP topology and can't recommend any improvements at this time.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Resolving this bug since there is little further I can do.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Aaron", 
+            "email": "Aaron"
+        }
+    ], 
+    "id": "704844", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=704844"
+}

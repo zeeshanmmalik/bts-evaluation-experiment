@@ -1,0 +1,213 @@
+{
+    "contributors": [
+        [
+            "bilalakhtar", 
+            "lexrank"
+        ], 
+        [
+            "htorque", 
+            "email"
+        ]
+    ], 
+    "title": "'make install' to a local directory fails as non-root", 
+    "comments": [
+        {
+            "date": "2012-01-12 10:56:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In lp:unity/4.0 ...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "mkdir build\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "cd build\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "cmake .. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-DCMAKE_INSTALL_PREFIX=~/usr\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "make install\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "CMake Error at cmake_install.cmake:162 (FILE):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  file INSTALL cannot copy file\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  \"/home/dan/bzr/unity/run/com.canonical.Unity.gschema.xml\" to\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  \"/usr/share/glib-2.0/schemas/com.canonical.Unity.gschema.xml\".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vanvugt", 
+            "email": "vanvugt"
+        }, 
+        {
+            "date": "2012-01-12 11:23:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Workaround:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "CMakeCache.txt: GSETTINGS_LOCALINSTALL:BOOL=ON\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Though I still think this is a bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It seems to me that com.canonical.Unity.gschema.xml should honour CMAKE_INSTALL_PREFIX by default. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not as a special condition.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vanvugt", 
+            "email": "vanvugt"
+        }, 
+        {
+            "date": "2012-01-12 23:28:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Note: You can also add -DGSETTINGS_LOCALINSTALL=ON to the cmake command.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "htorque", 
+            "email": "htorque"
+        }, 
+        {
+            "date": "2012-01-26 01:28:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not sure, but is that because glib schemas MUST go to that directory and won't work anywhere else?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That's probably the reason why that line of cmake code doesn't respect the install prefix.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "bilalakhtar", 
+            "email": "bilalakhtar"
+        }, 
+        {
+            "date": "2012-01-26 08:50:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Correct, the schemas only work (apparently) in /usr/share.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However I think the Unity build system should do what the Compiz build system does by default - just give you a warning that the schemas won't work in the local directory, but install them anyway. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's much more functional for developers trying to build and run the code locally. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But either way, this never affects regular users.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vanvugt", 
+            "email": "vanvugt"
+        }
+    ], 
+    "id": "915254", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/915254"
+}

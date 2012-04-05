@@ -1,0 +1,671 @@
+{
+    "contributors": [
+        [
+            "Robert Helmer [:rhelmer]", 
+            "lexrank"
+        ], 
+        [
+            "Chris Lonnen :lonnen", 
+            "email"
+        ], 
+        [
+            "Laura Thomson :laura", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Unable to display top crashers for Fennec 11.0a1", 
+    "comments": [
+        {
+            "date": "2011-12-17 13:32:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This issue happened this morning.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Scoobidiver", 
+            "email": "Scoobidiver"
+        }, 
+        {
+            "date": "2011-12-17 13:42:16", 
+            "sentences": [], 
+            "name": "Naoki Hirata :nhirata", 
+            "email": "Naoki Hirata :nhirata"
+        }, 
+        {
+            "date": "2011-12-17 13:43:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Setting to blocker as it blocks me from doing my job in crashkill.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Naoki Hirata :nhirata", 
+            "email": "Naoki Hirata :nhirata"
+        }, 
+        {
+            "date": "2011-12-17 14:02:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Naoki Hirata :nhirata from comment #2)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Setting to blocker as it blocks me from doing my job in crashkill.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't think so as you can use the advanced search:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://crash-stats.mozilla.com/query/query?product=Fennec&version=Fennec%3A11.0a1&range_value=1&range_unit=weeks&query_search=signature&query_type=contains&query=&reason=&build_id=&process_type=any&hang_type=any&do_query=1\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Scoobidiver", 
+            "email": "Scoobidiver"
+        }, 
+        {
+            "date": "2011-12-17 15:13:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hmm looks like the error is:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2011-12-17 14:03:01 -08:00 --- error: [5xx Error] File: application/libraries/drivers/Database/Pgsql.php; Line: 74; Message: pg_query(): Query failed: ERROR:  syntax error at or near \"Fennec\"\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Trying to repro that locally\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Helmer [:rhelmer]", 
+            "email": "Robert Helmer [:rhelmer]"
+        }, 
+        {
+            "date": "2011-12-17 15:31:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* works on crash-stats-dev (2.4pre)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* works on stage (2.3.5pre)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* works locally with release version against stageDB (2.3.4.1)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* does not work locally with release version against prodDB\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is triggered by something that's unique to prodDB, I am going to start debugging now that I can repro locally.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Helmer [:rhelmer]", 
+            "email": "Robert Helmer [:rhelmer]"
+        }, 
+        {
+            "date": "2011-12-17 16:41:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can tell just from the error message that the problem is improper escaping of the SQL string. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Just confirmed that and located exactly where it's coming from:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://github.com/mozilla/socorro/blob/v2.3.4.1/webapp-php/application/models/topcrashers.php#L136\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This ultimately uses pg_escape_string() instead of parameterized queries. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We really need to switch this to parameterized queries if we want this to work (the version of Kohana we're on doesn't support it, unfortunately).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I am going to see if I can hack pg_query_params() support in, but we're going to be playing whack-a-mole trying to escape strings like this.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Helmer [:rhelmer]", 
+            "email": "Robert Helmer [:rhelmer]"
+        }, 
+        {
+            "date": "2011-12-17 16:53:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I just spoke to Laura and we would like to wait until Monday to push a fix for this, since it could potentially regress other things and we're concerned about getting enough QA on it.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Please let us know if you need this pushed to production sooner, otherwise I'll work on getting the appropriate data to reproduce the problem and a proposed fix into our dev environment for now.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Robert Helmer [:rhelmer]", 
+            "email": "Robert Helmer [:rhelmer]"
+        }, 
+        {
+            "date": "2011-12-17 17:02:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Lets move this to a middleware service and let psycopg2 handle the escaping. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Its scheduled to be moved anyway.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Chris Lonnen :lonnen", 
+            "email": "Chris Lonnen :lonnen"
+        }, 
+        {
+            "date": "2011-12-17 17:04:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Chris Lonnen :lonnen from comment #8)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Lets move this to a middleware service and let psycopg2 handle the escaping.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Its scheduled to be moved anyway.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, this is the right fix. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We might be able to use one of the existing services, in fact (need to check).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Helmer [:rhelmer]", 
+            "email": "Robert Helmer [:rhelmer]"
+        }, 
+        {
+            "date": "2011-12-17 17:16:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, the correct fix is to move it to the middleware. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " As Rob and I discussed I'd prefer not to push on this (or something more hackish) over the weekend due to lack of resources for dev, review, IT and QA, and the high probability of regressions. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Naoki: I think you should be able to work around this using the advanced search until then. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (If you have a problem there please let us know.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Laura Thomson :laura", 
+            "email": "Laura Thomson :laura"
+        }, 
+        {
+            "date": "2011-12-17 17:28:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, that's true. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lonnen, rhelmer and I discussed this on irc. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I'll use the workaround scoobi gave me in order to do my work and it can wait until next week.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Naoki Hirata :nhirata", 
+            "email": "Naoki Hirata :nhirata"
+        }, 
+        {
+            "date": "2011-12-17 20:33:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Robert Helmer [:rhelmer] from comment #9)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (In reply to Chris Lonnen :lonnen from comment #8)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Lets move this to a middleware service and let psycopg2 handle the escaping.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Its scheduled to be moved anyway.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Yes, this is the right fix. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We might be able to use one of the existing > services, in fact (need to check).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(for anyone playing along, psycopg2 lets us use parameterized queries which are guaranteed to escape correctly, and we intend to move all DB connections out of the UI code anyway).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So it looks like the topcrasher code does a middleware call (/topcrash/sig/trend/) and also does a single direct DB call (the code linked in comment 6), which is named fetchTopcrasherVersions. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm taking a look to figure out what this is actually used for ... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "it seems to only affect the \"Ver\" and \"First Appearance\".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Most of the data comes from the service call already, and the query is using the productdims and signature_productdims both of which are deprecated per http://socorro.readthedocs.org/en/latest/databasetablesbysource.html#depreciated-tables\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Looking at the current middleware call, I think I can just add the version_string to the output and add a JOIN to get the \"first appearance\".\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Helmer [:rhelmer]", 
+            "email": "Robert Helmer [:rhelmer]"
+        }, 
+        {
+            "date": "2011-12-17 22:42:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 582639 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "example of broken query\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Helmer [:rhelmer]", 
+            "email": "Robert Helmer [:rhelmer]"
+        }, 
+        {
+            "date": "2011-12-17 22:44:36", 
+            "sentences": [], 
+            "name": "Robert Helmer [:rhelmer]", 
+            "email": "Robert Helmer [:rhelmer]"
+        }, 
+        {
+            "date": "2011-12-18 05:51:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Commits pushed to https://github.com/mozilla/socorro\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://github.com/mozilla/socorro/commit/084e9aabc6e9ac36100c1d04800a4c39ecbab227\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "bug 711767 - move topcrashers report completely to middleware, to avoid DB queries which can be broken by funky signatures\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://github.com/mozilla/socorro/commit/82b1e7be831db3bd3f52313bd6d986966370e4b2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Merge pull request #234 from rhelmer/bug711767-move-topcrash-to-service\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bug 711767 - move topcrashers report completely to middleware, to avoid ...\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "[github robot]", 
+            "email": "[github robot]"
+        }, 
+        {
+            "date": "2011-12-19 08:54:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Github robot missed resolving this.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Chris Lonnen :lonnen", 
+            "email": "Chris Lonnen :lonnen"
+        }, 
+        {
+            "date": "2011-12-19 09:02:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Commit pushed to https://github.com/mozilla/socorro\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://github.com/mozilla/socorro/commit/0f390e51f529b34346a1a89f5b486d5057740225\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "[github robot]", 
+            "email": "[github robot]"
+        }, 
+        {
+            "date": "2011-12-19 16:36:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Commits pushed to https://github.com/mozilla/socorro\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://github.com/mozilla/socorro/commit/9a4f0051a198f6f3c360aed8a689fac3354fe01c\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bug 711767 - signature_products_rollup has multiple products, make sure to restrict the join on product_name to avoid duplicates\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://github.com/mozilla/socorro/commit/3e28ad6cef63bf7a75b5088f990c8c9e1cf8f079\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Merge pull request #235 from rhelmer/bug711767-move-topcrash-to-service\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bug 711767 - signature_products_rollup has multiple products, make sure ...\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "[github robot]", 
+            "email": "[github robot]"
+        }, 
+        {
+            "date": "2011-12-19 16:39:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Commit pushed to https://github.com/mozilla/socorro\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://github.com/mozilla/socorro/commit/f688f942a936acebbf2f331371d8f61fe74eebdc\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "[github robot]", 
+            "email": "[github robot]"
+        }, 
+        {
+            "date": "2011-12-19 18:25:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Commits pushed to https://github.com/mozilla/socorro\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://github.com/mozilla/socorro/commit/b775d305c9cfc5495d449747829896f7cb93cf87\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "bug 711767 - move topcrashers report completely to middleware, to avoid DB queries which can be broken by funky signatures\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://github.com/mozilla/socorro/commit/1a6301e44d3a624b679b90bda2d3e5fb4ddf9962\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "[github robot]", 
+            "email": "[github robot]"
+        }, 
+        {
+            "date": "2011-12-19 18:27:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "QA verified, top crashers table displays data for all versions of products that have data.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Duplicate signature no longer appear in the table; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "'Ver' and 'First Appearance columns show the expected values.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Matt Brandt [:mbrandt]", 
+            "email": "Matt Brandt [:mbrandt]"
+        }, 
+        {
+            "date": "2011-12-19 19:11:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Commits pushed to https://github.com/mozilla/socorro\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://github.com/mozilla/socorro/commit/0f390e51f529b34346a1a89f5b486d5057740225\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "bug 711767 - move topcrashers report completely to middleware, to avoid DB queries which can be broken by funky signatures\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://github.com/mozilla/socorro/commit/f688f942a936acebbf2f331371d8f61fe74eebdc\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "[github robot]", 
+            "email": "[github robot]"
+        }
+    ], 
+    "id": "711767", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=711767"
+}

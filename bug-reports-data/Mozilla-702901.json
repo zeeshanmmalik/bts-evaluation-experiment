@@ -1,0 +1,381 @@
+{
+    "contributors": [
+        [
+            "Scoobidiver", 
+            "lexrank"
+        ], 
+        [
+            "Andreas Gal :gal", 
+            "email"
+        ]
+    ], 
+    "title": "Crash in js::types::TypeScriptNesting::~TypeScriptNesting()", 
+    "comments": [
+        {
+            "date": "2011-11-16 01:04:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It's #33 top crasher in 9.0b1.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It first appeared in 9.0a1/20110908. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The regression range is:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/mozilla-central/pushloghtml?fromchange=09935ede3c77&tochange=b7d269a291b6\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Stack traces look like:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Frame \tModule \tSignature [Expand] \tSource\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "0 \tmozjs.dll \tjs::types::TypeScriptNesting::~TypeScriptNesting \tjs/src/jsinfer.cpp:5215\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1 \tmozjs.dll \tjs::types::TypeScript::destroy \tjs/src/jsinfer.cpp:6095\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2 \tmozjs.dll \tJSCompartment::sweep \tjs/src/jscompartment.cpp:645\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3 \tmozjs.dll \tSweepPhase \tjs/src/jsgc.cpp:2309\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4 \tmozjs.dll \tMarkAndSweep \tjs/src/jsgc.cpp:2402\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5 \tmozjs.dll \tGCCycle \tjs/src/jsgc.cpp:2645\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "6 \tmozjs.dll \tjs_GC \tjs/src/jsgc.cpp:2731\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "7 \tmozjs.dll \tJS_CompartmentGC \tjs/src/jsapi.cpp:2616\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "8 \tmozjs.dll \tJS_GC \tjs/src/jsapi.cpp:2623\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "9 \txul.dll \tnsXPConnect::Collect \tjs/src/xpconnect/src/nsXPConnect.cpp:414\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "10 \txul.dll \tnsXPConnect::GarbageCollect \tjs/src/xpconnect/src/nsXPConnect.cpp:422\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "11 \txul.dll \tnsJSContext::GarbageCollectNow \tdom/base/nsJSEnvironment.cpp:3189\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "12 \txul.dll \tnsTimerImpl::Fire \txpcom/threads/nsTimerImpl.cpp:424\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "13 \txul.dll \tnsTimerEvent::Run \txpcom/threads/nsTimerImpl.cpp:520\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "14 \txul.dll \tnsThread::ProcessNextEvent \txpcom/threads/nsThread.cpp:631\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "15 \txul.dll \tmozilla::ipc::MessagePump::Run \tipc/glue/MessagePump.cpp:110\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "More reports at:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://crash-stats.mozilla.com/report/list?signature=js%3A%3Atypes%3A%3ATypeScriptNesting%3A%3A~TypeScriptNesting%28%29\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Scoobidiver", 
+            "email": "Scoobidiver"
+        }, 
+        {
+            "date": "2011-11-25 02:57:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's now #20 top crasher in 9.0b2.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Scoobidiver", 
+            "email": "Scoobidiver"
+        }, 
+        {
+            "date": "2011-12-11 05:49:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's now #15 top crasher in 9.0b4 and #73 in 10.0a2.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here are some comments:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"i'am just creating gmail account\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"I was changing my Gmail Inbox Theme and then Firefox crashed.\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"using my gmail account ..\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"On Google Calendar, Clicking the dropdown submenu of my calendar caused this crash.\"\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Scoobidiver", 
+            "email": "Scoobidiver"
+        }, 
+        {
+            "date": "2011-12-11 05:55:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A regression window would probably help here.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Andreas Gal :gal", 
+            "email": "Andreas Gal :gal"
+        }, 
+        {
+            "date": "2011-12-11 06:04:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Andreas Gal :gal from comment #3)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> A regression window would probably help here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "See comment 0.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Scoobidiver", 
+            "email": "Scoobidiver"
+        }, 
+        {
+            "date": "2011-12-11 16:30:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "IIRC correctly Google started to introduce its new look for GMail around August-September. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So if the error reports are about GMail, then the bug in our code could be exposed by those changes and the regression range is not applicable for hunting the bug.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Igor Bukanov", 
+            "email": "Igor Bukanov"
+        }, 
+        {
+            "date": "2011-12-14 10:53:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "QA - could we do some exploratory testing around Gmail? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alex Keybl [:akeybl]", 
+            "email": "Alex Keybl [:akeybl]"
+        }, 
+        {
+            "date": "2011-12-15 07:42:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It looks like this signature has gone way down in 9.0b5 (or I'm just confused). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " In beta 4 there are 473 (out of 89k) crashes and in beta 5 there are 29 (out of 82k). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " The regression range is right around the time the TypeScriptNesting stuff landed, so I doubt GMail changes are directly involved.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The TypeScriptNesting structures form a pretty straightforward N-ary tree threaded through a compartment's scripts. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " When a script is destroyed its nesting info is destroyed and unlinked from its parent and children. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " These crashes are due to state in either the script or the TypeScriptNesting being corrupted somewhere.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brian Hackett (:bhackett)", 
+            "email": "Brian Hackett (:bhackett)"
+        }, 
+        {
+            "date": "2012-01-17 13:59:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Brian Hackett (:bhackett) from comment #8)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> It looks like this signature has gone way down in 9.0b5 (or I'm just > confused). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " In beta 4 there are 473 (out of 89k) crashes and in beta 5 there > are 29 (out of 82k). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The regression range is right around the time the > TypeScriptNesting stuff landed, so I doubt GMail changes are directly > involved.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The TypeScriptNesting structures form a pretty straightforward N-ary tree > threaded through a compartment's scripts. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " When a script is destroyed its > nesting info is destroyed and unlinked from its parent and children. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " These > crashes are due to state in either the script or the TypeScriptNesting being > corrupted somewhere.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Then this sounds similar to the script corruption we see in some of the GC crashes.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Mandelin", 
+            "email": "David Mandelin"
+        }
+    ], 
+    "id": "702901", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=702901"
+}

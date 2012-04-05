@@ -1,0 +1,305 @@
+{
+    "contributors": [
+        [
+            "Sean Stangl", 
+            "email"
+        ], 
+        [
+            "David Anderson [:dvander]", 
+            "lexrank"
+        ], 
+        [
+            "Nicolas B. Pierron [:pierron]", 
+            "email"
+        ], 
+        [
+            "Michael Clackler", 
+            "lexrank"
+        ]
+    ], 
+    "title": "IonMonkey: Compile JSOP_NEW with callVM().", 
+    "comments": [
+        {
+            "date": "2011-11-11 17:57:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Necessary for benchmarks.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Nicolas B. Pierron [:pierron]", 
+            "email": "Nicolas B. Pierron [:pierron]"
+        }, 
+        {
+            "date": "2012-01-12 12:06:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hot in some benchmarks currently (notably crypto-aes), so taking.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Sean Stangl", 
+            "email": "Sean Stangl"
+        }, 
+        {
+            "date": "2012-01-12 13:45:19", 
+            "sentences": [], 
+            "name": "David Anderson [:dvander]", 
+            "email": "David Anderson [:dvander]"
+        }, 
+        {
+            "date": "2012-01-12 15:56:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 588220 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Support JSOP_NEW via callVM.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Implements JSOP_NEW via a flag on Call/CallGeneric.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This establishes a baseline for regression to ensure that a performant implementation really does introduce no additional bugs.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Passes jit-tests on x64 with no new failures.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sean Stangl", 
+            "email": "Sean Stangl"
+        }, 
+        {
+            "date": "2012-01-12 16:03:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 588220 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Support JSOP_NEW via callVM.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 588220 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: js/src/ion/CodeGenerator.cpp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +446,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +    // in the case of a constructing call.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +    // TODO: Bug 701692: performant support for JSOP_NEW.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +    if (call->mir()->isConstruct()) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +        typedef bool (*pf)(JSContext *, JSFunction *, uint32, Value *, Value *);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "drop newline above\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: js/src/ion/VMFunctions.cpp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +62,4 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">      return ok;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +bool InvokeConstructorFunction(JSContext *cx, JSFunction *fun, uint32 argc, Value *argv, Value *rval)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bool on separate line\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Anderson [:dvander]", 
+            "email": "David Anderson [:dvander]"
+        }, 
+        {
+            "date": "2012-01-12 16:21:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/projects/ionmonkey/rev/af79cb016a99\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sean Stangl", 
+            "email": "Sean Stangl"
+        }, 
+        {
+            "date": "2012-01-12 18:52:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Backed out: caused x86 sunspider failure.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/projects/ionmonkey/rev/770d43b354f4\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sean Stangl", 
+            "email": "Sean Stangl"
+        }, 
+        {
+            "date": "2012-02-01 15:35:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/projects/ionmonkey/rev/4f9d917dd77f\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Sean Stangl", 
+            "email": "Sean Stangl"
+        }, 
+        {
+            "date": "2012-02-01 17:15:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Just wondering if there is something else to do in this bug or if this reference from patch is incorrect:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    1.14 +    // TODO: Bug 701692: performant support for JSOP_NEW.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Michael Clackler", 
+            "email": "Michael Clackler"
+        }, 
+        {
+            "date": "2012-02-01 17:19:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Whoops, I forgot about that comment! ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Attempting to keep one patch series per bug, the recently-filed bug for performant JSOP_NEW is bug 723333.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Sean Stangl", 
+            "email": "Sean Stangl"
+        }
+    ], 
+    "id": "701962", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=701962"
+}

@@ -1,0 +1,902 @@
+{
+    "contributors": [
+        [
+            "Patrick McManus [:mcmanus]", 
+            "lexrank"
+        ], 
+        [
+            "Luca Tettamanti", 
+            "email"
+        ], 
+        [
+            "Robert Hancock", 
+            "lexrank"
+        ], 
+        [
+            "Rick Knowles", 
+            "email"
+        ]
+    ], 
+    "title": "Disable HTTP pipelining Winstone when talking to Servlet Engine", 
+    "comments": [
+        {
+            "date": "2011-11-16 05:21:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "User Agent: Mozilla/5.0 (X11; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Linux x86_64; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rv:8.0) Gecko/20100101 Firefox/8.0 Iceweasel/8.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Build ID: 20111109081537\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Steps to reproduce:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm using Firefox 8 and manually enabled HTTP pipelining.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "At work we have a self-hosted Jenkins (CI system) and the web frontend does not work properly with Firefox.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Actual results:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The JS debugger will log errors in apparently random locations, further debugging with tcpdump and firebug net panel showed that resources (mostly JS files) were being sent truncated.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "After disabling pipelining the issue disappeared.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The HTTP engine is \"Winstone Servlet Engine v0.9.10\" and unfortunately it insists that it's HTTP/1.1 capable:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "HTTP/1.1 200 OK\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Server: Winstone Servlet Engine v0.9.10\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Last-Modified: Thu, 10 Nov 2011 14:18:13 GMT\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Expires: Thu, 15 Nov 2012 13:14:56 GMT\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Accept-Ranges: bytes\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Content-Type: application/javascript\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Content-Encoding: gzip\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Connection: Close\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date: Wed, 16 Nov 2011 13:14:56 GMT\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "X-Powered-By: Servlet/2.5 (Winstone/0.9.10)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Set-Cookie: etc.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Luca Tettamanti", 
+            "email": "Luca Tettamanti"
+        }, 
+        {
+            "date": "2011-11-16 05:25:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 574883 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "pipelining: blacklist Winstone Servlet Engine version v0.*\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Luca Tettamanti", 
+            "email": "Luca Tettamanti"
+        }, 
+        {
+            "date": "2011-11-16 05:35:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Luca, I'll probably want to take this patch - thanks for the contribution!\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I need to ask a few questions first:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* some piece of infrastructure clearly has a pipelining problem - did you do any work to ensure that it is the server instead of a load balancer or something like that? It would be bad to blacklist the server if it wasn't its fault.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* It looks like winstone is on sourceforge, though it hasn't been updated since 2008. Can you file a bug there that points to this bugzilla entry? I didn't see any pipeline bugs in its database.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Patrick McManus [:mcmanus]", 
+            "email": "Patrick McManus [:mcmanus]"
+        }, 
+        {
+            "date": "2011-11-16 09:06:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We have seen the same problem on our Jenkins installation. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I can verify that it must be the server itself causing the problem as there is no intervening load balancer or anything like that.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm not sure if there is a public URL that would reproduce the problem. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I only noticed the problem on the project configuration page, which isn't (or at least shouldn't) be accessible to the public.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Robert Hancock", 
+            "email": "Robert Hancock"
+        }, 
+        {
+            "date": "2011-11-16 09:14:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I filed the sf bug\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://sourceforge.net/tracker/?func=detail&aid=3438879&group_id=98922&atid=622497\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Patrick McManus [:mcmanus]", 
+            "email": "Patrick McManus [:mcmanus]"
+        }, 
+        {
+            "date": "2011-11-16 12:30:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Patrick McManus from comment #2)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Luca, I'll probably want to take this patch - thanks for the contribution!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I need to ask a few questions first:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * some piece of infrastructure clearly has a pipelining problem - did you do > any work to ensure that it is the server instead of a load balancer or > something like that? ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It would be bad to blacklist the server if it wasn't > its fault.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The server is sitting on our LAN, no proxy or balancer in between. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can also reproduce on localhost.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * It looks like winstone is on sourceforge, though it hasn't been updated > since 2008. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Can you file a bug there that points to this bugzilla entry? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I > didn't see any pipeline bugs in its database.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You beat me to it :) I actually intended to follow this up with Jenkins devs... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "they probably need to stick with HTTP/1.0 (or fix pipelining).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> * Do you know of any public url running winstone that reproduces this > problem? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I would like to analyze the failure mode in detail. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you don't > know of such a url, would you be able to form a packet capture of a failed > load using wireshark so I could look at that? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The idea is to make sure we > can make firefox robust to these kinds of failures in other servers too > without blacklisting them.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You can actually try it locally, not setup required. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Download this war:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://mirrors.jenkins-ci.org/war/latest/jenkins.war\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And run it standalone:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "java -jar jenkins.war --httpPort=8181\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(to cleanup just rf -rf ~/.jenkins)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As Robert pointed out the problem is more noticeable in the configuration pages (e.g. Manage Jenkins -> Configure System) since JS errors will leave those pages unusable, but the truncation happens even in the homepage (again, looking for JS errors you'll see that the corresponding file is incomplete)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you still want a packet dump I'll capture it tomorrow.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Following an intuition I prevented Firefox from accepting gzip encoded resources, and the files were sent correctly... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "so maybe there's just a flush of the compressed stream missing (or the different timing is enough to mask the issue).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Luca Tettamanti", 
+            "email": "Luca Tettamanti"
+        }, 
+        {
+            "date": "2011-11-16 17:30:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Original winstone developer here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You're right - this is an unfortunate leftover from 8 years ago when I misunderstood the HTTP/1.1 spec regarding pipelining conditions. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Winstone is expecting a content-length to be set on the servlet response in order for it to be considered acceptable to pipeline. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Winstone will actively force a Connection:close header on the response if there is no content-length set on the response by the servlet. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Probably not ideal, but it was the best I could come up with at the time.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(to be honest I'm not sure what the correct servlet container behaviour should be here, but I can see everyone else is able to handle this case so I'm obviously missing something).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hudson/jenkins have forked from the primary winstone tree (which went into hibernation around 2008 IIRC), so it would be up to them to fix in any case.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Easiest workaround I can think of is to set content length headers on the hudson/jenkins responses ... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "or alternatively change to tomcat/jetty which I believe is being discussed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Given that Winstone is very long in the tooth, I'm quite okay with it being retired if they choose it to be.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Rick\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Rick Knowles", 
+            "email": "Rick Knowles"
+        }, 
+        {
+            "date": "2011-11-17 07:21:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This issue was reported in the Jenkins bug tracker here:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://issues.jenkins-ci.org/browse/JENKINS-11163\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert Hancock", 
+            "email": "Robert Hancock"
+        }, 
+        {
+            "date": "2011-11-17 07:42:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> You can actually try it locally, not setup required. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Download this war:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://mirrors.jenkins-ci.org/war/latest/jenkins.war\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Luca, thanks for this - it will help firefox generally!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Rick Knowles from comment #6)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Original winstone developer here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> You're right - this is an unfortunate leftover \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Rick, thank you too. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Your involvement here makes this a lot easier to apply.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Patrick McManus [:mcmanus]", 
+            "email": "Patrick McManus [:mcmanus]"
+        }, 
+        {
+            "date": "2011-11-17 12:03:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 575257 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pcap of a pipelined session showing failure mode\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "One interesting flow in here is on port 38180.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That port has 5 pipelined requests, the 2nd is for codemirror.js.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There are 2 responses for the first 2 requests (correct behavior). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The second is labeled connection close, has no content-type, and is gzip'd. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "EOF follows.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "requests for the aborted 3 requests do appear as successful retries on other connections.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The problem is if you ungzip codemirror.js you'll see it is truncated.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Patrick McManus [:mcmanus]", 
+            "email": "Patrick McManus [:mcmanus]"
+        }, 
+        {
+            "date": "2011-11-17 12:11:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Rick Knowles from comment #6)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Winstone is expecting a content-length to be set on the servlet response in > order for it to be considered acceptable to pipeline. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Winstone will actively > force a Connection:close header on the response if there is no > content-length set on the response by the servlet. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Probably not ideal, but > it was the best I could come up with at the time.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I wanted to investigate this further, because the way it is described here it should be bad for pipelining performance but it shouldn't actually break anything - the unanswered members of the pipeline ought to be retried.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And basically that was what was happening.. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "but when you inserted the close a RST is generated on your end because you closed the pipe without consuming the whole request stream.. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "that rst resulted in aborting the connection and truncating one of the js items. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Since that js was only framed with EOF (always a bad idea) it was used as-is and generated the js errors.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The future pipeline code will dynamically detect that and auto-blacklist the host.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The patch is working its way through our test service now.. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if it passes I will push the change. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks all!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Patrick McManus [:mcmanus]", 
+            "email": "Patrick McManus [:mcmanus]"
+        }, 
+        {
+            "date": "2011-11-17 13:26:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/4d6ac4042f25\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Patrick McManus [:mcmanus]", 
+            "email": "Patrick McManus [:mcmanus]"
+        }, 
+        {
+            "date": "2011-11-18 03:23:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/4d6ac4042f25\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ed Morley [:edmorley]", 
+            "email": "Ed Morley [:edmorley]"
+        }
+    ], 
+    "id": "702941", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=702941"
+}

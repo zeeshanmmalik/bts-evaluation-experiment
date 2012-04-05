@@ -1,0 +1,402 @@
+{
+    "contributors": [
+        [
+            "vanvugt", 
+            "lexrank"
+        ], 
+        [
+            "smspillaz", 
+            "email"
+        ]
+    ], 
+    "title": "Alt+F1 can leak into applications even though it triggers things in unity", 
+    "comments": [
+        {
+            "date": "2012-03-02 03:01:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Steps to reproduce\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1. Press alt-f1 with a term focused\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2. Notice that keynav is activated\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "3. ;3P is leaked into the terminal.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "smspillaz", 
+            "email": "smspillaz"
+        }, 
+        {
+            "date": "2012-03-02 03:12:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Duplicate of bug 943456, surely :)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vanvugt", 
+            "email": "vanvugt"
+        }, 
+        {
+            "date": "2012-03-02 03:13:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is technically a unity bug since it returns false on startLauncherKeyNav and friends ... ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "although I'm not sure what compiz should be doing in this case. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Intuitively I think that if an action handler returns false it means that we should treat it as though the key was never eaten.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "smspillaz", 
+            "email": "smspillaz"
+        }, 
+        {
+            "date": "2012-03-02 03:14:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, it's the same problem as bug 943456, but in a different location.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bool UnityScreen::setKeyboardFocusKeyInitiate(CompAction* action,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                                              CompAction::State state,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                                              CompOption::Vector& options)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  _key_nav_mode_requested = true;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  return false; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  <========== Should return true.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vanvugt", 
+            "email": "vanvugt"
+        }, 
+        {
+            "date": "2012-03-02 03:16:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The fix for this bug will be different to bug 943456. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That's why I made it a non-duplicate again.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vanvugt", 
+            "email": "vanvugt"
+        }, 
+        {
+            "date": "2012-03-02 03:50:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Fri, 2 Mar 2012, Daniel van Vugt wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The fix for this bug will be different to bug 943456. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "That's why I made > it a non-duplicate again.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not really, we just need to fix unity so that it does the right thing. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A  branch which I'm compiling now (slowly)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ** This bug is no longer a duplicate of bug 943456\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">   [unity 5.6] using alt-f2 send a \";3Q\" to the active windows >\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ** Changed in: compiz-core\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">       Status: Invalid => New\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ** Changed in: compiz-core\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">     Assignee: Sam Spilsbury (smspillaz) => (unassigned)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ** Project changed: compiz-core => unity\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> -- \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> You received this bug notification because you are a member of Compiz > Maintainers, which is the registrant for Compiz Core.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://bugs.launchpad.net/bugs/944521\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Title:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  Alt+F1 can leak into applications even though it triggers things in >  unity\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Status in Unity:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  New\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Bug description:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  Steps to reproduce\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  1. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Press alt-f1 with a term focused\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  2. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Notice that keynav is activated\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  3. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": ";3P is leaked into the terminal.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> To manage notifications about this bug go to:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://bugs.launchpad.net/unity/+bug/944521/+subscriptions\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "smspillaz", 
+            "email": "smspillaz"
+        }, 
+        {
+            "date": "2012-03-02 06:00:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I now see a common problem in compiz that both bugs will need fixed. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Marking this as a duplicate again so we can fix them together.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "vanvugt", 
+            "email": "vanvugt"
+        }
+    ], 
+    "id": "944521", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/944521"
+}

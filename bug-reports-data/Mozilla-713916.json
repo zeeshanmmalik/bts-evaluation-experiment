@@ -1,0 +1,575 @@
+{
+    "contributors": [
+        [
+            "Igor Bukanov", 
+            "lexrank"
+        ], 
+        [
+            "Bill McCloskey (:billm)", 
+            "email"
+        ]
+    ], 
+    "title": "DOMGCFinishedCallback should schedule just GC buffer shrinking, not a shrinking GC", 
+    "comments": [
+        {
+            "date": "2011-12-28 12:02:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Currently just to release empty GC chunks and decommit arenas DOMGCFinishedCallback schedules a full shrinking GC if the last one leaves some empty chunks. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As the GC release and allocate GC chunks in the background that may mean that in some workloads there is always an empty GC chunks and a new GC would always be scheduled.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "To mitigate that we should add a new API that just release empty GC chunks and decommit arenas and schedule it from DOMGCFinishedCallback, not a full GC call.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Igor Bukanov", 
+            "email": "Igor Bukanov"
+        }, 
+        {
+            "date": "2011-12-28 12:14:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 584614 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "shrink GC buffer API\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The patch adds new friend API, JS_ShrinkGCBuffers, that starts empty chunk release and arena decommit in the background. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The implementation piggy back on the current background sweep implementation.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The usage of the API is in a separated patch.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Igor Bukanov", 
+            "email": "Igor Bukanov"
+        }, 
+        {
+            "date": "2011-12-28 12:23:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 584616 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "schedule shrinking of gc buffers\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The patch replaces scheduling of a full GC when three is at least one GC chunk with a 5 second delayed call to JS_ShrinkGCBuffers. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If a GC happens before that, that call is canceled and a new one is scheduled.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The idea behind it is to keep empty arenas and chunks for few seconds in case the main thread want to allocate new GC things in near future.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Igor Bukanov", 
+            "email": "Igor Bukanov"
+        }, 
+        {
+            "date": "2011-12-29 10:02:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 584616 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "schedule shrinking of gc buffers\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 584616 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: dom/base/nsJSEnvironment.cpp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +1111,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">    Preferences::UnregisterCallback(JSOptionChangedCallback,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">                                    js_options_dot_str, this);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +  if (mGCOnDestruction)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +    PokeGC();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nit: elsewhere you brace single-line if statements... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Style in this file looks inconsistent, but at least your additions could be consistent :)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +3389,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +  if (sShrinkGCBuffersTimer) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +    return;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +  }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +  CallCreateInstance(\"@mozilla.org/timer;1\", &sShrinkGCBuffersTimer);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hm. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I guess we do this already, so maybe it's not so bad, but I would think constantly destroying and recreating a timer here (and for GC, and for CC) could be a lot of needless churn. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The component manager isn't super speedy (it has to grab locks, hash lookups, virtual calls, CC-able addrefs maybe?) so maybe what you really want to do is create one timer and then just keep a boolean flag for whether it's armed or not.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Doing that for all three of these timers would probably save a bunch of time. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Followup bug?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "ben turner [:bent]", 
+            "email": "ben turner [:bent]"
+        }, 
+        {
+            "date": "2011-12-29 13:44:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to ben turner [:bent] from comment #3)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > +  if (mGCOnDestruction)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > +    PokeGC();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Nit: elsewhere you brace single-line if statements... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Style in this file > looks inconsistent, but at least your additions could be consistent :)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I tried to preserve the style that a function uses even if it implies to use different styles in the patch for single file. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In that case we have at the start of nsJSContext::DestroyJSContext() :\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  if (!mContext)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    return;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That suggested to skip {} around PokeGC call. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I guess I will simply add {} in both cases.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Igor Bukanov", 
+            "email": "Igor Bukanov"
+        }, 
+        {
+            "date": "2011-12-29 14:54:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 584614 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "shrink GC buffer API\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 584614 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This looks nice. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is there anything we can do to mitigate this problem on 10 or 11? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm worried this stuff is too risky to land on branches.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: js/src/jsgc.cpp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +2524,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +    ExpireChunksAndArenas(rt, shrinking);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +    if (!shrinking && shrinkFlag) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +        /*\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +         * The main thread may require to shrink when we do non-shrink > +         * expiration. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Restart if so.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This confused me for a moment. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please change this to:\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Bill McCloskey (:billm)", 
+            "email": "Bill McCloskey (:billm)"
+        }, 
+        {
+            "date": "2011-12-29 15:30:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Bill McCloskey (:billm) from comment #5)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> This looks nice. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is there anything we can do to mitigate this problem on 10 > or 11? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm worried this stuff is too risky to land on branches.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For branches we can disable the background chunk allocation via one-liner change - I am waiting for bz tests to confirm that it was the main reason for the regression.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Igor Bukanov", 
+            "email": "Igor Bukanov"
+        }, 
+        {
+            "date": "2011-12-29 18:20:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/d720247c6f94\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/3a4643fe9f0f\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Igor Bukanov", 
+            "email": "Igor Bukanov"
+        }, 
+        {
+            "date": "2011-12-30 04:53:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/d720247c6f94\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/3a4643fe9f0f\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Kyle Huey [:khuey] (khuey@mozilla.com)", 
+            "email": "Kyle Huey [:khuey] (khuey@mozilla.com)"
+        }, 
+        {
+            "date": "2012-01-06 13:39:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please nominate for uplift to aurora/beta if deemed necessary. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If not, we should no longer track.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alex Keybl [:akeybl]", 
+            "email": "Alex Keybl [:akeybl]"
+        }, 
+        {
+            "date": "2012-01-06 13:49:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This should not go to aurora/beta -\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Igor Bukanov", 
+            "email": "Igor Bukanov"
+        }
+    ], 
+    "id": "713916", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=713916"
+}

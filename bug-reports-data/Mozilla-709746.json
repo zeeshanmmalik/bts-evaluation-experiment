@@ -1,0 +1,4340 @@
+{
+    "contributors": [
+        [
+            "amey", 
+            "email"
+        ], 
+        [
+            "Mats Palmgren [:mats]", 
+            "lexrank"
+        ], 
+        [
+            "Jesper Hansen", 
+            "email"
+        ]
+    ], 
+    "title": "when using timeout function to periodically update div content; button's onclick event does not get fired", 
+    "comments": [
+        {
+            "date": "2011-12-12 03:39:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 580871 [details]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Div where content keeps updating & Cancel button for which onclick event is not getting fired.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "User Agent: Mozilla/5.0 (Windows NT 6.1; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rv:8.0.1) Gecko/20100101 Firefox/8.0.1\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Build ID: 20111120135848\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Steps to reproduce:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am having 1 jsp page containing one div, i am trying to update html of div while reading content from server after specified time out using timeout function in js (reading string & displaying it in div using jsorpc); ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "also page is having cancel button; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "basically purpose of page is to display server side updates to user; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "when cancel button is clicked it will send one message on server to stop processing.(Cancel button is painted in other div)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Actual results:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When cancel button is clicked having some onclick event, onclick event is not getting fired; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "even though dummy alert message(Hi) is added; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "firebug properly shows same code when verified; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "same thing works properly in internet explorer,google chrome,safari just fails in firefox; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "there are no javascript errors/warnings\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Expected results:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-12 03:56:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If I am understanding your approach correctly, then this should answer it.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The design of DOM events works by a First-in-First-out and no other events can be fired while another is being finished. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://www.w3.org/TR/DOM-Level-3-Events/#dom-event-architecture - Take a read at this and determine how you want to approach your code.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Reopen if this description does not fit your approach.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Jesper Hansen", 
+            "email": "Jesper Hansen"
+        }, 
+        {
+            "date": "2011-12-12 06:53:36", 
+            "sentences": [], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-12 07:49:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Amey, can you make a testcase (or provide a public URL) that demonstrates the problem?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(and please stop messing with Priority/Severity)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-12 08:19:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mats,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i can not share public URL but i will provide details.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I am painting one jsp page which is having 3 divs; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1st div to display title of page, 2nd div to display server side processing to user; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "3rd div which contents buttons Generate(to start processing on server) & Cancel button (to stop processing on server.)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When page is loaded at that time obviously server side processing is not started hence 2nd div is in hidden state; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "also since processing is not started Cancel button is in hidden state.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "When user click on Generate button once entire page is completely rendered; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "it fires request to server using jsonrpc (onclick event of Generate button fires this request ) & once this request is fired; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "2nd div is made to visible & Cancel button is enabled & Generate button is hidden;one function is registered against 1 sec timeout period & same is called which checks for messages generated by server (using jsonrpc) & appends message in 2nd div.If server side process is not completed ie server is processing request & div content is getting updated ; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "during such case if Cancel button is clicked; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "onclick event on such button does not get fired.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There are no javascript errors/warnings moreover this behavior works properly in internet explorer/google chrome/safari everywhere but fails in Mozilla 8.0.1 & previous versions.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-13 23:41:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 581552 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Test HTML file to help reproducing issue\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Test.html file is html file which can help to reproduce issue; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "this html file works properly in Mozilla/IE/Chrome everywhere just click on Regenerate button; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "so it will add some hard coded strings in div; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if you click on Cancel-Regenerate button it will alert Hi which is proper; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "no in real time if you add some jsonrpc calls which is commented on line no 148 ie jsonrpc.JSONHelper.logData(\"test\"); ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "when such call is added then on click event on cancel button ie to alert Hi behaves randomly only in Firefox; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "it alerts Hi after Cancel-Regenerate button after clicking on same for 3-4 times or even some times does not respond at all; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "there are no java script errors & also this behavior is specific to firefox; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "works perfectly in IE/Chrome & Safari.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-14 06:27:59", 
+            "sentences": [], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-14 06:54:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "What does jsonrpc.JSONHelper.logData do exactly - does it boil down to a synchronous XMLHttpRequest in Firefox? ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " If so, is it possible to reproduce the problem using a XHR instead? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (I'd like to avoid having to setup a jsonrpc server to reproduce the problem)\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-14 07:02:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "logData is some dummy API which will just log some constant string say \"abc\" on server ; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "in actual case API is getting fired on server in regular interval to read processing message from server; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "for testing/debugging purpose you can just add some API (just having one System.out.println(\"abc\") statement); ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "i am not sure weather it will get reproduced with XMLHttpRequest or not.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-14 08:31:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> logData is some dummy API which will just log some constant string say \"abc\" > on server\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, it's not important what happens on the server for that rpc call.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm interested in what the client (Firefox) does to make that call - I suspect it's a synchronous XHR, but it depends on the details of the jsonrpc package you're using on the client side.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It would help a lot if we can reproduce the problem using XHR, since that avoids having to involve any third party jsonrpc packages.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-14 22:12:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Working fine with xmlhttp, across all browsers; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i added some dummy xmlhttp calls by replacing  jsonrpc.JSONHelper.logData with\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tif (window.XMLHttpRequest) \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\treq_change = new XMLHttpRequest();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\telse if (window.ActiveXObject)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\treq_change = new ActiveXObject(\"Microsoft.XMLHTTP\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\treq_change.open(\"GET\", \"path_to_some_dummy_jsp_on_server\",true);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\treq_change.onreadystatechange = onComplete;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\treq_change.setRequestHeader(\"Content-Type\", \"application/x-www-form-urlencoded\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\treq_change.send(\"\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "& \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function onComplete()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  ;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function defined in js\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Seems it is very specific to jsonrpc(JSONRPCBridge) & anyways after fixing we will have to verify that fix will work for jsonrpc also.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-15 22:43:38", 
+            "sentences": [], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-17 08:10:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Does the problem occur if you change the last open() argument to false?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We need a way to reproduce the problem in order to debug it.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-18 21:54:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Yes,random onclick alert behavior is observed when parameter is set to false; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "which works properly in chrome/IE & safari; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "but how do we ensure that xmlhttp fix from mozilla side will resolve jsonrpc issue as well?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-20 07:05:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mats, you need anything else from my side? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "also in which release of firefox can we expect fix for this?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-21 00:53:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Testcase works in nightly\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jesper Hansen", 
+            "email": "Jesper Hansen"
+        }, 
+        {
+            "date": "2011-12-21 01:31:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Jesper, we're actively investigating a problem here, we know the attached testcase appears to work. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Please be a little more careful before resolving bugs, ok?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-21 23:17:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks Mats for reopening issue which was mistakenly closed by Jasper, are you able to reproduce this locally? ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "also can you tell me in which version of firefox can we get fix for this?Same is reproducible on firefox 9 as well, you want me to change version to 9 branch? ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Also i can not switch to xmlhttp now because i will have to change complete code which is big thing for me.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-22 00:51:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I haven't had time yet... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " If you can attach an updated testcase with the sync XHR that you used to reproduce the problem, that would be much appreciated.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Just so we know that we're looking at the exact same test.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-23 00:00:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 581552 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Test HTML file to help reproducing issue\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    <html>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    <head>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t<title>Regenerate Report</title>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<script language=\"javascript\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "var w_completeMessage = \"\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "var w_tempMessage = \"Start\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "var w_previousMessage = \"\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "var w_timerVariable = \"\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "var w_timerDuration = 1;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "var w_runid = '0';\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "var w_segmentList = new Array();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "var w_timerVariableArray = new Array();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "var jsonrpc = null;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "var w_lastMessage = '';\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "var w_reportGenerated = false;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function afterSubmit() \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tvar w_selected = false;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tfor (var i=0 ; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i<document.ReportRegeneration.elements.length ; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i++)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tif(document.ReportRegeneration.elements[i].type == \"checkbox\" &&\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\tdocument.ReportRegeneration.elements[i].name == \"checkItem\")\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\tif(document.ReportRegeneration.elements[i].checked)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\tw_selected = true;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tif (w_selected)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tshowButtons('preRegenerate');\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tregenerateComponent();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\telse\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\talert('Please select atleast one Item.');\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tshowButtons('postRegenerate');\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function regenerateComponent()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\ttry\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tdocument.getElementById(\"regenerationDiv\").style.display = \"\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tdocument.getElementById(\"regenerationTD\").style.overflow = \"auto\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tdocument.getElementById(\"regenerationTD\").style.height = \"250px\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tdocument.getElementById(\"regenerationTD\").innerHTML = \"\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tupdateRegenerationDivs();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tcatch(e)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\talert('Exception '+e.description);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function showButtons(a_action) \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tif(a_action=='preRegenerate') {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tdocument.getElementById(\"button1\").style.display = \"none\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tdocument.getElementById(\"button2\").style.display = \"none\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tdocument.getElementById(\"button3\").style.display = \"\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t} else {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tdocument.getElementById(\"button1\").style.display = \"\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tdocument.getElementById(\"button2\").style.display = \"\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tdocument.getElementById(\"button3\").style.display = \"none\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function checkUnCheckAllPreserveItems()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    var w_checked = document.getElementById(\"preservedata\").checked;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    var w_preserveCheckItems = document.getElementsByTagName(\"input\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    if (w_preserveCheckItems != undefined && w_preserveCheckItems != null)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        for (var i=0; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i<w_preserveCheckItems.length; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i++)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            if (w_preserveCheckItems[i].type=='checkbox' && w_preserveCheckItems[i].name.indexOf(\"preservedata_\") != -1)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                w_preserveCheckItems[i].checked = w_checked;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function onCheckUnCheckPreserve()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    var w_allChecked = true;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    var w_preserveCheckItems = document.getElementsByTagName(\"input\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    if (w_preserveCheckItems != undefined && w_preserveCheckItems != null)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        for (var i=0; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i<w_preserveCheckItems.length; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i++)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            if (w_preserveCheckItems[i].type=='checkbox' && w_preserveCheckItems[i].name.indexOf(\"preservedata_\") != -1)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                w_allChecked = w_allChecked && w_preserveCheckItems[i].checked;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    document.getElementById(\"preservedata\").checked = w_allChecked;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function cancelRegeneration()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\talert('Hi');\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function updateRegenerationDivs()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\ttry\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tsetSegmentListDivContents(false);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tupdateRegenerationDiv();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tcatch(e)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\talert('Exception '+e.description);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function setSegmentListDivContents(a_enable)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tvar w_inputElements = document.getElementsByTagName(\"input\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tfor (i=0; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i < w_inputElements.length; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i++)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\tif (w_inputElements[i].type == 'checkbox')\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\tw_inputElements[i].disabled = !a_enable;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function updateRegenerationDiv()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tvar w_innerHTMLLength = document.getElementById(\"regenerationTD\").innerHTML.length;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tif (w_innerHTMLLength >= 4000)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t for (var i=0; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i<w_timerVariable.length; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i++)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\tclearTimeout(w_timerVariable[i]);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t document.getElementById(\"regenerationTD\").style.overflow = \"auto\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t document.getElementById(\"regenerationTD\").style.height = \"50px\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t document.getElementById(\"regenerationTD\").innerHTML = \"<table width='100%'><tr><td class='ValueLeftWrap'>\"+w_lastMessage+\"</td></tr></table>\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t resetRegenerationVariables();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t showButtons('postRegenerate');\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t setSegmentListDivContents(true);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t return;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tw_timerVariable = setTimeout(function(){\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tvar w_innerHTMLLength = document.getElementById(\"regenerationTD\").innerHTML.length;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t//jsonrpc.JSONHelper.logData(\"test\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t/*if (window.XMLHttpRequest) \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\treq_change = new XMLHttpRequest();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\telse if (window.ActiveXObject)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\treq_change = new ActiveXObject(\"Microsoft.XMLHTTP\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\treq_change.open(\"GET\", \"path_to_some_dummy_jsp_on_server\",true);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\treq_change.onreadystatechange = onComplete;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\treq_change.setRequestHeader(\"Content-Type\", \"application/x-www-form-urlencoded\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\treq_change.send(\"\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "\t\tfunction onComplete()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t  ;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t*/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tif (w_innerHTMLLength >= 4000)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\treturn;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tw_completeMessage = \"<tr><td class='ValueLeftWrap'>aaa</td></tr>\" +  w_completeMessage;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tdocument.getElementById(\"regenerationTD\").innerHTML = \"<table width='100%'>\"+w_completeMessage+\"</table>\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tupdateRegenerationDiv();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t}, w_timerDuration);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tw_timerVariableArray[w_timerVariableArray.length] = w_timerVariable;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function resetRegenerationVariables()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tw_completeMessage = \"\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tw_tempMessage = \"Start\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tw_previousMessage = \"\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tw_timerVariable = \"\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tw_runid = '0';\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tw_timerVariableArray = new Array();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tw_lastMessage = '';\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function CloseWindow()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tif (w_reportGenerated)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    \twindow.opener.location.reload();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    window.close();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "function pageResize()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tdocument.getElementById(\"List\").style.height = getFrameDimension('height') -  xHeight(\"bottomBtn\")-xHeight(\"headerTab\")-10 + \"px\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    document.getElementById(\"List\").style.width = getFrameDimension('width') -5 + \"px\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "</script>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "</head>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<body >\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<form name=\"ReportRegeneration\" method=\"post\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        \t<div id = \"headerTab\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t<table width=\"100%\" class=\"PopHeader\" >\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  \t\t\t\t\t<tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     \t\t\t\t\t<td class=\"PopHeading\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t\t\t<!--  Regenerate Report Segments-->\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t\t\t\tRegenerate Report Sections\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     \t\t\t\t\t</td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   \t\t\t\t\t</tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t</table>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t</div>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t<div  id=\"List\" name = 'List' class=\"ListDiv\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t     <table  class=\"list\" width=\"100%\" border=\"0px\" cellpadding=\"0px\" cellspacing=\"0\" >\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         <TBODY>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         <tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         <td colspan=\"4\" id=\"regenerationDiv\" name=\"regenerationDiv\" style='display:none'>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         <table width=\"100%\" height=\"100%\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         <tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         <td class=\"ColHeader\">Re-Generation Updates</td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         </tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         <tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         <td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         <div id=\"regenerationTD\" name=\"regenerationTD\" valign=\"top\" style=\"overflow:auto;height :250px\" >&nbsp;</div>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t</td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t</tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t</table>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         </td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         </tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                  <tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t<td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t<div id=\"segmentListDiv\" name = \"segmentListDiv\" >\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t<table class=\"list\" width=\"100%\" border=\"0px\"cellpadding=\"0px\" cellspacing=\"0\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        <tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            \t<td class=\"ColHeader\" colspan=\"4\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t \t\t<input type=\"CheckBox\" name=\"eMail\" id=checkB value=\"eMail\" >&nbsp;&nbsp;Send Completion Status By Email\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                </td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         \t</tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         \t<TR>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t<TD class=ColHeader rowspan=\"2\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t<INPUT id=\"0\" title=\"Select All\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t \ttype=\"checkbox\" value=\"checkbox\" name=\"checkAll\" >\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t </TD>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t<TD class=\"ColHeader\" rowspan=\"2\">&nbsp;</TD>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t<TD class=\"ColHeaderLink\" rowspan=\"2\">Section Name</TD>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            <td class=\"ColHeader\">Preserve non-calculated column data</td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t</TR>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            <tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            <td class=\"ColSubheader\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            <input type=\"checkbox\" name=\"preservedata\" id=\"preservedata\" checked />\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            </td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            </tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t   \t\t\t<script>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t   \t\t\tw_segmentList[w_segmentList.length] = \"20010840\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t   \t\t\t</script>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t\t\t  \t<TR id='id20010840' >\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t\t\t       <TD class=RowIndexRight>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t\t\t       <INPUT type=checkbox value=\"20010840\" name=\"checkItem\" id=\"checkItemId_20010840\" checked\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t\t\t       \t\t>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t\t\t       \t</TD>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t\t\t       <TD class=RowIndexRight>1</TD>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t\t\t        <TD class=ValueLeft> METRIC </TD>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                                <td class=\"ValueCenter\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                                    <input type=\"checkbox\" id=\"preservedata_20010840\" name=\"preservedata_20010840\" value=\"Y\" checked />\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                                </td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t\t\t\t</TR>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                    <!-- field span-->\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            </table>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            </div>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t</td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t</tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            </TBODY>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        </table>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        </div>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t<div id=\"bottomBtn\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        <table width=\"100%\" cellpadding=\"0\" align=\"center\" cellspacing=\"0\" border=\"0\" >\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t   <tr align=\"center\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t  <td class=\"ButtonDarkBg\" height=\"22\" width=\"63%\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t\t<table>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t        \t\t<tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\t   \t \t\t<td class=\"ButtonSpacing\" id=\"button1\" name=\"button1\"><input type=\"Button\" id=\"RegenerateButton\" name=\"Regenerate\" class=\"ActionButton\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t          \t\t\t\tonclick=\"afterSubmit();\" \" value=\"Regenerate\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t          \t\t\t</td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t          \t\t\t<td class=\"ButtonSpacing\" id=\"button2\" name=\"button2\"><input type=\"Button\" id=\"CancelButton\" name=\"Cancel\" class=\"ActionButton\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          \t\t\t\t\tonclick=\"javascript:CloseWindow();\" value=\"Cancel\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          \t\t\t\t</td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          \t\t\t\t<td class=\"ButtonSpacing\" style=\"display:none\" id=\"button3\" name=\"button3\"><input type=\"Button\" id=\"CancelRegenerateButton\" name=\"CancelRegenerate\" class=\"ActionButton\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t          \t\t\t\tonClick=\"cancelRegeneration();\" value=\"Cancel Re-Generation\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t          \t\t\t</td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t          \t\t</tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t          \t</table>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t         </td>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t  \t\t</tr>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t</table>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t</div>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "</form>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "</body>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "</html>\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-23 00:07:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 584020 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Modified Test HTML file to help reproducing issue\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-23 00:12:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Mats, i have updated html with code changes(new file test_modified.html); ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "additional changes which you need to do from your side are:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1:remove commented code from line no 149 to line no 166\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2:replace path_to_some_dummy_jsp_on_server with valid path on  server \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "3:import required js files from server to get xmlhttp working without any js errors. Also i added some code in comment 19 but not able to delete it; if possible please delete it .\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Let me know if you are able to reproduce this locally & when we can get fix for same.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-23 03:42:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 584033 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Last test with the suggested updates\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 1:remove commented code from line no 149 to line no 166\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ok, I uncommented those lines\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 2:replace path_to_some_dummy_jsp_on_server with valid path on  server \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I changed it to \"https://bugzilla.mozilla.org/show_bug.cgi?id=709746\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 3:import required js files from server to get xmlhttp working without any js > errors.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't understand. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " There's nothing special needed to use XMLHttpRequest in Firefox.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can't reproduce the problem. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I also tried Chrome which has the same behavior for this test.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Can you reproduce the problem with this file?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-23 06:50:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mats, sorry mistake from my side; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "you need to set 3rd parameter(async) to false ; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i tried this code in jsp deployed on server, works perfectly; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "where as plain html file with same code works properly in IE since IE allows script execution but where as firefox gives js error; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "request you to try in some jsp deployed locally.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-23 09:56:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> where as firefox gives js error\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please copy-paste the error text from the Error Console into a comment here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I suspect it's the req_change.send(\"\") that fails due to \"Cross-site HTTP request\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://developer.mozilla.org/En/HTTP_access_control\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "What happens if wrap the send() in a try-catch block?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-25 20:13:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Mats, try catch block logic worked but now issue is not getting reproduced, reason i think is we are not sending request ie it is getting catched in catch block; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Error in  firefox without try/catch:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Error: uncaught exception: [Exception... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"Component returned failure code: 0x80004005 (NS_ERROR_FAILURE)\"  nsresult: \"0x80004005 (NS_ERROR_FAILURE)\"  location: \"JS frame :: file:///C:/desktop/test_modified.html :: <TOP_LEVEL> :: line 161\"  data: no]\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-26 01:26:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yeah, I guess you need to load the test from the server to avoid that.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Anyway, which version of the jsonrpc package do you use?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I found some source here: http://oss.metaparadigm.com/jsonrpc-dist/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "but I can't find the strings 'JSONHelper' or 'logData' in it -- does that come from somewhere else? ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Can you provide the source for JSONHelper.logData?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-26 01:45:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Mats, issue is reproducible with xmlhttp ;just rename same html file to jsp & deploy it on server & try to access it issue gets reproduced.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "JSONHelper is custom developed java class & logData is API inside that class; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "having just logger statement.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-26 03:49:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to amey from comment #27)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Mats, issue is reproducible with xmlhttp ;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Please attach the file you used in case anyone else\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "wants to try to reproduce the problem.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> just rename same html file to jsp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't see why that would that matter when the test is plain HTML + JavaScript?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Does the jsp server inject stuff into the test file before sending it?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It would help a lot if you can make a test that demonstrates the problem when served as text/html.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> & deploy it on server & try to access it issue gets reproduced.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm not going to set up a jsp server to test this. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The chance that I would get the exact same environment as yours is slim.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> JSONHelper is custom developed java class & logData is API inside that class;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please disable all Java plugins in Firefox and restart (just to make sure Java isn't part of the problem). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Does the problem still occur?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please capture a HTTP log from Firefox while reproducing the problem, see:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://developer.mozilla.org/en/HTTP_Logging\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "then attach the log file to this bug.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-28 04:54:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mats,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i have exposed my application URL & sample test URL over internet.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Following are details:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://61.12.28.75/digite/Request?Key=login\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Login Id/Password = amey/11111\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Post login, one screen will appear; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "on this screen filter on Type = ECR & click on Go; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It will list one row; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Click on ECR1; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It will open new screen ; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On that screen you will see one icon with refresh button image (blue colored;tooltip as Re-Generate; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "last in panel) click on that; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It will open one popup with Regenerate & Cancel buttons; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "click on Regenerate & after that click on Cancel Re-Generation button; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "on cancel button click it should open confirmation box saying \"Are you sure, you want to Cancel this?\" This confirmation box consistently appears in chrome/safari where as in firefox it fails to open;\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You can check view source to verify onclick/js functions etc. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "or even check with Firebug.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have deployed simple test jsp with xmlhttp in following path; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " http://61.12.28.75/digite/cobrand/test_modified.jsp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Click on Generate & after that keep clicking on Cancel-Regenerate; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "you will observe that 'Hi' is not alerted for some clicks; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "it behaves randomly.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Let me know if you need anything else from my side.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-28 15:47:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to amey from comment #29)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://61.12.28.75/digite/Request?Key=login\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Login Id/Password = amey/11111\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It says \"The Login Id or the Password is not valid.\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I have deployed simple test jsp with xmlhttp in following path; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " > http://61.12.28.75/digite/cobrand/test_modified.jsp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This works, and I can reproduce the problem. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Thanks!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-28 16:06:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So we're spinning a nested event loop for sync XHR here:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/mozilla-central/annotate/010fe7e7df1a/content/base/src/nsXMLHttpRequest.cpp#l2649\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "and while we do that we suppress events for the document, except that the pres shell saves some events for delayed execution (only MOUSE_UP?):\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/mozilla-central/annotate/010fe7e7df1a/layout/base/nsPresShell.cpp#l5977\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fwiw, if I change that block to unconditionally store both DOWN and UP events, and do it on \"frame->PresContext()->PresShell()\" rather than \"this\" then the sync XHR test[1] works reasonably well.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[1] http://61.12.28.75/digite/cobrand/test_modified.jsp\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-28 19:26:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sorry, my mistake; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "password is 111111\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Mats Palmgren [:mats] from comment #30)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (In reply to amey from comment #29)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > http://61.12.28.75/digite/Request?Key=login\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Login Id/Password = amey/11111\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> It says \"The Login Id or the Password is not valid.\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > I have deployed simple test jsp with xmlhttp in following path; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " > > http://61.12.28.75/digite/cobrand/test_modified.jsp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> This works, and I can reproduce the problem. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Thanks!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-28 19:29:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So FF have accepted this as bug? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When can i expect fix for same? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Will this fix work for jsonrpc(JSONRPCBridge-com.metaparadigm.jsonrpc.JSONRPCBridge) as well?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Mats Palmgren [:mats] from comment #31)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> So we're spinning a nested event loop for sync XHR here:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://hg.mozilla.org/mozilla-central/annotate/010fe7e7df1a/content/base/src/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> nsXMLHttpRequest.cpp#l2649\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> and while we do that we suppress events for the document, except that > the pres shell saves some events for delayed execution (only MOUSE_UP?):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://hg.mozilla.org/mozilla-central/annotate/010fe7e7df1a/layout/base/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> nsPresShell.cpp#l5977\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Fwiw, if I change that block to unconditionally store both DOWN and UP > events,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> and do it on \"frame->PresContext()->PresShell()\" rather than \"this\" then > the sync XHR test[1] works reasonably well.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> [1] http://61.12.28.75/digite/cobrand/test_modified.jsp\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2011-12-29 13:20:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Sorry, my mistake; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "password is 111111\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ok, I was able to login and follow your directions. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " It's using sync XHR as the underlying mechanism, and with my hack described above the Cancel button seems to work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (You can remove access to this application now if you want, but please keep the \"test_modified.jsp\" example open if you can.)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to amey from comment #33)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> So FF have accepted this as bug?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think it's a bug in Firefox, yes.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> When can i expect fix for same?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Too early to say at this time.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Will this fix work for\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> jsonrpc(JSONRPCBridge-com.metaparadigm.jsonrpc.JSONRPCBridge)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> as well?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It should, yes.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-29 13:31:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Delaying mouse/key events was added to fix bug 493251:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/mozilla-central/rev/3934f51e350f\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "which indeed appears to be related to sync XHR per bug 493251 comment 2.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(EventHandlingSuppressed() and delayed events existed even before then but only for focus/blur/activate events, AFAICT)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-29 13:37:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Olli, bug 493251 comment 7 says the behavior is intentional - did something break if you delayed \"new\" mouse/key events too? ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " bug 493251 comment 8 says Opera and Webkit does that, so why can't we?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2011-12-29 14:09:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Mats Palmgren [:mats] from comment #36)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Olli, bug 493251 comment 7 says the behavior is intentional - did something > break\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> if you delayed \"new\" mouse/key events too?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "IIRC it was just safer to not do that.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  bug 493251 comment 8 says Opera\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> and\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Webkit does that, so why can't we?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In Opera and Webkit the ordering of key events is (or was?) very wrong when typing while sync XHR is active. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I tried to not recreate that bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't recall now if the same problem happened with mouse events.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Olli Pettay [:smaug]", 
+            "email": "Olli Pettay [:smaug]"
+        }, 
+        {
+            "date": "2011-12-30 00:26:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mats, thanks for confirming everything; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "your hack is working on both test jsp(xmlhttp) as well as actual application(jsonrpc) ie fix is ready then why can't you confirm when we can expect the fix?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "PS: i am keeping application access as well as test_modified.jsp access open; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "in case if it is required in future.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Mats Palmgren [:mats] from comment #34)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Sorry, my mistake; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "password is 111111\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Ok, I was able to login and follow your directions. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " It's using sync XHR as > the underlying mechanism, and with my hack described above the Cancel button > seems to work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (You can remove access to this application now if you want, > but please keep the \"test_modified.jsp\" example open if you can.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (In reply to amey from comment #33)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > So FF have accepted this as bug?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I think it's a bug in Firefox, yes.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > When can i expect fix for same?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Too early to say at this time.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Will this fix work for\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > jsonrpc(JSONRPCBridge-com.metaparadigm.jsonrpc.JSONRPCBridge)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > as well?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> It should, yes.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2012-01-04 01:26:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Mats, can you confirm in which FF release this issue will get fixed? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "as confirmed  in reply 34; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "you have already mentioned fix is working for both xmlhttp & jsonrpc.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to amey from comment #38)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Mats, thanks for confirming everything; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "your hack is working on both test > jsp(xmlhttp) as well as actual application(jsonrpc) ie fix is ready then why > can't you confirm when we can expect the fix?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> PS: i am keeping application access as well as test_modified.jsp access > open; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "in case if it is required in future.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (In reply to Mats Palmgren [:mats] from comment #34)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > Sorry, my mistake; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "password is 111111\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Ok, I was able to login and follow your directions. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " It's using sync XHR as > > the underlying mechanism, and with my hack described above the Cancel button > > seems to work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (You can remove access to this application now if you want, > > but please keep the \"test_modified.jsp\" example open if you can.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > (In reply to amey from comment #33)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > So FF have accepted this as bug?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > I think it's a bug in Firefox, yes.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > When can i expect fix for same?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Too early to say at this time.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > Will this fix work for\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > jsonrpc(JSONRPCBridge-com.metaparadigm.jsonrpc.JSONRPCBridge)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > > as well?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > It should, yes.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2012-01-04 13:38:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 585870 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "wip\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This delays all mouse/key events when event handling is suppressed.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It seems to fix the reported problem. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " It passed regression tests, with the adjustments to test_bug493251.html (that is, no event is to be dropped)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've tested this briefly in on Linux and I saw no problems.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not tested on Windows / OSX.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TODO:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* are there other situations where EventHandlingSuppressed()   is true, other than sync XHR?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* test other platforms and other UAs\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2012-01-08 22:13:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Mats, please confirm when is this bug getting fixed?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2012-01-10 23:11:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Mats, i have my customers waiting for same since this functionality is breaking in firefox, at least confirm me when will this get fixed.Fix is ready from 29-11-2011 then why can't you simply confirm in which release this is getting fixed?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2012-01-10 23:42:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sorry, amey, there's not enough information available at this point to offer a reasonable guess. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mats is working on a complete, correct fix. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Once that is finished, it will be reviewed by another developer, and if it is perfect, it will be committed. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If that happens before the end of the month, the fix will be available in Firefox 12. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I suspect it is unlikely that it will be backported to any earlier version.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Josh Matthews [:jdm]", 
+            "email": "Josh Matthews [:jdm]"
+        }, 
+        {
+            "date": "2012-01-11 01:12:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks Josh for update; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "so this will get fixed in Firefox12, which is getting released by this month end or definitely in Firefox13.Till what time can you confirm this will get fixed in Firefox12 or not? ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "also can you tell me when Firefox13 is getting released? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Firefox hardly releases any patches in major versions but lets say fix is in 2-3 files then can it be patched in earlier versions? ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Josh Matthews [:jdm] from comment #43)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Sorry, amey, there's not enough information available at this point to offer > a reasonable guess. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mats is working on a complete, correct fix. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Once that is > finished, it will be reviewed by another developer, and if it is perfect, it > will be committed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If that happens before the end of the month, the fix will > be available in Firefox 12. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I suspect it is unlikely that it will be > backported to any earlier version.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2012-01-11 01:28:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If there is a patch ready before the end of this month, this will be in FF12, which will be released 12 weeks after end of January (FF12 will be first 6 weeks in Aurora and then in Beta).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Note, this is about using sync XHR in window context which is really bad for user experience. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So if  just possible, try to change the code to use async XHR.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Olli Pettay [:smaug]", 
+            "email": "Olli Pettay [:smaug]"
+        }, 
+        {
+            "date": "2012-01-11 01:30:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And this kind of change is highly regression risky, so backporting to FF10 or FF11 is unlikely.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Olli Pettay [:smaug]", 
+            "email": "Olli Pettay [:smaug]"
+        }, 
+        {
+            "date": "2012-01-11 02:55:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks Olli, in case this is getting fixed in FF12 please post reply over here.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Olli Pettay [:smaug] from comment #46)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> And this kind of change is highly regression risky, so backporting to FF10 > or FF11 is unlikely.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2012-02-13 06:27:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Olli/Mats any update for me? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "we are in 2nd week of feb, expecting something positive; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "but \"Assigned To:Nobody; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "OK to take it and work on it\" worries me, still it is not assigned to somebody?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to amey from comment #47)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Thanks Olli, in case this is getting fixed in FF12 please post reply over > here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (In reply to Olli Pettay [:smaug] from comment #46)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > And this kind of change is highly regression risky, so backporting to FF10 > > or FF11 is unlikely.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2012-02-13 06:39:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This won't be in FF12.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm way too busy with other things right now to fix this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't know whether Mats' patch works. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If it does, I'd be happy to review it :)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(In general, I would strongly suggest not using sync XHR in window context.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It is bad for user experience.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Olli Pettay [:smaug]", 
+            "email": "Olli Pettay [:smaug]"
+        }, 
+        {
+            "date": "2012-02-13 07:31:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm also busy on higher priority stuff right now. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  The patch was just a first cut at what might work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I think it still needs some investigation, the Selection impact for example. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It's a high risk change. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Still, the patch does simplify the existing code for delaying events slightly so it might worth doing. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It needs a lot more testing, and also investigate what other UAs are doing. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I'll probably not get to this bug until FF14 cycle at the earliest.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }, 
+        {
+            "date": "2012-02-13 22:47:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mats/Olli, i understand you guys are busy/overloaded; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "case with almost everybody  not just you guys only;i thought it will come either in FF12 or definitely in FF13; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "now it is getting further delayed by one more release cycle.Please confirm one fixed release in which it will get fixed or prior to that it will get fixed.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Olli, i am using JSONRPC not xmlhttp; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "xmlhttp sync was just one sample which i shared to reproduce this issue; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mats have already confirmed fix will work on sync xmlhttp as well as JSONRPC ; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "changing from JSONRPC to xmlhttp is very big re factoring for me.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Mats Palmgren [:mats] from comment #50)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I'm also busy on higher priority stuff right now. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  The patch was just a > first\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> cut at what might work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I think it still needs some investigation, the > Selection\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> impact for example. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It's a high risk change. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Still, the patch does > simplify the\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> existing code for delaying events slightly so it might worth doing. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It > needs a lot\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> more testing, and also investigate what other UAs are doing. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I'll probably > not\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> get to this bug until FF14 cycle at the earliest.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2012-02-15 22:45:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Mats/Olli, please confirm me one fixed release in which this will get fixed or prior to that; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i have to communicate same to my customers.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2012-02-16 07:21:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The release process doesn't work that way. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Releases aren't bound to features but dates.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When this gets a reviewed patch, the patch lands to mozilla-central (Nightly).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Every 6 weeks there is uplift to Aurora and from Aurora there is uplift to Beta every 6 weeks, and releases happen from Beta every 6 weeks.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So it takes 12-18 weeks after the patch has landed before the fix is in a release build.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Btw, I'm pretty sure your JSONRPC uses sync XHR, since this bug is all about  sync XHR.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Olli Pettay [:smaug]", 
+            "email": "Olli Pettay [:smaug]"
+        }, 
+        {
+            "date": "2012-02-16 22:21:39", 
+            "sentences": [], 
+            "name": "amey", 
+            "email": "amey"
+        }, 
+        {
+            "date": "2012-02-23 17:33:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"8.4% of all hangs in IE9 in the past month are caused by XMLHttpRequest objects blocking the UI thread with a synchronous request. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thats a huge number!\" http://blogs.msdn.com/b/wer/archive/2011/08/03/why-you-should-use-xmlhttprequest-asynchronously.aspx\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Wow.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mats Palmgren [:mats]", 
+            "email": "Mats Palmgren [:mats]"
+        }
+    ], 
+    "id": "709746", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=709746"
+}

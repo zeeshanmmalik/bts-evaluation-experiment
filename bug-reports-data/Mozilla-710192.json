@@ -1,0 +1,418 @@
+{
+    "contributors": [
+        [
+            "Mihaela Velimiroviciu [QA]", 
+            "lexrank"
+        ], 
+        [
+            "Paul Silaghi [QA]", 
+            "email"
+        ], 
+        [
+            "Tom Schuster [:evilpie]", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Assertion failure: !isIndex(&dummy), at vm/String.h:854", 
+    "comments": [
+        {
+            "date": "2011-12-13 05:48:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following test asserts on mozilla-central revision 63bff373cb94 (options -m -n -a):\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function f(a, b, c) {\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    arguments[('4294967295')] = 2;\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "assertEq(f(1), \"1234\");\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Christian Holler (:decoder)", 
+            "email": "Christian Holler (:decoder)"
+        }, 
+        {
+            "date": "2011-12-13 10:16:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 581317 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch and test\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No real complexity, just undoing a hunk of the patch where I made the inverse of this change...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This sort of thing is exactly why I'm propagating PropertyName-ness from the tokenizer up through the parser and into the bytecode format. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It's too easy to get it wrong when you have a PropertyName and when you have an index.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jeff Walden (:Waldo) (remove +bmo to email)", 
+            "email": "Jeff Walden (:Waldo) (remove +bmo to email)"
+        }, 
+        {
+            "date": "2011-12-13 10:46:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 581317 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch and test\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 581317 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "SetName was confusing at first, but it all makes sense now \\o/. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think if this function was called SetPropCached or something, the bug would have been more obvious. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "To fix this for PropertyName we need to consider that we can't easily put the whole uint32_t range into bytecode.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Tom Schuster [:evilpie]", 
+            "email": "Tom Schuster [:evilpie]"
+        }, 
+        {
+            "date": "2011-12-15 13:59:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/2901886245e3\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jeff Walden (:Waldo) (remove +bmo to email)", 
+            "email": "Jeff Walden (:Waldo) (remove +bmo to email)"
+        }, 
+        {
+            "date": "2011-12-15 15:12:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 581317 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch and test\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't remember whether anyone specifies ops such that this will go wrong in branches, but if they do, this could turn kind of ugly -- crash, mis-cast, and so on. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " We should take this on branches.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jeff Walden (:Waldo) (remove +bmo to email)", 
+            "email": "Jeff Walden (:Waldo) (remove +bmo to email)"
+        }, 
+        {
+            "date": "2011-12-16 06:12:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/2901886245e3\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ed Morley [:edmorley]", 
+            "email": "Ed Morley [:edmorley]"
+        }, 
+        {
+            "date": "2011-12-16 12:57:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 581317 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch and test\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Triage Comment]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Approved for Aurora. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please land on Monday 12/19 or earlier in order to make the cut-over to Beta.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alex Keybl [:akeybl]", 
+            "email": "Alex Keybl [:akeybl]"
+        }, 
+        {
+            "date": "2011-12-16 13:11:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/releases/mozilla-aurora/rev/5ff54f9f7888\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jeff Walden (:Waldo) (remove +bmo to email)", 
+            "email": "Jeff Walden (:Waldo) (remove +bmo to email)"
+        }, 
+        {
+            "date": "2012-01-10 06:32:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Could you please tell me how to test this?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Paul Silaghi [QA]", 
+            "email": "Paul Silaghi [QA]"
+        }, 
+        {
+            "date": "2012-01-10 07:38:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Paul Silaghi [QA] from comment #8)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Could you please tell me how to test this?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You will need to have a build set up with a JS Shell and run the test in the attached patch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you are unsure and want to learn, please ping one of the QA people on IRC.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Anthony Hughes, Mozilla QA (irc: ashughes)", 
+            "email": "Anthony Hughes, Mozilla QA (irc: ashughes)"
+        }, 
+        {
+            "date": "2012-01-26 05:34:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Considering comment #1, the patch comes with a test. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Wasn't that test automatically run when the build was created? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If it was, isn't that enough to verify the fix?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thank you!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mihaela Velimiroviciu [QA]", 
+            "email": "Mihaela Velimiroviciu [QA]"
+        }, 
+        {
+            "date": "2012-01-30 00:53:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mac OS X 10.6, Ubuntu 11.04, autoconf v2.13\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I got the beta source with the latest revision (mozilla-beta-eba00d400eb1) and built the js debug shell. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " After running the testcase from the patch (setprop-with-index.js) no error messages appeared, but the testcase from comment #0 returned \"Error: Assertion failed: got (void 0), expected \"1234\"\"\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is this expected?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This will still need verification for Windows platform.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mihaela Velimiroviciu [QA]", 
+            "email": "Mihaela Velimiroviciu [QA]"
+        }, 
+        {
+            "date": "2012-01-30 01:28:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The assertEq in the testcase from comment 0 is a red herring, and proper behavior would be to get that particular assertion-failed message. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " The buggy behavior originally reported was that that code was hitting a JS assertion in the engine itself, not in the test.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Honestly, I don't think it's worth spending time manually verifying bugs discovered by fuzzers if the patch that landed includes a testcase. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I'm willing to assume reviewers will make sure the test in the patch is an adequate substitute for the test in the bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " And a test in a patch, which will be run automatically upon each commit, is a much better way to check for absence of failure than a laborious manual test.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Jeff Walden (:Waldo) (remove +bmo to email)", 
+            "email": "Jeff Walden (:Waldo) (remove +bmo to email)"
+        }
+    ], 
+    "id": "710192", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=710192"
+}

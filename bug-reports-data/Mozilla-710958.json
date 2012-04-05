@@ -1,0 +1,297 @@
+{
+    "contributors": [
+        [
+            "Nicholas Nethercote [:njn]", 
+            "lexrank"
+        ], 
+        [
+            "Marco Bonardo [:mak]", 
+            "email"
+        ]
+    ], 
+    "title": "Remove gfx{Glitz,DirectFB,QuartzPDF}Surface", 
+    "comments": [
+        {
+            "date": "2011-12-14 20:43:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gfx{Glitz,PS,QuartzPDF}Surface are never used, AFAICT. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " And gfxDirectFBSurface is only used if MOZ_DMD=1; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " this can happen in configure.in, but roc says it doesn't work.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Nicholas Nethercote [:njn]", 
+            "email": "Nicholas Nethercote [:njn]"
+        }, 
+        {
+            "date": "2011-12-14 20:55:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Stuart informs me that gfxPSSurface is still used by some printing code.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Nicholas Nethercote [:njn]", 
+            "email": "Nicholas Nethercote [:njn]"
+        }, 
+        {
+            "date": "2011-12-14 23:54:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I started doing this. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I obviously need to remove the Glitz/DirectFB/QuartzPDF surface stuff in gfx/thebes/. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Should I remove all traces of Glitz/DirectFB stuff in gfx/cairo/ as well?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nicholas Nethercote [:njn]", 
+            "email": "Nicholas Nethercote [:njn]"
+        }, 
+        {
+            "date": "2011-12-15 00:42:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You should make sure it's not built. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But cairo is an upstream project so we should avoid making unnecessary changes like removing things we don't use.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Robert O'Callahan (:roc) (Mozilla Corporation)", 
+            "email": "Robert O'Callahan (:roc) (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2011-12-18 18:48:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 582730 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The patch removes the relevant files plus all mentions of MOZ_DFB, and everything that looks related. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It looks good on the try server.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I confirmed that cairo-glitz-surface.c and cairo-directfb-surface.c aren't\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "being compiled on debug linux64 builds.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There's a comment remaining in widget/src/gtk2/nsWindow.cpp that mentions DirectFB (\"Disable the double buffer...\"), not sure what to do with that.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here are the diffstats:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/config/autoconf.mk.in                  |    1 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/config/system-headers                  |    5 -\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/configure.in                           |   24 -----\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/dom/plugins/ipc/PluginModuleChild.cpp  |    3 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/gfx/thebes/Makefile.in                 |   13 --\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/gfx/thebes/gfxASurface.cpp             |   13 --\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/gfx/thebes/gfxASurface.h               |    4 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/gfx/thebes/gfxGdkNativeRenderer.cpp    |   53 -----------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/gfx/thebes/gfxPlatformGtk.cpp          |   15 ---\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/js/src/config/system-headers           |    5 -\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/widget/src/gtk2/nsBidiKeyboard.cpp     |    3 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/widget/src/gtk2/nsScreenManagerGtk.cpp |   21 ----\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/widget/src/gtk2/nsWindow.cpp           |  126 --------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b/widget/src/gtk2/nsWindow.h             |   12 --\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gfx/thebes/cairo-gdk-utils.c             |  107 ----------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gfx/thebes/cairo-gdk-utils.h             |  119 -------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gfx/thebes/gfxDirectFBSurface.cpp        |  147 -------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gfx/thebes/gfxDirectFBSurface.h          |   69 --------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gfx/thebes/gfxGlitzSurface.h             |   73 ---------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gfx/thebes/gfxQuartzPDFSurface.cpp       |   93 -------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gfx/thebes/gfxQuartzPDFSurface.h         |   74 ---------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 21 files changed, 4 insertions(+), 976 deletions(-)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nicholas Nethercote [:njn]", 
+            "email": "Nicholas Nethercote [:njn]"
+        }, 
+        {
+            "date": "2012-01-03 16:17:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/9ca7f53b9775\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nicholas Nethercote [:njn]", 
+            "email": "Nicholas Nethercote [:njn]"
+        }, 
+        {
+            "date": "2012-01-04 04:49:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/9ca7f53b9775\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marco Bonardo [:mak]", 
+            "email": "Marco Bonardo [:mak]"
+        }
+    ], 
+    "id": "710958", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=710958"
+}

@@ -1,0 +1,535 @@
+{
+    "contributors": [
+        [
+            "Byron Jones :glob (On leave until 5th Apr)", 
+            "lexrank"
+        ], 
+        [
+            "Mark Goodwin [:mgoodwin]", 
+            "email"
+        ], 
+        [
+            "Michael Coates [:mcoates]", 
+            "lexrank"
+        ]
+    ], 
+    "title": "security review - bugzilla.mozilla.org / arecibo integration", 
+    "comments": [
+        {
+            "date": "2011-11-09 22:35:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> A quick intro to what this app does.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "this is a modification to bugzilla.mozilla.org to use arecibo for logging most errors generated.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "currently errors are either logged to apache's error_log, or not logged at all. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " the goals are to get better error coverage, and to trigger notifications when some classes of error are triggered, and to move the stacktrace from a user-visible error to an admin-only one.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Where is the source code located?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "base: http://bzr.mozilla.org/bmo/4.0/files\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch: on bug 698345\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "arecibo: https://github.com/andymckay/arecibo\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Is there a stage server running that we can also test against?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> If so, please indicate what machine the web server is running on.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://bugzilla-stage-tip.mozilla.org/ (dm-bugstage03)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "it's reporting errors to http://amckay-arecibo.khan.mozilla.org/list/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Where would you like the bugs filed in bugzilla? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "product: bugzilla.mozilla.org\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "component: general\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Will this application be collecting any personally identifiable information > from users (email address, physical address, phone number, etc)?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "their ip address, user-agent and bmo login will be logged.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Please describe if this app will be connecting to any internal or external > services or if it is able to interact with the OS.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bugzilla-stage-tip.m.o currently connects to amckay-arecibo.khan.m.o, however this may change to arecibo-phx.m.o\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "bugzilla-stage.m.o and production (bugzilla.m.o) will be connecting to a dedicated arecibo instance.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "note: development and stage-tip run on sanitized copies of the bmo database.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "stage and production run on unsanitized copies.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "i have requested a new instance of arecibo be built in bug 700683, with access restricted to match bugzilla-stage.m.o.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Does this app support logins or multiple roles?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> If so, we'll need test accounts created for each available role.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "yes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " if you don't already have accounts on bugzilla-stage-tip from other reviews, you can create your own accounts. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " as email is disabled on bugzilla-stage-tip, you may have to ask any bmo admin to breathe life into them.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> What is the worst case scenario that could happen with this system, data or connected systems?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "the logged information includes a stack trace which includes function parameters, and these parameters may contain confidential information. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " worst case is for an error containing the full stack trace to be displayed to an unprivileged user when one of the parameters contain privileged information, or for the arecibo server to be compromised for the same reason.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Does this website contain an administration page?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "the only configurable option is the url of the arecibo server to post to. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " this is added to bugzilla's existing administration page.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> This review will be scheduled amongst other requested reviews.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> What is the urgency or needed completion date of this review?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "normal urgency.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Byron Jones :glob (On leave until 5th Apr)", 
+            "email": "Byron Jones :glob (On leave until 5th Apr)"
+        }, 
+        {
+            "date": "2011-11-11 08:01:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "in bug 700683 comment 5 cshields has indicated his preference to use an existing arecibo instance due to the overheads per-use instances of arecibo would impose.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "as i have no strong preference either way, i would appreciate feedback regarding the suitable of directing bmo errors at existing arecibo instances as part of this review.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks :)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Byron Jones :glob (On leave until 5th Apr)", 
+            "email": "Byron Jones :glob (On leave until 5th Apr)"
+        }, 
+        {
+            "date": "2011-11-27 21:31:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "can i please get an estimate of when this review will be completed?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Byron Jones :glob (On leave until 5th Apr)", 
+            "email": "Byron Jones :glob (On leave until 5th Apr)"
+        }, 
+        {
+            "date": "2011-11-30 09:03:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sorry for the delay. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On the schedule for next week. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We'll update the wb tag if it changes.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Michael Coates [:mcoates]", 
+            "email": "Michael Coates [:mcoates]"
+        }, 
+        {
+            "date": "2011-12-11 17:48:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "can i please get a status update on this review.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Byron Jones :glob (On leave until 5th Apr)", 
+            "email": "Byron Jones :glob (On leave until 5th Apr)"
+        }, 
+        {
+            "date": "2011-12-12 06:23:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is still in-progress. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I should be complete by Wednesday AM PST.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mark Goodwin [:mgoodwin]", 
+            "email": "Mark Goodwin [:mgoodwin]"
+        }, 
+        {
+            "date": "2011-12-13 12:24:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've reviewed the patch on bug 698345 (no issues there) and had a quick look at the tool; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "everything seems to be in order there.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm concerned about using the existing instances for BMO data though; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "as has already been mentioned, we need to assume that anything in bugzilla could end up in this system via stacktraes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "At the moment, all LDAP users can see stacktraces from all products in the prod. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "instances. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This already isn't good (thanks to the fact that we have things like CSRF tokens in plaintext in the traces - I'll file a separate bug for this issue) but for some buzilla data it would be rather worse.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In terms of what to do; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't really mind as long as we restrict access. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Not everyone needs to see stacktraces from prod servers anyway, so maybe we can do this to the existing instances. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If not, the new instance(s) would be the only way forward.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mark Goodwin [:mgoodwin]", 
+            "email": "Mark Goodwin [:mgoodwin]"
+        }, 
+        {
+            "date": "2012-01-12 21:19:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "mgoodwin: are you happy to resolve this bug? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " i'd like to commit the code from bug 698345 but leave it disabled via the parameter until bug 700683 is resolved.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Byron Jones :glob (On leave until 5th Apr)", 
+            "email": "Byron Jones :glob (On leave until 5th Apr)"
+        }, 
+        {
+            "date": "2012-01-30 07:59:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "marking as fixed as per comment 6 and an irc discussion with mgoodwin. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " thanks mark :)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Byron Jones :glob (On leave until 5th Apr)", 
+            "email": "Byron Jones :glob (On leave until 5th Apr)"
+        }
+    ], 
+    "id": "701290", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=701290"
+}

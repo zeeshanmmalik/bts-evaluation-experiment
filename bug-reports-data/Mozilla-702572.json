@@ -1,0 +1,1221 @@
+{
+    "contributors": [
+        [
+            "Jan de Mooij (:jandem)", 
+            "email"
+        ], 
+        [
+            "Jason Orendorff [:jorendorff]", 
+            "lexrank"
+        ], 
+        [
+            "Lucien", 
+            "email"
+        ], 
+        [
+            "Johnny Stenback (:jst, jst@mozilla.com)", 
+            "lexrank"
+        ], 
+        [
+            "Christopher Blizzard (:blizzard)", 
+            "email"
+        ]
+    ], 
+    "title": "Minimized prototype.js broken in Firefox 9+", 
+    "comments": [
+        {
+            "date": "2011-11-15 04:26:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "User Agent: Mozilla/5.0 (Windows NT 6.1; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "WOW64; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rv:9.0) Gecko/20100101 Firefox/9.0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Build ID: 20111109112850\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Steps to reproduce:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Video of the bug : http://screencast.com/t/gsgffQZM\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "URL : http://www.ajaxplorer.info/demo/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Actual results:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This function is existing, and not existing :/\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Expected results:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This page worked till the last Firefox 9 beta version of this morning.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Function ... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "worked. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Now it says it's not existing, but it is.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Lucien", 
+            "email": "Lucien"
+        }, 
+        {
+            "date": "2011-11-15 04:48:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I unpacked the js and now it works...\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Lucien", 
+            "email": "Lucien"
+        }, 
+        {
+            "date": "2011-11-15 05:14:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can confirm the \"Form.serialize is not a function\" message in Nightly builds, even if I add the JS to a simple HTML file. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We should understand what's happening here before this reaches the stable channel.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Do you know what minimizer was used here?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jan de Mooij (:jandem)", 
+            "email": "Jan de Mooij (:jandem)"
+        }, 
+        {
+            "date": "2011-11-15 05:47:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This regressed on the Aurora branch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Still bisecting...\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jan de Mooij (:jandem)", 
+            "email": "Jan de Mooij (:jandem)"
+        }, 
+        {
+            "date": "2011-11-15 06:00:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "11/01 WORKS - http://hg.mozilla.org/releases/mozilla-aurora/rev/c8fcdb6bd4d7\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "11/02 FAILS - http://hg.mozilla.org/releases/mozilla-aurora/rev/90a4c98c1ae3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/releases/mozilla-aurora/pushloghtml?fromchange=c8fcdb6bd4d7&tochange=90a4c98c1ae3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Almost certainly bug 684489.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jan de Mooij (:jandem)", 
+            "email": "Jan de Mooij (:jandem)"
+        }, 
+        {
+            "date": "2011-11-15 06:22:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 574586 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Testcase\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Standalone HTML file. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Shows \"Form.serialize is not a function\" in the web console in Firefox 9+.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Lucien, thanks for the bug report!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jan de Mooij (:jandem)", 
+            "email": "Jan de Mooij (:jandem)"
+        }, 
+        {
+            "date": "2011-11-16 12:47:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Anybody willing to look into this? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It definitely seems to be a regression, and the combination minimizerX + prototype.js may be very common...\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Jan de Mooij (:jandem)", 
+            "email": "Jan de Mooij (:jandem)"
+        }, 
+        {
+            "date": "2011-11-18 09:01:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 575477 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "unpacked testcase, still triggers the error\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jason Orendorff [:jorendorff]", 
+            "email": "Jason Orendorff [:jorendorff]"
+        }, 
+        {
+            "date": "2011-11-18 10:47:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Shell testcase:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  eval(\"function f() { function g() {} return g; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\");\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  assertEq(f().prototype !== f().prototype, true);\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jason Orendorff [:jorendorff]", 
+            "email": "Jason Orendorff [:jorendorff]"
+        }, 
+        {
+            "date": "2011-11-18 16:38:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Related:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function f() {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    function g() {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        function h() { return h; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    return g;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "assertEq(f().prototype !== f().prototype, true);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The first bad revision is:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "changeset:   37685:36bbd730e24f\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "user:        Brendan Eich <brendan@mozilla.org>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "date:        Thu Jan 14 09:33:14 2010 -0800\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "summary:     Analyze module pattern and private-statics pattern in order to despecialize from methods to slots/sprops (536564, r=jorendorff).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jason Orendorff [:jorendorff]", 
+            "email": "Jason Orendorff [:jorendorff]"
+        }, 
+        {
+            "date": "2011-12-01 19:03:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 578475 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Strawman patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is a bad bug for the browser (as is the hopefully dup bug 706972), and I want to get it fixed for 9 if release-drivers will take it. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The attached strawman patch fixes the test case in comment 8 and passes shell tests. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think it might work, suitably cleaned up. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Explanation of what I found:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In the pre-regression code, in SetFunctionKinds we go to the final case and g ends up getting optimized to a null closure. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is AIUI, wrong. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But continuing from there, in JSOP_DEFLOCALFUN, being a null closure takes us into the first arm of the if, which always clones. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The functions in the test case thus are unequal, and the assertion passes.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In the post-regression code, in SetFunctionKinds we take the 2nd case (with newly weakened condition) and don't optimize. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Then in JSOP_DEFLOCALFUN, we take the second arm of the if, which optimizes by cloning only if the function parent is different. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I believe that in this case, because we are using DEFLOCALFUN and g doesn't use any variables defined in f, f is not marked heavyweight, so it doesn't get a call object. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thus, both copies of g get parented to the call object of the eval (I think, didn't check that, but if not, it would be the global object). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So the optimization applies, and we don't clone. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The result is the functions come out identical, and the assertion fails.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm not sure where the bug actually is (and there are probably multiple answers to that question), but I figure that when we don't clone, a read barrier is supposed to fire at some point to clone if needed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think those are only on properties, so they will not apply to the object created by DEFLOCALFUN, which is in a local variables. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I would vaguely guess that the optimization in DEFLOCALFUN is just wrong, but was masked by the regressing bug.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Mandelin", 
+            "email": "David Mandelin"
+        }, 
+        {
+            "date": "2011-12-02 14:50:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 578732 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Mandelin", 
+            "email": "David Mandelin"
+        }, 
+        {
+            "date": "2011-12-05 19:54:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We've gotten a couple of 100% CPU reports caused by this bug (706911 and 706972). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We're more likely to take this in FF9 if reviewed and landable tomorrow before we go to build for the second to last FF9 beta.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please make sure to include a risk assessment when nominating. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alex Keybl [:akeybl]", 
+            "email": "Alex Keybl [:akeybl]"
+        }, 
+        {
+            "date": "2011-12-06 11:12:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 578732 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Excellent. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I love it. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Methodjit needs to be updated too though.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jason Orendorff [:jorendorff]", 
+            "email": "Jason Orendorff [:jorendorff]"
+        }, 
+        {
+            "date": "2011-12-06 11:13:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 578732 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Jason pointed out on IRC that we also need to update DefLocalFun in the JM stubs.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Mandelin", 
+            "email": "David Mandelin"
+        }, 
+        {
+            "date": "2011-12-06 11:40:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 579391 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch v2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "With methodjit change. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Also, I realized that v1 had removed a null check on the output of GetScopeChainFast, so I fixed that.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Mandelin", 
+            "email": "David Mandelin"
+        }, 
+        {
+            "date": "2011-12-06 11:47:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 579391 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch v2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-        obj = CloneFunctionObjectIfNotSingleton(f.cx, fun, &f.fp()->scopeChain());\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-        if (!obj)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-            THROWV(NULL);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+        parent = &f.regs.fp()->scopeChain();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">     } else {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-        JSObject *parent = GetScopeChainFast(f.cx, f.fp(), JSOP_DEFLOCALFUN,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">-                                             JSOP_DEFLOCALFUN_LENGTH);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+        parent = GetScopeChainFast(f.cx, f.regs.fp(), JSOP_DEFLOCALFUN,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">+                                   JSOP_DEFLOCALFUN_LENGTH);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In both places f.regs.fp() could just be written f.fp().\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "r=me either way.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jason Orendorff [:jorendorff]", 
+            "email": "Jason Orendorff [:jorendorff]"
+        }, 
+        {
+            "date": "2011-12-06 14:35:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is this somewhat like bug 694454? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " We keep finding bugs with prototype & walking up the scope chain. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Do we not have good test cases here? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Are they related?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Christopher Blizzard (:blizzard)", 
+            "email": "Christopher Blizzard (:blizzard)"
+        }, 
+        {
+            "date": "2011-12-06 16:20:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Christopher Blizzard (:blizzard) from comment #17)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Is this somewhat like bug 694454? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " We keep finding bugs with prototype & > walking up the scope chain. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Do we not have good test cases here? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Are they > related?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Luke has already started an overhaul of scope chains--things should be simpler and more reliable when he is done.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Mandelin", 
+            "email": "David Mandelin"
+        }, 
+        {
+            "date": "2011-12-06 16:28:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/integration/mozilla-inbound/rev/bab6fef4017c\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Mandelin", 
+            "email": "David Mandelin"
+        }, 
+        {
+            "date": "2011-12-07 02:31:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/bab6fef4017c\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ed Morley [:edmorley]", 
+            "email": "Ed Morley [:edmorley]"
+        }, 
+        {
+            "date": "2011-12-07 16:06:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 579391 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch v2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nominating for landing to Aurora and Beta. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Benefits:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Breaking minimized prototype.js could break a lot of sites, so fixing it is good.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- We already have another site that hangs (bug 706911) due to this bug and is fixed by this patch.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- We could consider backing out the regressing patch (the one that caused this bug), but that patch fixes a regression in Google Maps, so that's not very appealing.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Risks are low:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- A small risk is that some site out there depends on the old buggy behavior and will be broken by the new behavior.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- The patch is only about 20 lines of code, and it's mostly 2 parts duplicated, so really only 10 lines to think about.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Mandelin", 
+            "email": "David Mandelin"
+        }, 
+        {
+            "date": "2011-12-07 16:17:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 579391 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch v2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[Triage Comment]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Approving for Aurora since we'd want to get testing there before considering for the next beta build at this point.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We'll start weighing the options for beta (taking this vs backing out) at tomorrow's channel meeting.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Alex Keybl [:akeybl]", 
+            "email": "Alex Keybl [:akeybl]"
+        }, 
+        {
+            "date": "2011-12-07 18:23:01", 
+            "sentences": [], 
+            "name": "David Mandelin", 
+            "email": "David Mandelin"
+        }, 
+        {
+            "date": "2011-12-07 18:36:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/releases/mozilla-aurora/rev/9d149d145f6c\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Mandelin", 
+            "email": "David Mandelin"
+        }, 
+        {
+            "date": "2011-12-08 15:11:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 579391 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch v2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Approved for beta per todays drivers meeting. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "While this is not a trivial fix, it feels better to take this than to back out the patch that caused this.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Johnny Stenback (:jst, jst@mozilla.com)", 
+            "email": "Johnny Stenback (:jst, jst@mozilla.com)"
+        }, 
+        {
+            "date": "2011-12-08 16:42:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/releases/mozilla-beta/rev/77d42322277d\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "David Mandelin", 
+            "email": "David Mandelin"
+        }, 
+        {
+            "date": "2011-12-08 21:41:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to David Mandelin from comment #26)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://hg.mozilla.org/releases/mozilla-beta/rev/77d42322277d\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A note to QA testers, this fix will not be verifiable until we have 9.0b6 builds.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Anthony Hughes, Mozilla QA (irc: ashughes)", 
+            "email": "Anthony Hughes, Mozilla QA (irc: ashughes)"
+        }, 
+        {
+            "date": "2011-12-14 07:50:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mozilla/5.0 (Windows NT 6.1; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "WOW64; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rv:9.0) Gecko/20100101 Firefox/9.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mozilla/5.0 (Windows NT 6.1; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "WOW64; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rv:10.0a2) Gecko/20111214 Firefox/10.0a2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mihaela Velimiroviciu [QA]", 
+            "email": "Mihaela Velimiroviciu [QA]"
+        }, 
+        {
+            "date": "2011-12-14 07:55:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mozilla/5.0 (Windows NT 6.1; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "WOW64; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rv:9.0) Gecko/20100101 Firefox/9.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mozilla/5.0 (Windows NT 6.1; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "WOW64; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rv:10.0a2) Gecko/20111214 Firefox/10.0a2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mozilla/5.0 (Windows NT 6.1; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "WOW64; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rv:11.0a1) Gecko/20111214 Firefox/11.0a1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Mihaela Velimiroviciu [QA]", 
+            "email": "Mihaela Velimiroviciu [QA]"
+        }, 
+        {
+            "date": "2011-12-15 00:08:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks a lot ;)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Lucien", 
+            "email": "Lucien"
+        }
+    ], 
+    "id": "702572", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=702572"
+}

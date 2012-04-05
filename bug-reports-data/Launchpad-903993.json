@@ -1,0 +1,231 @@
+{
+    "contributors": [
+        [
+            "mazurek-4", 
+            "email"
+        ], 
+        [
+            "clint-fewbar", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Don't hang waiting for input from commands", 
+    "comments": [
+        {
+            "date": "2011-12-13 23:09:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If a command is interactive and opens up stdin, the entire deploy will hang. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " cloud-init should close stdin if anything tries to open it. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Examples of this are:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- apt-add-repository ppa:xxx/yyy\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "or\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- apt-get install foo\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(Specifically without the -y option. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " -y on those commands would be a workaround for this bug.)\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "mazurek-4", 
+            "email": "mazurek-4"
+        }, 
+        {
+            "date": "2011-12-16 21:44:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This makes sense to me. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Its simpler even than you suggest. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I see no good reason that cloud-init ever should read from stdin, so it should probably just re-open stdin as /dev/null. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Any program that hangs waiting for input from a non tty like /dev/null is doing things wrong, or is being invoked incorrectly.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't see this as High though, as it can be worked around by not running programs that wait for input from stdin. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Dropping to Medium, and forwarding to cloud-init upstream project.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "clint-fewbar", 
+            "email": "clint-fewbar"
+        }, 
+        {
+            "date": "2011-12-19 22:03:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fix-commited in upstream cloud-init at revision 490.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "smoser", 
+            "email": "smoser"
+        }, 
+        {
+            "date": "2011-12-22 09:10:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug was fixed in the package cloud-init - 0.6.3~bzr497-0ubuntu1\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "cloud-init (0.6.3~bzr497-0ubuntu1) precise; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * New upstream snapshot.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - cloud-config support for configuring apt-proxy\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - selection of local mirror based on presense of 'ubuntu-mirror' dns       entry in local domain. (LP: #897688)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - DataSourceEc2: more resilliant to slow metadata service (LP: #894279)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - close stdin in all programs launched by cloud-init (LP: #903993)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - revert management of /etc/hosts to 0.6.1 style (LP: #890501, LP: #871966)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - write full ssh keys to console for easy machine consumption (LP: #893400)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - put INSTANCE_ID environment variable in bootcmd scripts\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - add 'cloud-init-per' script for easily running things with a given freq       (this replaced cloud-init-run-module)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - support configuration of landscape-client via cloud-config (LP: #857366)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    - part-handlers now get base64 decoded content rather than 2xbase64 encoded       in the payload parameter. (LP: #874342)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "janitor", 
+            "email": "janitor"
+        }
+    ], 
+    "id": "903993", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/903993"
+}

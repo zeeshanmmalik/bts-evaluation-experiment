@@ -1,0 +1,792 @@
+{
+    "contributors": [
+        [
+            "Chris Leary [:cdleary]", 
+            "email"
+        ], 
+        [
+            "Jeff Walden (:Waldo) (remove +bmo to email)", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Write unescape to match spec and document StringBuffer API's memory usage characteristics", 
+    "comments": [
+        {
+            "date": "2011-12-08 15:23:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 580212 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Unescape with copy avoidance.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This rewrites the unescape algorithm to match the spec, stepwise. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The optimization I've added halves the speed of this microbenchmark on my machine:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(function bench() {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    var start = new Date();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    var array = [];\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    for (var i = 0; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i < 1000000; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "++i) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        array[i] = unescape(\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nunc lectus urna, tempus ac pulvinar at, scelerisque non tortor. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Vivamus quis elit id elit tempor bibendum eget eget mi. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Curabitur enim lacus, euismod sit amet facilisis nec, congue ut felis. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Proin posuere blandit dignissim. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Donec facilisis lacinia lobortis. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Aenean in nulla ut ante rhoncus sagittis. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Donec non lectus massa, molestie interdum felis. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mauris turpis diam, ultrices a posuere nec, semper ac sem. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fusce egestas, arcu ac volutpat aliquam, eros nisi feugiat neque, quis viverra magna elit non nibh. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Donec ac purus in lorem auctor mattis. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Nunc vitae enim velit, et condimentum quam. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Duis consequat gravida feugiat. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sed interdum sagittis ultrices. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Duis sit amet congue est. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Integer quis velit libero.\")\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    var end = new Date();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    print(end - start);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "})();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Extra documentation per bug 707125 comment 10.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Chris Leary [:cdleary]", 
+            "email": "Chris Leary [:cdleary]"
+        }, 
+        {
+            "date": "2011-12-08 15:23:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Er, halves the execution time, doubles the speed. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not enough coffee yet. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ";-)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Chris Leary [:cdleary]", 
+            "email": "Chris Leary [:cdleary]"
+        }, 
+        {
+            "date": "2011-12-08 15:47:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review note to self: should undef ENSURE_BUILDING to keep it scoped to that particular function.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Chris Leary [:cdleary]", 
+            "email": "Chris Leary [:cdleary]"
+        }, 
+        {
+            "date": "2011-12-08 16:16:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 580212 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Unescape with copy avoidance.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 580212 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: js/src/jsstr.cpp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +320,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +        jschar c = chars[k];\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +        /* Step 7. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "*/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +        if (c != '%')\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +            goto step_18;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I am not sure whether this is a really awesome way to write this or a really awful way to write this. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Both?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +3142,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">          return NULL;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">      /* For medium/big buffers, avoid wasting more than 1/4 of the memory. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "*/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">      JS_ASSERT(capacity >= length);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +    if (length > CharBuffer::sMaxInlineStorage && capacity - length > (length >> 2)) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Make that |length / 4| -- reads better, compilers are smart.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jeff Walden (:Waldo) (remove +bmo to email)", 
+            "email": "Jeff Walden (:Waldo) (remove +bmo to email)"
+        }, 
+        {
+            "date": "2011-12-08 16:32:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/bb342b356f76\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Chris Leary [:cdleary]", 
+            "email": "Chris Leary [:cdleary]"
+        }, 
+        {
+            "date": "2011-12-09 06:45:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/bb342b356f76\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ed Morley [:edmorley]", 
+            "email": "Ed Morley [:edmorley]"
+        }, 
+        {
+            "date": "2011-12-12 18:58:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 580212 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Unescape with copy avoidance.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 580212 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: js/src/jsstrinlines.h\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +57,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> + * exception report on the context and results in a failed return value.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> + *\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> + * Well-sized extractions (which waste no more than 1/4 of their char > + * buffer space) are guaranteed for strings built by this interface.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> + * See |extractWellSized|.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "What does \"their char buffer space\" mean? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Is it the requested buffer size, or the actual buffer size? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I hope it's the latter.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Let's be pessimistic and assume it's the former. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If we requested 130 bytes, jemalloc will round up to 256 bytes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If str_unescape shrinks the string down to 100 bytes, that's less than 1/4 of the *requested* space wasted, but more than 1/2 of the *actual* space wasted, which will trigger the assertion failure I fixed in bug 707125.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(This kind of subtlety is exactly why I avoided using a StringBuffer in bug 707125 -- even after you added documentation and passed review, it's still not clear to me whether my requirements are met.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nicholas Nethercote [:njn]", 
+            "email": "Nicholas Nethercote [:njn]"
+        }, 
+        {
+            "date": "2011-12-12 20:27:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Nicholas Nethercote [:njn] from comment #6)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for clarifying. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We're basing it on the requested buffer size, because we weren't assuming any knowledge of the underlying memory allocator's rounding policies. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll create a patch to fix that in a moment.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On the plus side, by consolidating this into the implementation of StringBuffer we've obviated all other uses of StringBuffer that may have triggered the assertion that you mention.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Chris Leary [:cdleary]", 
+            "email": "Chris Leary [:cdleary]"
+        }, 
+        {
+            "date": "2011-12-12 20:38:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Thanks for clarifying. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We're basing it on the requested buffer size, because > we weren't assuming any knowledge of the underlying memory allocator's > rounding policies. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll create a patch to fix that in a moment.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That'll be tricky because moz_malloc_usable_size isn't usable in the JS engine.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I suggest that you instead add a flag to StringBuffer::finishString() that lets you request that the final allocation be as small as possible, i.e. the request matches the string length exactly, without the up-to-25% waste.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Nicholas Nethercote [:njn]", 
+            "email": "Nicholas Nethercote [:njn]"
+        }, 
+        {
+            "date": "2011-12-12 20:47:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Nicholas Nethercote [:njn] from comment #8)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I suggest that you instead add a flag to StringBuffer::finishString() that > lets you request that the final allocation be as small as possible, i.e. the > request matches the string length exactly, without the up-to-25% waste.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't fully understand the context for the assertion you're describing (bug 707125 doesn't seem to describe where the assertion is coming from or have a test that I can try to run), but I would think that this would have to be the default. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You said:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "assertion in the \"string-chars\" memory reporter's sanity checking of |usable| and |computedSize|.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "StringBuffer is used to create a bunch of other strings in the engine as well -- why would they be exempt from this assertion? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(From your comment I'm guessing that moz_malloc_usable_size is more complicated than rounding up the capacity to the nearest power of two, involving various bits of jemalloc arena size information and such.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Chris Leary [:cdleary]", 
+            "email": "Chris Leary [:cdleary]"
+        }, 
+        {
+            "date": "2011-12-12 21:05:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here's the checking code:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://mxr.mozilla.org/mozilla-central/source/xpcom/base/nsIMemoryReporter.idl#383\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's used for every single memory reporter. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Basically, it assumes that no allocator will ever hand back more than twice the requested size. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This assumption is violated in cases like this one where you can end up deliberately over-allocating... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "but such cases are rare, and the checking has found numerous bugs in existing code (both in memory reporters and in other code). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " So I'd strongly prefer to avoid tolerating this kind of over-allocation.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> StringBuffer is used to create a bunch of other strings in the engine as > well -- why would they be exempt from this assertion?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Good point, having no wasted space will have to be the default, because it's conceivable that any string created with a StringBuffer will end up being measured (and thus checked) by a memory reporter.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (From your comment I'm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> guessing that moz_malloc_usable_size is more complicated than rounding up > the capacity to the nearest power of two, involving various bits of jemalloc > arena size information and such.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It is more complicated. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " See http://mxr.mozilla.org/mozilla-central/source/memory/jemalloc/jemalloc.c#47 for details. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (Even that comment is inaccurate because we've made changes to our copy of jemalloc.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(Oh, my example before with 130 bytes is bogus because that gets rounded up to 144. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " But there are other sizes where the same logic applies, e.g. 514 bytes gets rounded up by jemalloc to 1024.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nicholas Nethercote [:njn]", 
+            "email": "Nicholas Nethercote [:njn]"
+        }, 
+        {
+            "date": "2011-12-12 23:58:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hmm, I'm a worried that will lead to a lot more realloc calls. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll instrument my browser and check out whether that worry is at all founded tomorrow.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Chris Leary [:cdleary]", 
+            "email": "Chris Leary [:cdleary]"
+        }
+    ], 
+    "id": "708873", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=708873"
+}

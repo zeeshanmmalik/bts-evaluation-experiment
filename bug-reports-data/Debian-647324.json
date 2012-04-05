@@ -1,0 +1,2788 @@
+{
+    "contributors": [
+        [
+            "\"Moffett, Kyle D\" <Kyle.D.Moffett@boeing.com>", 
+            "email"
+        ], 
+        [
+            "Kyle Moffett <Kyle.D.Moffett@boeing.com>", 
+            "lexrank"
+        ]
+    ], 
+    "title": "\ngcj-4.6: Wrong MULTIARCH_DIRNAME on powerpcspe (is \"powerpc-linux-gnu\")", 
+    "comments": [
+        {
+            "date": "2011-11-01 17:18:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: gcj-4.6\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: 4.6.2-1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Severity: wishlist\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Tags: patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Building gcj-4.6=4.6.2-1 (using gcc-4.6-source=4.6.2-2) is failing due\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "to an invalid value of MULTIARCH_DIRNAME on powerpcspe.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't have the foggiest idea why GCC itself builds and installs correctly, but the Java build fails with this error:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  dh_movefiles: debian/tmp/usr/lib/powerpc-linux-gnuspe/gcj-4.6-12/libjvm.so not found (supposed to put it in libgcj12)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  dh_movefiles: debian/tmp/usr/lib/powerpc-linux-gnuspe/gcj-4.6-12/libjavamath.so not found (supposed to put it in libgcj12)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Inspecting that directory, I see this:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  $ ls -l debian/tmp/usr/lib\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  total 20\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  drwxr-xr-x 3 kmoffett kmoffett 4096 Nov 1 14:11 gcc\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  drwxr-xr-x 3 kmoffett kmoffett 4096 Nov 1 14:13 jvm\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  drwxr-xr-x 3 kmoffett kmoffett 4096 Nov 1 14:13 jvm-exports\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  drwxr-xr-x 3 kmoffett kmoffett 4096 Nov 1 14:13 powerpc-linux-gnu\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  drwxr-xr-x 3 kmoffett kmoffett 4096 Nov 1 14:13 powerpc-linux-gnuspe\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The \"powerpc-linux-gnu\" is obviously wrong, and it contains the files that are missing from \"powerpc-linux-gnuspe\":\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  $ ls -l debian/tmp/usr/lib/powerpc-linux-gnu\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  total 135200\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  drwxr-xr-x 2 kmoffett kmoffett      4096 Nov  1 14:13 gcj-4.6-12\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  -rwxr-xr-x 1 kmoffett kmoffett      1637 Nov  1 14:12 libgcj_bc.so   lrwxrwxrwx 1 kmoffett kmoffett        18 Nov  1 14:12 libgcj_bc.so.1 -> libgcj_bc.so.1.0.0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  -rwxr-xr-x 1 kmoffett kmoffett      1637 Nov  1 14:12 libgcj_bc.so.1.0.0   lrwxrwxrwx 1 kmoffett kmoffett        16 Nov  1 14:12 libgcj.so -> libgcj.so.12.0.0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  lrwxrwxrwx 1 kmoffett kmoffett        16 Nov  1 14:12 libgcj.so.12 -> libgcj.so.12.0.0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  -rwxr-xr-x 1 kmoffett kmoffett 127976277 Nov  1 14:12 libgcj.so.12.0.0   lrwxrwxrwx 1 kmoffett kmoffett        22 Nov  1 14:12 libgcj-tools.so -> libgcj-tools.so.12.0.0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  lrwxrwxrwx 1 kmoffett kmoffett        22 Nov  1 14:12 libgcj-tools.so.12 -> libgcj-tools.so.12.0.0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  -rwxr-xr-x 1 kmoffett kmoffett  10421495 Nov  1 14:12 libgcj-tools.so.12.0.0   lrwxrwxrwx 1 kmoffett kmoffett        16 Nov  1 14:12 libgij.so -> libgij.so.12.0.0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  lrwxrwxrwx 1 kmoffett kmoffett        16 Nov  1 14:12 libgij.so.12 -> libgij.so.12.0.0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  -rwxr-xr-x 1 kmoffett kmoffett     19447 Nov  1 14:12 libgij.so.12.0.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  -rw-r--r-- 1 kmoffett kmoffett      1437 Nov  1 14:12 logging.properties   drwxr-xr-x 2 kmoffett kmoffett      4096 Nov  1 14:12 security\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I can disassemble those files with objdump and they clearly contain valid e500v2 opcode sequences, so the build process seems to be fine except for the multiarch directory.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I tried to hack up a patch (attached) that looks correct to me, but I have very little experience with this area of GCC and I haven't tested it yet. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I would really appreciate a second set of eyes.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm going to apply it on top of the gcc-4.6 sources (4.6.2-2) and rebuild GCC and GIJ to see if the problem goes away; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'll let you know when I have some results.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cheers,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Kyle Moffett\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- System Information:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Debian Release: wheezy/sid\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  APT prefers testing\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  APT policy: (700, 'testing'), (700, 'stable'), (600, 'unstable'), (500, 'stable-updates'), (500, 'experimental')\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Architecture: amd64 (x86_64)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Kernel: Linux 3.0.0-1-amd64 (SMP w/2 CPU cores)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Locale: LANG=en_US.UTF-8, LC_CTYPE=en_US.UTF-8 (charmap=UTF-8)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Shell: /bin/sh linked to /bin/bash\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Kyle Moffett <Kyle.D.Moffett@boeing.com>", 
+            "email": "Kyle Moffett <Kyle.D.Moffett@boeing.com>"
+        }, 
+        {
+            "date": "2011-11-02 15:09:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have verified that gcc-4.6 and gcj-4.6 both build successfully on \"powerpcspe\" with that patch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " It turns out gcj needs to build an embedded copy of libffi (is that OK under Debian policy?), so I also had to apply the new libffi patch in #647288 [1].\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This patch modifies a case conditional that only applies for SPE, so it should be safe to merge into the existing multiarch patch.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for your time!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cheers,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Kyle Moffett\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[1] http://bugs.debian.org/647288\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Curious about my work on the Debian powerpcspe port?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm keeping a blog here: http://pureperl.blogspot.com/\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "\"Moffett, Kyle D\" <Kyle.D.Moffett@boeing.com>", 
+            "email": "\"Moffett, Kyle D\" <Kyle.D.Moffett@boeing.com>"
+        }, 
+        {
+            "date": "2011-11-02 17:07:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On 11/02/2011 04:09 PM, Moffett, Kyle D wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Hello,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I have verified that gcc-4.6 and gcj-4.6 both build successfully > on \"powerpcspe\" with that patch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " It turns out gcj needs to build > an embedded copy of libffi (is that OK under Debian policy?), so > I also had to apply the new libffi patch in #647288 [1].\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> This patch modifies a case conditional that only applies for SPE, > so it should be safe to merge into the existing multiarch patch.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "the multiarch dir is already encoded in the rs600/t-spe file; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "can we move the MULTIARCH_DIRNAME macro to this file as well? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Or the other way around?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Matthias Klose <doko@debian.org>", 
+            "email": "Matthias Klose <doko@debian.org>"
+        }, 
+        {
+            "date": "2011-11-02 16:22:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On Nov 02, 2011, at 17:07, Matthias Klose wrote:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> On 11/02/2011 04:09 PM, Moffett, Kyle D wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> Hello,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> I have verified that gcc-4.6 and gcj-4.6 both build successfully >> on \"powerpcspe\" with that patch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " It turns out gcj needs to build >> an embedded copy of libffi (is that OK under Debian policy?), so >> I also had to apply the new libffi patch in #647288 [1].\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> This patch modifies a case conditional that only applies for SPE, >> so it should be safe to merge into the existing multiarch patch.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> the multiarch dir is already encoded in the rs600/t-spe file; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "can we move the > MULTIARCH_DIRNAME macro to this file as well? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Or the other way around?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Well, that \"t-spe\" file is not being included at all for our target triplet right now; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "it only gets referenced for \"powerpc-linux-eabispe\" targets as per \"src/gcc/config.gcc\".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Furthermore, the Debian PowerPCSPE port does not want any of the stuff in that file, as it's all multilib stuff that doesn't apply to e500 anyways.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So the MULTILIB_OSDIRNAMES value in \"t-spe\" needs to be changed to \"eabispe\" upstream as a bugfix, but that is not applicable to the Debian e500 port.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I suppose in theory PPC EABI is better than PPC SYSV and if I'd have given it a bit more thought I might have tried to build the port based on \"eabispe\" in the first place, but that's water under the bridge at this point. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Even still, we wouldn't want the multilib stuff anyways.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cheers,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Kyle Moffett\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Curious about my work on the Debian powerpcspe port?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm keeping a blog here: http://pureperl.blogspot.com/\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "\"Moffett, Kyle D\" <Kyle.D.Moffett@boeing.com>", 
+            "email": "\"Moffett, Kyle D\" <Kyle.D.Moffett@boeing.com>"
+        }, 
+        {
+            "date": "2011-11-03 23:20:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: gcc-4.6\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source-Version: 4.6.2-4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We believe that the bug you reported is fixed in the latest version of gcc-4.6, which is due to be installed in the Debian FTP archive:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "cpp-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/cpp-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fixincludes_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/fixincludes_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "g++-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/g++-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "g++-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/g++-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gcc-4.6-base_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gcc-4.6-base_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gcc-4.6-locales_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gcc-4.6-locales_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gcc-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gcc-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gcc-4.6-plugin-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gcc-4.6-plugin-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gcc-4.6-source_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gcc-4.6-source_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gcc-4.6_4.6.2-4.diff.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gcc-4.6_4.6.2-4.diff.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gcc-4.6_4.6.2-4.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gcc-4.6_4.6.2-4.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gcc-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gcc-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gccgo-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gccgo-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gccgo-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gccgo-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gfortran-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gfortran-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gfortran-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gfortran-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gobjc++-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gobjc++-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gobjc++-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gobjc++-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gobjc-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gobjc-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gobjc-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/gobjc-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64gcc1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64gcc1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64gcc1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64gcc1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64gfortran3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64gfortran3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64gfortran3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64gfortran3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64go0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64go0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64go0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64go0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64gomp1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64gomp1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64gomp1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64gomp1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64mudflap0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64mudflap0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64mudflap0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64mudflap0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64objc3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64objc3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64objc3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64objc3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64quadmath0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64quadmath0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64quadmath0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64quadmath0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64stdc++6-4.6-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64stdc++6-4.6-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lib64stdc++6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/lib64stdc++6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libgcc1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libgcc1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libgcc1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libgcc1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libgfortran3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libgfortran3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libgfortran3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libgfortran3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libgo0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libgo0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libgo0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libgo0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libgomp1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libgomp1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libgomp1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libgomp1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libmudflap0-4.6-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libmudflap0-4.6-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libmudflap0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libmudflap0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libmudflap0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libmudflap0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libobjc3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libobjc3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libobjc3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libobjc3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libquadmath0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libquadmath0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libquadmath0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libquadmath0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libstdc++6-4.6-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libstdc++6-4.6-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libstdc++6-4.6-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libstdc++6-4.6-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libstdc++6-4.6-doc_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libstdc++6-4.6-doc_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libstdc++6-4.6-pic_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libstdc++6-4.6-pic_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libstdc++6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  to main/g/gcc-4.6/libstdc++6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "A summary of the changes between this version and the previous one is attached.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thank you for reporting the bug, which will now be closed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " If you have further comments please address them to 647324@bugs.debian.org, and the maintainer will reopen the bug report if appropriate.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Debian distribution maintenance software\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pp.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Matthias Klose <doko@debian.org> (supplier of updated gcc-4.6 package)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(This message was generated automatically at their request; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "if you believe that there is a problem with it please contact the archive administrators by mailing ftpmaster@debian.org)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----BEGIN PGP SIGNED MESSAGE-----\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hash: SHA1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Format: 1.8\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date: Thu, 03 Nov 2011 12:03:41 -0400\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Source: gcc-4.6\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Binary: gcc-4.6-base libgcc1 libgcc1-dbg libgcc2 libgcc2-dbg libgcc4 libgcc4-dbg lib64gcc1 lib64gcc1-dbg lib32gcc1 lib32gcc1-dbg libn32gcc1 libn32gcc1-dbg gcc-4.6 gcc-4.6-multilib gcc-4.6-plugin-dev gcc-4.6-hppa64 gcc-4.6-spu g++-4.6-spu gfortran-4.6-spu cpp-4.6 gcc-4.6-locales g++-4.6 g++-4.6-multilib libmudflap0 libmudflap0-dbg lib32mudflap0 lib32mudflap0-dbg lib64mudflap0 lib64mudflap0-dbg libn32mudflap0 libn32mudflap0-dbg libmudflap0-4.6-dev libgomp1 libgomp1-dbg lib32gomp1 lib32gomp1-dbg lib64gomp1 lib64gomp1-dbg libn32gomp1 libn32gomp1-dbg libquadmath0 libquadmath0-dbg lib32quadmath0 lib32quadmath0-dbg lib64quadmath0 lib64quadmath0-dbg libn32quadmath0 libn32quadmath0-dbg gobjc++-4.6 gobjc++-4.6-multilib gobjc-4.6 gobjc-4.6-multilib libobjc3 libobjc3-dbg lib64objc3 lib64objc3-dbg lib32objc3 lib32objc3-dbg libn32objc3 libn32objc3-dbg gfortran-4.6 gfortran-4.6-multilib libgfortran3 libgfortran3-dbg lib64gfortran3 lib64gfortran3-dbg lib32gfortran3 lib32gfortran3-dbg\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32gfortran3 libn32gfortran3-dbg gccgo-4.6 gccgo-4.6-multilib libgo0 libgo0-dbg lib64go0 lib64go0-dbg lib32go0 lib32go0-dbg libn32go0 libn32go0-dbg libstdc++6 lib32stdc++6 lib64stdc++6 libn32stdc++6 libstdc++6-4.6-dev libstdc++6-4.6-pic libstdc++6-4.6-dbg lib32stdc++6-4.6-dbg lib64stdc++6-4.6-dbg libn32stdc++6-4.6-dbg libstdc++6-4.6-doc gcc-4.6-soft-float fixincludes\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gcc-4.6-source\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Architecture: source all i386\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: 4.6.2-4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Distribution: unstable\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Urgency: low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Maintainer: Debian GCC Maintainers <debian-gcc@lists.debian.org>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed-By: Matthias Klose <doko@debian.org>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Description: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " cpp-4.6    - GNU C preprocessor\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " fixincludes - Fix non-ANSI header files\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " g++-4.6    - GNU C++ compiler\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " g++-4.6-multilib - GNU C++ compiler (multilib files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " g++-4.6-spu - SPU cross-compiler (C++ compiler)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gcc-4.6    - GNU C compiler\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gcc-4.6-base - GCC, the GNU Compiler Collection (base package)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gcc-4.6-hppa64 - GNU C compiler (cross compiler for hppa64)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gcc-4.6-locales - GCC, the GNU compiler collection (native language support files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gcc-4.6-multilib - GNU C compiler (multilib files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gcc-4.6-plugin-dev - Files for GNU GCC plugin development.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gcc-4.6-soft-float - GCC soft-floating-point gcc libraries (ARM)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " gcc-4.6-source - Source of the GNU Compiler Collection\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gcc-4.6-spu - SPU cross-compiler (preprocessor and C compiler)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gccgo-4.6  - GNU Go compiler\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gccgo-4.6-multilib - GNU Go compiler (multilib files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gfortran-4.6 - GNU Fortran 95 compiler\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gfortran-4.6-multilib - GNU Fortran 95 compiler (multilib files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gfortran-4.6-spu - SPU cross-compiler (Fortran compiler)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gobjc++-4.6 - GNU Objective-C++ compiler\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gobjc++-4.6-multilib - GNU Objective-C++ compiler (multilib files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gobjc-4.6  - GNU Objective-C compiler\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gobjc-4.6-multilib - GNU Objective-C compiler (multilib files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32gcc1  - GCC support library (32 bit Version)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32gcc1-dbg - GCC support library (debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32gfortran3 - Runtime library for GNU Fortran applications (32bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32gfortran3-dbg - Runtime library for GNU Fortran applications (32 bit debug symbol\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32go0   - Runtime library for GNU Go applications (32bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " lib32go0-dbg - Runtime library for GNU Go applications (32 bit debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32gomp1 - GCC OpenMP (GOMP) support library (32bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32gomp1-dbg - GCC OpenMP (GOMP) support library (32 bit debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32mudflap0 - GCC mudflap shared support libraries (32bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32mudflap0-dbg - GCC mudflap shared support libraries (32 bit debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32objc3 - Runtime library for GNU Objective-C applications (32bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32objc3-dbg - Runtime library for GNU Objective-C applications (32 bit debug sy\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32quadmath0 - GCC Quad-Precision Math Library (32bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32quadmath0-dbg - GCC Quad-Precision Math Library (32 bit debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32stdc++6 - GNU Standard C++ Library v3 (32 bit Version)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib32stdc++6-4.6-dbg - GNU Standard C++ Library v3 (debugging files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64gcc1  - GCC support library (64bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64gcc1-dbg - GCC support library (debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64gfortran3 - Runtime library for GNU Fortran applications (64bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64gfortran3-dbg - Runtime library for GNU Fortran applications (64bit debug symbols\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64go0   - Runtime library for GNU Go applications (64bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " lib64go0-dbg - Runtime library for GNU Go applications (64bit debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64gomp1 - GCC OpenMP (GOMP) support library (64bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64gomp1-dbg - GCC OpenMP (GOMP) support library (64bit debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64mudflap0 - GCC mudflap shared support libraries (64bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64mudflap0-dbg - GCC mudflap shared support libraries (64 bit debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64objc3 - Runtime library for GNU Objective-C applications (64bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64objc3-dbg - Runtime library for GNU Objective-C applications (64 bit debug sy\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64quadmath0 - GCC Quad-Precision Math Library  (64bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64quadmath0-dbg - GCC Quad-Precision Math Library  (64bit debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64stdc++6 - GNU Standard C++ Library v3 (64bit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " lib64stdc++6-4.6-dbg - GNU Standard C++ Library v3 (debugging files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libgcc1    - GCC support library\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libgcc1-dbg - GCC support library (debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libgcc2    - GCC support library\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libgcc2-dbg - GCC support library (debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libgcc4    - GCC support library\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libgcc4-dbg - GCC support library (debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libgfortran3 - Runtime library for GNU Fortran applications\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libgfortran3-dbg - Runtime library for GNU Fortran applications (debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libgo0     - Runtime library for GNU Go applications\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libgo0-dbg - Runtime library for GNU Go applications (debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libgomp1   - GCC OpenMP (GOMP) support library\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libgomp1-dbg - GCC OpenMP (GOMP) support library (debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libmudflap0 - GCC mudflap shared support libraries\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libmudflap0-4.6-dev - GCC mudflap support libraries (development files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libmudflap0-dbg - GCC mudflap shared support libraries (debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32gcc1 - GCC support library (n32)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32gcc1-dbg - GCC support library (debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32gfortran3 - Runtime library for GNU Fortran applications (n32)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " libn32gfortran3-dbg - Runtime library for GNU Fortran applications (n32 debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32go0  - Runtime library for GNU Go applications (n32)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " libn32go0-dbg - Runtime library for GNU Go applications (n32 debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32gomp1 - GCC OpenMP (GOMP) support library (n32)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32gomp1-dbg - GCC OpenMP (GOMP) support library (n32 debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32mudflap0 - GCC mudflap shared support libraries (n32)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32mudflap0-dbg - GCC mudflap shared support libraries (n32 debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32objc3 - Runtime library for GNU Objective-C applications (n32)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32objc3-dbg - Runtime library for GNU Objective-C applications (n32 debug symbo\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32quadmath0 - GCC Quad-Precision Math Library (n32)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32quadmath0-dbg - GCC Quad-Precision Math Library (n32 debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32stdc++6 - GNU Standard C++ Library v3 (n32)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libn32stdc++6-4.6-dbg - GNU Standard C++ Library v3 (debugging files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libobjc3   - Runtime library for GNU Objective-C applications\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libobjc3-dbg - Runtime library for GNU Objective-C applications (debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libquadmath0 - GCC Quad-Precision Math Library\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libquadmath0-dbg - GCC Quad-Precision Math Library (debug symbols)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libstdc++6 - GNU Standard C++ Library v3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libstdc++6-4.6-dbg - GNU Standard C++ Library v3 (debugging files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libstdc++6-4.6-dev - GNU Standard C++ Library v3 (development files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libstdc++6-4.6-doc - GNU Standard C++ Library v3 (documentation files)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " libstdc++6-4.6-pic - GNU Standard C++ Library v3 (shared library subset kit)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Closes: 647324\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changes: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " gcc-4.6 (4.6.2-4) unstable; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   * Update to SVN 20111103 (r180830) from the gcc-4_6-branch.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     - Fix PR target/50691, PR c++/50901, PR target/50945,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "       PR rtl-optimization/47918, PR libstdc++/50880.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   * Configure the armel build by explicitly passing --with-arch=armv4t\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     --with-float=soft.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "   * libffi: Simplify PowerPC assembly and avoid CPU-specific string      instructions (Kyle Moffett).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "   * Fix MULTIARCH_DIRNAME on powerpcspe (Kyle Moffett). Closes: #647324. Checksums-Sha1: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 81fd59e1d3d89418ab084a35322c9155f2401535 7272 gcc-4.6_4.6.2-4.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 35f021cc351699abab8ef0c5635f14e574394e1b 828531 gcc-4.6_4.6.2-4.diff.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 389f4c333a7daa1142228212417a6bb44d6a712b 57797858 gcc-4.6-source_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 1cfefd01916ed854f80c21110b3e764d605c6f2b 3761080 libstdc++6-4.6-doc_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2d5255e24cd456f7009088b09081390c38662c7a 2637242 gcc-4.6-locales_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " d69f4148c066b24ab54933035cd213e9125df69c 136322 gcc-4.6-base_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 7adad10ad84b5e72f7f2dc141213955b3b5db70d 54242 libgcc1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 7777daebefdf86bba29c6850ff7b94a49b92ddbe 99578 libgcc1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 8b6ce62c98c495eb87c4b7cfd55f095a19a53120 42698 lib64gcc1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 92f17b8078993ef1195102d5dbc45c6c54621f89 92974 lib64gcc1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 7e43ee51a23914765a427a743823e3dbd57dbd16 195278 libquadmath0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " be9798ece99a02477fc1114eec22ba60e817c1fb 170054 libquadmath0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 3ce4e7e6335364b12cf1b81b4ead1590f00ad1d5 126012 lib64quadmath0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 3cc5d65b14968da2e195f8b6344e002537643f3c 150040 lib64quadmath0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 63639bbecdfab887481b818f8b418723f993aa89 27304 libgomp1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 0257aba4836c0a6b373760ae385f24297dce68c7 64660 libgomp1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 759870855b228a29fcdc82c9e8778c0952d622bf 25658 lib64gomp1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 4b569536f1de1f1ab5f994c4f4e5368b712eb862 62754 lib64gomp1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2894c76bc73195a18ee0cb807e9f7186e38797f1 4645800 cpp-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " e5929286f0f4090f8ec026aff019554327d2657c 63384 fixincludes_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " bd2d39dd9b572e873643293db73ca5d31b45d872 218402 libmudflap0-4.6-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 44e89821217549f7947a723c8fd99bf43c2f42e8 88162 libmudflap0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 8d242dd37b3d4921fecd3471f9f6bf6e288b1bd6 118336 libmudflap0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 98ef03742dd94bfc65bed3e5195b760d270e5a48 97726 lib64mudflap0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b0905360087e4ed62b3035325430d837a802059c 133524 lib64mudflap0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 87577518cfcb155b0f75a7c49efb9432cc7d6c1d 870 gobjc++-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 97e4fdd3e36ddd916a40b2c7c125f6414e71da99 4983216 gobjc++-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 6d18be7248da5de4c6efc7ac16c0b4f663adcafa 215458 gobjc-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 79c567883d8caf8e992ea7d19cbea3827537e66d 4836290 gobjc-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 21722696b09480231fea49ac1d0a25eaec9518f5 180450 libobjc3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 58217c85d429c8f6df9cd813e3ae46573c78d9d3 336146 libobjc3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 13fdcda81e2763bd4ea6f245e75300050aa535f7 184868 lib64objc3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 65f1a2b80fd4a22d288e27a89a55259846db5a94 363056 lib64objc3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 9ea1c4290137c63746ba126a9744b8a1ec94c3da 2107054 libgo0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 4a3795070335608dc4a535a35b09a17d35a2872e 1583064 libgo0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 97577c36e9004985d0cba4894d1ba0c8053cc550 2308670 lib64go0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " aaddaf01265acc37e9b6e855b17aee61d3c468d9 2047592 lib64go0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " e04f1fe39e50810bf24aa11ac365f7e54067bf4e 7800476 gccgo-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " d422a8c98cebc5c0aec294f941cd9918d3bb32d8 3002134 gccgo-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 1b6de72a0d130e97b39d184757a41c117705444a 1036020 g++-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " cb47aa623d8afce9f4c0b4051d650fc205137d88 6778584 g++-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 3ddf5e1a2185c2dd5773a0be5eb510f912e4fb92 343502 libstdc++6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " c501eb72c043df3216e878c47a9dafd5e58eed4c 330446 lib64stdc++6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 8516ffe5af89d8d33d6799371d54c447bac2ba75 6974652 lib64stdc++6-4.6-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 46a310a720f6412b5f20dd5c48e5ee8783a2d5c5 1643384 libstdc++6-4.6-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 03840ae014dd258575b36e3308892807f8701941 499632 libstdc++6-4.6-pic_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " c43907a3b622ec739964a8a6a0b66789e37d9893 4122204 libstdc++6-4.6-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 27b881f744da3c158c90b7eb6b601120b83d1e29 355116 libgfortran3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 8080f3d47eecde55d8663e7888064203eb01bc3e 643180 libgfortran3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 9b87e4257e86a63d6267ce20397db976add8e4ff 358406 lib64gfortran3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 8e53f06db667fdc5e9a8659c3316f72cc953ecbf 808138 lib64gfortran3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " c8cd385a3ad1f9cbb581af780e19ce56fe1b646a 432092 gfortran-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 43f05ec51eaf81d12259f8d4ee9065a303c5c815 5351632 gfortran-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 6d75fa1c254afc2c707b4d18910a6bd0bd4b2806 2358112 gcc-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 073cf69714065b85f37e7ea4d43ae464729a3536 835790 gcc-4.6-plugin-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 74a7c728ee2a404b6832ccc4ca54b927d24be5f6 7317386 gcc-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Checksums-Sha256: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 1e6ff4b65ba15ddff4d77ebe1f8c9339093dec85ec75004d079c16b98fd1122b 7272 gcc-4.6_4.6.2-4.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 5b93163be2d6bcc991e06df6c7423ab9c91f9646cb03387c2d2ba2892b7c7d98 828531 gcc-4.6_4.6.2-4.diff.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 0974ee79550b4144bfcc15249f5891b8050bb3bb40f3aff79947deee9da84d86 57797858 gcc-4.6-source_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 45d48ae2f7e0440032cf5d2ea977bf0c06f628ff1e512766491dd7b4d0230c21 3761080 libstdc++6-4.6-doc_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 777a9ff914d8234da52b1b63301b6e0307f496320eb3844e50221981d809be38 2637242 gcc-4.6-locales_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 3a6de3aa4b0885c8c8d633430117d434391a42107572a93a226308f01696a400 136322 gcc-4.6-base_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 0359ea4f8fd40a56654b5e368996190ccba86fb39f2c77fd10b43439eb80d4b6 54242 libgcc1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 610f061cded7dd91c61f4ff2f54e592b0fd45764f799e2287709fd13ba6376fb 99578 libgcc1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " cfbc263ac10e035264b2c80e3edc4881a390825010b387ac6b764e07f4ce9eec 42698 lib64gcc1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 33b1e066b5457d67e6cf90c775a81c6ecdfc6701f8e21f37dfd8a645cfb75e08 92974 lib64gcc1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " c46fa19b8f7fd222d2de5737e651548c12154acedca31cfae8e95b31c849f639 195278 libquadmath0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 0f605f47c17b493c1b1f0c418c8d0a34d5d6cf3bd253ab5103a5918243b03e9c 170054 libquadmath0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " e11cbbd6972c44b0f065b327528fff21f0558e29af930574f522364262a1f386 126012 lib64quadmath0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " f4b27190e108371d1caca70f9a765f36041d328d2d549d2106e649fe48378499 150040 lib64quadmath0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 24f077f58720ad26d6399aebc047a201d7aad79d38328318adf658495d3e7475 27304 libgomp1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 906e39a6c2903c935b450ae6ba31d49a1cd84a5a262990955bc6c1db243e68ff 64660 libgomp1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " a9cfb609c879120b8f815659248a4c9fd529ffe759a298f414699325fc6ba88d 25658 lib64gomp1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " c8070831d230de15a4e61e7fa7c19f07c8f4e98ea79bbf66c29c96ca4311e0b7 62754 lib64gomp1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 6bcbcb8ea548a7ab4edeb42b187db8479e23eef7f9ecfd2a60085d59c149f6b7 4645800 cpp-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 068c2916b8ca1724f33bda9aebcdbae5d596716693afb43a43f59c75b21b5b5f 63384 fixincludes_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 043231b91b1494b5bc05a31b909264b50ce983fe98e5acb03155a197f40329b9 218402 libmudflap0-4.6-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " a058ba9d4b03278e08c4885ac56f81a9783f3d951addabed020dcd5f255d1b27 88162 libmudflap0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 8dfac12ad05d671610e3a00c2ddf0d7c8bc41c1b2b3fc77af4f3cf63f9b5970b 118336 libmudflap0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 585fa204fa39ed33165dfbb2099426a4b429b77a414c1b357932b04b23e6fed5 97726 lib64mudflap0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2231c6ea64c0b449970ee0be9c301f1cc66e8e2223ccb9d462f92ae9be2a22c4 133524 lib64mudflap0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 360e86bf30a930c063ce94494b6daf8a276a8890b6d9c55252dd856f03a31ea3 870 gobjc++-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b1c2e624be44b08890b679cdc07b98e8c92c0f5f2e000d4f436240a379038779 4983216 gobjc++-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " bfa127cda9e255d14e0cf022cf510c3e7ac75ccc2efd787bb70f2a7582bc1e9d 215458 gobjc-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " abf6b0b2da7085cba9b4e138064f63302374678783acaaf13a267654cc12511d 4836290 gobjc-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 5fe2aa5885669957bd9a7ea3273123020ed67d382dad17b2f00fcc3824f2d4ee 180450 libobjc3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2f8e4d9df40bf406a92b48ffa45b55208ca2e155829a9b38dd986d1e2f6da22a 336146 libobjc3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " a8e8d87df80d332af043010ec6f026d669d67028fca8538d462da53a1ff5743a 184868 lib64objc3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 43bfdd3c58435b6b41b05c3fc991bfc28fa5d763ac7137f181523a7221178bab 363056 lib64objc3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 1982f7d51f6d98c9b2c564441de6088399bb6ccd342e693884cb0c0749512347 2107054 libgo0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 99d5a1b122194af770b71e0229019c554d8b39f326dd15f811e71f8bc32a2fe6 1583064 libgo0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 43993aad10bc7ce4337153dc86ef5865d81d4dfaae4edce0b348872165abc50f 2308670 lib64go0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 3452f71586e8492703d9e0223aae9bfe6250085f7bc98bd124fd2319dcdb8243 2047592 lib64go0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 439c4339c1ac33c7ee850f8fea70cac3bb500a93dd50c73e3f1d57053401e086 7800476 gccgo-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 6e9980ebf0c34773bc57e61aae0f74add7669227fec7d6fe948e519fd765eea7 3002134 gccgo-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " db8ab2ab7eead87189a5aa7f7d7a61ee7747dddaf90cc02b81c1349d0676cb66 1036020 g++-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 3948628be1166c8a23ec7a717d03ec539f03280fbf3ff96ee29cfcd1e1a6de5c 6778584 g++-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " d66e39b56a7a31b76ac4c95fb2030e1ee494c5d58e5b8c7c90297dc772572086 343502 libstdc++6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " c894dfc778907bf5e02b628496c4ae5611b1208e610f89a0fcbf968dd3b45c66 330446 lib64stdc++6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 93472cfffc83d3104a188533287b55bfeb1538b3e81b407c1177566a5d4cfb1d 6974652 lib64stdc++6-4.6-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " f173865695ccb4049d27dd4e8c14287e939cc3df31c30bcf1960671017c4f43f 1643384 libstdc++6-4.6-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 7c1171c27e28193d47893485ba3e74c46d9464200138261020022d42a43dc2e8 499632 libstdc++6-4.6-pic_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 98d0d3e2ae99ab610f4e966f54659bac5869b7ff7024ac68778cab03ea5a7afd 4122204 libstdc++6-4.6-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 78999b3450a1aa2e5ee41ed8889208b3c2d6c9ed3dd5b79116cc59b5c653ad86 355116 libgfortran3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 4731c217665212564a518d86bd6ed78062549de23f2c816d91912f0ad39a6678 643180 libgfortran3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " a9f41e32ef349b7ed63e17978713d3adebb1d8282326642c887e235096ab9d7a 358406 lib64gfortran3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " db67391beb63426eace2e3f97dc8aeaa5fc9d0a3952a59a5606485a8a5ff3119 808138 lib64gfortran3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " f1f96188b71a5ec95a5f6a8b102bbc87906eba32e25770cc9d7fa6a4e973ebd1 432092 gfortran-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 727fb134288a53dfb51e45710aa241d7aac73e97d501284f8e7622d0ef2b0b7d 5351632 gfortran-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 96deb95b036fb000b08783ac16bcf44fb052d09bbeb96bafe5a9752f7525f8fb 2358112 gcc-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 3a25dc1952101d1d4a6cdef787a9e7e624661c2b5c4d19a4d3649e8bb406670c 835790 gcc-4.6-plugin-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 54dbeab6c33d02f02f150b6d81cdbe47a7f147926035947f9d40d5c213afaaf9 7317386 gcc-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Files: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " e9e049428b4081a6d987d366e018171d 7272 devel optional gcc-4.6_4.6.2-4.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 37b7ae6125ba06ad39845dfb164d7819 828531 devel optional gcc-4.6_4.6.2-4.diff.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " ddd3fa6f9f1062671fddb3e953e9af6d 57797858 devel optional gcc-4.6-source_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " e66548235898db7a7ccdaa8f9b556524 3761080 doc optional libstdc++6-4.6-doc_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " dd3d635683024590965cc6f44cc99921 2637242 devel optional gcc-4.6-locales_4.6.2-4_all.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " cf1b5371035aea76472ed3ded1b66999 136322 libs required gcc-4.6-base_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 0c8ec2f5f7c548024e380708ffa31bdc 54242 libs required libgcc1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " deec953da8ae5e11ac8d1c427cb1b636 99578 debug extra libgcc1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " d2fe1eea88b8ad9f02e4e97701f4c30f 42698 libs optional lib64gcc1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 75766ca449ce769d4dd1584ca4365557 92974 debug extra lib64gcc1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " bf5672e745992867094f6ee897b2b472 195278 libs optional libquadmath0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " c1b003299114140cb899d6705e7ba02c 170054 debug extra libquadmath0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 266ab10ced90968f6ebb52bd0be31776 126012 libs optional lib64quadmath0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2ba25f9111ff2c2135d93d395950f7a4 150040 debug extra lib64quadmath0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " ee10d4db8ee738d8ab94e16eaab70d18 27304 libs optional libgomp1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 69fd727a556cf5813c374640381ba096 64660 debug extra libgomp1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " be57aa7945febb8c323c1b5931ca7043 25658 libs optional lib64gomp1_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " cad4ea80bcc5fb9113002aa13b15ed1a 62754 debug extra lib64gomp1-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b26f90663fc0862cefcc57592d7a0505 4645800 interpreters optional cpp-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 136459ecec09842e309a92265ca98b31 63384 devel optional fixincludes_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " c08d38804b615c375339e025f426c972 218402 libdevel optional libmudflap0-4.6-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " f95296865f9240871d833fc88c9c430c 88162 libs optional libmudflap0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " ad132e741a867fb22c065e973f4160b7 118336 debug extra libmudflap0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 5d30f9050f492ea8794a7c2691e70644 97726 libs optional lib64mudflap0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 1a6ee27d0e0a83c356db945e774975dc 133524 debug extra lib64mudflap0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " f60878736b5fd6bc8769fe762952ffee 870 devel optional gobjc++-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 07472a223b077486a4507f93ea7b6907 4983216 devel optional gobjc++-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 98b361802a69bff5b4f9f96f45eab012 215458 devel optional gobjc-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 323b157f3983dbc6f71d8e7d9dd17b0f 4836290 devel optional gobjc-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 5bb19e005654b127e7449588b51700aa 180450 libs optional libobjc3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 7372d4695ee3bebb04418907679365c6 336146 debug extra libobjc3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 97e73efee2eb4409dbac5337b963c8f5 184868 libs optional lib64objc3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 7defc94d547b9e0248a65eaeb7f8c166 363056 debug extra lib64objc3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 47d329e58e05ddf76b56c72e5dbfb277 2107054 libs optional libgo0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 0b1e60c235c363b68ff97e9bd91ced04 1583064 debug extra libgo0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 27912dc35bcd2363928877760b5787a3 2308670 libs optional lib64go0_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " cd1ac3618d5dda3b9ab46f930d88df18 2047592 debug extra lib64go0-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2048d071ebf094ad6f528b073fc8e882 7800476 devel optional gccgo-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " c7fe9a7c947d835052e956f76ab6a808 3002134 devel optional gccgo-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " a9db882e00333f151655a7afc9104b5c 1036020 devel optional g++-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " b0f5209623129a1923264275ab575365 6778584 devel optional g++-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " f717196ba11564c111bbf752671c1796 343502 libs required libstdc++6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 149e7a2676556b61d6ca67433bf178d0 330446 libs optional lib64stdc++6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " ce554b0700d64f245ee454e116deaf94 6974652 debug extra lib64stdc++6-4.6-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " bbc2429e32f2e3e37843cf66be0adbae 1643384 libdevel optional libstdc++6-4.6-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " fef1dbf0dbd61b485cc8eb5abe9791f8 499632 libdevel extra libstdc++6-4.6-pic_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2e3d93e4f19b51f66730b834547578f0 4122204 debug extra libstdc++6-4.6-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 681b5c41b09f694238b826d1589e5039 355116 libs optional libgfortran3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " a5923adac2bbbff1b62c5736b66e1b77 643180 debug extra libgfortran3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2d2abf035a1ef0930647e653c060fa40 358406 libs optional lib64gfortran3_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " a97e04e141f6cc2e475067674aa50b63 808138 debug extra lib64gfortran3-dbg_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 104168abee1f2b224ee7b29b1ffedf04 432092 devel optional gfortran-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " c3fa5869a491e3ab424a63d7c25a692e 5351632 devel optional gfortran-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " d010c127ae19fe7c3c83fb706eb425a6 2358112 devel optional gcc-4.6-multilib_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 8306249d88c107d6ade87015ee78e77f 835790 devel optional gcc-4.6-plugin-dev_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " c1b140974fa13d6e6582573e36c8ef60 7317386 devel optional gcc-4.6_4.6.2-4_i386.deb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----BEGIN PGP SIGNATURE-----\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: GnuPG v1.4.11 (GNU/Linux)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "iEYEARECAAYFAk6zGx8ACgkQStlRaw+TLJzClACeISA2MBfndj8sG9aIZ1LJ34Tn\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Jo4AnilpqgNS/2pXoGStB/KuiOpYNl71\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "=j9de\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----END PGP SIGNATURE-----\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Matthias Klose <doko@debian.org>", 
+            "email": "Matthias Klose <doko@debian.org>"
+        }
+    ], 
+    "id": "647324", 
+    "project": "Debian", 
+    "original_link": "http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=647324"
+}

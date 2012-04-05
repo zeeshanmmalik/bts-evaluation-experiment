@@ -1,0 +1,452 @@
+{
+    "contributors": [
+        [
+            "Oleg Romashin (:romaxa)", 
+            "email"
+        ], 
+        [
+            "Robert O'Callahan (:roc) (Mozilla Corporation)", 
+            "lexrank"
+        ], 
+        [
+            "Boris Zbarsky (:bz)", 
+            "email"
+        ], 
+        [
+            "Mounir Lamouri (:volkmar) (:mounir)", 
+            "lexrank"
+        ], 
+        [
+            "Do Gottwald [:dao]", 
+            "email"
+        ]
+    ], 
+    "title": "Qt needs to dispatch DID_PAINT events", 
+    "comments": [
+        {
+            "date": "2011-12-14 10:05:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "See bug 598482 comment 79.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2012-03-17 19:05:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 606923 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Widget Wil/Did Paint\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Oleg Romashin (:romaxa)", 
+            "email": "Oleg Romashin (:romaxa)"
+        }, 
+        {
+            "date": "2012-03-17 20:39:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 606923 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Widget Wil/Did Paint\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 606923 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: widget/qt/nsWindow.cpp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +1061,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +    {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +        nsEventStatus status;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +        nsPaintEvent willPaintEvent(true, NS_WILL_PAINT, this);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +        willPaintEvent.willSendDidPaint = true;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +        DispatchEvent(&willPaintEvent, status);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Is it really safe to change widget geometry here (and where you call DispatchDidPaint)?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +1103,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  #endif //MOZ_ENABLE_QTMOBILITY\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +        status = DispatchEvent(&event);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +        DispatchDidPaint(this);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +        aPainter->beginNativePainting();\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "maybe this should be \"endNativePainting\"?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And maybe that should happen before DispatchDidPaint?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert O'Callahan (:roc) (Mozilla Corporation)", 
+            "email": "Robert O'Callahan (:roc) (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2012-03-17 22:47:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 606937 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Widget Wil/Did Paint\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fixed endNativePainting.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Is it really safe to change widget geometry here\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Did not get why geometry should change here?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (and where you call DispatchDidPaint)?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I call it at the end of GL painting and at the end of DoPaint (software rendering)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Oleg Romashin (:romaxa)", 
+            "email": "Oleg Romashin (:romaxa)"
+        }, 
+        {
+            "date": "2012-03-17 22:49:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 606938 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Widget Wil/Did Paint\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Err, forgot to fix order\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Oleg Romashin (:romaxa)", 
+            "email": "Oleg Romashin (:romaxa)"
+        }, 
+        {
+            "date": "2012-03-17 23:32:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 606938 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Widget Wil/Did Paint\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review of attachment 606938 [details] [diff] [review]:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "::: widget/qt/nsWindow.cpp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ +1233,5 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">      }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">      ctx = nsnull;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">      targetSurface = nsnull;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> +    DispatchDidPaint(this);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You're not setting willSendDidPaint to true for this paint event.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Robert O'Callahan (:roc) (Mozilla Corporation)", 
+            "email": "Robert O'Callahan (:roc) (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2012-03-18 00:59:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 606949 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Widget Wil/Did Paint\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Added WillSendDidPaint flag to software paint.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Also not sure what to do about geometry changed in this case... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I guess nothing bad should happen Is there are test related to this move/size during paint?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Oleg Romashin (:romaxa)", 
+            "email": "Oleg Romashin (:romaxa)"
+        }, 
+        {
+            "date": "2012-03-19 02:05:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can't remember. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It doesn't happen much anymore since we got rid of almost all child widgets.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Robert O'Callahan (:roc) (Mozilla Corporation)", 
+            "email": "Robert O'Callahan (:roc) (Mozilla Corporation)"
+        }, 
+        {
+            "date": "2012-03-19 02:17:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 606949 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Widget Wil/Did Paint\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ok, hopefully we can survive with that\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Oleg Romashin (:romaxa)", 
+            "email": "Oleg Romashin (:romaxa)"
+        }, 
+        {
+            "date": "2012-03-19 13:19:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/integration/mozilla-inbound/rev/d548cc64e028\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Do Gottwald [:dao]", 
+            "email": "Do Gottwald [:dao]"
+        }, 
+        {
+            "date": "2012-03-20 03:55:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/d548cc64e028\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Mounir Lamouri (:volkmar) (:mounir)", 
+            "email": "Mounir Lamouri (:volkmar) (:mounir)"
+        }
+    ], 
+    "id": "710774", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=710774"
+}

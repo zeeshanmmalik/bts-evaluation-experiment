@@ -1,0 +1,492 @@
+{
+    "contributors": [
+        [
+            "al-openerp", 
+            "email"
+        ], 
+        [
+            "ahmad-beitasoft", 
+            "lexrank"
+        ], 
+        [
+            "fpi-openerp", 
+            "email"
+        ]
+    ], 
+    "title": "Product function fields should return 0 when no locations are defined", 
+    "comments": [
+        {
+            "date": "2012-01-25 13:26:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "6.1 (last update 01/25/12)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Create a mutli-company environment :\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Create a new database\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- In settings, rename the company name \"your company\" to \"company A\"\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Create a second company \"company B\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Rename user \"Administrator\" to \"Super Administrator\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Change \"Super Administrator access rights\" : add \"multi-company\" + \"extended view\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Log out then log in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Link \"Super Administrator\" to companies A and B but default filter is \"company A\"\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Duplicate \"Super Administrator\" + rename the copy \"Administrator A\" + link \"Administrator A\" to \"company A\" + default filter is \"company A\"\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Duplicate \"Super Administrator\" + rename the copy \"Administrator B\" + link \"Administrator A\" to \"company B\" + default filter is \"company B\"\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Install the module \"Sales\" : select \"Company A\" while setting the chart of account\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- All users : associate the right \"manager\" for Sales/Warehouse/Accounting\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Log as \"Administrator B\" and define the financial settings (use default values)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Log as \"Administrator A\" + open the product \"Service on Timesheet\" and do NOT associate to a company\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Log as \"Administrator B\"and open the product list :\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "----------------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Client Traceback (most recent call last):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/web/trunk/addons/web/common/http.py\", line 180, in dispatch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    response[\"result\"] = method(controller, self, **self.params)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/web/trunk/addons/web/controllers/main.py\", line 730, in search_read\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    return self.do_search_read(req, model, fields, offset, limit, domain, sort)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/web/trunk/addons/web/controllers/main.py\", line 766, in do_search_read\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    records = Model.read(paginated_ids, fields or False, context)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/web/trunk/addons/web/common/openerplib/main.py\", line 250, in proxy\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    args, kw)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/web/trunk/addons/web/common/openerplib/main.py\", line 117, in proxy\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    result = self.connector.send(self.service_name, method, *args)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/web/trunk/addons/web/common/http.py\", line 609, in send\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    raise fault\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Server Traceback (most recent call last):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/web/trunk/addons/web/common/http.py\", line 590, in send\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    result = openerp.netsvc.dispatch_rpc(service_name, method, args)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/netsvc.py\", line 324, in dispatch_rpc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    result = ExportService.getService(service_name).dispatch(method, params)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/service/web_services.py\", line 583, in dispatch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    res = fn(db, uid, *params)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/osv/osv.py\", line 166, in execute_kw\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    return self.execute(db, uid, obj, method, *args, **kw or {})\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/osv/osv.py\", line 120, in wrapper\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    return f(self, dbname, *args, **kwargs)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/osv/osv.py\", line 175, in execute\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    res = self.execute_cr(cr, uid, obj, method, *args, **kw)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/osv/osv.py\", line 163, in execute_cr\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    return getattr(object, method)(cr, uid, *args, **kw)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/osv/orm.py\", line 3381, in read\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    result = self._read_flat(cr, user, select, fields, context, load)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/osv/orm.py\", line 3492, in _read_flat\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    res2 = self._columns[val[0]].get(cr, self, ids, val, user, context=context, values=res)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/osv/fields.py\", line 1052, in get\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    result = self._fnct(obj, cr, uid, ids, name, self._arg, context)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/addons/trunk/stock/product.py\", line 328, in _product_available\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    stock = self.get_product_available(cr, uid, ids, context=c)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/addons/trunk/stock/product.py\", line 222, in get_product_available\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    child_location_ids = location_obj.search(cr, uid, [('location_id', 'child_of', location_ids)])\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/osv/orm.py\", line 2239, in search\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    return self._search(cr, user, args, offset=offset, limit=limit, order=order, context=context, count=count)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/osv/orm.py\", line 4548, in _search\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    query = self._where_calc(cr, user, args, context=context)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/osv/orm.py\", line 4399, in _where_calc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    where_clause, where_params = e.to_sql()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/fpi/openerp/server/trunk/openerp/osv/expression.py\", line 795, in to_sql\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    q2 = stack.pop()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "IndexError: pop from empty list\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "----------------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thank's\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Francois Pietquin\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "OpenERP Belgium\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Professional Services\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "fpi-openerp", 
+            "email": "fpi-openerp"
+        }, 
+        {
+            "date": "2012-01-31 09:42:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello ,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have checked the Issue at my end, I face  the same traceback at server side.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "would you please refer this , lp : 922024\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks !\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amb-openerp", 
+            "email": "amb-openerp"
+        }, 
+        {
+            "date": "2012-01-31 10:36:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "the empty list is because there arent any warehouses created. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "you have to create a new physical location related to each company and  try it again.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "ahmad-beitasoft", 
+            "email": "ahmad-beitasoft"
+        }, 
+        {
+            "date": "2012-02-14 18:32:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "module product: Failsafe to quantity 0 if no locations are defined.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "al-openerp", 
+            "email": "al-openerp"
+        }, 
+        {
+            "date": "2012-02-15 00:05:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Maybe the line 213 is wrong:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            else:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                location_ids = context['location']\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "al-openerp", 
+            "email": "al-openerp"
+        }
+    ], 
+    "id": "921561", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/921561"
+}

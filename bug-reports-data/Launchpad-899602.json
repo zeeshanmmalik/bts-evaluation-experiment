@@ -1,0 +1,326 @@
+{
+    "contributors": [
+        [
+            "rainct", 
+            "lexrank"
+        ], 
+        [
+            "seif", 
+            "email"
+        ]
+    ], 
+    "title": "Automatically determine interpretation from mime-type when it's empty", 
+    "comments": [
+        {
+            "date": "2011-12-03 14:24:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Several of our client APIs (python-zeitgeist and libzeitgeist) currently support guessing the subject interpretation from the mime-type.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think it'd make sense to move this directly into the engine. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, if a subject is inserted with an empty interpretation (which seems to be allowed currently), we'll try to determine it from the mime-type.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This will avoid duplicating the mime-type mappings in different bindings. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It'll be even more useful for clients using the D-Bus API directly (such as GTK+).\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "rainct", 
+            "email": "rainct"
+        }, 
+        {
+            "date": "2011-12-16 04:09:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I had an extension for kde users that depended on kio to get the interpretation of an based on the mimetype.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My questions before this is hacked:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1) Is there a way to do it cross platform so we dont need to depend on any GNOME or KDE libraries to do so\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "seif", 
+            "email": "seif"
+        }, 
+        {
+            "date": "2011-12-16 07:19:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is nothing new, just the existing code from Python/libzeitgeist.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2011/12/16 Seif Lotfy <email address hidden>:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 1) Is there a way to do it cross platform so we dont need to depend on any GNOME or KDE libraries to do so Sure, we're just looking up the \"subject mime-type\" field in a mimetype->interpretation dictionary.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 2) Should we do it as an extension that hooks into \"Pre Insert Event\" or hard code it into the engine.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Don't see why we would overcomplicate it with an extension. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Either we do it, or we don't, but we don't \"maybe\" guess mime-type, that's just confusing API users who want to rely on the feature.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "rainct", 
+            "email": "rainct"
+        }, 
+        {
+            "date": "2011-12-16 13:47:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sorry I thought the other way round where we get a file without a mimetype then guess the mimetype\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Fri, Dec 16, 2011 at 8:19 AM, Siegfried Gevatter <email address hidden>wrote:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> This is nothing new, just the existing code from Python/libzeitgeist.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 2011/12/16 Seif Lotfy <email address hidden>:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > 1) Is there a way to do it cross platform so we dont need to depend on > any GNOME or KDE libraries to do so\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Sure, we're just looking up the \"subject mime-type\" field in a > mimetype->interpretation dictionary.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > 2) Should we do it as an extension that hooks into \"Pre Insert Event\" or > hard code it into the engine.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Don't see why we would overcomplicate it with an extension. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Either we > do it, or we don't, but we don't \"maybe\" guess mime-type, that's just > confusing API users who want to rely on the feature.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> --\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> You received this bug notification because you are subscribed to The > Zeitgeist Project.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://bugs.launchpad.net/bugs/899602\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Title:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  Automatically determine interpretation from mime-type when it's empty >\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Status in Zeitgeist Framework:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  New\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Bug description:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  Several of our client APIs (python-zeitgeist and libzeitgeist)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  currently support guessing the subject interpretation from the mime- >  type.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  I think it'd make sense to move this directly into the engine. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, if >  a subject is inserted with an empty interpretation (which seems to be >  allowed currently), we'll try to determine it from the mime-type.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  This will avoid duplicating the mime-type mappings in different >  bindings. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It'll be even more useful for clients using the D-Bus API >  directly (such as GTK+).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> To manage notifications about this bug go to:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://bugs.launchpad.net/zeitgeist/+bug/899602/+subscriptions\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "seif", 
+            "email": "seif"
+        }
+    ], 
+    "id": "899602", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/899602"
+}

@@ -1,0 +1,329 @@
+{
+    "contributors": [
+        [
+            "jofa", 
+            "lexrank"
+        ], 
+        [
+            "diwic", 
+            "email"
+        ], 
+        [
+            "themuso", 
+            "lexrank"
+        ]
+    ], 
+    "title": "upstart task alsa-restore has no effect", 
+    "comments": [
+        {
+            "date": "2012-02-04 14:43:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There is a upstart task 'alsa-restore' which should restore the alsa state to the state that was saved with upstart task 'alsa-store'.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This does not work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It looks like there is some other task that initializes alsamixer to its default state AFTER alsa-restore is run.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There is a help page which recommends running 'alsactl restore' in the users startup applications:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://help.ubuntu.com/community/MacBook5-1/Natty\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This should not be necessary if the upstart task 'alsa-restore' was working right.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I suggest find the task that is initializing alsamixer to its default state and eliminate this, or delay alsa-restore until the initialization was done.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This happens in latest Natty release, but I think this problem also exits in Oneiric because this problem exists as far as I can remember.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "jofa", 
+            "email": "jofa"
+        }, 
+        {
+            "date": "2012-02-04 15:26:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I did some more testing on this topic. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My Macbook has a optical audio out which is on by default. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I want it to be off, so the led is not always on. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I turned S/PDIF off in alsamixer and stored it with 'alsactl store'.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I created a script /usr/local/bin/alsarestore:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#!/bin/sh\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "sleep 15\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/sbin/alsactl restore\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I changed /etc/init/alsa-restore.conf to execute my script instead of running alsactl directly.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I watched the led during boot and stopped the time the led was on. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On boot the led turned on at some stage, then was on for 8 seconds and then switched off by my script.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This means: 7 seconds after upstart task alsa-restore was invoked, some process initiliazed alsa and turned S/PDIF on. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "8 seconds later (the sleep was 15 seconds) my script turned it off again.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So the whole process of alsa-store and alsa-restore does not work as designed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It was designed to store the current state of alsamixer on shutdown, and restore it on bootup.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The workaround to restore the state in users startup applications only works if all users have this workaround in their startup, and if a user logs in after boot. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I you boot the system and shut it down immediately without logging in (from the gdm screen), then this process is broken because the default settings are stored through alsa-store. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "From now on the settings you made are lost.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jofa", 
+            "email": "jofa"
+        }, 
+        {
+            "date": "2012-02-15 00:48:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Have you tried disabling pulseaudio, as that may be the second volume change here. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "To disable pulseaudio, open /etc/pulse/client.conf, and set autospawn to no. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thsi will prevent pulseaudio from being loaded both in the login session, and when you log into your user session.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "themuso", 
+            "email": "themuso"
+        }, 
+        {
+            "date": "2012-02-15 08:15:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In addition to Luke's very valid comment, alsa-restore is either being run by a udev rule or by the upstart script, this is to cover for a race between filesystem being mounted and device being probed.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "diwic", 
+            "email": "diwic"
+        }, 
+        {
+            "date": "2012-02-18 12:56:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I tried what Luke suggested, setting autospawn to no in /etc/pulse/client.conf. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This way the alsamixer settings remain as they were stored. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So pulseaudio must be resetting the mixer settings to its defaults.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "What does this autospawn=no mean? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Has it any disadvantages?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jofa", 
+            "email": "jofa"
+        }, 
+        {
+            "date": "2012-02-24 07:05:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Disabling pulseaudio will make the sound indicator, the media keys, the standard volume control stop working, and will only enable one application at a time to output sound. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And more.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "diwic", 
+            "email": "diwic"
+        }
+    ], 
+    "id": "926688", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/926688"
+}

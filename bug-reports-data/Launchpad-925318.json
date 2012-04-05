@@ -1,0 +1,171 @@
+{
+    "contributors": [
+        [
+            "rene-glauser", 
+            "email"
+        ], 
+        [
+            "david-novapointgroup.com", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Trunk: Error while indexing PDF-Files", 
+    "comments": [
+        {
+            "date": "2012-02-02 08:32:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When a PDF has to be indexed even while downloading from e-mail-input-account or when confirming a sales-order I alwas get error, that the file could not be indexed. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "See my trace-back below:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[2012-02-02 08:19:30,671][?] INFO:werkzeug:192.168.0.68 - - [02/Feb/2012 08:19:30] \"GET /web/static/src/img/attachments-close.png                                     HTTP/1.1\" 304 -\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "[2012-02-02 08:24:25,062][?] INFO:fetchmail:start checking for new emails on pop server Hostpoint [2012-02-02 08:24:27,936][?] ERROR:addons.document.content_index:Could not index file xyz.pdf (None)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Traceback (most recent call last):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/erp/openerp6.1rc1/addons/document/content_index.py\", line 182, in doIndex\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    res = (mime, fobj.indexContent(content,filename,fname or realfname) )\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/erp/openerp6.1rc1/addons/document/content_index.py\", line 90, in indexContent\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    res = self._doIndexFile(rfname)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/erp/openerp6.1rc1/addons/document/std_index.py\", line 168, in _doIndexFile\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    pop = Popen(['pdftotext', '-enc', 'UTF-8', '-nopgbrk', fname, '-'], shell=False, stdout=PIPE)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/lib/python2.6/subprocess.py\", line 633, in __init__\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    errread, errwrite)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/lib/python2.6/subprocess.py\", line 1139, in _execute_child\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    raise child_exception\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "OSError: [Errno 2] No such file or directory\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "rene-glauser", 
+            "email": "rene-glauser"
+        }, 
+        {
+            "date": "2012-02-02 10:19:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I found one possible problem: python-pypdf was not installed on my system. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So I installed it but I get always the same errors.....\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "rene-glauser", 
+            "email": "rene-glauser"
+        }, 
+        {
+            "date": "2012-02-02 10:22:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "After installation of sudo apt-get install poppler-utils\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "everithing works ok. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Shouldn't this be installed by default?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "rene-glauser", 
+            "email": "rene-glauser"
+        }, 
+        {
+            "date": "2012-02-11 15:17:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This issue also appears on a 6.0.3 install on windows as well. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There doesn't seem to be an install of pdftotxt.exe as part of any standard requirement in the doc. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please revisit the documentation to make sure all required libraries are present.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "david-novapointgroup.com", 
+            "email": "david-novapointgroup.com"
+        }
+    ], 
+    "id": "925318", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/925318"
+}

@@ -1,0 +1,366 @@
+{
+    "contributors": [
+        [
+            "Tamarin Bot", 
+            "lexrank"
+        ], 
+        [
+            "Felix S Klock II", 
+            "email"
+        ]
+    ], 
+    "title": "abcdump does not gracefully handle malformatted abcs", 
+    "comments": [
+        {
+            "date": "2011-12-01 05:13:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We sometimes encounter swfs/abcs that do not fit our expected format. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " It would be nice if abcdump did not itself die when processing such abcs.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Right now, on a simple hello world .abc where I killed the last three bytes, I get this from abcdump:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Error: Error #2030: End of file was encountered.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tat flash.utils::ByteArray/readBytes()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tat Abc/parseMethodBodies()[abcdump.as:1261]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tat Abc()[abcdump.as:854]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\tat global$init()[abcdump.as:1716]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(and this is just the tip of the iceberg.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "My plan is to use this Bugzilla ticket as common point that I'll use to tag self-reviewed changesets that refactor abcdump to improve its handling of such inputs.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Felix S Klock II", 
+            "email": "Felix S Klock II"
+        }, 
+        {
+            "date": "2011-12-01 06:11:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "changeset: 6758:843dec41ae87\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "user:      Felix S Klock II <fklockii@adobe.com>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "summary:   Bug 706799: abcdump provide context when signaling error (r=fklockii).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/tamarin-redux/rev/843dec41ae87\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Tamarin Bot", 
+            "email": "Tamarin Bot"
+        }, 
+        {
+            "date": "2011-12-01 06:13:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 578241 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "simple example malformed abc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Simple test input showing a awkwardly handled case; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "built by taking a two function Hello World script, compiling it, and then replacing the returnvoid == 0x47 == 'G' opcodes with getouterscope == 0x67 == 'g' opcodes.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Felix S Klock II", 
+            "email": "Felix S Klock II"
+        }, 
+        {
+            "date": "2011-12-01 06:18:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "changeset: 6759:3215ebf1817a\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "user:      Felix S Klock II <fklockii@adobe.com>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "summary:   Bug 706799: driveby fix, establish code_length member (r=fklockii).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/tamarin-redux/rev/3215ebf1817a\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Tamarin Bot", 
+            "email": "Tamarin Bot"
+        }, 
+        {
+            "date": "2011-12-01 06:46:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "changeset: 6760:e1ec7530cace\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "user:      Felix S Klock II <fklockii@adobe.com>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "summary:   Bug 706799: refactor code to throw specific exception when code exhausted (r=fklockii).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/tamarin-redux/rev/e1ec7530cace\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Tamarin Bot", 
+            "email": "Tamarin Bot"
+        }, 
+        {
+            "date": "2011-12-01 07:14:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "changeset: 6761:58a27bbda05d\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "user:      Felix S Klock II <fklockii@adobe.com>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "summary:   Bug 706799: refactor all constant pool accesses into helpers (r=fklockii).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/tamarin-redux/rev/58a27bbda05d\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Tamarin Bot", 
+            "email": "Tamarin Bot"
+        }, 
+        {
+            "date": "2011-12-02 00:39:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Tamarin Bot from comment #5)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> changeset: 6761:58a27bbda05d\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> user:      Felix S Klock II <fklockii@adobe.com>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> summary:   Bug 706799: refactor all constant pool accesses into helpers > (r=fklockii).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> http://hg.mozilla.org/tamarin-redux/rev/58a27bbda05d\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This injected failures; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "see Bug 707086.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Felix S Klock II", 
+            "email": "Felix S Klock II"
+        }, 
+        {
+            "date": "2011-12-02 01:08:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "changeset: 6762:948e3694ac20\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "user:      Felix S Klock II <fklockii@adobe.com>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "summary:   Bug 707086: revert portion of changeset 6761:58a27bbda05d (Bug 706799) that broke abcdump (r=fklockii).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://hg.mozilla.org/tamarin-redux/rev/948e3694ac20\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Tamarin Bot", 
+            "email": "Tamarin Bot"
+        }, 
+        {
+            "date": "2011-12-02 02:36:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 578530 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "simple example malformed abc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(uploaded wrong file last time)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Felix S Klock II", 
+            "email": "Felix S Klock II"
+        }
+    ], 
+    "id": "706799", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=706799"
+}

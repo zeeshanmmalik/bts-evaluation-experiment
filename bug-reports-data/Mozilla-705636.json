@@ -1,0 +1,396 @@
+{
+    "contributors": [
+        [
+            "Rob Campbell [:rc] (:robcee)", 
+            "email"
+        ], 
+        [
+            "Joe Walker", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Extract Style Editor's _loadSource and friends into a utility module", 
+    "comments": [
+        {
+            "date": "2011-11-28 02:54:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The Script Debugger is using an older version of _loadSource and related methods for getting source scripts:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/users/dcamp_campd.org/remote-debug/file/de21cda87a2c/browser/devtools/debugger/DebuggerUI.jsm#l241\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It would be best to have a single version in browser/devtools/shared instead of maintaining two copies of the same code.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Panos Astithas [:past]", 
+            "email": "Panos Astithas [:past]"
+        }, 
+        {
+            "date": "2011-11-28 03:05:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Candidates for inclusion:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/fx-team/file/tip/browser/devtools/styleinspector/CssLogic.jsm around line 800\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "CssLogic.getShortName()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "CssLogic.getShortNamePath()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "CssLogic.isSystemStyleSheet()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "CssLogic.shortSource()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(and IMHO we need a version of CssLogic.getShortNamePath() that returns a unique CSS expression for an arbitrary node)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Joe Walker", 
+            "email": "Joe Walker"
+        }, 
+        {
+            "date": "2011-11-28 07:04:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+1 from me as well for creating a CssUtils module in /shared.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Joe Walker from comment #1)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (and IMHO we need a version of CssLogic.getShortNamePath() that returns a > unique CSS expression for an arbitrary node)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, we need this for bug 701419.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Rob Campbell [:rc] (:robcee)", 
+            "email": "Rob Campbell [:rc] (:robcee)"
+        }, 
+        {
+            "date": "2011-11-29 08:42:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 577635 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "cssutils wip\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "onCacheDataAvailable doesn't appear to be working yet. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Still investigating, but if you have any ideas...\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Rob Campbell [:rc] (:robcee)", 
+            "email": "Rob Campbell [:rc] (:robcee)"
+        }, 
+        {
+            "date": "2011-11-29 19:24:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Rob Campbell [:rc] (robcee) from comment #3)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> onCacheDataAvailable doesn't appear to be working yet. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Still investigating,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> but if you have any ideas...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The multiple .call invocations do not look right ;)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "aCallback.call(chunks.join(\"\"));\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Also, I'm all for a CssUtil we can share, but this bug title sounds a way more generic feature (loading stuff from cache - including Javascript for the debugger) that IMHO should live in another 'generic' module (devtools/shared/Util.jsm?). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We could add assertions and logging to this generic module as well (and leave/implement CSS specific stuff in CSSUtil).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thoughts?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Cedric Vivier [:cedricv]", 
+            "email": "Cedric Vivier [:cedricv]"
+        }, 
+        {
+            "date": "2011-11-30 10:28:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "yeah, the .call()s looked fishy to me too.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I also wondered if this method was going to be more generic than simply CSS. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It occurred to me while doing the refactoring that this was going to be used by the Debugger.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "That makes me think that we should just use the methods from CssLogic as they are now and move the loader methods into a generic Utils method, probably as was originally intended.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is what I get for trying to help with what I thought would be a quick, 10 minute code reorg. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Rob Campbell [:rc] (:robcee)", 
+            "email": "Rob Campbell [:rc] (:robcee)"
+        }, 
+        {
+            "date": "2011-11-30 10:29:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "marking myself unassigned for now. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Panos, you might want to just copy the methods you need for now, it doesn't seem worth it to create a utils library for just one loader function.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Rob Campbell [:rc] (:robcee)", 
+            "email": "Rob Campbell [:rc] (:robcee)"
+        }, 
+        {
+            "date": "2011-12-01 09:24:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Rob Campbell [:rc] (robcee) from comment #6)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> marking myself unassigned for now. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Panos, you might want to just copy the > methods you need for now, it doesn't seem worth it to create a utils library > for just one loader function.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "OK, I'll file another bug for it. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feel free to WONTFIX this one, if you don't think it's useful.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Panos Astithas [:past]", 
+            "email": "Panos Astithas [:past]"
+        }, 
+        {
+            "date": "2012-01-23 14:04:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 577635 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "cssutils wip\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This piece of code was just not necessary... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "and more importantly wrong from an asynchronicity PoV.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Cedric Vivier [:cedricv]", 
+            "email": "Cedric Vivier [:cedricv]"
+        }
+    ], 
+    "id": "705636", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=705636"
+}

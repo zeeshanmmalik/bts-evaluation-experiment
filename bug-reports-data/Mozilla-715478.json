@@ -1,0 +1,185 @@
+{
+    "contributors": [
+        [
+            "Amy Rich [:arich] [:arr]", 
+            "email"
+        ], 
+        [
+            "Rick Bryce [:rbryce]", 
+            "lexrank"
+        ], 
+        [
+            "Phong Tran [:phong]", 
+            "email"
+        ], 
+        [
+            "Justin Dow [:jabba]", 
+            "lexrank"
+        ]
+    ], 
+    "title": "surf.m.o has badd DIMM and is missing hardware monitoring in nagios", 
+    "comments": [
+        {
+            "date": "2012-01-05 05:47:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Looks like we are missing the hplog and the hpasm checks in nagios, both of which might have alerted about the bad memory. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I caught it via an HP Insights Management Trap alarm:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Trap-ID=6064\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "correctable \\ uncorrectable  Errors detected.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "and whent investigating on the box. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Running nrpe commands manually:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[root@surf ~]# /usr/lib/nagios/plugins/custom/check_hpasm -t 20\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "CRITICAL - dimm module 2 @ cartridge 0 needs attention (dimm is degraded)\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Justin Dow [:jabba]", 
+            "email": "Justin Dow [:jabba]"
+        }, 
+        {
+            "date": "2012-01-06 09:43:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've added the two HP checks to surf.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Amy Rich [:arich] [:arr]", 
+            "email": "Amy Rich [:arich] [:arr]"
+        }, 
+        {
+            "date": "2012-01-06 09:46:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "coop, joduinn, we should do this at the same time as the fsck in bug 715026 since they both require surf to be out of commission. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Phong, do we have the memory available to put in the machine next week (when cshields is trying to schedule a tree closure to upgrade hg)?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Amy Rich [:arich] [:arr]", 
+            "email": "Amy Rich [:arich] [:arr]"
+        }, 
+        {
+            "date": "2012-01-06 16:24:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I also saw that one of the drive is dead. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I replaced the 72 GB 10K ULTRA320 spare.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have a spare RAM module.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Phong Tran [:phong]", 
+            "email": "Phong Tran [:phong]"
+        }, 
+        {
+            "date": "2012-01-13 10:48:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ram in dimm slot 2 replaced.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Rick Bryce [:rbryce]", 
+            "email": "Rick Bryce [:rbryce]"
+        }, 
+        {
+            "date": "2012-01-13 10:50:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reopened -- Still need to add nagios checks or confirm they are in place.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Rick Bryce [:rbryce]", 
+            "email": "Rick Bryce [:rbryce]"
+        }, 
+        {
+            "date": "2012-01-13 11:08:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I added the checks back in comment 1.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Amy Rich [:arich] [:arr]", 
+            "email": "Amy Rich [:arich] [:arr]"
+        }
+    ], 
+    "id": "715478", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=715478"
+}

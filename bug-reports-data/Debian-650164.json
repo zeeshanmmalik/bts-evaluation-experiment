@@ -1,0 +1,1664 @@
+{
+    "contributors": [
+        [
+            "Paul Wise <pabs@debian.org>", 
+            "email"
+        ], 
+        [
+            "Steve Cotton <steve@s.cotton.clara.co.uk>", 
+            "lexrank"
+        ]
+    ], 
+    "title": "\nzaz: periodic segfault", 
+    "comments": [
+        {
+            "date": "2011-11-27 16:54:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Package: zaz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Version: 1.0.0~dfsg1-1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Severity: normal\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "While playing zaz I get a segfault sometimes:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(gdb) bt\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#0  0x00007ffff793b91d in ov_raw_seek (vf=0xb058e0, pos=0) at vorbisfile.c:1241\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#1  0x00000000004095f9 in Scenes::AudioBuffer::Play (this=0x825878, smpl=<optimized out>, vol=<optimized out>, pan=<optimized out>, loop=<optimized out>) at audiobuffer.cpp:53\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#2  0x0000000000409cb1 in Scenes::Mixer::EnqueueSample (this=0x825840, smp=0xb058b0, vol=80, pan=0, loop=<optimized out>) at mixer.cpp:200\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#3  0x00000000004279a4 in Game::Logic (this=0x9bdfb0, frame=<optimized out>) at game.cpp:296\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#4  0x000000000040b9e2 in Scenes::Scene::Go (this=0x9bdfb0) at scene.cpp:176\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#5  0x0000000000448708 in GameLoop::Logic (this=0x7fffffffcae0, frame=<optimized out>) at gameloop.cpp:415\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#6  0x000000000040b9e2 in Scenes::Scene::Go (this=0x7fffffffcae0) at scene.cpp:176\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#7  0x0000000000437c72 in MainMenu::Logic (this=0x7fffffffd8f0, frame=<optimized out>) at mainmenu.cpp:1285\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#8  0x000000000040b9e2 in Scenes::Scene::Go (this=0x7fffffffd8f0) at scene.cpp:176\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#9  0x0000000000407592 in main (argc=<optimized out>, argv=<optimized out>) at main.cpp:262\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(gdb) thread apply all bt full\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thread 6 (Thread 0x7fffed1a1700 (LWP 4824)):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#0  0x00007ffff5d127f1 in ppoll (fds=<optimized out>, nfds=<optimized out>, timeout=<optimized out>, sigmask=<optimized out>) at ../sysdeps/unix/sysv/linux/ppoll.c:57\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        _a5 = 8\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        _a2 = 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        _a3 = 0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        resultvar = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        _a4 = 0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        _a1 = 8551600\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        oldtype = 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        tval = {tv_sec = 8542272, tv_nsec = 140737320353376}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        result = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#1  0x00007ffff4f03637 in pa_mainloop_poll () from /usr/lib/x86_64-linux-gnu/libpulse.so.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No symbol table info available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#2  0x00007ffff4f03c09 in pa_mainloop_iterate () from /usr/lib/x86_64-linux-gnu/libpulse.so.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No symbol table info available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#3  0x00007ffff7b7b459 in ?? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "() from /usr/lib/libSDL-1.2.so.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No symbol table info available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#4  0x00007ffff7b4b653 in ?? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "() from /usr/lib/libSDL-1.2.so.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No symbol table info available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#5  0x00007ffff7b53c25 in ?? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "() from /usr/lib/libSDL-1.2.so.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No symbol table info available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#6  0x00007ffff7b9a1f9 in ?? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "() from /usr/lib/libSDL-1.2.so.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No symbol table info available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#7  0x00007ffff5a32b40 in start_thread (arg=<optimized out>) at pthread_create.c:304\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        __res = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        pd = 0x7fffed1a1700\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        unwind_buf = {cancel_jmp_buf = {{jmp_buf = {140737171298048, -2116818542571095307, 140737488343616, 140737171298752, 140737354125376, 3, 2116787431389199093, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                2116805651867564789}, mask_was_saved = 0}}, priv = {pad = {0x0, 0x0, 0x0, 0x0}, data = {prev = 0x0, cleanup = 0x0, canceltype = 0}}}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        not_first_call = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        freesize = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        __PRETTY_FUNCTION__ = \"start_thread\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#8  0x00007ffff5d1d36d in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:112\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No locals.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#9  0x0000000000000000 in ?? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No symbol table info available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thread 3 (Thread 0x7fffeb10f700 (LWP 4821)):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#0  0x00007ffff5cee1cd in nanosleep () at ../sysdeps/unix/syscall-template.S:82\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No locals.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#1  0x00007ffff7b9c453 in SDL_Delay () from /usr/lib/libSDL-1.2.so.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No symbol table info available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#2  0x00007ffff7b9c482 in ?? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "() from /usr/lib/libSDL-1.2.so.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No symbol table info available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#3  0x00007ffff7b53c25 in ?? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "() from /usr/lib/libSDL-1.2.so.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No symbol table info available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#4  0x00007ffff7b9a1f9 in ?? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "() from /usr/lib/libSDL-1.2.so.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---Type <return> to continue, or q <return> to quit---\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No symbol table info available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#5  0x00007ffff5a32b40 in start_thread (arg=<optimized out>) at pthread_create.c:304\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        __res = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        pd = 0x7fffeb10f700\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        unwind_buf = {cancel_jmp_buf = {{jmp_buf = {140737137145600, -2116818542571095307, 140737488345024, 140737137146304, 140737354125376, 3, 2116791751052557045, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                2116805651867564789}, mask_was_saved = 0}}, priv = {pad = {0x0, 0x0, 0x0, 0x0}, data = {prev = 0x0, cleanup = 0x0, canceltype = 0}}}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        not_first_call = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        freesize = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        __PRETTY_FUNCTION__ = \"start_thread\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#6  0x00007ffff5d1d36d in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:112\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No locals.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#7  0x0000000000000000 in ?? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No symbol table info available.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thread 1 (Thread 0x7ffff7f8a780 (LWP 4817)):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#0  0x00007ffff793b91d in ov_raw_seek (vf=0xb058e0, pos=0) at vorbisfile.c:1241\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        work_os = {body_data = 0x22fff70021fff6 <Address 0x22fff70021fff6 out of bounds>, body_storage = 0, body_fill = 140737320353376, body_returned = 1264, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          lacing_vals = 0x7ffff6974168, granule_vals = 0x8, lacing_storage = 112, lacing_fill = 184464, lacing_packet = -2023424, lacing_returned = -2023424, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          header = \"\\000 \\341\\377\\377\\377\\377\\377\\000 \\341\\377\\377\\377\\377\\377\\000 \\341\\377\\377\\377\\377\\377\\300/\\002\\000\\000\\000\\000\\000\\060\\322\\000\\000\\000\\000\\000\\000\\000G\\000\\000\\000\\000\\000\\000\\000\\265\\261\\000\\000\\000\\000\\000PU\\001\\000\\000\\000\\000\\000\\360\\003\\000\\000\\000\\000\\000\\000\\270\\263\\377\\377\\377\\177\\000\\000\\261\\000\\000\\000\\000\\000'\\377\\377\\377\\020\", '\\000' <repeats 27 times>, \"&\\377\\377\\377\\020\", '\\000' <repeats 27 times>, \"$\\377\\377\\377\\020\", '\\000' <repeats 27 times>, \"!\\377\\377\\377\\020\", '\\000' <repeats 27 times>, \"\\036\\377\\377\\377\\020\", '\\000' <repeats 27 times>, \"\\033\\377\\377\\377\\020\", '\\000' <repeats 27 times>, \"\\027\\377\", header_fill = 16, e_o_s = 0, b_o_s = 0, serialno = 0, \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          pageno = 0, packetno = 73014443794, granulepos = 0}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        ret = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#1  0x00000000004095f9 in Scenes::AudioBuffer::Play (this=0x825878, smpl=<optimized out>, vol=<optimized out>, pan=<optimized out>, loop=<optimized out>) at audiobuffer.cpp:53\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No locals.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#2  0x0000000000409cb1 in Scenes::Mixer::EnqueueSample (this=0x825840, smp=0xb058b0, vol=80, pan=0, loop=<optimized out>) at mixer.cpp:200\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        f = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        retval = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#3  0x00000000004279a4 in Game::Logic (this=0x9bdfb0, frame=<optimized out>) at game.cpp:296\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        finishedDrawing = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        dying = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        dead = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        finished = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#4  0x000000000040b9e2 in Scenes::Scene::Go (this=0x9bdfb0) at scene.cpp:176\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        currTick = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        currFrame = 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        now_sec = 0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        pcmbuffersize = 1764\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        last_sec = 661\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        ownMixer = false\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        pixels = 0x7ffff5fc7e60\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        exportedFrame = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        pcmbuffer = 0x305aca0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        lfpsc = 0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        rfpsc = 0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#5  0x0000000000448708 in GameLoop::Logic (this=0x7fffffffcae0, frame=<optimized out>) at gameloop.cpp:415\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---Type <return> to continue, or q <return> to quit---\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No locals.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#6  0x000000000040b9e2 in Scenes::Scene::Go (this=0x7fffffffcae0) at scene.cpp:176\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        currTick = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        currFrame = 63752\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        now_sec = 637\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        pcmbuffersize = 1764\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        last_sec = 637\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        ownMixer = false\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        pixels = 0x7ffff5fc7e60\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        exportedFrame = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        pcmbuffer = 0x8ae000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        lfpsc = 51\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        rfpsc = 51\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#7  0x0000000000437c72 in MainMenu::Logic (this=0x7fffffffd8f0, frame=<optimized out>) at mainmenu.cpp:1285\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        survival = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        tempEvents = {unicode = {<std::_Vector_base<unsigned short, std::allocator<unsigned short> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "              _M_impl = {<std::allocator<unsigned short>> = {<__gnu_cxx::new_allocator<unsigned short>> = {<No data fields>}, <No data fields>}, _M_start = 0x0, _M_finish = 0x0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_end_of_storage = 0x0}}, <No data fields>}, keyUp = {<std::_Vector_base<SDLKey, std::allocator<SDLKey> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "              _M_impl = {<std::allocator<SDLKey>> = {<__gnu_cxx::new_allocator<SDLKey>> = {<No data fields>}, <No data fields>}, _M_start = 0x0, _M_finish = 0x0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_end_of_storage = 0x0}}, <No data fields>}, keyDown = {<std::_Vector_base<SDLKey, std::allocator<SDLKey> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "              _M_impl = {<std::allocator<SDLKey>> = {<__gnu_cxx::new_allocator<SDLKey>> = {<No data fields>}, <No data fields>}, _M_start = 0x0, _M_finish = 0x0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                _M_end_of_storage = 0x0}}, <No data fields>}, mouseX = 14.160000000000004, mouseY = 26.049999999999997, relmouseX = -1, relmouseY = 0, buttUp = {false, false, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            false}, buttDown = {true, false, false}, empty = false}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        click = true\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#8  0x000000000040b9e2 in Scenes::Scene::Go (this=0x7fffffffd8f0) at scene.cpp:176\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        currTick = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        currFrame = 1715\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        now_sec = 17\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        pcmbuffersize = 1764\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        last_sec = 17\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        ownMixer = true\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        pixels = 0x0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        exportedFrame = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        pcmbuffer = 0x0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        lfpsc = 14\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        rfpsc = 14\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#9  0x0000000000407592 in main (argc=<optimized out>, argv=<optimized out>) at main.cpp:262\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        m = {<Scenes::Scene> = {_vptr.Scene = 0x466830, renderFPS = 99, logicFPS = 100, logicFrame = 1714, logicInputFrame = 1715, tickStart = 7026, restartFromFrame = 0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            renderframedecimator = 1, mx = 14.160000000000004, my = 26.049999999999997, vwidth = 133.33333333333331, vleft = -16.666666666666657, vheight = 100, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            logicInterval = 10, resync = false, screenshotRequested = false, screenshotFilename = {static npos = <optimized out>, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "              _M_dataplus = {<std::allocator<char>> = {<__gnu_cxx::new_allocator<char>> = {<No data fields>}, <No data fields>}, _M_p = 0x672c38 \"\"}}, nextEventLine = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "              static npos = <optimized out>, _M_dataplus = {<std::allocator<char>> = {<__gnu_cxx::new_allocator<char>> = {<No data fields>}, <No data fields>}, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_p = 0x672c38 \"\"}}, out_stream = 0x7fffffffdae0, in_stream = 0xffffffffb1e00000, mixerMode = Scenes::Realtime, ogvexp = 0x7ffff7fd19a0, mode = Scenes::RUN, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            surface = 0x6b17c0, quit = false, events = {unicode = {<std::_Vector_base<unsigned short, std::allocator<unsigned short> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                  _M_impl = {<std::allocator<unsigned short>> = {<__gnu_cxx::new_allocator<unsigned short>> = {<No data fields>}, <No data fields>}, _M_start = 0x0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                    _M_finish = 0x0, _M_end_of_storage = 0x0}}, <No data fields>}, keyUp = {<std::_Vector_base<SDLKey, std::allocator<SDLKey> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                  _M_impl = {<std::allocator<SDLKey>> = {<__gnu_cxx::new_allocator<SDLKey>> = {<No data fields>}, <No data fields>}, _M_start = 0x0, _M_finish = 0x0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---Type <return> to continue, or q <return> to quit---\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                    _M_end_of_storage = 0x0}}, <No data fields>}, keyDown = {<std::_Vector_base<SDLKey, std::allocator<SDLKey> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                  _M_impl = {<std::allocator<SDLKey>> = {<__gnu_cxx::new_allocator<SDLKey>> = {<No data fields>}, <No data fields>}, _M_start = 0x0, _M_finish = 0x0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                    _M_end_of_storage = 0x0}}, <No data fields>}, mouseX = 0.23119999999999999, mouseY = 0.73950000000000005, relmouseX = -1, relmouseY = 0, buttUp = {false, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                false, false}, buttDown = {true, false, false}, empty = false}, desiredFPS = 100, show_fps = false}, static browserNLevelsPerPage = 3, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          static browserThumbSpacing = 5, static hiScoreWaitPageSec = 10, static linesPerHiScorePage = 10, lmx = 14.160000000000004, lmy = 26.049999999999997, startMenu = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            x = 60, y = 40, lmx = 82.493333333333339, lmy = 36.880000000000003, width = 40, static itemHeight = 5, hoverItem = 0, posCalculated = true, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            items = {<std::_Vector_base<MenuItem*, std::allocator<MenuItem*> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_impl = {<std::allocator<MenuItem*>> = {<__gnu_cxx::new_allocator<MenuItem*>> = {<No data fields>}, <No data fields>}, _M_start = 0x828df0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                  _M_finish = 0x828e18, _M_end_of_storage = 0x828e30}}, <No data fields>}, lastClickedItem = 4}, optionsMenu = {x = 10, y = 80, lmx = 0, lmy = 0, width = 80, \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            static itemHeight = 5, hoverItem = 0, posCalculated = true, items = {<std::_Vector_base<MenuItem*, std::allocator<MenuItem*> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_impl = {<std::allocator<MenuItem*>> = {<__gnu_cxx::new_allocator<MenuItem*>> = {<No data fields>}, <No data fields>}, _M_start = 0x8232f0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                  _M_finish = 0x823350, _M_end_of_storage = 0x823370}}, <No data fields>}, lastClickedItem = 0}, creditsMenu = {x = 30, y = 10, lmx = 0, lmy = 0, width = 40, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            static itemHeight = 5, hoverItem = 0, posCalculated = true, items = {<std::_Vector_base<MenuItem*, std::allocator<MenuItem*> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_impl = {<std::allocator<MenuItem*>> = {<__gnu_cxx::new_allocator<MenuItem*>> = {<No data fields>}, <No data fields>}, _M_start = 0x869b90, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                  _M_finish = 0x869b98, _M_end_of_storage = 0x869b98}}, <No data fields>}, lastClickedItem = 0}, browserMenu = {x = 30, y = 6, lmx = 14.160000000000004, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            lmy = 26.049999999999997, width = 40, static itemHeight = 5, hoverItem = 2, posCalculated = true, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            items = {<std::_Vector_base<MenuItem*, std::allocator<MenuItem*> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_impl = {<std::allocator<MenuItem*>> = {<__gnu_cxx::new_allocator<MenuItem*>> = {<No data fields>}, <No data fields>}, _M_start = 0x81c790, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                  _M_finish = 0x81c7b0, _M_end_of_storage = 0x81c7b0}}, <No data fields>}, lastClickedItem = 3}, profileActionsMenu = {x = 0, y = 10, lmx = 0, lmy = 0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "            width = 30, static itemHeight = 5, hoverItem = 0, posCalculated = true, items = {<std::_Vector_base<MenuItem*, std::allocator<MenuItem*> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_impl = {<std::allocator<MenuItem*>> = {<__gnu_cxx::new_allocator<MenuItem*>> = {<No data fields>}, <No data fields>}, _M_start = 0x81c620, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                  _M_finish = 0x81c630, _M_end_of_storage = 0x81c630}}, <No data fields>}, lastClickedItem = 0}, profileListMenu = {x = 1.61061274e+11, y = -nan(0x7fefbd), \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            lmx = 0, lmy = 0, width = -1.01722635e+34, static itemHeight = 5, hoverItem = 0, posCalculated = false, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            items = {<std::_Vector_base<MenuItem*, std::allocator<MenuItem*> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                _M_impl = {<std::allocator<MenuItem*>> = {<__gnu_cxx::new_allocator<MenuItem*>> = {<No data fields>}, <No data fields>}, _M_start = 0x0, _M_finish = 0x0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                  _M_end_of_storage = 0x0}}, <No data fields>}, lastClickedItem = 0}, newProfileEditor = 0x7ffff7fac3f8, currentMenu = 0x7fffffffda18, logoTex = 25, menuLev = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "            savePhilename = {static npos = <optimized out>, _M_dataplus = {<std::allocator<char>> = {<__gnu_cxx::new_allocator<char>> = {<No data fields>}, <No data fields>}, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_p = 0x812a38 \"/usr/share/games/zaz/menu.lvl\"}}, paths = {<std::_Vector_base<Bezier, std::allocator<Bezier> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_impl = {<std::allocator<Bezier>> = {<__gnu_cxx::new_allocator<Bezier>> = {<No data fields>}, <No data fields>}, _M_start = 0x6b4f10, _M_finish = 0x6b4fb8, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                  _M_end_of_storage = 0x6b4fd0}}, <No data fields>}, loop = false, mirrorX = false, mirrorY = false, name = {static npos = <optimized out>, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "              _M_dataplus = {<std::allocator<char>> = {<__gnu_cxx::new_allocator<char>> = {<No data fields>}, <No data fields>}, _M_p = 0x822f98 \"New Level\"}}, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            backgroundTexFilename = {static npos = <optimized out>, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "              _M_dataplus = {<std::allocator<char>> = {<__gnu_cxx::new_allocator<char>> = {<No data fields>}, <No data fields>}, _M_p = 0x672c38 \"\"}}, overlayTexFilename = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "              static npos = <optimized out>, _M_dataplus = {<std::allocator<char>> = {<__gnu_cxx::new_allocator<char>> = {<No data fields>}, <No data fields>}, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_p = 0x672c38 \"\"}}, thumbTexFilename = {static npos = <optimized out>, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "              _M_dataplus = {<std::allocator<char>> = {<__gnu_cxx::new_allocator<char>> = {<No data fields>}, <No data fields>}, _M_p = 0x672c38 \"\"}}, musicFilename = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "              static npos = <optimized out>, _M_dataplus = {<std::allocator<char>> = {<__gnu_cxx::new_allocator<char>> = {<No data fields>}, <No data fields>}, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_p = 0x672c38 \"\"}}, invert = false, startFeedRates = {<std::_Vector_base<double, std::allocator<double> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                _M_impl = {<std::allocator<double>> = {<__gnu_cxx::new_allocator<double>> = {<No data fields>}, <No data fields>}, _M_start = 0x829000, _M_finish = 0x829030, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                  _M_end_of_storage = 0x829040}}, <No data fields>}, endFeedRates = {<std::_Vector_base<double, std::allocator<double> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                _M_impl = {<std::allocator<double>> = {<__gnu_cxx::new_allocator<double>> = {<No data fields>}, <No data fields>}, _M_start = 0x829050, _M_finish = 0x829080, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                  _M_end_of_storage = 0x829090}}, <No data fields>}, ballsToDraw = {<std::_Vector_base<int, std::allocator<int> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_impl = {<std::allocator<int>> = {<__gnu_cxx::new_allocator<int>> = {<No data fields>}, <No data fields>}, _M_start = 0x7c10d0, _M_finish = 0x7c10e8, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                  _M_end_of_storage = 0x7c10f0}}, <No data fields>}, ballsFromStart = {<std::_Vector_base<int, std::allocator<int> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_impl = {<std::allocator<int>> = {<__gnu_cxx::new_allocator<int>> = {<No data fields>}, <No data fields>}, _M_start = 0x7c1520, _M_finish = 0x7c1538, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                  _M_end_of_storage = 0x7c1540}}, <No data fields>}, ballSizes = {<std::_Vector_base<double, std::allocator<double> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                _M_impl = {<std::allocator<double>> = {<__gnu_cxx::new_allocator<double>> = {<No data fields>}, <No data fields>}, _M_start = 0x86afe0, _M_finish = 0x86b010, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---Type <return> to continue, or q <return> to quit---\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                  _M_end_of_storage = 0x86b020}}, <No data fields>}, colors = 5, time = 180, bonusFrequency = -1, kidsMode = false, backgroundTex = 0, overlayTex = 0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            thumbTex = 0}, ballText = {3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 4294960032}, \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          bp = {<std::_Vector_base<BallPath, std::allocator<BallPath> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "              _M_impl = {<std::allocator<BallPath>> = {<__gnu_cxx::new_allocator<BallPath>> = {<No data fields>}, <No data fields>}, _M_start = 0x823b50, _M_finish = 0x824510, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_end_of_storage = 0x824850}}, <No data fields>}, sets = {<std::_Vector_base<LevelSet, std::allocator<LevelSet> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "              _M_impl = {<std::allocator<LevelSet>> = {<__gnu_cxx::new_allocator<LevelSet>> = {<No data fields>}, <No data fields>}, _M_start = 0x881e10, _M_finish = 0x881e80, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_end_of_storage = 0x881e80}}, <No data fields>}, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          setNames = {<std::_Vector_base<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "              _M_impl = {<std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >> = {<__gnu_cxx::new_allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >> = {<No data fields>}, <No data fields>}, _M_start = 0x7c1280, _M_finish = 0x7c1290, _M_end_of_storage = 0x7c1290}}, <No data fields>}, \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          setTex = {<std::_Vector_base<unsigned int, std::allocator<unsigned int> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "              _M_impl = {<std::allocator<unsigned int>> = {<__gnu_cxx::new_allocator<unsigned int>> = {<No data fields>}, <No data fields>}, _M_start = 0x877c10, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_finish = 0x877c18, _M_end_of_storage = 0x877c18}}, <No data fields>}, nBallPaths = 6, music = 0x8add20, renderHiscores = true, showCredits = false, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          showBrowser = false, showProfiles = false, showNewProfile = false, showSets = false, oldFullscreen = false, oldRes = {static npos = <optimized out>, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "            _M_dataplus = {<std::allocator<char>> = {<__gnu_cxx::new_allocator<char>> = {<No data fields>}, <No data fields>}, _M_p = 0x6a3cd8 \"640x480\"}}, oldColourHints = 24, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "          oldLanguage = {static npos = <optimized out>, _M_dataplus = {<std::allocator<char>> = {<__gnu_cxx::new_allocator<char>> = {<No data fields>}, <No data fields>}, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "              _M_p = 0x674028 \"en\"}}, oldMusicVol = 80, logoGpl = 26, levels = 0x99f5a8, nleveldesc = 10, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          profileNames = {<std::_Vector_base<std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > > >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "              _M_impl = {<std::allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >> = {<__gnu_cxx::new_allocator<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >> = {<No data fields>}, <No data fields>}, _M_start = 0x0, _M_finish = 0x0, _M_end_of_storage = 0x0}}, <No data fields>}, \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          credits = {<std::_Vector_base<CreditsLine, std::allocator<CreditsLine> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "              _M_impl = {<std::allocator<CreditsLine>> = {<__gnu_cxx::new_allocator<CreditsLine>> = {<No data fields>}, <No data fields>}, _M_start = 0x832820, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                _M_finish = 0x832bb0, _M_end_of_storage = 0x832c20}}, <No data fields>}, startup = false, startupProgress = 27, startupProgressSteps = 27, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          browserScrollOffset = -0.02067263183586051, browserScrollOffsetDest = 0, browserSelectedLevel = 0, browserMouseOverLevel = 0, browserUsedKeyboard = false, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          selectedSet = 0, hiScoreRep = {<std::_Vector_base<Scenes::ReportPage, std::allocator<Scenes::ReportPage> >> = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "              _M_impl = {<std::allocator<Scenes::ReportPage>> = {<__gnu_cxx::new_allocator<Scenes::ReportPage>> = {<No data fields>}, <No data fields>}, _M_start = 0x0, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "                _M_finish = 0x0, _M_end_of_storage = 0x0}}, <No data fields>}, hiScorePage = 0, hiScoreTimeout = 592, creditsScroll = -900, static creditsScrollClearance = 900}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        vmy = 0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        fullscreen_flag = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        vi = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        bpp = <optimized out>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "        res = {static npos = <optimized out>, _M_dataplus = {<std::allocator<char>> = {<__gnu_cxx::new_allocator<char>> = {<No data fields>}, <No data fields>}, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            _M_p = 0x6a3cd8 \"640x480\"}}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        err = \"\\200>g\\000\\000\\000\\000\\000X\\354\\377\\377\\377\\177\\000\\000h\\354\\377\\377\\377\\177\\000\\000<\\363\\313\\365\\377\\177\\000\\000\\000\\\\g\\000\\000\\000\\000\\000]\\265\\312\\365\\377\\177\\000\\000\\b\\346\\377\\377\\377\\177\\000\\000\\000\\247\\370\\367\\377\\177\\000\\000\\000\\036g\\000\\000\\000\\000\\000\\200\\242M\\366\\377\\177\\000\\000\\240\\345\\377\\377\\377\\177\\000\\000\\240\\345\\377\\377\\377\\177\\000\\000\\220\\346\\377\\377\\377\\177\\000\\000\\210>g\\000\\000\\000\\000\\000\\240\\036g\\000\\000\\000\\000\\000Q\\274L\\366\\377\\177\\000\\000\\340Au\\366\\377\\177\\000\\000\\236\\307E\\000\\000\\000\\000\\000\\320\\347\\377\\377\\377\\177\\000\\000\\020\\346\\377\\377\\377\\177\\000\\000x\\346\\377\\377\\377\\177\\000\\000\\230\\351\\377\\377\\377\\177\\000\\000\\270>g\\000\\000\\000\\000\\000\\260>g\\000\\000\\000\\000\\000X\\276t\\366\\377\\177\\000\\000\\000\\000\\000\\000\\000\\000\\000\\000\\360,g\", '\\000' <repeats 44 times>\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "        dir = {static npos = <optimized out>, _M_dataplus = {<std::allocator<char>> = {<__gnu_cxx::new_allocator<char>> = {<No data fields>}, <No data fields>}, \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "            _M_p = 0x675b38 \"/home/guest/.zaz\"}}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        showSplash = false\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        testplay = false\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        tests = false\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        testplayPhilename = 0x0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        editor = false\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---Type <return> to continue, or q <return> to quit---\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        editorPhilename = 0x0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- System Information:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Debian Release: wheezy/sid\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  APT prefers experimental\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  APT policy: (1900, 'experimental'), (1800, 'unstable'), (1700, 'testing')\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Architecture: amd64 (x86_64)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Kernel: Linux 3.1.0-1-amd64 (SMP w/4 CPU cores)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Locale: LANG=en_AU.UTF-8, LC_CTYPE=en_AU.UTF-8 (charmap=UTF-8)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Shell: /bin/sh linked to /bin/dash\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Versions of packages zaz depends on:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libc6                     2.13-21\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libftgl2                  2.1.3~rc5-4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libgcc1                   1:4.6.2-5\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libgl1-mesa-glx [libgl1]  7.11-6\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libogg0                   1.2.2~dfsg-1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libsdl-image1.2           1.2.10-2.1+b1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libsdl1.2debian           1.2.14-6.4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libstdc++6                4.6.2-5\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libtheora0                1.1.1+dfsg.1-3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libvorbis0a               1.3.2-1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libvorbisenc2             1.3.2-1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  libvorbisfile3            1.3.2-1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  ttf-freefont              20100919-1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  zaz-data                  1.0.0~dfsg1-1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Versions of packages zaz suggests:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  zaz-dbg  1.0.0~dfsg1-1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bye,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pabs\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://wiki.debian.org/PaulWise\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Paul Wise <pabs@debian.org>", 
+            "email": "Paul Wise <pabs@debian.org>"
+        }, 
+        {
+            "date": "2011-11-27 20:32:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "forcemerge 649017 650164\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Sun, 2011-11-27 at 12:15 +0000, Steve Cotton wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I think this is a duplicate of #649017. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Do the crashes fit the > pattern of that bug (crash when starting a level or losing a life)?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That appears to be the case yes, merging.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bye,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pabs\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://wiki.debian.org/PaulWise\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Paul Wise <pabs@debian.org>", 
+            "email": "Paul Wise <pabs@debian.org>"
+        }, 
+        {
+            "date": "2011-11-27 12:15:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Sun, Nov 27, 2011 at 04:54:32PM +0800, Paul Wise wrote:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> #0  0x00007ffff793b91d in ov_raw_seek (vf=0xb058e0, pos=0) at vorbisfile.c:1241\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> #1  0x00000000004095f9 in Scenes::AudioBuffer::Play (this=0x825878, smpl=<optimized out>, vol=<optimized out>, pan=<optimized out>, loop=<optimized out>) at audiobuffer.cpp:53\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> #2  0x0000000000409cb1 in Scenes::Mixer::EnqueueSample (this=0x825840, smp=0xb058b0, vol=80, pan=0, loop=<optimized out>) at mixer.cpp:200\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Paul,\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think this is a duplicate of #649017. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Do the crashes fit the pattern of that bug (crash when starting a level or losing a life)?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I posted the first two lines of the call stack in #649017,\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "forgetting that a non-debug build inlines the call to\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Scenes::StreamingOggSample::Restart.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cheers,\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Steve\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Steve Cotton <steve@s.cotton.clara.co.uk>", 
+            "email": "Steve Cotton <steve@s.cotton.clara.co.uk>"
+        }
+    ], 
+    "id": "650164", 
+    "project": "Debian", 
+    "original_link": "http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=650164"
+}

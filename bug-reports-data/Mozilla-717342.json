@@ -1,0 +1,451 @@
+{
+    "contributors": [
+        [
+            "Erik Rose [:erik][:erikrose]", 
+            "email"
+        ], 
+        [
+            "Rebecca Billings", 
+            "lexrank"
+        ], 
+        [
+            "Kadir Topal [:atopal]", 
+            "email"
+        ]
+    ], 
+    "title": "Make a PUT API for new search clickthrough rates", 
+    "comments": [
+        {
+            "date": "2012-01-11 11:56:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We can't let SUMO pull data directly off Metrics' Hive clutser, because that's crazy-sensitive data. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So we'll have a script someplace that will POST stuff at us:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{metric: 'Search Clickthroughs',\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " start_date: '2001-04-05',\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " end_date: '2001-04-12',\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " sphinx_clicks: 5,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " sphinx_searches: 6,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " elastic_clicks: 7,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " elastic_searches: 10}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We'll responsd a 200 or a 400 (bad response).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We'll use basic auth and hopefully SSL, though this is going to be publicly shown, so we can put that off if we must.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Erik Rose [:erik][:erikrose]", 
+            "email": "Erik Rose [:erik][:erikrose]"
+        }, 
+        {
+            "date": "2012-01-13 06:38:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We need to figure out how we want to store this data. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It would be awesome to come up with something generic enough to store all KPI data. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bug 714922 could use that as well. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If we store all (or most of) the KPI data the same way, the API and UI parts will probably be that much easier as well.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Ricky Rosario [:rrosario, :r1cky]", 
+            "email": "Ricky Rosario [:rrosario, :r1cky]"
+        }, 
+        {
+            "date": "2012-01-13 16:43:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not sure what the other metrics are like, but maybe a table structure like this is general enough:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* metric (int pointing to a reference table that maps it to something like 'search clickthroughs:sphinx clicks', 'search clickthroughs:elastic_clicks', etc.)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* start_date\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* end_date\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* value (Are ints good enough?)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If we validate that the incoming data is complete when we take the POST, we don't have to worry about there not being a complete set of rows for any given date range.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Erik Rose [:erik][:erikrose]", 
+            "email": "Erik Rose [:erik][:erikrose]"
+        }, 
+        {
+            "date": "2012-01-16 10:08:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Erik, the other metrics are listed here: https://docs.google.com/document/d/11fA57L53dxRTENayPQAA1r2bnh6UMduintJFEmt-1jM/edit?hl=de\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "quickly:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1. Number of visitors for the site\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2. % of people who vote yes, I was helped on our exit survey\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3. Helpfulness of KB articles and Forum (yes/total votes for both)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "4.% of people searching who click on an item on the search results page (CTR)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5.% of non-english speakers that hit a localized article\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "6. % of questions that get an action within 72 hours\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "7. % of threads that have answer marked as a solution\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "8. Number of active contributors to the English KB\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "9. Number of active contributors to the non-English KB\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "10. Number of active AoA contributors\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "11. Number of active forum contributors\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Kadir Topal [:atopal]", 
+            "email": "Kadir Topal [:atopal]"
+        }, 
+        {
+            "date": "2012-02-09 11:29:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cheng, to put Sphinx data into the system, send what this sends:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "curl --user someuser:somepassword http://localhost:8000/en-US/kpi/api/v1/sphinx-clickthrough-rate/ -H \"Content-Type: application/json\" -X POST -i -d '{\"clicks\" : 34, \"start\" : \"2012-09-08\", \"searches\" : 56}'\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "To put Elastic data in, use this URL instead: http://localhost:8000/en-US/kpi/api/v1/elastic-clickthrough-rate/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"someuser\" and \"somepassword\" will be provided later. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The requisite permission is \"users.change_metric\".\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Erik Rose [:erik][:erikrose]", 
+            "email": "Erik Rose [:erik][:erikrose]"
+        }, 
+        {
+            "date": "2012-02-09 11:47:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And by localhost:8000, I mean support.mozilla.com.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Erik Rose [:erik][:erikrose]", 
+            "email": "Erik Rose [:erik][:erikrose]"
+        }, 
+        {
+            "date": "2012-02-10 10:04:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The API now assumes 1-day buckets, as agreed with Cheng.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Erik Rose [:erik][:erikrose]", 
+            "email": "Erik Rose [:erik][:erikrose]"
+        }, 
+        {
+            "date": "2012-02-10 10:06:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://github.com/mozilla/kitsune/commit/5fd8450\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Erik Rose [:erik][:erikrose]", 
+            "email": "Erik Rose [:erik][:erikrose]"
+        }, 
+        {
+            "date": "2012-02-16 14:16:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please add QA verification steps or mark as [qa-]\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Rebecca Billings", 
+            "email": "Rebecca Billings"
+        }, 
+        {
+            "date": "2012-02-17 07:21:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Rebecca Billings from comment #8)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Please add QA verification steps or mark as [qa-]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The first step is to create a user and give it the \"kpi.add_metric\" permission. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Then you can hit the API with curl (see Comment 4). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Something like:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "curl --user username:password https://support.allizom.org/en-US/kpi/api/v1/sphinx-clickthrough-rate/ -H \"Content-Type: application/json\" -X POST -i -d '{\"clicks\" : 34, \"start\" : \"2012-01-01\", \"searches\" : 56}'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I just did a quick test and am getting \"HTTP/1.1 401 UNAUTHORIZED\" from stage though (it works locally). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If it doesn't work for you, we will have to investigate what's up.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ricky Rosario [:rrosario, :r1cky]", 
+            "email": "Ricky Rosario [:rrosario, :r1cky]"
+        }, 
+        {
+            "date": "2012-02-21 07:34:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Filed Bug 729112. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We'll have to wait on that for verification here.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Ricky Rosario [:rrosario, :r1cky]", 
+            "email": "Ricky Rosario [:rrosario, :r1cky]"
+        }, 
+        {
+            "date": "2012-02-21 16:19:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Verified the chart displays after production release.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Rebecca Billings", 
+            "email": "Rebecca Billings"
+        }
+    ], 
+    "id": "717342", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=717342"
+}

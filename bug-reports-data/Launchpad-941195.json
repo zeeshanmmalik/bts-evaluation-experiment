@@ -1,0 +1,729 @@
+{
+    "contributors": [
+        [
+            "jussi-lahtinen-gmail", 
+            "email"
+        ], 
+        [
+            "brad-figg", 
+            "lexrank"
+        ]
+    ], 
+    "title": "kworker freezes", 
+    "comments": [
+        {
+            "date": "2012-02-26 00:27:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Total freeze, screen, mouse, keyboard, everything.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "No idea what caused it. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I didn't do anything special.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Found this from logs (several times):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452013] INFO: task kworker/3:0:15 blocked for more than 120 seconds.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " kernel: [31560.452016] \"echo 0 > /proc/sys/kernel/hung_task_timeout_secs\" disables this message.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452019] kworker/3:0     D 0000000000000003     0    15      2 0x00000000\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452024]  ffff880128f59bc0 0000000000000046 0000000000000000 0000000000000000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452029]  ffff880128f59fd8 ffff880128f59fd8 ffff880128f59fd8 0000000000012a40\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452033]  ffff88010560ae40 ffff880128f51720 00ff880100000002 7fffffffffffffff\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452037] Call Trace:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452045]  [<ffffffff815f081f>] schedule+0x3f/0x60\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452048]  [<ffffffff815f0e65>] schedule_timeout+0x2a5/0x320\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452052]  [<ffffffff815f065f>] wait_for_common+0xdf/0x180\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452056]  [<ffffffff81057420>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "try_to_wake_up+0x200/0x200\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452299]  [<ffffffffa07b2dd0>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "nv_printf+0x80/0x80 [nvidia]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452302]  [<ffffffff815f07dd>] wait_for_completion+0x1d/0x20\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452477]  [<ffffffffa07b229a>] os_acquire_sema+0x7a/0x90 [nvidia]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452586]  [<ffffffffa017875e>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "_nv023043rm+0x9/0xb [nvidia]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452763]  [<ffffffffa077fe54>] _nv023254rm+0x6/0x1f [nvidia]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.452964]  [<ffffffffa0677272>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "_nv003431rm+0x38/0x131 [nvidia]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.453139]  [<ffffffffa078bbf8>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "_nv002268rm+0xd/0x27 [nvidia]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.453315]  [<ffffffffa07904b1>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rm_execute_work_item+0x1c/0xe4 [nvidia]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.453489]  [<ffffffffa07b2e1f>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "os_execute_work_item+0x4f/0x90 [nvidia]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.453492]  [<ffffffff8107c0da>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "process_one_work+0x11a/0x480\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.453496]  [<ffffffff8107ce85>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "worker_thread+0x165/0x370\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.453499]  [<ffffffff8107cd20>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "manage_workers.isra.30+0x130/0x130\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.453503]  [<ffffffff8108132c>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "kthread+0x8c/0xa0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.453507]  [<ffffffff815fbbe4>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "kernel_thread_helper+0x4/0x10\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.453510]  [<ffffffff810812a0>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "flush_kthread_worker+0xa0/0xa0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " kernel: [31560.453513]  [<ffffffff815fbbe0>] ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gs_change+0x13/0x13\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:30:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This bug is missing log files that will aid in diagnosing the problem. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "From a terminal window please run:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport-collect 941195\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "and then change the status of the bug to 'Confirmed'.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If, due to the nature of the issue you have encountered, you are unable to run this command, please add a comment stating that fact and change the bug status to 'Confirmed'.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This change has been made by an automated script, maintained by the Ubuntu Kernel Team.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "brad-figg", 
+            "email": "brad-figg"
+        }, 
+        {
+            "date": "2012-02-26 00:41:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-26 00:41:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apport information\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }, 
+        {
+            "date": "2012-02-27 16:21:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Would it be possible for you to test the latest upstream kernel? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It will allow additional upstream developers to examine the issue. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Refer to https://wiki.ubuntu.com/KernelMainlineBuilds . ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please test the latest v3.3 kernel[1] (Not a kernel in the daily directory). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Once you've tested the upstream kernel, please remove the 'needs-upstream-testing' tag(Only that one tag, please leave the other tags). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This can be done by clicking on the yellow pencil icon next to the tag located at the bottom of the bug description and deleting the 'needs-upstream-testing' text. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If this bug is fixed by the mainline kernel, please add the following tag 'kernel-fixed-upstream-KERNEL-VERSION'. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " For example, if kernel version 3.3-rc5 fixed the issue, the tag would be: 'kernel-fixed-upstream-v3.3-rc5'.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If the mainline kernel does not fix this bug, please add the tag: 'kernel-bug-exists-upstream'.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you are unable to test the mainline kernel, for example it will not boot, please add the tag: 'kernel-unable-to-test-upstream'. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Once testing of the upstream kernel is complete, please mark this bug as \"Confirmed\".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks in advance.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[1] http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3-rc5-precise/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jsalisbury", 
+            "email": "jsalisbury"
+        }, 
+        {
+            "date": "2012-02-27 17:07:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug seem to occur very rarely and so couple day test doesn't prove it fixed or unlikely even to be not fixed.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So, I'm unsure to install unstable kernel to computer I need on daily basis...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Do I have risk of data loss with that kernel?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If I would know how to reproduce the bug, I could do quick test without actually using the unstable kernel further.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Something to do with nvidia drivers... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I filed also this:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://bugs.launchpad.net/ubuntu/+source/nvidia-graphics-drivers/+bug/919365\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And I have other probably also video driver related problems too, example Xorg hogging over 6 GB of memory for no good reason.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But I cannot reproduce that either, all happens randomly.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jussi-lahtinen-gmail", 
+            "email": "jussi-lahtinen-gmail"
+        }
+    ], 
+    "id": "941195", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/941195"
+}

@@ -1,0 +1,1437 @@
+{
+    "contributors": [
+        [
+            "q1", 
+            "email"
+        ], 
+        [
+            "Thomas Ahlblom", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Leak in Firefox on news.yahoo.com (~300 KB/click)", 
+    "comments": [
+        {
+            "date": "2011-11-19 21:51:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "User Agent: Mozilla/5.0 (Windows; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "U; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Windows NT 5.1; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "en-US; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "rv:1.9.2.24) Gecko/20111103 Firefox/3.6.24 (.NET CLR 3.5.30729)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Build ID: 20111103063747\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Steps to reproduce:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1. Create a new profile and start Firefox using it. Make sure NO extensions are installed.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2. Visit news.yahoo.com.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "3. Click on an active story.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "4. Scroll to the comments section of the story by searching for \"all comments\".\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "5. Open Process Explorer, locate the Firefox process, and note the value in the \"private bytes\" column.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "6. Click \"shared on Facebook\", then \"all comments\", then \"shared on Facebook\" again, then \"all comments\", etc., clicking 100 times total. This will take a few minutes.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Actual results:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "7. Observe that Firefox's private bytes value at the end of step 6, above, is ~33 MB greater than its value at the end of step 5, and that it stays there, having gained > 300KB per click.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Expected results:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Firefox's private bytes total should fairly rapidly decline to approximately what it was at the end of step 5, above.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "q1", 
+            "email": "q1"
+        }, 
+        {
+            "date": "2011-11-20 06:08:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The Firefox 3.6 branch will only get security and stability fixes.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There has been a lot of memory issues resolved in recent versions of Firefox. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Are you able to reproduce the issue in Firefox Nightly https://nightly.mozilla.org/ or at least in Firefox 8 https://www.mozilla.org/en-US/firefox/all.html?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You should select \"Minimize memory usage\" in about:memory both before and after doing a measurement in order to get meaningful values, and about:memory is also the primary place to look at when telling where the memory has gone.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Thomas Ahlblom", 
+            "email": "Thomas Ahlblom"
+        }, 
+        {
+            "date": "2011-11-20 14:28:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Thomas Ahlblom from comment #1)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The Firefox 3.6 branch will only get security and stability fixes.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> There has been a lot of memory issues resolved in recent versions of > Firefox. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Are you able to reproduce the issue in Firefox Nightly > https://nightly.mozilla.org/ or at least in Firefox 8\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://www.mozilla.org/en-US/firefox/all.html?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> You should select \"Minimize memory usage\" in about:memory both before and > after doing a measurement in order to get meaningful values, and > about:memory is also the primary place to look at when telling where the > memory has gone.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have tested with FF 8, using the following procedure:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1. Create a new profile and start Firefox using it. Make sure NO extensions are installed.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2. Open about:memory.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "3. Open news.yahoo.com in a different window.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4. Click on an active story.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5. Scroll to the comments section of the story by searching for \"all comments\".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "6. Open Process Explorer & locate the Firefox process.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "7. Click \"minimize memory usage\" in the \"about:memory\" window, noting the resulting values for private/resident/vsize and the \"private bytes\" value in Process Explorer.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "8. Click \"shared on Facebook\", then \"all comments\", then \"shared on Facebook\" again, then \"all comments\", etc., clicking 200 times total. This will take a few minutes.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "9. Measure the memory size values each 10 clicks until 100 clicks, then at 150 and 200 clicks. Measure the \"about:memory\" memory size values by refreshing the \"about:memory\" window.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "10. Click \"minimize memory usage\" and measure the final values again.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Actual results:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "All memory sizes increased nearly monotonically, as follows:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "# clicks   Process Explorer   about:memory\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "           private bytes      private bytes   resident bytes   vsize\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    0      132M               129M            133M             257M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   10      132M               136M            139M             256M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   20      134M               134M            136M             254M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   30      135M               136M            139M             254M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   40      136M               138M            141M             255M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   50      137M               139M            142M             256M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   60      139M               138M            142M             256M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   70      140M               141M            145M             257M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   80      142M               143M            147M             257M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   90      146M               146M            149M             258M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  100      148M               148M            151M             259M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  150      173M               169M            173M             293M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  200      191M               192M            195M             329M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  200      188M               184M            188M             319M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  (after \"minimize memory usage\")\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "After 100 clicks, private bytes leaked about 16M, or ~160 KB/click. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Leakage seemed to accelerate around this point. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "At 150 clicks, leakage was about 41M, or ~270 KB/click. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "At 200 clicks, the tally was 59 MB and ~300 KB/click before \"minimize memory usage\", and 56 MB and ~280 KB/click afterward.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "q1", 
+            "email": "q1"
+        }, 
+        {
+            "date": "2011-11-29 12:00:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug still exists in 8.0.1, though the leakage is somewhat smaller:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "# clicks   Process Explorer\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "           private bytes\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      0       133M\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    100       161M (~280 KB/click)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    150       170M (~250 KB/click)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    200       183M (~250 KB/click)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    200       177M (~220 KB/click)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    (after \"minimize memory usage\")\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "q1", 
+            "email": "q1"
+        }, 
+        {
+            "date": "2011-11-29 14:16:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "q1, can you please test with the Firefox nightly [1] and post the full contents of about:memory?verbose at each stage of your test?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Clicking around on a JS-heavy page like yahoo or Facebook is likely to run code which could do any number of things. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " It's not so surprising to me that memory increases here, and it's not clear to me that Firefox is misbehaving.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Anyway, we'll look at the about:memory results from the nightly build and see if things look out of place.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[1] http://nightly.mozilla.org\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Justin Lebar [:jlebar]", 
+            "email": "Justin Lebar [:jlebar]"
+        }, 
+        {
+            "date": "2011-11-29 14:17:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> post the full contents of about:memory?verbose at each stage of your test?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As an attachment, please. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " :)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Justin Lebar [:jlebar]", 
+            "email": "Justin Lebar [:jlebar]"
+        }, 
+        {
+            "date": "2011-11-29 14:48:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Justin Lebar [:jlebar] from comment #4)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> q1, can you please test with the Firefox nightly [1] and post the full > contents of about:memory?verbose at each stage of your test?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Unfortunately security issues prevent me from using non-release software at present, so I must ask some kind reader to take up that baton.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Clicking around on a JS-heavy page like yahoo or Facebook is likely to run code  > which could do any number of things. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " It's not so surprising to me that memory  > increases here, and it's not clear to me that Firefox is misbehaving.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Perhaps. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's interesting, though, that the per-click memory usage increase seems to have shrunk somewhat from 8.0 to 8.0.1. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That said, I know little about JS. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Is it possible for a script to leak objects?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "q1", 
+            "email": "q1"
+        }, 
+        {
+            "date": "2011-11-29 14:52:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Unfortunately security issues prevent me from using non-release software at present, so I must ask  > some kind reader to take up that baton.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "about:memory?verbose from the current release would also be useful.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The 8.0 to 8.0.1 update was nop on Windows. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It only affected things on Mac.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Is it possible for a script to leak objects?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "JavaScript code can create and hold onto objects, just like any other programming language. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " But additionally, running JS takes up memory in Firefox. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " There should be an upper bound on the amount of memory used, though. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It's not clear whether the growth is unbounded here.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Justin Lebar [:jlebar]", 
+            "email": "Justin Lebar [:jlebar]"
+        }, 
+        {
+            "date": "2011-12-04 13:12:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have done further tests with 8.0.1, though not as in-depth as requested. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Memory usage growth does appear to be unbounded. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here are the details:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "# clicks   Process Explorer  KB/click        KB/click\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "           private bytes     non-cumulative  cumulative\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      0       146M           -               -\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    100       211M           650             650\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    200       241M           300             475\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    300       277M           360             437\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    400       319M           420             433\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    500       346M           270             400\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    600       364M           180             363\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    700       399M           350             361\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    800       436M           370             363\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    900       478M           420             369\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   1000       528M           500             382\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   1100       580M           520             395\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   1200       593M           130             373\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   1300       621M           280             365\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "about:memory?verbose after 1300 clicks is attached.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "q1", 
+            "email": "q1"
+        }, 
+        {
+            "date": "2011-12-04 13:14:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 578932 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "about:memory verbose after 1300 clicks\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "q1", 
+            "email": "q1"
+        }, 
+        {
+            "date": "2011-12-04 13:53:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Comment on attachment 578932 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "about:memory verbose after 1300 clicks\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "207,131,013 B (35.38%) -- compartment(http://news.yahoo.com/)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   165,539,840 B (28.28%) -- gc-heap\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You can see here that the Yahoo compartment is using a lot of memory. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This is likely because the site itself is holding onto objects. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The rest of the compartments, as you can see, are tiny.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The 50% heap-unclassified is a bug, certainly. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (We really need to fix those outstanding ones, so we know whether new reports are new dark matter bugs.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Justin Lebar [:jlebar]", 
+            "email": "Justin Lebar [:jlebar]"
+        }, 
+        {
+            "date": "2011-12-04 13:57:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So now the question is: Does this memory blow-up happen in other browsers? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If so, it's almost certainly a bug in the page.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Justin Lebar [:jlebar]", 
+            "email": "Justin Lebar [:jlebar]"
+        }, 
+        {
+            "date": "2011-12-04 14:18:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Justin Lebar [:jlebar] from comment #11)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> So now the question is: Does this memory blow-up happen in other browsers? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " > If so, it's almost certainly a bug in the page.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I beg another Mozilla community member to try that. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can't do it in the foreseeable future.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "q1", 
+            "email": "q1"
+        }, 
+        {
+            "date": "2011-12-04 16:19:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't have the patience to click thousands of times, but Chrome's memory usage increases at a rate of ~.38mb / click, very close to the number you saw for Firefox.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So I suspect this is a bug Yahoo News.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Do you agree, q1? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If so, please close this bug.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Justin Lebar [:jlebar]", 
+            "email": "Justin Lebar [:jlebar]"
+        }, 
+        {
+            "date": "2011-12-04 18:09:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Justin Lebar [:jlebar] from comment #13)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I don't have the patience to click thousands of times, but Chrome's memory > usage increases at a rate of ~.38mb / click, very close to the number you > saw for Firefox.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> So I suspect this is a bug Yahoo News.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Do you agree, q1? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If so, please close this bug.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Given the available evidence, I disagree.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "First, in comment 10, you said, \"The 50% heap-unclassified is a bug, certainly.\" Well, heap-unclassified grows with each click. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Second, just because Chrome seems to exhibit a similar behavior does not mean that Firefox has no bug -- both browsers could have similar bugs. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Third, since you didn't click \"thousands of times\" (as I did), we don't really know whether Chrome's allocations grow without bound, as Firefox's seem to.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have found a very simple test case that would seem to bear some deeper investigation. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I do not have the time to learn the Mozilla platform to investigate it myself. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I hope that others will do so. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Closing this bug now would tend to reinforce a not-uncommon perception about Firefox's memory usage -- and about the seriousness with which memory usage issues are treated.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Finally, if this turns out to be a Yahoo News bug, I'm sure that the Mozilla team's input would be helpful in getting Yahoo to fix it.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "q1", 
+            "email": "q1"
+        }, 
+        {
+            "date": "2011-12-04 18:25:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to q1 from comment #14)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Closing this bug now\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> would tend to reinforce a not-uncommon perception about Firefox's memory > usage -- and about the seriousness with which memory usage issues are > treated.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please read https://wiki.mozilla.org/Performance/MemShrink and all the posts at http://blog.mozilla.com/nnethercote/category/memshrink/. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (You might like to count how many times Justin's name appears in the posts while you're at it.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Nicholas Nethercote [:njn]", 
+            "email": "Nicholas Nethercote [:njn]"
+        }, 
+        {
+            "date": "2011-12-04 18:54:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It's possible that both Chrome and Firefox have the same leak bug here, but it's pretty unlikely, since our architectures are completely different. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " We have lots of known memory issues and a limited amount of time, so if we think it's rather unlikely that this is a Firefox bug, I'm not going to invest a lot of time proving that fact, when we could be fixing known bugs instead.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Finally, if this turns out to be a Yahoo News bug, I'm sure that the Mozilla team's input  > would be helpful in getting Yahoo to fix it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm honestly not sure they would care; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "it's not as though a normal user would click between those tabs more than a few times.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The heap-unclassified issue is real, for sure. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " But would you mind filing that as a separate issue?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Justin Lebar [:jlebar]", 
+            "email": "Justin Lebar [:jlebar]"
+        }, 
+        {
+            "date": "2011-12-04 19:10:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Justin Lebar [:jlebar] from comment #16)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ...The heap-unclassified issue is real, for sure. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " But would you mind filing > that as a separate issue?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The steps to reproduce it are exactly the same. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't quite understand how it's a separate bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Explain?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BTW, I apologize for the after-em-dash dig in Comment 14. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "By way of explanation, I've been using Mozilla browsers since, I dunno, Seamonkey 1.0, and have been frustrated by the memory usage all along. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've never previously found a simple test case, so I let it lie until I happened across this one. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have, however, read Mozillazine forums for a long time, and have seen there a strong tendency to dismiss memory-leak bugs. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mozillazine forums is not you, however, hence my apology.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "q1", 
+            "email": "q1"
+        }, 
+        {
+            "date": "2011-12-04 19:14:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Justin Lebar [:jlebar] from comment #16)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > Finally, if this turns out to be a Yahoo News bug, I'm sure that the Mozilla team's input  > > would be helpful in getting Yahoo to fix it.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I'm honestly not sure they would care; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "it's not as though a normal user > would click between those tabs more than a few times.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The same leak appears if you login and click between the \"My Comments\" tag and the \"All Comments\" tag. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is the only fast way to refresh the list of your own comments; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "the only other way is F5, then clicking on \"My Comments\", which is much slower. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So I think Yahoo might actually care about this bug.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "q1", 
+            "email": "q1"
+        }, 
+        {
+            "date": "2011-12-04 19:22:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The STR are the same, but the discussion is different. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " If we morphed this bug, someone just stepping in would have to read down to comment 10 just to understand what's a valid and what's an invalid issue. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Whereas if we file a new bug, we can discuss just the heap-unclassified without all the rest of the noise.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Justin Lebar [:jlebar]", 
+            "email": "Justin Lebar [:jlebar]"
+        }, 
+        {
+            "date": "2011-12-05 10:23:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Justin Lebar [:jlebar] from comment #19)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The STR are the same, but the discussion is different. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If we morphed this > bug, someone just stepping in would have to read down to comment 10 just to > understand what's a valid and what's an invalid issue. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Whereas if we file a > new bug, we can discuss just the heap-unclassified without all the rest of > the noise.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "OK. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll refile this as a new bug focussed on the heap-unclassified leak.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "q1", 
+            "email": "q1"
+        }, 
+        {
+            "date": "2011-12-05 22:06:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "please cc me on the new bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I'm going to close this one, but if you direct any Yahoo people here, I'd be happy to discuss with them.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Justin Lebar [:jlebar]", 
+            "email": "Justin Lebar [:jlebar]"
+        }
+    ], 
+    "id": "703952", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=703952"
+}

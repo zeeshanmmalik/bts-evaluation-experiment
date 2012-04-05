@@ -1,0 +1,216 @@
+{
+    "contributors": [
+        [
+            "Jchym Touek", 
+            "lexrank"
+        ], 
+        [
+            "Jrme Vouillon", 
+            "email"
+        ]
+    ], 
+    "title": "Miscompilation of conditional expressions", 
+    "comments": [
+        {
+            "date": "2012-01-06 15:57:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The Javascript code at http://www.pps.jussieu.fr/~vouillon/bug/ is not interpreted correctly by Firefox 9: it should display a nice graph, but instead displays ellipses all over the place.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have tracked this down to what looks like the miscompilation of the conditional expression (pi_A9_<alpha_Hl_?1:0) on line 4881 in hypertree.js. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Indeed, I have added the following debugging code:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    _wh_.log(start_Hk_,fin_Hl_,alpha_Hm_,pi_A9_<alpha_Hm_?1:0);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "where _wh_ is window.console, _pi_A9_ = 3.1415...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(This is computer-generated code, and I made the change in the source code, so the variable names are not exactly the same.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Then, I get incorrect outputs like the following one:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      -1.570796326794897 -1.2702070146247024 0.30058931217019413 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Clearly, the last number should be 0.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't know how to reproduce the bug in a smaller program. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " In particular, I seem to get correct outputs when I change slightly the line above, for instance by removing the first two arguments start_Hk_ and fin_Hl_, or by replacing _wh_ by window.console.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Jrme Vouillon", 
+            "email": "Jrme Vouillon"
+        }, 
+        {
+            "date": "2012-01-06 17:04:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Turning off TI makes the problem go away...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I also see the problem in nightlies.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Boris Zbarsky (:bz)", 
+            "email": "Boris Zbarsky (:bz)"
+        }, 
+        {
+            "date": "2012-01-12 19:51:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 588291 [details] [diff] [review]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Regalloc bug when doing a branch based on values known to be floating point numbers. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " We didn't take care to ensure that sync code did not clobber the registers that were about to be compared, so the comparison could end up using incorrect values in the lhs/rhs.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I like the website, I've seen a fair number of those critters while diving here in california.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brian Hackett (:bhackett)", 
+            "email": "Brian Hackett (:bhackett)"
+        }, 
+        {
+            "date": "2012-01-13 17:40:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/integration/mozilla-inbound/rev/2b2ca37b0305\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brian Hackett (:bhackett)", 
+            "email": "Brian Hackett (:bhackett)"
+        }, 
+        {
+            "date": "2012-01-14 01:49:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://hg.mozilla.org/mozilla-central/rev/2b2ca37b0305\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Marco Bonardo [:mak]", 
+            "email": "Marco Bonardo [:mak]"
+        }, 
+        {
+            "date": "2012-02-13 12:56:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is a regression in FF9, and we're not seeing any dupes, so I'm untracking for 11/12/13. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This can ride the trains.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Alex Keybl [:akeybl]", 
+            "email": "Alex Keybl [:akeybl]"
+        }, 
+        {
+            "date": "2012-03-24 11:08:55", 
+            "sentences": [], 
+            "name": "Jchym Touek", 
+            "email": "Jchym Touek"
+        }
+    ], 
+    "id": "716119", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=716119"
+}

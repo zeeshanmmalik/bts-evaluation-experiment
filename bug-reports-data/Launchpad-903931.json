@@ -1,0 +1,279 @@
+{
+    "contributors": [
+        [
+            "rejon", 
+            "lexrank"
+        ], 
+        [
+            "jcubic", 
+            "email"
+        ], 
+        [
+            "nath", 
+            "lexrank"
+        ]
+    ], 
+    "title": "find slow queries and document them, then replace them", 
+    "comments": [
+        {
+            "date": "2011-12-13 21:05:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Nathan, can you document out the common slow queries, and then jcubic, can you move to replace them with more efficient queries. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If we can't get these down, we should replace some features if they are not useful.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "rejon", 
+            "email": "rejon"
+        }, 
+        {
+            "date": "2011-12-13 22:23:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is the only query that remain with RLIKEs\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "select id, upload_date, user_name, file_num_download, filename, upload_name, full_path from (SELECT * FROM ocal_files WHERE filename LIKE \"%.svg\" and upload_config = 'media' and upload_published = 1 and (nsfw = 0 or nsfw=[nsfw]) and (upload_tags like '%GET[query]%' or upload_name like '%GET[query]%' or upload_description like '%GET[query]%') ) as f where f.upload_tags RLIKE '(^|, +| +)GET[query]( +| +,|$)' or f.upload_name RLIKE '(^|, +| +)GET[query]( +| +,|$)' or f.upload_description RLIKE '(^|, +| +)GET[query]( +| +,|$)' order by upload_date desc\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "this is main search that show accurate results.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jcubic", 
+            "email": "jcubic"
+        }, 
+        {
+            "date": "2011-12-14 14:27:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm hoping that we can just replace all these [R]LIKE queries by querying Sphinx, then asking MySQL for just those specific records. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Sphinx answers queries like the one above in a fraction of a second, and a regular select statement to MySQL with no [R]LIKEs should also take only fractions of a second. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I'm hoping we can replace just about any queries which use LIKE statements with wildcards with a Sphinx index. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Testing will be underway today.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nath", 
+            "email": "nath"
+        }, 
+        {
+            "date": "2011-12-14 18:15:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I replace all RLIKEs on live sites to LIKEs and on dev site I started to create an extension and I needed to hack admin panel to force  Aiki to work on different port. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "it works fine and then suddenly it stop working.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jcubic", 
+            "email": "jcubic"
+        }, 
+        {
+            "date": "2011-12-14 19:51:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ok, we need to make sure we test experimental things on dev.openclipart.org\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "nathan, can you let us know how that is setup in another email?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Jon\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Wed, Dec 14, 2011 at 12:15 PM, Jakub Jankiewicz <\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<email address hidden>> wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I replace all RLIKEs on live sites to LIKEs and on dev site I started to > create an extension and I needed to hack admin panel to force  Aiki to > work on different port. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "it works fine and then suddenly it stop working.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> --\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> You received this bug notification because you are a member of > openclipart.devel, which is subscribed to openclipart.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://bugs.launchpad.net/bugs/903931\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Title:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  find slow queries and document them, then replace them\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> To manage notifications about this bug go to:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://bugs.launchpad.net/openclipart/+bug/903931/+subscriptions\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Jon Phillips  http://fabricatorz.com  skype: kidproto  irc: rejon\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+1.415.830.3884 (global)  +86-187-1003-9974 (beijing)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "rejon", 
+            "email": "rejon"
+        }, 
+        {
+            "date": "2012-01-04 09:06:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Jakub, this is completed now? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We should be looking at these regularly.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "rejon", 
+            "email": "rejon"
+        }
+    ], 
+    "id": "903931", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/903931"
+}

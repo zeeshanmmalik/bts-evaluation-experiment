@@ -1,0 +1,216 @@
+{
+    "contributors": [
+        [
+            "JR Conlin [:jrconlin,:jconlin]", 
+            "email"
+        ], 
+        [
+            "Doug Turner (:dougt)", 
+            "lexrank"
+        ]
+    ], 
+    "title": "PlaceholderLayerClient OOM at ByteBuffer.allocateDirect", 
+    "comments": [
+        {
+            "date": "2011-11-20 16:00:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Created attachment 575782 [details]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "adb log of crash\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Appears to be a Fatal Exception around no memory. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "System reports 247MB memory available. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Freeing additional memory does not resolve issue.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "JR Conlin [:jrconlin,:jconlin]", 
+            "email": "JR Conlin [:jrconlin,:jconlin]"
+        }, 
+        {
+            "date": "2011-11-20 17:09:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is this Fennec Native, or Fennec XUL?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "Aaron Train [:aaronmt]", 
+            "email": "Aaron Train [:aaronmt]"
+        }, 
+        {
+            "date": "2011-11-20 18:57:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "this was with native.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "JR Conlin [:jrconlin,:jconlin]", 
+            "email": "JR Conlin [:jrconlin,:jconlin]"
+        }, 
+        {
+            "date": "2011-11-21 08:48:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "yup. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " this is really an android bug.... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "we need to figure a way to work around it. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " see:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://code.google.com/p/android/issues/detail?id=16941\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think we already have a bug on file about this.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Doug Turner (:dougt)", 
+            "email": "Doug Turner (:dougt)"
+        }, 
+        {
+            "date": "2011-11-21 09:44:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dougt, did you mean bug 702365?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Naoki Hirata :nhirata", 
+            "email": "Naoki Hirata :nhirata"
+        }, 
+        {
+            "date": "2011-11-21 22:15:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "or bug 704201?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Naoki Hirata :nhirata", 
+            "email": "Naoki Hirata :nhirata"
+        }, 
+        {
+            "date": "2011-11-30 15:05:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 578104 [details]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "this will leak, but it works around the OOM bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll follow up with something to free the memory when we're done with it.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-11-30 18:01:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Created attachment 578149 [details] [diff] [review]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patch\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }, 
+        {
+            "date": "2011-11-30 18:40:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pushed https://hg.mozilla.org/projects/birch/rev/0ff33522f0a3\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Brad Lassey [:blassey]", 
+            "email": "Brad Lassey [:blassey]"
+        }
+    ], 
+    "id": "704022", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=704022"
+}

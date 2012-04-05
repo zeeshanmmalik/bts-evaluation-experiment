@@ -1,0 +1,397 @@
+{
+    "contributors": [
+        [
+            "Jim Blandy :jimb", 
+            "lexrank"
+        ], 
+        [
+            "Josh Matthews [:jdm]", 
+            "email"
+        ]
+    ], 
+    "title": "Infer reasonable display names for anonymous functions", 
+    "comments": [
+        {
+            "date": "2011-11-29 17:12:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I just saw:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://stackoverflow.com/questions/7583878/function-name-in-stack-trace-of-spidermonkey\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Seems like displayName could be a nice feature for use in debugging / generating backtraces. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is this known / interesting to us?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Chris Leary [:cdleary]", 
+            "email": "Chris Leary [:cdleary]"
+        }, 
+        {
+            "date": "2011-11-30 11:05:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's definitely of interest. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Of course, we need to ensure that the debugger doesn't get snagged if someone changes displayName to a setter property, but that can be arranged.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Blandy :jimb", 
+            "email": "Jim Blandy :jimb"
+        }, 
+        {
+            "date": "2011-11-30 11:06:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For what it's worth, a debugger implemented using the new Debugger API could choose to display any sort of name it wants for a function. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This could be implemented without engine changes.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Blandy :jimb", 
+            "email": "Jim Blandy :jimb"
+        }, 
+        {
+            "date": "2011-11-30 12:10:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yeah, but it seems like this a feature that would be used in engine output in general, no? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "i.e. if we were to display any kind of name-related message to the user we would canonically call into some kind of DisplayName helper?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Chris Leary [:cdleary]", 
+            "email": "Chris Leary [:cdleary]"
+        }, 
+        {
+            "date": "2011-11-30 13:21:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Calling into user code like that makes it pretty easy to change language semantics -- suddenly that TypeError you were going to throw ends up being something else. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I am wary of consulting the user much when it comes to generating error messages and the like. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " See bug 633623.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jeff Walden (:Waldo) (remove +bmo to email)", 
+            "email": "Jeff Walden (:Waldo) (remove +bmo to email)"
+        }, 
+        {
+            "date": "2011-11-30 14:07:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Good point: I think my experience with Python is that they silently squash errors that occur during the VM's user reporting process (i.e. stringifying an exception object throws an error, so they just display nothing), which can be quite confusing.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I guess another question is: why is the name property of functions non-writable?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Chris Leary [:cdleary]", 
+            "email": "Chris Leary [:cdleary]"
+        }, 
+        {
+            "date": "2011-12-07 11:36:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Chris Leary [:cdleary] from comment #5)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Good point: I think my experience with Python is that they silently squash > errors that occur during the VM's user reporting process (i.e. stringifying > an exception object throws an error, so they just display nothing), which > can be quite confusing.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Trying to figure out what to do in the debugger when the debugger code itself throws an exception was kind of tricky. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We have an uncaughtExceptionHook, but what to do when *that* throws an exception? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(Our answer was, you got your second chance and blew it, just terminate the code, as if you'd gotten a slow script abort.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I guess another question is: why is the name property of functions non-writable?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's not specified by ECMAScript...\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Blandy :jimb", 
+            "email": "Jim Blandy :jimb"
+        }, 
+        {
+            "date": "2011-12-14 14:44:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So I suppose this is closeable as WONTFIX.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Chris Leary [:cdleary]", 
+            "email": "Chris Leary [:cdleary]"
+        }, 
+        {
+            "date": "2012-03-19 07:41:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This really needs to be fixed, folks. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Right now our debugger commonly produces stack traces that look like:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[unnamed function]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[unnamed function]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[unnamed function]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is crap, and whether one introduces a content-visible property to do it is completely beside the point.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is a high-priority debugger task, because it's a fundamental usability issue.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Blandy :jimb", 
+            "email": "Jim Blandy :jimb"
+        }, 
+        {
+            "date": "2012-03-19 07:43:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Jim Blandy :jimb from comment #8)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> [unnamed function]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> [unnamed function]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> [unnamed function]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "To be clear: these functions are things like:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Tabzilla.open = function ()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    ...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "To not display \"Tabzilla.open\" there is willful ignorance.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Blandy :jimb", 
+            "email": "Jim Blandy :jimb"
+        }, 
+        {
+            "date": "2012-03-19 09:53:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Relevant literature and art: Naming Anonymous Javascript Functions (http://johnjbarton.github.com/nonymous/index.html)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Josh Matthews [:jdm]", 
+            "email": "Josh Matthews [:jdm]"
+        }, 
+        {
+            "date": "2012-03-20 05:53:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(In reply to Josh Matthews [:jdm] from comment #10)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Relevant literature and art: Naming Anonymous Javascript Functions\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (http://johnjbarton.github.com/nonymous/index.html)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Woot! ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "Jim Blandy :jimb", 
+            "email": "Jim Blandy :jimb"
+        }
+    ], 
+    "id": "706324", 
+    "project": "Mozilla", 
+    "original_link": "https://bugzilla.mozilla.org/show_bug.cgi?id=706324"
+}
