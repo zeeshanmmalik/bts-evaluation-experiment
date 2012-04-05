@@ -1,3 +1,4 @@
+require 'csv'
 begin
   namespace :experiment do
     task :load_bug_reports => :environment do
@@ -5,8 +6,8 @@ begin
       exp_title = ENV['title']
       br_dir = ENV['dir']
       if exp_title.blank? || br_dir.blank?
-        error += "Missing of invalid required arguments.\n"\
-                 "Usage: rake experiment:load_bug_reports"\
+        error += "Missing or invalid required arguments.\n"\
+                 "Usage: rake experiment:load_bug_reports "\
                  "title=<title of experiment> dir=<directory from which to load bug reports in json file>\n"\
                  "dir: Path is relative to root directory of Rails app which is #{Rails.root}"
         abort error
@@ -82,6 +83,42 @@ begin
           p.save!
         else
           puts "Random Bug Report not found."
+        end
+      end
+    end
+
+    task :populate_name_and_email => :environment do
+      error = "!!TASK ABORTED!!\n"
+      exp_title = ENV['exp_title']
+      csv_file = ENV['csv_file']
+      if exp_title.blank? || csv_file.blank?
+        error += "Missing or invalid required arguments.\n"\
+                 "Usage: rake experiment:populate_name_and_email "\
+                 "exp_title=<title of experiment> csv_file=<csv file from which to load names and emails>\n"\
+                 "csv_file: Path is relative to root directory of Rails app which is #{Rails.root}"
+        abort error
+      end
+      unless File.exist?("#{Rails.root}/#{csv_file}")
+        error += "#{Rails.root}/#{csv_file}: file does not exists!"
+        abort error
+      end
+
+      exp = Experiment.where(:title => exp_title).first
+      unless exp
+        error += "Experiment with title '#{exp_title}' does not exists!"
+        abort error
+      end
+      csv_text = File.read("#{Rails.root}/#{csv_file}")
+      csv = CSV.parse(csv_text, :headers => true)
+      csv.each do |row|
+        row = row.to_hash.with_indifferent_access
+        p = exp.participants.where(:username => row[:username]).first
+        if p
+          p.email = row[:email]
+          p.name = row[:name]
+          p.save!
+        else
+          puts "#{row[:username]} does not exist."
         end
       end
     end
