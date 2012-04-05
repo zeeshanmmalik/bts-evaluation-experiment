@@ -221,7 +221,7 @@ $(document).ready(function(){
         }
 	});	
 
-	$('#lnk_contact').cluetip(function(){return "For queries or details about our research on Automated Summarization of Bug Reports, please contact us at bugsummary@gsd.uwaterloo.ca";},{
+	$('#lnk_contact').cluetip(function(){return "For queries or details about our research on Automated Summarization of Bug Reports, please contact us at <b>bugsummary@gsd.uwaterloo.ca</b>";},{
 		cluetipClass: 'jtip',
 		positionBy: 'bottomTop',
 		arrows: true,
