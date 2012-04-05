@@ -195,10 +195,33 @@ $(document).ready(function(){
 
 	var user_summary_evaluator = new summary_eveluator();
             
-        var all_comments = $(".comment-header.user-summary");
-        all_comments.each(function(index, c) { 
-                              return handle_comment_headers($(c).attr("id")); 
-                          } );
+    var all_comments = $(".comment-header.user-summary");
+    all_comments.each(function(index, c){ 
+        return handle_comment_headers($(c).attr("id")); 
+    });
+
+	form_validator = $('.new_response,.edit_response').validate({
+		rules:{
+			'response[imp_points_incl_lex_sum]': "required",
+			'response[imp_points_incl_email_sum]': "required",
+			'response[redundancy_lex_sum]': "required",
+			'response[redundancy_email_sum]': "required",
+			'response[unnecessary_info_lex_sum]': "required",
+			'response[unnecessary_info_email_sum]': "required",
+			'response[coherence_lex_sum]': "required",
+			'response[coherence_email_sum]': "required",
+			'response[sum_help_bug_similar]': "required",
+			'response[sum_help_bug_workaround]': "required",
+			'response[sum_help_bug_status]': "required",	
+		},
+		// the errorPlacement has to take the table layout into account 
+        errorPlacement: function(error, element) { 
+            if ( element.is(":radio") ){ 
+                error.appendTo( element.parent() );
+				error.addClass('alert alert-error');
+			} 
+        }
+	});	
 });
 
 
