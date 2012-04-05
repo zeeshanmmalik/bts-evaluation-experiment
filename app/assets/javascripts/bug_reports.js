@@ -220,6 +220,29 @@ $(document).ready(function(){
 			} 
         }
 	});	
+
+	$('#lnk_contact').cluetip(function(){return "For queries or details about our research on Automated Summarization of Bug Reports, please contact us at bugsummary@gsd.uwaterloo.ca";},{
+		cluetipClass: 'jtip',
+		positionBy: 'bottomTop',
+		arrows: true,
+		dropShadow: false,
+		hoverIntent: false,
+		sticky: true,
+		mouseOutClose: true,
+		closePosition: 'title',
+		closeText: '<img src="/cross.png" alt="close" />',
+		width: 308,
+		onShow: function(ct, c){
+			var ele = $('#lnk_contact');
+			var offset = ele.offset();
+			var left = offset.left, top = offset.top;
+			var height = ele.parent().height();
+
+			//$(ct).css("left",left+'px');
+			$(ct).css("top",top+height+0+'px');
+			//$(ct).css("top",top+15+'px');
+		}
+	});
 });
 
 
