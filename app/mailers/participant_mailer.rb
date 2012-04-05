@@ -18,26 +18,29 @@ class ParticipantMailer < ActionMailer::Base
     bug_report = @participant.bug_report
     email = experiment.email(email_type)
     @subject = email.subject
-    puts 'subject: ' + @subject
     @body = email.body
 
     APP_CONFIG[:email_markers_mapping]['participant'].each do |marker, mapping|
       val = @participant.send(mapping)
       if mapping == 'access_token'
         @body.gsub!('['+marker+']', val.blank? ? '' : access_survey_url(val))
+        @subject.gsub!('['+marker+']', val.blank? ? '' : access_survey_url(val))        
       else
         @body.gsub!('['+marker+']', val.blank? ? '' : val)
+        @subject.gsub!('['+marker+']', val.blank? ? '' : val)
       end
     end
 
     APP_CONFIG[:email_markers_mapping]['experiment'].each do |marker, mapping|
       val = experiment.send(mapping)
       @body.gsub!('['+marker+']', val.blank? ? '' : val.to_s)
+      @subject.gsub!('['+marker+']', val.blank? ? '' : val.to_s)
     end
 
     APP_CONFIG[:email_markers_mapping]['bug_report'].each do |marker, mapping|
       val = bug_report.send(mapping)
       @body.gsub!('['+marker+']', val.blank? ? '' : val)
+      @subject.gsub!('['+marker+']', val.blank? ? '' : val)
     end
 
     #puts "++++++++++\n#{@body}\n++++++++++++++"
@@ -50,6 +53,7 @@ class ParticipantMailer < ActionMailer::Base
     # @body.gsub!('[bug_report_id]', bug_report.bug_identifier || '')
     # @body.gsub!('[bug_report_title]', bug_report.title || '')
     # @body.gsub!('[summary_link]', access_survey_url(@participant.access_token))
-    
+
+    puts 'subject: ' + @subject
   end
 end
