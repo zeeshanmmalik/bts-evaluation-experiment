@@ -17,7 +17,7 @@
 = form_for @participant.response, :url => @bug_report, :method => :get do |f|
   = hidden_field_tag :bug_report_id, @bug_report.id
   = hidden_field_tag :participant_id, @participant.id
-  = hidden_field_tag :access_token, @participant.access_token        
+  = hidden_field_tag :access_token, @participant.access_token
   .container-fluid
     .row-fluid
       .span12
@@ -127,7 +127,7 @@
                         %li or <i style="background-color: #FCE9E9;">incorrectly omitted</i> from the summary.
                       %p
                         You can mark the sentences you find have been incorrectly included or omitted by
-                        clicking on the sentence. The sentences you mark will be 
+                        clicking on the sentence. The sentences you mark will be
                         <span style="background-color: #FCE9E9;">highlighted in red</span>.
 
                     %fieldset.summary.fix-height
@@ -164,11 +164,11 @@
                       .choices{ :style => 'display: block;' }
                         .radio-buttons
                           - ['condensed','interlaced'].each do |view|
-                            = radio_button_tag "q5", view
-                            = label_tag "q5_#{view}", view.humanize
+                            = f.radio_button :summary_view_pref, view
+                            = f.label :summary_view_pref, view.humanize, :value => view
                       What do you consider are the advantages of one over the other?
                       %br
-                      = text_area_tag "q5_reason", nil, :size => "250x6"
+                      = f.text_area :view_pref_reason
 
                   .question-container
                     .question
@@ -255,8 +255,8 @@
                         .radio-buttons
                           .help.false Not helpful
                           - 0.upto(4) do |i|
-                            = f.radio_button :sum_help_bug_workaround, i
-                            = f.label "sum_help_bug_workaround", i, :value => i
+                            = f.radio_button :sum_help_bug_life, i
+                            = f.label "sum_help_bug_life", i, :value => i
                           .help.true Extremely helpful
                           
                     .question
@@ -270,8 +270,8 @@
                         .radio-buttons
                           .help.false Not helpful
                           - 0.upto(4) do |i|
-                            = f.radio_button :sum_help_bug_similar, i
-                            = f.label "sum_help_bug_similar", i, :value => i
+                            = f.radio_button :sum_help_proj_cont, i
+                            = f.label "sum_help_proj_cont", i, :value => i
                           .help.true Extremely helpful
 
                       .subquestion
@@ -283,8 +283,8 @@
                         .radio-buttons
                           .help.false Not helpful
                           - 0.upto(4) do |i|
-                            = f.radio_button :sum_help_bug_status, i
-                            = f.label "sum_help_bug_status", i, :value => i
+                            = f.radio_button :sum_help_dev, i
+                            = f.label "sum_help_dev", i, :value => i
                           .help.true Extremely helpful
 
                       .subquestion
@@ -294,8 +294,8 @@
                         .radio-buttons
                           .help.false Not helpful
                           - 0.upto(4) do |i|
-                            = f.radio_button :sum_help_bug_status, i
-                            = f.label "sum_help_bug_status", i, :value => i
+                            = f.radio_button :sum_help_non_dev, i
+                            = f.label "sum_help_non_dev", i, :value => i
                           .help.true Extremely helpful
 
                       .answer

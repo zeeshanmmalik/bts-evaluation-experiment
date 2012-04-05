@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120330193017) do
+ActiveRecord::Schema.define(:version => 20120405103442) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -131,6 +131,10 @@ ActiveRecord::Schema.define(:version => 20120330193017) do
     t.integer  "sum_help_bug_similar"
     t.integer  "sum_help_bug_workaround"
     t.integer  "sum_help_bug_status"
+    t.integer  "sum_help_bug_life"
+    t.integer  "sum_help_proj_cont"
+    t.integer  "sum_help_dev"
+    t.integer  "sum_help_non_dev"
   end
 
   add_index "responses", ["bug_report_id"], :name => "index_responses_on_bug_report_id"

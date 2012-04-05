@@ -72,7 +72,7 @@
 
                     .question
                       Please read the summary and
-                      provide a rate from 0 to 5 indicating how much you consider
+                      provide a rate from 0 to 4 indicating how much you consider
                       each of the following statements is <b>true</b>:
                       .subquestion
                         a) 
@@ -80,10 +80,10 @@
                       .answer.subanswer 
                         .radio-buttons
                           .help.false False
-                          - 0.upto(5) do |i|
+                          - 0.upto(4) do |i|
                             = f.radio_button 'imp_points_incl_'+summary_shown+'_sum', i
                             = f.label 'imp_points_incl_'+summary_shown+'_sum', i, :value => i
-                          .help.true True                            
+                          .help.true True
 
                       .subquestion
                         b) 
@@ -91,10 +91,10 @@
                       .answer.subanswer
                         .radio-buttons
                           .help.false False
-                          - 0.upto(5) do |i|
+                          - 0.upto(4) do |i|
                             = f.radio_button 'redundancy_'+summary_shown+'_sum', i
                             = f.label 'redundancy_'+summary_shown+'_sum', i, :value => i
-                          .help.true True                            
+                          .help.true True
 
                       .subquestion
                         c) 
@@ -102,10 +102,10 @@
                       .answer.subanswer
                         .radio-buttons
                           .help.false False
-                          - 0.upto(5) do |i|
+                          - 0.upto(4) do |i|
                             = f.radio_button 'unnecessary_info_'+summary_shown+'_sum', i
                             = f.label 'unnecessary_info_'+summary_shown+'_sum', i, :value => i
-                          .help.true True                            
+                          .help.true True
 
                       .subquestion
                         d) 
@@ -113,10 +113,10 @@
                       .answer.subanswer
                         .radio-buttons
                           .help.false False
-                          - 0.upto(5) do |i|
+                          - 0.upto(4) do |i|
                             = f.radio_button 'coherence_'+summary_shown+'_sum', i
                             = f.label 'coherence_'+summary_shown+'_sum', i, :value => i
-                          .help.true True                            
+                          .help.true True
 
                   .question-container
                     .question
@@ -129,7 +129,7 @@
                       %p
                         You can mark the sentences you find have been incorrectly included or omitted by
                         clicking on the sentence. The sentences you mark will be
-                        <span style="background-color: #FCE9E9;">highlighted in red</span>.                        
+                        <span style="background-color: #FCE9E9;">highlighted in red</span>.
 
                     %fieldset.summary.fix-height
                       <b>Title</b>: #{@bug_report.title}
@@ -213,39 +213,92 @@
                                       = raw sen.text.gsub("\n","<br>")
 
                     .question
-                      Given such an optimal summary, in what situations do you consider bug report summaries could be helpful?
+                      Given such an optimal summary, how much do you consider bug report summaries could be helpful
+                      for each of the following situations? If you're not sure of the of the helpfulness for 
+                      a particular situation, please leave the option unselected for that situation.
                       .subquestion
                         a)
                         %i When looking for a similar or duplicate bug; 
                       .answer.subanswer
                         .radio-buttons
-                          .help.false False
-                          - 0.upto(5) do |i|
+                          .help.false Not helpful
+                          - 0.upto(4) do |i|
                             = f.radio_button :sum_help_bug_similar, i
                             = f.label "sum_help_bug_similar", i, :value => i
-                          .help.true True                            
+                          .help.true Extremely helpful
                       .subquestion
                         b)
-                        %i When looking for a solution or workaround to a bug;
+                        %i When looking for a solution or workaround for a bug;
                       .answer.subanswer
                         .radio-buttons
-                          .help.false False
-                          - 0.upto(5) do |i|
+                          .help.false Not helpful
+                          - 0.upto(4) do |i|
                             = f.radio_button :sum_help_bug_workaround, i
                             = f.label "sum_help_bug_workaround", i, :value => i
-                          .help.true True                            
+                          .help.true Extremely helpful
                       .subquestion
                         c)
                         %i When trying to understand the status of a bug and its open issues;
                       .answer.subanswer
                         .radio-buttons
-                          .help.false False
-                          - 0.upto(5) do |i|
+                          .help.false Not helpful
+                          - 0.upto(4) do |i|
                             = f.radio_button :sum_help_bug_status, i
                             = f.label "sum_help_bug_status", i, :value => i
-                          .help.true True                            
+                          .help.true Extremely helpful
+
+                      .subquestion
+                        d)
+                        %i When prioritizing a bug, assiging it to a developer, or closing out old bugs;
+                      .answer.subanswer
+                        .radio-buttons
+                          .help.false Not helpful
+                          - 0.upto(4) do |i|
+                            = f.radio_button :sum_help_bug_life, i
+                            = f.label "sum_help_bug_life", i, :value => i
+                          .help.true Extremely helpful
+                          
+                    .question
+                      Finally, how much do you consider bug report summaries could be helpful
+                      for each of the following user profiles? If you're not sure of the of the helpfulness for 
+                      a particular user profile, please leave the option unselected for that profile.
+                      .subquestion
+                        a)
+                        %i Users who contribute code to the project with or without commit privileges; 
+                      .answer.subanswer
+                        .radio-buttons
+                          .help.false Not helpful
+                          - 0.upto(4) do |i|
+                            = f.radio_button :sum_help_proj_cont, i
+                            = f.label "sum_help_proj_cont", i, :value => i
+                          .help.true Extremely helpful
+
+                      .subquestion
+                        b)
+                        %i 
+                          Users who do not contribute code to the project, 
+                          but have software programming experience;
+                      .answer.subanswer
+                        .radio-buttons
+                          .help.false Not helpful
+                          - 0.upto(4) do |i|
+                            = f.radio_button :sum_help_dev, i
+                            = f.label "sum_help_dev", i, :value => i
+                          .help.true Extremely helpful
+
+                      .subquestion
+                        c)
+                        %i Users who do not have software programming experience;
+                      .answer.subanswer
+                        .radio-buttons
+                          .help.false Not helpful
+                          - 0.upto(4) do |i|
+                            = f.radio_button :sum_help_non_dev, i
+                            = f.label "sum_help_non_dev", i, :value => i
+                          .help.true Extremely helpful
+                          
                       .answer
-                        Feel free to elaborate, or include any other situations in which summaries would be helpful.
+                        Feel free to elaborate, or include any other scenarios in which bug report summaries would be helpful.
                         = f.text_area :summarizing_reason
 
                   .question-container
