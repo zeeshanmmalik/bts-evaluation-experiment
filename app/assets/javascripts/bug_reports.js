@@ -210,15 +210,13 @@ $(document).ready(function(){
 			'response[unnecessary_info_email_sum]': "required",
 			'response[coherence_lex_sum]': "required",
 			'response[coherence_email_sum]': "required",
-			'response[sum_help_bug_similar]': "required",
-			'response[sum_help_bug_workaround]': "required",
-			'response[sum_help_bug_status]': "required",	
 		},
 		// the errorPlacement has to take the table layout into account 
         errorPlacement: function(error, element) { 
             if ( element.is(":radio") ){ 
                 error.appendTo( element.parent() );
 				error.addClass('alert alert-error');
+				error.text('Please input your answer.');
 			} 
         }
 	});	
