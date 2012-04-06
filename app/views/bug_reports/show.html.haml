@@ -145,7 +145,7 @@
                             = com.participant.username
                             - if admin_signed_in? and not com.participant.is_email_sent?
                               \|
-                              = link_to 'Send invitation email', send_invitation_email_participant_path(com.participant), :method => :get, :remote => true
+                              = link_to 'Send invitation email', send_invitation_email_participant_path(com.participant), :method => :get, :remote => true, :confirm => 'Are you sure you want to send invitation email to this participant?'
                           .comment-body
                             - com.sentences.order('number ASC').each do |sen|
                               - part_sen = @participant.sentence_evaluations.where(:sentence_id => sen.id).first
