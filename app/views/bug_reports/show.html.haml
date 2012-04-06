@@ -2,10 +2,12 @@
 -# - if rand > 0.5
 -#   - summary_shown = 'email'
 
-/%p#notice= notice
-
 .hero-unit.bg-dark
   .container
+    .row
+      .span13
+        %p#email_notice
+        %p#notice= notice
     .row
       .span13
         %h3
@@ -141,6 +143,9 @@
                             = com.submitted_at
                             \|
                             = com.participant.username
+                            - if admin_signed_in? and not com.participant.is_email_sent?
+                              \|
+                              = link_to 'Send invitation email', send_invitation_email_participant_path(com.participant), :method => :get, :remote => true
                           .comment-body
                             - com.sentences.order('number ASC').each do |sen|
                               - part_sen = @participant.sentence_evaluations.where(:sentence_id => sen.id).first

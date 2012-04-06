@@ -243,6 +243,12 @@ $(document).ready(function(){
 			//$(ct).css("top",top+15+'px');
 		}
 	});
+
+	// notice for send invitation email ajax request
+	$('a[href$="/send_invitation_email"]"').on('ajax:complete', function(event, xhr, status){
+		$('#email_notice').text(xhr.responseText);
+		$('#email_notice').addClass('alert alert-info');
+	});
 });
 
 
