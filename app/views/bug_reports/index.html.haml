@@ -3,6 +3,7 @@
 
   %table
     %tr
+      %th #
       %th Title
       %th Project
       %th Original link
@@ -10,8 +11,9 @@
       -#%th
       -#%th
 
-    - @bug_reports.each do |bug_report|
+    - @bug_reports.each_with_index do |bug_report, i|
       %tr{:class => "#{cycle('even','odd')}"}
+        %td= i + 1
         %td= truncate bug_report.title
         %td= bug_report.project
         %td= truncate bug_report.original_link

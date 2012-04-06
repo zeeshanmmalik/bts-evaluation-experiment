@@ -3,13 +3,15 @@
 
   %table
     %tr
+      %th #
       %th Title
       %th Start at
       %th End at
       %th Actions
 
-    - @experiments.each do |experiment|
-      %tr
+    - @experiments.each_with_index do |experiment,i|
+      %tr{:class => "#{cycle('even','odd')}"}
+        %td= i + 1
         %td= experiment.title
         %td= experiment.start_at
         %td= experiment.end_at
