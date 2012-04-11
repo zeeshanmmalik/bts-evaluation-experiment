@@ -81,4 +81,35 @@ class ExperimentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def result
+    @experiment = Experiment.find(params[:id])
+    @total_submissions = @experiment.participants.where('eval_submitted_at IS NOT NULL and eval_submitted_at != ""')
+    @lex_submissions = @total_submissions.where(:summary_assigned => APP_CONFIG[:lexrank])
+    @email_submissions = @total_submissions.where(:summary_assigned => APP_CONFIG[:email])
+
+    @lex = populate_result(@lex_submissions, 'lex')
+    @email = populate_result(@email_submissions, 'email')
+
+    respond_to do |format|
+      format.html #result.html.haml
+      format.json { head :no_content }
+    end
+  end
+
+  private
+  def populate_result submissions, str
+    result = {:imp_points => {:r0 => 0, :r1 => 0, :r2 => 0, :r3 => 0, :r4 => 0},
+      :redundancy => {:r0 => 0, :r1 => 0, :r2 => 0, :r3 => 0, :r4 => 0},
+      :unnecessary_info => {:r0 => 0, :r1 => 0, :r2 => 0, :r3 => 0, :r4 => 0},
+      :coherence => {:r0 => 0, :r1 => 0, :r2 => 0, :r3 => 0, :r4 => 0}
+    }
+    submissions.each do |p|
+      result[:imp_points]["r#{p.response.send('imp_points_incl_'+str+'_sum')}".to_sym] += 1
+      result[:redundancy]["r#{p.response.send('redundancy_'+str+'_sum')}".to_sym] += 1
+      result[:unnecessary_info]["r#{p.response.send('unnecessary_info_'+str+'_sum')}".to_sym] += 1
+      result[:coherence]["r#{p.response.send('coherence_'+str+'_sum')}".to_sym] += 1
+    end
+    return result
+  end
 end

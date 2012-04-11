@@ -1,0 +1,43 @@
+%fieldset
+  %legend #{summary} Summary
+  - result.each do |key,val|
+    - case key
+    - when :imp_points
+      %p a) Important Points of the bug represented in the summary
+    - when :redundancy
+      %p b) The summary avoids redundancy.
+    - when :unnecessary_info
+      %p c) The summary does not contain unnecessary information.
+    - when :coherence
+      %p d) The summary is coherent.
+
+    %table{:style => 'width:500px;margin-left:30px;'}
+      %tr
+        %th 0
+        %th 1
+        %th 2
+        %th 3
+        %th 4
+
+      %tr
+        %td= val[:r0]
+        %td= val[:r1]
+        %td= val[:r2]
+        %td= val[:r3]
+        %td= val[:r4]
+    - total_responses = 0.0
+    - total_score = 0.0
+    - val.each do |key,val|
+      - total_responses += val
+      - case key
+      - when :r0
+        - total_score += 0 * val
+      - when :r1
+        - total_score += 1 * val
+      - when :r2
+        - total_score += 2 * val
+      - when :r3
+        - total_score += 3 * val
+      - when :r4
+        - total_score += 4 * val
+    %p Avg: #{(total_score/total_responses).round(2)}
