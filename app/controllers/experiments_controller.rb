@@ -129,7 +129,7 @@ class ExperimentsController < ApplicationController
       csv << cols
       csv = bug_summaries_csv(experiment, csv)
     end
-    filename = "summaries-comp-data-#{Time.now.to_date.to_s}.csv"
+    filename = "#{experiment.title}-summaries-comp-data-#{Time.now.to_date.to_s}.csv"
     send_data(csv_string, :type => 'text/csv; charset=utf-8; header=present', :filename => filename)
   end
 
