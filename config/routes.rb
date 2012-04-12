@@ -3,6 +3,10 @@ BtsEvalExpApp::Application.routes.draw do
   resources :experiments do
     member do
       get 'result'
+      get 'export_results'
+    end
+    collection do
+      get 'export_all_results'
     end
   end
 
