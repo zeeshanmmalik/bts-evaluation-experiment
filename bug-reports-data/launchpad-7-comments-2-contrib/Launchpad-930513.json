@@ -1,0 +1,676 @@
+{
+    "contributors": [
+        [
+            "harlowja", 
+            "email"
+        ], 
+        [
+            "robert-clark", 
+            "lexrank"
+        ], 
+        [
+            "russellb", 
+            "email"
+        ]
+    ], 
+    "title": "Flags default uses google's DNS", 
+    "comments": [
+        {
+            "date": "2012-02-11 02:30:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For some reason if the following is not overriden by a setting nova will attempt to connect to google's DNS servers.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Odd code @ \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    cfg.StrOpt('my_ip',\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "               default=_get_my_ip(),\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "               help='host ip address'),\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Of file nova/flags.py\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Where that function _get_my_ip() which may be called even if the option exists as a setting (its a default??).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The function does the following:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "def _get_my_ip():\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    \"\"\"Returns the actual ip of the local machine.\"\"\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    try:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        csock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        csock.connect(('8.8.8.8', 80))\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        (addr, port) = csock.getsockname()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        csock.close()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        return addr\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    except socket.error as ex:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        return \"127.0.0.1\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This seems to attempt to open a socket to google's DNS servers @ http://code.google.com/speed/public-dns/docs/using.html\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " The Google Public DNS IP addresses (IPv4) are as follows: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 8.8.8.8 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 8.8.4.4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is this the correct and desired effect? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I would hope not, since I doubt companies want to expose that they are using openstack to google....\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "harlowja", 
+            "email": "harlowja"
+        }, 
+        {
+            "date": "2012-02-11 09:59:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So the functionality doesn't quite match the function name.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It's clearly reaching out to the internet to see if it's possible with the current configuration, if it is possible it then returns the address information of the socket. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If it can't then it returns the loopback.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So I see two things wrong here:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* A call out to a third part that you might not want to have any communication with\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* This code doesn't work anyway. Google's DNS servers don't appear have port 80 open\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't see any reason to keep this quiet:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* No vulnerability in OpenStack\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* Scope for a _tiny_ information leak if the code actually worked\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "robert-clark", 
+            "email": "robert-clark"
+        }, 
+        {
+            "date": "2012-02-11 10:05:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@joshua - Thanks for submitting the report.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@vish - I've assigned this to you as your down as lead for the Nova Security Hardening team.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Might be worth a little discussion.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "robert-clark", 
+            "email": "robert-clark"
+        }, 
+        {
+            "date": "2012-02-11 10:06:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Dropped the privacy flag.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "robert-clark", 
+            "email": "robert-clark"
+        }, 
+        {
+            "date": "2012-02-11 18:07:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So just a simple test shows that something does happen with this code even if google isn't opening port 80.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Just try this in some version of python.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>> import socket\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>> csock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>> csock.connect(('8.8.8.8', 80))\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>> (addr, port) = csock.getsockname()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>> csock.close()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>> addr\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "'192.168.0.198'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>> port\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "53610\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "harlowja", 
+            "email": "harlowja"
+        }, 
+        {
+            "date": "2012-02-11 18:34:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So a little investigation with wireshark, that connection is being done with UDP (the SOCK_DGRAM part) so if it was switched to TCP (socket.SOCK_STREAM) then you would see the failure u would expect there (it would also hang for a while as the socket can't be opened) as google doesn't have port 80 open (which is something that shouldn't be relied upon, who knows one day they might have a little web page there or something). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Relying on this is sort of questionable, since the socket is definitely opened, no data is sent (which might be ok) but this whole part of code just has a really weird questionable security \"smell to it\". ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here is the TCP version which will hang.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>> import socket\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>> csock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">>> csock.connect(('8.8.8.8', 80))\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(wait and wait and wait for the timeout...)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "harlowja", 
+            "email": "harlowja"
+        }, 
+        {
+            "date": "2012-02-11 20:23:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Just some useful fyi, if this was using TCP then hopefully this would receive a higher priority (even if googles isn't responding on port 80). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A nice diagram of the TCP connect cycle is @ http://www.sdsusa.com/connections/\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "harlowja", 
+            "email": "harlowja"
+        }, 
+        {
+            "date": "2012-02-12 02:02:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The code is a little bit misleading, but I have seen this pattern used elsewhere. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No traffic is actually sent here at all since it's a UDP socket. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The connect() call is necessary so that the IP stack will choose a source IP address. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Then, getsockname() will work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " This code is basically \"If I were to send traffic to something out on the Internet, what source IP address would I be using\". ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I don't really know a better way to accomplish it. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't consider this is a bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Thanks for bringing up the possible concern, though.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "russellb", 
+            "email": "russellb"
+        }, 
+        {
+            "date": "2012-02-12 03:29:32", 
+            "sentences": [], 
+            "name": "harlowja", 
+            "email": "harlowja"
+        }, 
+        {
+            "date": "2012-02-12 18:15:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It doesn't look like netifaces would work to get the same information. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It can provide a list of addresses, but can't tell you which one would be used as the source if you were to send traffic somehwere.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can add a comment to the code to make it more clear what it does.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "russellb", 
+            "email": "russellb"
+        }, 
+        {
+            "date": "2012-02-12 18:20:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fix proposed to branch: master\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review: https://review.openstack.org/4060\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "hudson-openstack", 
+            "email": "hudson-openstack"
+        }, 
+        {
+            "date": "2012-02-13 18:29:12", 
+            "sentences": [], 
+            "name": "harlowja", 
+            "email": "harlowja"
+        }, 
+        {
+            "date": "2012-02-17 19:45:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reviewed:  https://review.openstack.org/4060\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committed: http://github.com/openstack/nova/commit/e023c28a81a2b43786d60dacf9d324537ee2dfd0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Submitter: Jenkins\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Branch:    master\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "commit e023c28a81a2b43786d60dacf9d324537ee2dfd0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Author: Russell Bryant <email address hidden>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date:   Sun Feb 12 13:18:49 2012 -0500\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Add some more comments to _get_my_ip().\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    bug 930513.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    This patch adds some additional comments to _get_my_ip() to try to make     the code a bit more clear and to clarify that no traffic is actually     sent out by this code.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Change-Id: I6f8d4a0a51596e5c531da53f3c79c5bffca59b39\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "hudson-openstack", 
+            "email": "hudson-openstack"
+        }
+    ], 
+    "id": "930513", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/930513"
+}

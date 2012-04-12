@@ -1,0 +1,483 @@
+{
+    "contributors": [
+        [
+            "odo-openerp", 
+            "lexrank"
+        ], 
+        [
+            "korotkov-paul", 
+            "email"
+        ], 
+        [
+            "olivier-lenoir-free", 
+            "lexrank"
+        ], 
+        [
+            "serpent-consulting-services", 
+            "email"
+        ], 
+        [
+            "rgo-openerp", 
+            "lexrank"
+        ]
+    ], 
+    "title": "[6.0] Error message after creation of new database || base_setup : correction on action definition, misses _rec_name", 
+    "comments": [
+        {
+            "date": "2011-11-06 06:32:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I made completely new fresh branched installation from launchpad (server 6.0, addons 6.0, web-client 6.0)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "creation of new database results in error below (ususally wizard starts at this point)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Traceback (most recent call last):\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/prospwro/openerp/server/bin/netsvc.py\", line 489, in dispatch\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    result = ExportService.getService(service_name).dispatch(method, auth, params)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/prospwro/openerp/server/bin/service/web_services.py\", line 599, in dispatch\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    res = fn(db, uid, *params)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/prospwro/openerp/server/bin/osv/osv.py\", line 122, in wrapper\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    return f(self, dbname, *args, **kwargs)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/prospwro/openerp/server/bin/osv/osv.py\", line 176, in execute\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    res = self.execute_cr(cr, uid, obj, method, *args, **kw)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/prospwro/openerp/server/bin/osv/osv.py\", line 167, in execute_cr\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    return getattr(object, method)(cr, uid, *args, **kw)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/prospwro/openerp/server/bin/osv/orm.py\", line 1630, in fields_view_get\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    xml = self.__get_default_search_view(cr, user, context)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/prospwro/openerp/server/bin/osv/orm.py\", line 1394, in __get_default_search_view\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    tree_view = self.fields_view_get(cr, uid, False, 'tree', context=context)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/prospwro/openerp/server/bin/osv/orm.py\", line 1645, in fields_view_get\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    xarch, xfields = self.__view_look_dom_arch(cr, user, result['arch'], view_id, context=ctx)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/prospwro/openerp/server/bin/osv/orm.py\", line 1336, in __view_look_dom_arch\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    cr.execute('select name, model from ir_ui_view where (id=%s or inherit_id=%s) and arch like %s', (view_id, view_id, '%%%s%%' % field))\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/prospwro/openerp/server/bin/sql_db.py\", line 78, in wrapper\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    return f(self, *args, **kwargs)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/home/prospwro/openerp/server/bin/sql_db.py\", line 131, in execute\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    res = self._obj.execute(query, params)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ProgrammingError: operator does not exist: integer = boolean  1:select name, model from ir_ui_view where (id=false or inheri...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                                                     ^\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": ":  No operator matches the given name and argument type(s). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You might need to add explicit type casts.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "korotkov-paul", 
+            "email": "korotkov-paul"
+        }, 
+        {
+            "date": "2011-11-06 06:44:35", 
+            "sentences": [], 
+            "name": "korotkov-paul", 
+            "email": "korotkov-paul"
+        }, 
+        {
+            "date": "2011-11-06 07:02:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It looks like 886697 \n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "olivier-lenoir-free", 
+            "email": "olivier-lenoir-free"
+        }, 
+        {
+            "date": "2011-11-06 09:27:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "See 886697, my last comment \n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "olivier-lenoir-free", 
+            "email": "olivier-lenoir-free"
+        }, 
+        {
+            "date": "2011-11-06 11:59:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Paul,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "IMO, this bug should be given HIGH priority(Importance if we talk about launchpad terminology).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for reporting, herewith are attached 2 merge proposals which contain the proper fix.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Its not the bug of web client, rather its the bug of server/addons altogether.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Addons: Originally, its the bug of module base_setup which misses the 2 important fields view_mode,view_type in the action definition of setup wizard(especially they are needed when the model is osv_memory because we always display the form view).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Server : Mainly the correction on addons will fix the bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But some bugs are like the Sun(or the Truth), they disappear, but they ain't going away. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " When the model contains no columns, there will be a real mess. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Also when there is no 'name' field in columns and no tree view defined, there will be a problem again(because technically speaking, system assigns _rec_name, but uses self._rec_name).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For a similar bug : see https://bugs.launchpad.net/openobject-server/+bug/878432/comments/5\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The attached 2 merge proposals will fix the issues altogether.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Serpent Consulting Services.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://www.serpentcs.com\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "serpent-consulting-services", 
+            "email": "serpent-consulting-services"
+        }, 
+        {
+            "date": "2011-11-10 13:25:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello Paul Korotkov ,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This problem has been fixed with following branch authored to Serpent Consulting Services:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Branch: lp:~openerp-dev/openobject-addons/6.0-opw-32662-rgo\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Revision ID: <email address hidden>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Revision#: 4913\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We really appreciate the efforts and fix provided by Serpent Consulting Services.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Regards,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ravi Gohil.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "rgo-openerp", 
+            "email": "rgo-openerp"
+        }, 
+        {
+            "date": "2011-11-11 08:02:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sorry, i change server bug status accidentally.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jviares", 
+            "email": "jviares"
+        }, 
+        {
+            "date": "2011-11-16 12:23:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Marking as Invalid for server, as the problem was exposed by a change in web-6.0, that in turn revealed a design issue in an addons.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " We should not make the server more lenient for such issues, and here the bug really needs to be corrected in addons.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This problem is now gone if web client 6.0 is updated to a revision after [1], as the change that exposed it has been reverted.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I'm leaving the bug open for addons as there is a valid merge proposal for fixing it, even though it will not be reproducible after [1].\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[1] web-6.0 rev.4729 revision-id: <email address hidden>\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "odo-openerp", 
+            "email": "odo-openerp"
+        }, 
+        {
+            "date": "2011-11-16 12:25:54", 
+            "sentences": [], 
+            "name": "odo-openerp", 
+            "email": "odo-openerp"
+        }, 
+        {
+            "date": "2011-11-16 12:27:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changing importance of addons affect, since the bug is now fixed in web client and not reproducible anymore.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "odo-openerp", 
+            "email": "odo-openerp"
+        }
+    ], 
+    "id": "886747", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/886747"
+}

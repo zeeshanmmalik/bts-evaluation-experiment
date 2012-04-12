@@ -1,0 +1,661 @@
+{
+    "contributors": [
+        [
+            "rafadurancastaneda", 
+            "lexrank"
+        ], 
+        [
+            "hudson-openstack", 
+            "email"
+        ], 
+        [
+            "eglynn", 
+            "lexrank"
+        ]
+    ], 
+    "title": "glance client return error unless using '-A token' option", 
+    "comments": [
+        {
+            "date": "2012-03-08 11:04:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Running glance installed from 2012.1~e4-0ubuntu0~ppa1~oneiric1 package I'm getting errors unless the '-A option' specified; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "e.g.:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$ export OS_AUTH_URL=http://192.168.100.25:5000/v2.0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$ export OS_PASSWORD=pass\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$ export OS_TENANT_NAME=service_tenant\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$ export OS_USERNAME=glance\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$ glance index\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Failed to show index. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Got error:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "__init__() takes at least 6 arguments (3 given)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "$ glance --username=glance --password=pass --tenant=service_tenant --auth_url=http://192.168.100.25:5000/v2.0 index\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Failed to show index. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Got error:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "__init__() takes at least 6 arguments (3 given)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "$ glance -A 9841b5bc284d478c97fad6ca6932efaf index\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ID                                   Name                           Disk Format          Container Format     Size          \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------ ------------------------------ -------------------- -------------------- -------------- 3b6b1c8d-41f8-400b-94de-c47efae99610 tty-linux                      ami                  ami                        25165824\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "32b2d20f-c6be-49d8-8658-876e17ddd52e tty-linux-kernel               aki                  aki                         4438032\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The token is gotten using the same credentials as the other requests, actually I've taken it from second keystone response tcpflow.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "rafadurancastaneda", 
+            "email": "rafadurancastaneda"
+        }, 
+        {
+            "date": "2012-03-08 11:11:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Using debug option:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "glance --username=glance --password=pass --tenant=service_tenant --auth_url=http://192.168.100.25:5000/v2.0 -d index\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Traceback (most recent call last):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/bin/glance\", line 1056, in <module>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    result = command(options, args)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/bin/glance\", line 63, in wrapper\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    ret = func(*args, **kwargs)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/bin/glance\", line 549, in images_index\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    print_header=True)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/bin/glance\", line 495, in _images_index\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    images = client.get_images(**parameters)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/lib/python2.7/dist-packages/glance/client.py\", line 60, in get_images\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    res = self.do_request(\"GET\", \"/images\", params=params)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/lib/python2.7/dist-packages/glance/common/client.py\", line 58, in wrapped\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    return func(self, *args, **kwargs)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/lib/python2.7/dist-packages/glance/common/client.py\", line 390, in do_request\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    headers=headers)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/lib/python2.7/dist-packages/glance/common/client.py\", line 75, in wrapped\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    return func(self, method, url, body, headers)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  File \"/usr/lib/python2.7/dist-packages/glance/common/client.py\", line 445, in _do_request\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    c = connection_type(url.hostname, url.port, **self.connect_kwargs)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TypeError: __init__() takes at least 6 arguments (3 given)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "rafadurancastaneda", 
+            "email": "rafadurancastaneda"
+        }, 
+        {
+            "date": "2012-03-09 18:13:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Rafael,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This looks like an SSL-aware connection is being created by the glance client, but without the expected key_file, cert_file and ca_file parameters being set.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Are you deliberately using SSL for your interactions with the glance API service?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Check the URLs configured for glance in the keystone service catalog:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$ sudo grep image /etc/keystone/default_catalog.templates \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "catalog.RegionOne.image.publicURL = http://localhost:9292/v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "catalog.RegionOne.image.adminURL = http://localhost:9292/v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "catalog.RegionOne.image.internalURL = http://localhost:9292/v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "catalog.RegionOne.image.name = 'Image Service'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you really intended to use SSL, then set the following environment variables:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$ export GLANCE_CLIENT_KEY_FILE=/path/to/key/file\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$ export GLANCE_CLIENT_CERT_FILE=/path/to/cert/file\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$ export GLANCE_CLIENT_CA_FILE=/path/to/ca/file\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cheers,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Eoghan\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "eglynn", 
+            "email": "eglynn"
+        }, 
+        {
+            "date": "2012-03-12 13:15:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Eoghan,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On my current testing environment I'm working under SSL configuration:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "catalog.RegionOne.image.publicURL = https://192.168.99.101:445/v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "catalog.RegionOne.image.adminURL = http://192.168.100.22:9292/v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "catalog.RegionOne.image.internalURL =  http://192.168.100.22:9292/v1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "catalog.RegionOne.image.name = 'Image Service'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "However SSL keys aren't properly set(and under this testing environment I can't set it properly), so I'm trying --insecure option, which should ignore SSL keys. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "However I'm still getting the same error.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bye\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "rafadurancastaneda", 
+            "email": "rafadurancastaneda"
+        }, 
+        {
+            "date": "2012-03-12 15:24:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Rafael,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "As things stand, the --insecure option only frees up the glance client from validating the glance server's certificate.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The code is structured in such a way athat cert and key files are still currently required so that the client can authtenicate itself to the server.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So it seems we have two related issues:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- missing cert/key files should be handled more gracefully than an error indicating an unexpected number of args passed to __init__() on an internal implementation class\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- a completely auth-free mode should be supported, such that the client is not obligated to authenticate itself to the server-side\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm working on a patch.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Cheers,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Eoghan\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "eglynn", 
+            "email": "eglynn"
+        }, 
+        {
+            "date": "2012-03-12 18:14:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fix proposed to branch: master\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review: https://review.openstack.org/5238\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "hudson-openstack", 
+            "email": "hudson-openstack"
+        }, 
+        {
+            "date": "2012-03-12 18:52:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reviewed:  https://review.openstack.org/5238\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committed: http://github.com/openstack/glance/commit/7125728d51adf0ded308f622913660f2d2ce2697\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Submitter: Jenkins\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Branch:    master\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "commit 7125728d51adf0ded308f622913660f2d2ce2697\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Author: Eoghan Glynn <email address hidden>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date:   Mon Mar 12 17:58:15 2012 +0000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Refresh SSL cfg after parsing service catalog entry\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Fixes bug 949838\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Ensure connection kwargs are re-evaluated after the keystone service     catalog publicURL for glance has been parsed for potential SSL usage.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    Otherwise the attempt to create a HTTPS connection will fail with     missing __init__() args if the client is using auth-free SSL     (i.e. is neither validating the server's cert, not authenticating     itself to the server).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Change-Id: I31c2083616297a64541cc6648d420e724baaf9f4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "hudson-openstack", 
+            "email": "hudson-openstack"
+        }
+    ], 
+    "id": "949838", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/949838"
+}

@@ -1,0 +1,302 @@
+{
+    "contributors": [
+        [
+            "nauevg", 
+            "lexrank"
+        ], 
+        [
+            "airoine", 
+            "email"
+        ]
+    ], 
+    "title": "if using web-server authentification runs infinitive loop", 
+    "comments": [
+        {
+            "date": "2012-02-20 08:20:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i setup ocs server (2.0.4.0) on linux box (ubuntu server 10.04). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "configured apache to check user in windows AD + group membership (mod_auth_kerb for user and mod_authnz_ldap for group).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "configured ocs gui settings in LDAP tab. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "when tries to togin - run in infinite loop of \"http 401\" from apache and sending auth from browser.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i tested - auth by web-server correct.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i think problem is in file \"ocsinventory-reports/ocsreports/backend/AUTH/auth.php\" at line 56.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "this fragment:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " }elseif($affich_method == 'SSO' and isset($_SERVER['HTTP_AUTH_USER'])){\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " \t$login=$_SERVER['HTTP_AUTH_USER'];\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " \t$mdp='NO_PASSWD';\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "should look like this:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " }elseif($affich_method == 'SSO' and (isset($_SERVER['HTTP_AUTH_USER']) || isset($_SERVER['REMOTE_USER']))){\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " \t$login=$_SERVER['HTTP_AUTH_USER'];\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " \t$mdp='NO_PASSWD';\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "after first browser request to apache i had variables $_SERVER['REMOTE_USER'] and $_SERVER['PHP_AUTH_USER'] filled by user login with domain part like \"<email address hidden>\" (fresh versions of mod_auth_kerb car strip domain part with option KrbLocalUserMapping)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "this fix allowed me to login transparently to ocsreports interface with windows domain login without typing it.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nauevg", 
+            "email": "nauevg"
+        }, 
+        {
+            "date": "2012-02-20 10:24:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "sorry for my hurry. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "browser cache make me wrong.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "transparent login - i'm working on it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "HTML form works fine\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "as for loop, checked my variables. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "after web-server authentification over ldap - i have REMOTE_USER and PHP_AUTH_USER, but don't have HTTP_AUTH_USER, as used in SSO section in mentioned upper file auth.php.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "in transparent scheme i see only error about not defined roles.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i'll check more and post here\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nauevg", 
+            "email": "nauevg"
+        }, 
+        {
+            "date": "2012-02-21 01:39:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i get transparent auth from apache, but stuck with error \"NO TAG AFFECTEID TO YOUR PROFILE\". ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "msg text index 893 in language file. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "error generated in ocsreports/require/html_header.php at line 162.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "what does this error mean?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nauevg", 
+            "email": "nauevg"
+        }, 
+        {
+            "date": "2012-02-21 13:54:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "please, use forum for your question.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "airoine", 
+            "email": "airoine"
+        }, 
+        {
+            "date": "2012-02-22 07:59:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "to fix infinitive loop with SSO i placed check to 3-rd position, and \"not HTML\" to the end of if {} elseif block (see attached file)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "after, as i mentioned, i get error about some kind of TAG.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nauevg", 
+            "email": "nauevg"
+        }, 
+        {
+            "date": "2012-02-22 08:00:06", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "sorry, here is file\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nauevg", 
+            "email": "nauevg"
+        }, 
+        {
+            "date": "2012-02-22 09:45:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i found the reason of \"NO TAG AFFECTEID TO YOUR PROFILE\". ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "it is not clear to find out ))\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "now i have transparent login for user from windows AD domain.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fix for order of $affich_method checks is needed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "otherwise we have infinitive loop, because user login is in PHP_AUTH_USER but no password for it. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i think the use of REMOTE_USER is right.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "nauevg", 
+            "email": "nauevg"
+        }
+    ], 
+    "id": "936795", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/936795"
+}

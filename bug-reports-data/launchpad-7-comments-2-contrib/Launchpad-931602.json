@@ -1,0 +1,643 @@
+{
+    "contributors": [
+        [
+            "hudayou", 
+            "lexrank"
+        ], 
+        [
+            "dan-prince", 
+            "email"
+        ]
+    ], 
+    "title": "Database migrations failing on 077_convert_to_utf8.py", 
+    "comments": [
+        {
+            "date": "2012-02-13 18:44:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On Ubuntu Precise, mysql 5.5.17-4ubuntu6 x86_64, 'nova-manage db sync' results in error:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "2012-02-13 13:26:02,905 CRITICAL nova [-] (OperationalError) (1025, \"Error on rename of './nova/#sql-1cbe_79' to './nova/projects' (errno: 150)\") 'ALTER TABLE projects CONVERT TO CHARACTER SET utf8' () (nova): TRACE: Traceback (most recent call last):\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/bin/nova-manage\", line 2372, in <module>\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     main()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/bin/nova-manage\", line 2359, in main\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     fn(*fn_args, **fn_kwargs)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/bin/nova-manage\", line 1193, in sync\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     return migration.db_sync(version)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/nova/db/migration.py\", line 30, in db_sync\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     return IMPL.db_sync(version=version)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/nova/db/sqlalchemy/migration.py\", line 51, in db_sync\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     return versioning_api.upgrade(FLAGS.sql_connection, repo_path, version)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/migrate/versioning/api.py\", line 186, in upgrade\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     return _migrate(url, repository, version, upgrade=True, err=err, **opts)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"<string>\", line 2, in _migrate\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/migrate/versioning/util/__init__.py\", line 159, in with_engine\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     return f(*a, **kw)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/migrate/versioning/api.py\", line 366, in _migrate\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     schema.runchange(ver, change, changeset.step)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/migrate/versioning/schema.py\", line 91, in runchange\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     change.run(self.engine, step)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/migrate/versioning/script/py.py\", line 145, in run\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     script_func(engine)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/nova/db/sqlalchemy/migrate_repo/versions/077_convert_to_utf8.py\", line 53, in upgrade\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     \"ALTER TABLE %s CONVERT TO CHARACTER SET utf8\" % table)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/sqlalchemy/engine/base.py\", line 2297, in execute\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     return connection.execute(statement, *multiparams, **params)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/sqlalchemy/engine/base.py\", line 1405, in execute\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     params)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/sqlalchemy/engine/base.py\", line 1582, in _execute_text\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     statement, parameters\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/sqlalchemy/engine/base.py\", line 1646, in _execute_context\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     context)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/sqlalchemy/engine/base.py\", line 1639, in _execute_context\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     context)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/sqlalchemy/engine/default.py\", line 330, in do_execute\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     cursor.execute(statement, parameters)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/MySQLdb/cursors.py\", line 174, in execute\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     self.errorhandler(self, exc, value)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:   File \"/usr/lib/python2.7/dist-packages/MySQLdb/connections.py\", line 36, in defaulterrorhandler\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE:     raise errorclass, errorvalue\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "(nova): TRACE: OperationalError: (OperationalError) (1025, \"Error on rename of './nova/#sql-1cbe_79' to './nova/projects' (errno: 150)\") 'ALTER TABLE projects CONVERT TO CHARACTER SET utf8' ()\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(nova): TRACE: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There have been similar bugs in the past with migrations against mysql servers configured with 'default_storage_engine = InnoDB' before initial nova migrations. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Changing this to MyISAM and recreating the database is a workaround, but migrations should handle both configurations.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For reference, see:   Bug #816236 Bug #916992 Bug #917205\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gandelman-a", 
+            "email": "gandelman-a"
+        }, 
+        {
+            "date": "2012-02-13 18:55:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Adam. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think Hu already filed a bug on this... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I fixed it in :\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://review.openstack.org/#change,3891\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We should however pull that fix out into a smaller patch and get this fixed today.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "dan-prince", 
+            "email": "dan-prince"
+        }, 
+        {
+            "date": "2012-02-13 18:57:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "NM. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I misread. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This may be a separate issue.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "dan-prince", 
+            "email": "dan-prince"
+        }, 
+        {
+            "date": "2012-02-14 01:51:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hey Dan,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Finally got a chance to look at this. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yeah, that doesn't address whats really going on. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " It seems the schema ends up being created much differently wrt foreign key constraints  depending on how the MySQL server is configured prior to running any database. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  Migrating the database to v76 (just prior to this failing migration) against two MySQL configurations, one MyISAM and the other InnoDB, leads to two *very different*  schemas in terms of foreign keys. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I've captured the differences using some visualization software:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://people.canonical.com/~agandelman/schema/innodb/relationships.html\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://people.canonical.com/~agandelman/schema/myisam/relationships.html\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The following patch fixes the issue for me by addressing all other FK parents early on with the instances table: http://paste.ubuntu.com/841173/   This seems a bit clunky but works. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I'd like to look into the issue a bit more and see how this might also affect other database backends.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gandelman-a", 
+            "email": "gandelman-a"
+        }, 
+        {
+            "date": "2012-02-14 17:57:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fix proposed to branch: master\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review: https://review.openstack.org/4146\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "hudson-openstack", 
+            "email": "hudson-openstack"
+        }, 
+        {
+            "date": "2012-02-14 18:41:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fix proposed to branch: master\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review: https://review.openstack.org/4149\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "hudson-openstack", 
+            "email": "hudson-openstack"
+        }, 
+        {
+            "date": "2012-02-14 18:49:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "MyISAM does not support FK constraints. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  If mysql is set to use MyISAM as default, any FK created prior to 022_set_engine_mysql_innodb.py ends up being missing later on. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Converting tables to InnoDB in 022 does not create the FKs, and sqlalchemy does nothing to ensure they are created. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   We should add migration somewhere that ensures missing FKs exist and ensure schemas are consistent across storage engines so that errors like this turn up in gating, as this seems to happen often. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  I'll file a bug and submit something for that.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gandelman-a", 
+            "email": "gandelman-a"
+        }, 
+        {
+            "date": "2012-02-15 01:57:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Dan, better to do it in one place in Adam's newest change for this 77 problem.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I abandoned mine and will left a comment in my tr to refer to here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "hudayou", 
+            "email": "hudayou"
+        }, 
+        {
+            "date": "2012-02-15 01:59:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://review.openstack.org/#change,4149\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "hudayou", 
+            "email": "hudayou"
+        }, 
+        {
+            "date": "2012-02-17 06:13:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reviewed:  https://review.openstack.org/4149\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Committed: http://github.com/openstack/nova/commit/516582b62d785d25044b0f852eb7e42a2b22558e\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Submitter: Jenkins\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Branch:    master\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "commit 516582b62d785d25044b0f852eb7e42a2b22558e\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Author: Adam Gandelman <email address hidden>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date:   Tue Feb 14 10:40:29 2012 -0800\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    077_convert_to_utf8: Convert *all* FK tables early\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    The original migration only takes care of migrating the instances     table before all others. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It turns out, when using MySQL with InnoDB     by default, there are many other tables with FKs that need to be converted     early on as well (see bug description for schema diagram).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Fixes bug 931602\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Update: Convert all tables in a predefined order from within the same     execution.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Update: Avoid hard-coding database, fixes bug 930863\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Update: Fix pep8 spacing\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Change-Id: Ideb619eecef2ad067bda5c26612f761674dee924\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "hudson-openstack", 
+            "email": "hudson-openstack"
+        }
+    ], 
+    "id": "931602", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/931602"
+}

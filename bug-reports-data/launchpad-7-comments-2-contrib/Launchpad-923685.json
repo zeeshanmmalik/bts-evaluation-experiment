@@ -1,0 +1,2457 @@
+{
+    "contributors": [
+        [
+            "stefan-bader-canonical", 
+            "email"
+        ], 
+        [
+            "sebunger44", 
+            "lexrank"
+        ], 
+        [
+            "bladernr", 
+            "email"
+        ]
+    ], 
+    "title": "Installing resolvconf causes loss of manually entered nameserver information in resolv.conf", 
+    "comments": [
+        {
+            "date": "2012-01-30 11:22:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Release: Precise\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Architecture: amd64\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is something I noticed when recently doing updates on my Precise test server. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Before I had set up a /etc/resolv.conf (cannot remember when but maybe the installer did) so it would point to the correct nameserver and search list(s). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And that was left alone all the time (on a server installation). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "But the  recent update to resolvconf changed that and the dns configuration was dropped (because the static ip setup in /etc/network/interfaces did not have any dns-* keywords).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Now this is simple to fix by adding dns-nameserver and dns-search to the interfaces file, but (assuming many servers have a static ip setup and not dhcp) could cause a lot of fallout for upgrades.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "stefan-bader-canonical", 
+            "email": "stefan-bader-canonical"
+        }, 
+        {
+            "date": "2012-01-30 12:24:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This has always been a shortcoming in the resolvconf package: it does not do a fully automatic installation. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " The case Stefan Bader describes in this report is the most important lacuna: the package does not add information to /etc/network/interfaces.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Until now we have dealt with this by adding warnings to the README and to the package description\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    This package may require some manual configuration.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Please read the README file for detailed instructions.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "and by implementing the feature described in the following debconf template.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "=== BEGIN ===\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Template: resolvconf/link-tail-to-original\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Type: boolean\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Default: false\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "_Description: Append original file to dynamic file?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If the original static resolver configuration file (/etc/resolv.conf)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " contains name server addresses, those addresses should be listed on  \"dns-nameservers\" lines in /etc/network/interfaces. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For more\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " information, please consult the resolvconf(8) man page and the  README file.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Until /etc/network/interfaces has been edited and the affected  interfaces brought down and up again, the name server addresses will  not be included in the dynamically generated resolver configuration  file.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If you choose this option, a temporary workaround will be put in  place: a symbolic link will be created (if it does not already exist)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " from /etc/resolvconf/resolv.conf.d/tail to\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " /etc/resolvconf/resolv.conf.d/original. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This will cause the whole of  that original resolver configuration file to be appended to the  dynamically generated file.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " After the required \"dns-nameservers\" lines have been added to  /etc/network/interfaces, the /etc/resolvconf/resolv.conf.d/tail link\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " should be replaced by one to /dev/null.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "=== END ===\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The link-tail-to-original feature is very unsatisfactory. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It was only implemented because implementing anything better is difficult... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "and it's almost impossible to implement a fully automated installation which will never make a mistake.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The problem is: when the resolvconf package is installed it isn't easy to tell where the information from /etc/resolv.conf belongs in the resolvconf scheme of things. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Figuring this out takes some work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Confronted with an existing /etc/resolv.conf with \"nameserver 1.2.3.4\", the maintainer script has to figure out what interface this is associated with, what tool configured that interface, (in the case of ifupdown:) what logical interface was used, etc.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We should at least be able to provide the admin with an interactive program that assists her in moving info from /etc/resolv.conf to /etc/network/interfaces.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdthood", 
+            "email": "jdthood"
+        }, 
+        {
+            "date": "2012-01-30 14:01:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Some choice at least would draw the attention. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Though it is hard to say whether this would be seen as nuisance. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For a fresh install I would assume the installer sets things up. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "At least after that there is enough information in the created file to alert anyone touching it. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Must admit I don't know whether there always was one which I ignored out of habit. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For myself it is not that bad anyway as I only have a limited number of personal use machines. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Just trying to anticipate what happens on a larger scale role out.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Would it be an option to do nothing (not touch resolv.conf) if there is neither an active interface with dhcp nor dns-server lines in /etc/network/interfaces? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Though that surely has the drawback of not really giving a hint about the newer way of defining things.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stefan-bader-canonical", 
+            "email": "stefan-bader-canonical"
+        }, 
+        {
+            "date": "2012-01-30 14:10:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The real bug here seems to be why netcfg didn't put the dns- lines in /etc/network/interfaces because it has code to do it and definitely should have done it.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "stgraber", 
+            "email": "stgraber"
+        }, 
+        {
+            "date": "2012-01-30 14:23:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This happened because this is based on a d-i install back on Oneiric. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "That did make a dhcp setup which was manually changed into one with a static IP.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stefan-bader-canonical", 
+            "email": "stefan-bader-canonical"
+        }, 
+        {
+            "date": "2012-01-30 14:23:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Right, so after talking with Stefan on IRC, the exact failing case is:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1) Installed system through debian-installer using DHCP configuration (choosing static there would have added the dns- fields)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2) Post-install, turned the system into static network configuration\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3) Upgraded from Oneiric to Precise which added resolvconf\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm guessing this might be a pretty likely scenario for servers indeed and we should be doing something about it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Now I'm not sure whether we want to try and add the existing DNS servers (link-tail-to-original) or if we should instead show a debconf message telling the user about the change in the way we do DNS resolving and asking them to move /etc/resolvconf/resolv.conf.d/original to /etc/network/interfaces.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "An option would be to use link-tail-to-original but only if we detect that we have interfaces in /etc/network/interfaces that are marked as auto but don't have dns- fields (easy to check with ifquery) and that we don't have Network Manager on the system.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stgraber", 
+            "email": "stgraber"
+        }, 
+        {
+            "date": "2012-01-30 14:55:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thinking about the debconf message: I think this would be ok for me as sort of occasionally affected. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And maybe it would be ok as it would warn any admin to action before a upgrade on a server farm. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Or they go mental (and if we are unlucky on us).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So anything automatic might be better. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Writing down my thinking (which I admit is quite hard to formulate as a nice script without too many dependencies). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If I understand correctly things are bad if\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1. there is no active/auto interface in interfaces that uses dhcp and\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2. there is no active/auto interface in interfaces with dns-nameservers and\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3. there are nameservers defined in resolv.conf\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In that case the servers and search need to go somewhere into interfaces and the somewhere is the problem. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I wonder whether it would be ok to just pick the interfacce related to the default route...\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stefan-bader-canonical", 
+            "email": "stefan-bader-canonical"
+        }, 
+        {
+            "date": "2012-01-30 19:53:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Stefan Bader wrote in #2:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Would it be an option to do nothing (not touch resolv.conf)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> if there is neither an active interface with dhcp nor\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> dns-server lines in /etc/network/interfaces?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The aforementioned \"link-tail-to-original\" approximates this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Stphane Graber wrote in #5:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> the exact failing case is:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 1) Installed system [...] using DHCP configuration [...]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 2) Post-install, turned the system into static [...]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 3) Upgraded [...] to Precise which added resolvconf\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If this is the only case then we might be able to get away with (1) detecting this case and then (2) turning on link-tail-to-original, (3) assuming that the admin who manually switches from DHCP to static is competent to edit configuration files, (4) notifying the admin that information needs to be moved from /etc/resolvconf/resolv.conf.d/original to /etc/network/interfaces.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Stphane Graber continued:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I'd be against a link-tail-to-original by default as it'd mostly be confusing on systems where the DNS configuration is dynamic\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Agreed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It's something to do only in the case described. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It was designed for exactly that case.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Stphane Graber also wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> An option would be to use link-tail-to-original but only if we > detect that we have interfaces in /etc/network/interfaces\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> that are marked as auto but don't have dns- fields\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> (easy to check with ifquery) and that we don't have\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Network Manager on the system.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "and Stefan Bader wrote in #6:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> If I understand correctly things are bad if\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 1. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "there is no active/auto [logical] interface [...] that uses dhcp, and > 2. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "there is no active/auto [logical] interface [...] with dns-nameservers, and\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 3. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "there are nameservers defined in resolv.conf\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Worry: Physical interfaces are marked \"auto\" but the \"dns-\" fields are in logical interface stanzas. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " So we have to assume that only logical interface stanzas are used that are named like the corresponding physical interface.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Worry: Configuration can be split across multiple files by means of the \"source\" feature.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Can we boil the proposal down to this?:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If there is nameserver information in the original /etc/resolv.conf and there is no physical interface marked \"auto\" in /e/n/i for which there is a logical interface definition in /e/n/i that could supply nameserver information dynamically (i.e., either a logical interface with the \"dhcp\" method or a logical interface with the \"static\" method and \"dns-\" lines) then adjust link-tail-to-original's default value to \"true\" and its priority to \"critical\" (\"will  probably break the system without user intervention\").\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "jdthood", 
+            "email": "jdthood"
+        }, 
+        {
+            "date": "2012-01-31 03:01:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm not sure whether this is related to this or not. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I was about to raise a bug for it, but thought I'd comment here in case it is related to something someone did recently in regards to this bug. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here's my scenario:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm using oneiric-mini.iso to install from a local ubuntu mirror (more like a cache) that is constructed using reprepro. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In essence it's a mirror of only the important bits of oneiric to set up an ubuntu-standard server + resolvconf from precise since the one in oneiric is totally broken.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Until very recently (1.63ubuntu3) this installed just fine (using DHCP for the single interface and getting the DNS info from that). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Now I've just updated my \"mirror\" to the latest packages which pulled in resolvconf 1.63ubuntu6 from precise and now this no longer installs properly. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In particular /etc/resolv.conf is still a file and not a sym-link after a clean expert install.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If I subsequently try to fix thinks by running dpkg-reconfigure resolvconf, it goes through a couple questions (Yes, I want to prepare /etc/resolv.conf and no I don't want to append the original contents) it fails saying (in effect) that /run/resolvconf does not exist. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If I create /run/resolvconf and /run/resolvconf/interface manually and then run through dpkg-reconfigure it appears to start coming right.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't have the means to try this on a plain precise install at the moment.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Anybody any comments?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Seb\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sebunger44", 
+            "email": "sebunger44"
+        }, 
+        {
+            "date": "2012-01-31 08:36:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> it fails saying (in effect) that /run/resolvconf does not exist\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please compare https://bugs.launchpad.net/ubuntu/+source/resolvconf/+bug/922491\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdthood", 
+            "email": "jdthood"
+        }, 
+        {
+            "date": "2012-01-31 09:36:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thomas Hood wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Worry: Physical interfaces are marked \"auto\" but the \"dns-\" fields are in logical interface > stanzas. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So we have to assume that only logical interface stanzas are used that are named > like the corresponding physical interface.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Not sure I understand the difference here. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In my understanding the name used in the auto and iface lines, both refer to a logical interface (iow after they have been renamed by udev/kernel based).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Worry: Configuration can be split across multiple files by means of the \"source\" feature.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Agreed that this makes it complicated. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Though I must admit, that I am not sure since when such a thing existed in previous releases. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If the man page is correct (in Oneriric) options are quite limited.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Can we boil the proposal down to this?:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mostly agree. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The only thing that worries me is that I do not understand what exactly an outcome of merging things will be and what effects that \"priority critical\" will have. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The link-tail-to original only happens when there is nothing in e/n/i that would create any content. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So the dynamic part is empty (unless the configuration is changed). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "IMO this results in a dynamic file that should be the same as before. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That could change when the admin only adds dhcp interfaces or dns- lines without removing the file used to append. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Would that break the system? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But in general I think this sounds like it should work.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stefan-bader-canonical", 
+            "email": "stefan-bader-canonical"
+        }, 
+        {
+            "date": "2012-01-31 10:19:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hate to spoil this bug and I probably should open a new one. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Doing orchestra install tests I got the following from a fresh precise (seed modified to install ubuntu-desktop) install yesterday:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ii  resolvconf                             1.63ubuntu6                              name server information handler\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "$ ls -la /etc/resolv.conf \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-rw-r--r-- 1 root root 40 Jan 30 19:38 /etc/resolv.conf\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Seems network manager is in charge (according to the comment in e/n/i). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is it expected to have resolv.conf not as a link to /run?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stefan-bader-canonical", 
+            "email": "stefan-bader-canonical"
+        }, 
+        {
+            "date": "2012-01-31 10:42:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Not sure I understand the difference here.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "interfaces(5):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Lines beginning with the word \"auto\" are used to identify     the physical interfaces to be brought up when ifup is run     with the -a option.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[...]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Stanzas  defining  logical  interfaces start with a line     consisting of the word \"iface\" followed by the name of\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    the logical interface.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Read the passages on mapping.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> [...]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Would that break the system?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Appending the original file to the end of resolv.conf can't have terribly deleterious effects. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (<Knock wood>)  The worst that can happen is that the original file contains obsolete \"domain\" or \"search\" lines which override a new valid \"search\" line. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (Only the last one of these counts.)  The original file may also list obsolete nameserver addresses but so long as new valid dynamic ones are listed earlier this doesn't make any difference. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(Only the first functional address counts.)  And listing an obsolete nameserver address only has the effect of delaying the name service failure condition by a few seconds. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " These issues are minor compared with the problem of resolv.conf *lacking* nameserver addresses that *are* in the original file. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " That's what will bring the pitchfork-armed admins to our doors.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thomas\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdthood", 
+            "email": "jdthood"
+        }, 
+        {
+            "date": "2012-01-31 10:49:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Stefan Bader wrote in #11:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Seems network manager is in charge (according to\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> the comment in e/n/i). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is it expected to have resolv.conf\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> not as a link to /run?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "See https://bugs.launchpad.net/ubuntu/+source/resolvconf/+bug/922677 especially comments 2 and 4.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdthood", 
+            "email": "jdthood"
+        }, 
+        {
+            "date": "2012-01-31 13:39:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thomas Hood wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> interfaces(5):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Read the passages on mapping.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ok, point taken. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It is much much more complicated than I believed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Guess I need to anticipate beyond Linux.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> [...]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> Would that break the system?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> And listing an obsolete nameserver address only has the effect of delaying the > name service failure condition by a few seconds. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "These issues are minor > compared with the problem of resolv.conf *lacking* nameserver addresses that > *are* in the original file. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That's what will bring the pitchfork-armed admins to our > doors.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And since we talk about a specific case of upgrading really, either the addresses are already obsolete or not. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So that should not make things really worse. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I guess the conditional link-to-tail solution sounds like the way forward then.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for the reference to the other bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That is handled over there then.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stefan-bader-canonical", 
+            "email": "stefan-bader-canonical"
+        }, 
+        {
+            "date": "2012-01-31 22:45:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Mon, Jan 30, 2012 at 07:53:00PM -0000, Thomas Hood wrote:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Can we boil the proposal down to this?:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> If there is nameserver information in the original /etc/resolv.conf and > there is no physical interface marked \"auto\" in /e/n/i for which there > is a logical interface definition in /e/n/i that could supply nameserver > information dynamically (i.e., either a logical interface with the > \"dhcp\" method or a logical interface with the \"static\" method and \"dns-\" > lines) then adjust link-tail-to-original's default value to \"true\" and > its priority to \"critical\" (\"will  probably break the system without > user intervention\").\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ubuntu policy prohibits debconf prompting on the desktop as part of the standard upgrade. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " We need to figure out how to make this not break the system without having to prompt the user about it. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (AFAICS, the proposal above would result in prompts for any desktop system that is using NM exclusively for network configuration - which would mean there are no auto interfaces in /e/n/i.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Steve Langasek                   Give me a lever long enough and a Free OS Debian Developer                   to set it on, and I can move the world.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ubuntu Developer                                    http://www.debian.org/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<email address hidden>                                     <email address hidden>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vorlon", 
+            "email": "vorlon"
+        }, 
+        {
+            "date": "2012-02-01 09:39:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Steve wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Ubuntu policy prohibits debconf prompting [...]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1. OK, no prompting.  :)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If we don't debconf-prompt then what's the best way of letting the admin know that she should edit /e/n/i?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  (AFAICS, the proposal above would result in prompts\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> for any desktop system that is using NM exclusively\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> for network configuration - which would mean there\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> are no auto interfaces in /e/n/i.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2. You are right, I forgot to mention NM in the conditions.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Proposal version 2:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If there is nameserver information in the original /etc/resolv.conf which wasn't written by NetworkManager and there is nothing set up to supply dynamic nameserver information then adjust link-tail-to-original's default value to \"true\". ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " By \"nothing is set up to supply dynamic nameserver information\" we mean: NetworkManager is not active and there is no physical interface marked \"auto\" in /e/n/i for which there is a logical interface definition in /e/n/i that is either \"dhcp\"-methodic a \"static\"-methodic with \"dns-\" lines.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My own familiarity with networking setups is not exceptionally broad, so it would be good if someone who does have broad familiarity would look at this proposal and think about consequences for, e.g., servers with multiple network interfaces, laptops with VPN interfaces, etc.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thomas\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdthood", 
+            "email": "jdthood"
+        }, 
+        {
+            "date": "2012-02-01 09:43:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Status changed to 'Confirmed' because the bug affects multiple users.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "janitor", 
+            "email": "janitor"
+        }, 
+        {
+            "date": "2012-02-01 09:46:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "setting to critical. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "After an upgrade of a working system from Oneiric to Precise, it is unable to do DNS resolution.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jibel", 
+            "email": "jibel"
+        }, 
+        {
+            "date": "2012-02-01 10:02:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug has been reported on the Ubuntu ISO testing tracker.\r", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A list of all reports related to this bug can be found here:\r http://iso.qa.ubuntu.com/qatracker/reports/bugs/924734\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "ubuntuqa", 
+            "email": "ubuntuqa"
+        }, 
+        {
+            "date": "2012-02-01 14:38:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hmm, Jean-Baptiste, could you give a bit more details on how that system was initially installed?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "My understanding is that upgrade works fine if it's a desktop install with Network Manager or if it was installed with debian-installer and had a static config.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you installed the machine using DHCP in d-i, then manually altered the configuration in /etc/network/interfaces to be static but without adding the dns-nameservers and dns-search options that d-i would have added, it's indeed a bug but it's far from being Critical (as it's not something that'd break with a default install).\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "stgraber", 
+            "email": "stgraber"
+        }, 
+        {
+            "date": "2012-02-02 16:28:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This system was initially running Natty and installed with d-i. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The file /etc/network/interfaces was changed to  be static. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Everything worked. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The machine was then upgraded to Oneiric and still working. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Then upgraded to Precise and hit by this defect.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It is critical because the configuration of the system was changed, without notification, in a way that severely affects the whole system and make applications relying on DNS resolution unusable.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "jibel", 
+            "email": "jibel"
+        }, 
+        {
+            "date": "2012-02-03 21:03:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "After a bit of discussion with Steve on IRC, we decided that we don't want to prompt the user, even in the weirdest scenario.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Instead, I developed the following list of criteria to determine whether or not to link the current resolv.conf to tail:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 1) If \"Generated by NetworkManager\" in /etc/resolv.conf => exit (it's already dynamic, managed by NM, so no need to be appended)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 2) If empty /etc/resolv.conf (no nameserver entry) => exit (it's empty, so no need to be appended)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 3) Get list of configured network interfaces \"ifquery --allow auto --list\" => if only loopback in the list => append (at this point we have no interface configuration but a resolv.conf containing something, not sure if it's dynamic or static but better keep it)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 4) Grep /etc/network/interfaces for \"inet dhcp\" (non-commented) => if any => exit (it's already dynamic, managed by dhclient, so no need to be appended)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 5) Grep /etc/network/interfaces for dns- entries (non-commented) => if any => exit (resolvconf will use them, so no need to be appended)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " 6) At this point, only configured interfaces in /etc/network/interfaces without dns-* fields and not using DHCP should remain => append (usual case of system installed with DHCP and manually altered afterwards, we need to keep these)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is there any case that's not covered by the above checks or something you think should be handled differently?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stgraber", 
+            "email": "stgraber"
+        }, 
+        {
+            "date": "2012-02-03 21:25:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Re: comment #22\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ik looks as if you can omit step 3 in your algorithm.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Either way, your algorithm seems to be equivalent to my \"proposal #2\" from comment #16. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Good sign that we came up with the same set of conditions.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll comment further once I get back to my laptop (now on my way to the FOSDEM beer event...).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdthood", 
+            "email": "jdthood"
+        }, 
+        {
+            "date": "2012-02-03 21:37:21", 
+            "sentences": [], 
+            "name": "stgraber", 
+            "email": "stgraber"
+        }, 
+        {
+            "date": "2012-02-03 22:50:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We should grep for \"dns-nameservers\" and not just for \"dns-\" in step 5 in the algorithm.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The algorithm will still fail in a case like this:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "=== /e/n/i ===\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "auto eth0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "iface eth0 inet static\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    address 192.168.0.2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    netmask 255.255.255.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "iface foo inet static\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    dns-nameservers 1.2.3.4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In this case the algorithm will fail to link tail to original (and thus, fail to cause /sbin/resolvconf to include the original as the tail of resolv.conf) because it will see a dns-nameservers line in a logical interface even though that logical interface isn't used. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Perhaps we should only refrain from linking tail to original due to the presence of a dns-nameservers line if the default mapping is used and the dns-nameservers line found is in a logical interface definition whose name is listed on an \"auto\" line. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " That would be safer. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (Remember, the consequences of wrongly omitting the link are worse than the consequences of wrongly creating it.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We can refine the algorithm even further but we will never be able to make it work perfectly under all possible circumstances. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I've mentioned the \"mapping\" and \"source\" features but there are other ways in which the networking configuration may have been customized by the admin. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " There's no limit to what people may have put onto \"up\" lines. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Because we can end up with tail linked to original in cases where it's not appropriate, it is important to minimize the negative consequences of this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I see one small way of reducing the possible negative impact of an unneeded tail->original. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Consider that /sbin/resolvconf composes a resolv.conf file from:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    head\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    base + dynamic content, ordered according to /etc/resolvconf/interface-order     tail\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For nameserver addresses it's fine to include them in the tail file because any dynamically added addresses will precede them and thus override them.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For \"domain\" and \"search\" lines it's not fine since, according to resolv.conf(5), the last instance wins. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Thus a \"domain\" or \"search\" line in the original file will always override the dynamic \"search\" line.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It would thus be better to include \"domain\" and \"search\" lines from the original file in the head file and not in the tail file.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "What I would propose is that instead of creating a symlink, the installation program splits up the original file into \"head-from-original\" (containing domain and/or search lines) and \"tail-from-original\" (including nameserver lines and anything else) and that /sbin/resolvconf builds resolv.conf from\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    head\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    head-from-original\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    base + dynamic content\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    tail-from-original\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    tail\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thomas\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdthood", 
+            "email": "jdthood"
+        }, 
+        {
+            "date": "2012-02-11 20:16:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here's the next iteration of the proposal.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1) /etc/resolv.conf contains no nameserver information => exit\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2) \"Generated by NetworkManager\" in /etc/resolv.conf => exit\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3) /etc/network/interfaces contains \"mapping\" or \"source\" lines => append\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4) /etc/network/interfaces contains a logical interface definition with name N and configuration method name \"dhcp\" and the file also contains an \"auto N\" line => exit\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5) /etc/network/interfaces contains a logical interface definition with name N and a \"dns-nameservers\" option and the file also contains an \"auto N\" line => exit\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "6) Append\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Time is short so I'd say we should go ahead and do link-tail-to-original rather than something fancier as described in #25.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdthood", 
+            "email": "jdthood"
+        }, 
+        {
+            "date": "2012-02-14 03:09:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This algorithm seems rather complicated. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "With the split from #25, is there any need for trying to figure out whether or not to do all these checks?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Why not do the split from #25 unconditionally. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can only see negative impact from not including old information. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "With #25, I can see no negative impact from including the old information when it is in fact not needed.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sebunger44", 
+            "email": "sebunger44"
+        }, 
+        {
+            "date": "2012-02-14 21:44:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Re comment #27:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It's an interesting idea, but I think we should, so far as possible, avoid including original nameserver information statically, for the simple reason that the correct nameserver information can change. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " For example, if a current nameserver address has been obtained from NetworkManager then the address could easily be different next time. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Note that invalid search domains or nameserver addresses cause delays.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdthood", 
+            "email": "jdthood"
+        }, 
+        {
+            "date": "2012-02-16 20:22:50", 
+            "sentences": [], 
+            "name": "bladernr", 
+            "email": "bladernr"
+        }, 
+        {
+            "date": "2012-02-17 12:06:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Regarding comment #29:  Report #933723 was traced to a bug in bind9 -- different issue from the one here (#923685).\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "jdthood", 
+            "email": "jdthood"
+        }, 
+        {
+            "date": "2012-02-18 01:25:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">> It looks as if you can omit step 3 in your algorithm.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> indeed, 3) won't match either 4) or 5) and so will be caught by 6) giving the same result\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Except in the case that there are inet dhcp entries in /e/n/i that are *not* marked auto. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Thinking about whether this should actually be handled differently.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vorlon", 
+            "email": "vorlon"
+        }, 
+        {
+            "date": "2012-02-18 01:31:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "yeah, in that case 4) is a reasonable option anyway, so we don't need to treat 3) specially.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "vorlon", 
+            "email": "vorlon"
+        }, 
+        {
+            "date": "2012-02-18 01:51:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Sat, Feb 11, 2012 at 08:16:57PM -0000, Thomas Hood wrote:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Here's the next iteration of the proposal.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 1) /etc/resolv.conf contains no nameserver information => exit\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 2) \"Generated by NetworkManager\" in /etc/resolv.conf => exit\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 3) /etc/network/interfaces contains \"mapping\" or \"source\" lines => append\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A 'mapping' stanza should have no effect at all on whether we append.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If a 'source' stanza exists at all, it most likely points to other interface definitions that *do* provide resolver info, so why would we want to append in that case except as a last resort? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I.e., I think this also collapses into the fallback case 6).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 4) /etc/network/interfaces contains a logical interface definition with > name N and configuration method name \"dhcp\" and the file also contains an > \"auto N\" line => exit\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 5) /etc/network/interfaces contains a logical interface definition with > name N and a \"dns-nameservers\" option and the file also contains an \"auto > N\" line => exit\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The plan I discussed with Stphane explicitly does *not* require the auto line for either of these. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The reasoning is that there is already an interface definition which we know will overwrite the resolver info in some cases, so /etc/resolv.conf is *not* static. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If the admin assumed it was static, then they've made a judgement error; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "resolvconf is merely exposing this error, not causing a bug in its own right.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 6) Append\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So I think that, modulo the dropping of 3) ifquery, the earlier proposal from Stphane is still what we want to go with.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vorlon", 
+            "email": "vorlon"
+        }, 
+        {
+            "date": "2012-02-19 15:34:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think we agree on the main principle, which is: append, unless we are confident that dynamic nameserver information will be supplied. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " In the case of ifupdown the condition means: there is a logical interface definition that is either \"dhcp\" or contains \"dns-nameservers\".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#26 differs from #33 only in applying the additional condition that there must be evidence that the logical interface definition is automatically activated, i.e., for logical interface L there is a line \"auto L\" and the default mapping is in effect. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (Any use of \"source\" or \"mapping\" calls into question whether the default mapping is in effect.)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I follow your reasoning in #33, though; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "and not applying the additional condition will simplify the code considerably.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdthood", 
+            "email": "jdthood"
+        }, 
+        {
+            "date": "2012-02-20 19:25:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug was fixed in the package resolvconf - 1.63ubuntu8\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "resolvconf (1.63ubuntu8) precise; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * Use a post-stop script for disabling resolvconf, not a pre-stop script,     since upstart seems to be silently ignoring pre-stop when there's no     main process. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " LP: #933566.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * debian/postinst: mkdir -p /run/resolvconf/interface again, just in case     there's been a reboot between the preinst and postinst which would wipe     out /run. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " May or may not address LP 933035.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  * debian/config, debian/templates, debian/postinst: if we don't know that     /etc/resolv.conf was being dynamically managed before install (in at     least some cases), link the original contents of /etc/resolv.conf to     /etc/resolvconf/resolv.conf.d/tail so that any statically configured     nameservers aren't lost. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " LP: #923685.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * when called with --enable-updates, ignore failures from the hooks.     LP: #933723.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "janitor", 
+            "email": "janitor"
+        }
+    ], 
+    "id": "923685", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/923685"
+}

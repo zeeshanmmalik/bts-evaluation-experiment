@@ -1,0 +1,460 @@
+{
+    "contributors": [
+        [
+            "suv-lp", 
+            "lexrank"
+        ], 
+        [
+            "dean-sellers", 
+            "email"
+        ]
+    ], 
+    "title": "simple object with mask renders incorrectly", 
+    "comments": [
+        {
+            "date": "2011-12-07 12:34:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Inkscape 4.8 (on Ubuntu 11.10, and win7) renders a simple object differently to Batik, firefox, and even IE9 which all display the graphic as I expect.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Basically I have a partially hand written .svg file that is part of a larger project that certain elements don't seem to render in Inkscape. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The problematic part seems to be a group where one shape is masked by another. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The masks in this case are 'reversed' so that a rect at the size of the image is created first and filled white. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The mask is a path inside this filled black. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Having the effect of cutting the masked path out, there are reasons cuts are inappropriate for this application.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Anyway, this boiled down svg doc shows the issue. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The colours are set here so that the base shape, outer mask and inner mask are all visible in the result.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<code>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<svg xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"200\" id=\"is_mask_test\" version=\"1.1\">\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  <defs id=\"includes\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    <style type=\"text/css\"><![CDATA[\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t.seeme {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\tfill: black;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t.inmask {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\tfill: blue;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t.outmask {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t\tfill: green;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    ]]></style>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  </defs>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  <g id=\"masked_rect\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t<mask id=\"createhole\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t<rect class=\"inmask\" id=\"maskin\" width=\"100%\" height=\"100%\" />\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t\t<rect class=\"outmask\" id=\"maskout\" width=\"80\" height=\"80\" x=\"60\" y=\"60\" />\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t</mask>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    <rect class=\"seeme\" id=\"outsiderect\" mask=\"url(#createhole)\" width=\"180\" height=\"180\" x=\"10\" y=\"10\" />\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  </g>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "</svg>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "</code>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have noticed when trying to work out why my images weren't rendering as expected that after moving objects up/down - in/out of the tree in the svg editor, sometimes they would display as expected. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This persists until you reload the image. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I know that I am not working with images created in Inkscape, but everything else (including *gag* IE9) renders them as I expect.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "dean-sellers", 
+            "email": "dean-sellers"
+        }, 
+        {
+            "date": "2011-12-07 12:34:39", 
+            "sentences": [], 
+            "name": "dean-sellers", 
+            "email": "dean-sellers"
+        }, 
+        {
+            "date": "2011-12-07 13:12:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Workaround for Inkscape (0.48.2 and current trunk): use a group as mask containing the two rectangles 'maskin' and 'maskout' (instead of them being direct children of the <mask> object).\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "suv-lp", 
+            "email": "suv-lp"
+        }, 
+        {
+            "date": "2011-12-07 13:21:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "AFAIU this is a duplicate of Bug #794472 in Inkscape: Incorrect rendering of masked element <https://bugs.launchpad.net/inkscape/+bug/794472>\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(though I'm not sure about the '%' units used for the 'maskin' and what they actually refer to: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- If attribute maskUnits is not specified, then the effect is as if a value of 'objectBoundingBox' were specified.   <http://www.w3.org/TR/SVG11/masking.html#Masking>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Inkscape itself only creates masks with 'userSpaceOnUse' as 'maskUnits'\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "suv-lp", 
+            "email": "suv-lp"
+        }, 
+        {
+            "date": "2011-12-07 14:14:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Correction: 'maskUnits' is not relevant for the units used for the mask content, and 'maskContentUnits' defaults to 'userSpaceOnUse' if not specified. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Inkscape also fails to consider the second object 'maskout' if defining the mask with 'maskUnits' and 'maskContentUnits' explicitly set to 'userSpaceOnUse', and using corresponding width/height and x/y values. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In this case, like with the original example, only putting the two objects inside a group inside the mask seems to render as expected in Inkscape (and like in other SVG viewers like e.g. Squiggle (Batik 1.7)):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  <g id=\"masked_rect\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    <mask id=\"createhole\" maskUnits=\"userSpaceOnUse\" maskContentUnits=\"userSpaceOnUse\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      <g>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        <rect class=\"inmask\" id=\"maskin\" width=\"180\" height=\"180\" x=\"10\" y=\"10\" />\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        <rect class=\"outmask\" id=\"maskout\" width=\"80\" height=\"80\" x=\"60\" y=\"60\" />\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      </g>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    </mask>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    <rect class=\"seeme\" id=\"outsiderect\" mask=\"url(#createhole)\" width=\"180\" height=\"180\" x=\"10\" y=\"10\" />\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  </g>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "suv-lp", 
+            "email": "suv-lp"
+        }, 
+        {
+            "date": "2011-12-09 11:38:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks very much for finding a workaround, I spent a day or so on this and didn't think to group the mask elements. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I still think it is a bug in the Inkscape renderer though. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The 'mask' element is itself a grouping element according to the spec, so I do think what I had done here should work.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But at this stage this is an easy work around.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "dean-sellers", 
+            "email": "dean-sellers"
+        }, 
+        {
+            "date": "2011-12-09 11:55:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I still think it is a bug in the Inkscape renderer though.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, AFAIU it is a bug in Inkscape, and the earlier report about the same issue (Bug #794472) has been confirmed as such.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Possibly the problem originates from how masks (and clips) are created in Inkscape (menu 'Object > Mask > Set'): if you have multiple objects selected, the top-most object is used as mask (by default, can be changed to 'bottom-most' in the preferences), and applied as mask to each other object in the selection. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you need a more complex mask made of several objects, you thus need to group it first, before being able to use the group (with several objects inside) as mask, independently of how many objects are masked in one step.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "suv-lp", 
+            "email": "suv-lp"
+        }, 
+        {
+            "date": "2011-12-09 12:02:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Proposing to link as duplicate to bug #794472 (I have raised bug importance to 'Medium' there).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "suv-lp", 
+            "email": "suv-lp"
+        }, 
+        {
+            "date": "2011-12-15 07:23:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Linking as duplicate to bug #794472 - please add a comment here and revert the duplicate status if you don't agree and think these are different issues.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "suv-lp", 
+            "email": "suv-lp"
+        }
+    ], 
+    "id": "901198", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/901198"
+}

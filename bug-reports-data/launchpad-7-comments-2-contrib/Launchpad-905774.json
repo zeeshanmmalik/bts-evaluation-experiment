@@ -1,0 +1,368 @@
+{
+    "contributors": [
+        [
+            "unpeudescience", 
+            "email"
+        ], 
+        [
+            "ploum", 
+            "lexrank"
+        ]
+    ], 
+    "title": "closed date fields amnesia", 
+    "comments": [
+        {
+            "date": "2011-12-17 18:42:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "How to reproduce:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Open GTG\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Create a task and mark it as done.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "press ctrl shift F9\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Observe that the closed date is today\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sigterm GTG.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Start gtg\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ctrl shift F9\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "observe that the closed date is now empty.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "unpeudescience", 
+            "email": "unpeudescience"
+        }, 
+        {
+            "date": "2011-12-17 18:43:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I forget to say the bug is encountered with the bzr version.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "unpeudescience", 
+            "email": "unpeudescience"
+        }, 
+        {
+            "date": "2011-12-19 11:15:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can confirm it, it is strange behavior.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "izidor", 
+            "email": "izidor"
+        }, 
+        {
+            "date": "2011-12-26 13:01:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I tried to investigate a bit this bug, thinking I could easily find the bug location.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I post here my conclusions.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1/ The donedate field is remove when gtg starts\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "2/ in backend_localfile.py in set_task(), a task which has a donedate field is detected as changed:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if t_xml.toxml() != existing.toxml():  -> This is True\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3/ I think that the problem is: t_xml does not contain the donedate. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So the bug should be in task_to_xml()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4/ I checked that in this function, the donedate is already lost.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5/ task_to_xml is called in backend_localfile.py in set_task().\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "6/ I'm pretty sure that the bug comes from launch_setting_thread() (core/datastore.py)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "at lines :\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                task = self.req.get_task(tid)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                self.backend.queue_set_task(task)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think the task is partial at that point. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For the moment, I didn't investigate further. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hope this could help to solve the issue.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "unpeudescience", 
+            "email": "unpeudescience"
+        }, 
+        {
+            "date": "2012-01-09 15:24:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thanks for the investigation. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Really strange.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "ploum", 
+            "email": "ploum"
+        }, 
+        {
+            "date": "2012-01-26 20:48:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Strangely, I cannot reproduce that bug at all. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Does it happens also with ./script/debug.sh and the defaut tasks?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "ploum", 
+            "email": "ploum"
+        }, 
+        {
+            "date": "2012-01-29 15:42:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Lionel,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The answer is yes (default tasks only & debug.sh creating default tasks...)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fyi, i'm using archlinux. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I also installed the bzr version on a debian squeeze. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I could check if the problem is reproducible on that system.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "unpeudescience", 
+            "email": "unpeudescience"
+        }, 
+        {
+            "date": "2012-01-29 16:46:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I definitely cannot reproduce that on Fedora. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Just a question: why do you need to press ctrl shift F9 again on the second launch. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Closed tasks should be displayed, isn't it?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "ploum", 
+            "email": "ploum"
+        }, 
+        {
+            "date": "2012-01-30 04:58:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Solved in rev1056.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This was another bug because of transition to asynchronous loading of tasks. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Localfile backend loaded a task and setup closed date. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Because of asynchronous loading loads tasks with a delay (we wanted to do that this way), the task didn't have is_loaded flag and simply discard change of closed date (but sets status). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've solved it by setting closed date every time either it is loaded or not.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "izidor", 
+            "email": "izidor"
+        }, 
+        {
+            "date": "2012-01-30 05:38:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ploum > the problem was that GTG saves configuration only on proper quitting. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Restarting your computer is not proper ending and GTG is killed by SIGTERM. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It bugged me a lot, therefore GTG saves configuration after every change and this bad manner is eliminated. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Solved in rev1057 :-)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "izidor", 
+            "email": "izidor"
+        }
+    ], 
+    "id": "905774", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/905774"
+}

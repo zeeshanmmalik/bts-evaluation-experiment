@@ -1,0 +1,262 @@
+{
+    "contributors": [
+        [
+            "daniel-nichter", 
+            "lexrank"
+        ], 
+        [
+            "bugs+ubuntu", 
+            "email"
+        ]
+    ], 
+    "title": "Some tools use VALUE instead of VALUES", 
+    "comments": [
+        {
+            "date": "2012-01-18 15:26:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In version 1.0.2, pt-table-checksum seems to need an 'S' in a sql statement. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " In the bin/pt-table-checksum file, at or near line 2924:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "original:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "$sql = \"INSERT INTO $tmp_db_tbl VALUE (CHAR(?))\"; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "$sql = \"INSERT INTO $tmp_db_tbl VALUES (CHAR(?))\"; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This was against stock mysql 4.0.x/5.1.x  checksum.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Given what I understand about the build process, it may be easier to find it in the else branch in sub _chunk_char.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have not checked the 2.x version for similar mayhem.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "bugs+ubuntu", 
+            "email": "bugs+ubuntu"
+        }, 
+        {
+            "date": "2012-01-18 15:50:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "VALUE and VALUES are both valid. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Is an error occurring?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "daniel-nichter", 
+            "email": "daniel-nichter"
+        }, 
+        {
+            "date": "2012-01-18 16:32:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "yes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " mysql 4.0.27:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "original version (database and table names substituted):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pt-table-checksum --chunk-size=10000 --chunk-size-limit=10 --databases-regex 'DB' --tables-regex '^TBL$' h=localhost --ask-pass\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Enter password for localhost: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You have an error in your SQL syntax. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Check the manual that corresponds to your MySQL server version for the right syntax to use near 'VALUE (CHAR('48'))' at line 1 [for Statement \"INSERT INTO `DB`.`__maatkit_char_chunking_map` VALUE (CHAR(?))\" with ParamValues: 0=48] at line 2929 while doing DB.TBL\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "new version (per fix) runs without issue\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "bugs+ubuntu", 
+            "email": "bugs+ubuntu"
+        }, 
+        {
+            "date": "2012-01-18 18:28:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We don't support MySQL 4.0 or 4.1, but it's easy enough to add an S, so I'll fix this and check the other tools, too. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Thanks for reporting this.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "daniel-nichter", 
+            "email": "daniel-nichter"
+        }, 
+        {
+            "date": "2012-01-18 18:45:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I figured that'd be the case really. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I don't want 4.0.x either but it's still in my lap ... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "for now.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "bugs+ubuntu", 
+            "email": "bugs+ubuntu"
+        }, 
+        {
+            "date": "2012-01-31 18:10:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There was only one case of VALUE: in TableChunker.pm.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "daniel-nichter", 
+            "email": "daniel-nichter"
+        }, 
+        {
+            "date": "2012-01-31 18:23:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TableChunker.pm is different in 1.0 and 2.0. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This fixed will be released in 2.0.3 but there's no plan yet for another 1.0 release. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Nonetheless, the latest 1.0 code can be downloaded directly from Launchpad.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "daniel-nichter", 
+            "email": "daniel-nichter"
+        }
+    ], 
+    "id": "918247", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/918247"
+}

@@ -1,0 +1,664 @@
+{
+    "contributors": [
+        [
+            "igorb-seattle", 
+            "email"
+        ], 
+        [
+            "timour", 
+            "lexrank"
+        ], 
+        [
+            "pstoev-askmonty", 
+            "email"
+        ], 
+        [
+            "sanja-byelkin", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Got error 124 from storage engine with UNION inside subquery and join_cache_level=3..8", 
+    "comments": [
+        {
+            "date": "2011-11-02 11:23:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "When executing the following query:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "SELECT * FROM t1 WHERE t1.f1 IN ( SELECT 'k' UNION  SELECT 'e' ) ;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "mysqld returned:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ERROR 1030 (HY000): Got error 124 from storage engine\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "backtrace:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#0  my_error (nr=1030, MyFlags=0) at my_error.c:81\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "#1  0x083f34ef in handler::print_error (this=0xa7550990, error=124, errflag=0) at handler.cc:2981\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "#2  0x0833eb0f in report_error (table=0xa754fa18, error=124) at sql_select.cc:15468\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "#3  0x0833f549 in join_read_key2 (thd=0xaf82a20, tab=0xa7571840, table=0xa754fa18, table_ref=0xa757199c) at sql_select.cc:15731\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#4  0x0833f3da in join_read_key (tab=0xa7571840) at sql_select.cc:15692\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#5  0x0833e023 in sub_select (join=0xa7576490, join_tab=0xa7571840, end_of_records=false) at sql_select.cc:15129\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#6  0x0833d8d0 in do_select (join=0xa7576490, fields=0xa754c028, table=0x0, procedure=0x0) at sql_select.cc:14795\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#7  0x08322156 in JOIN::exec (this=0xa7576490) at sql_select.cc:2679\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "#8  0x08322982 in mysql_select (thd=0xaf82a20, rref_pointer_array=0xa754c414, tables=0xa754bdcc, wild_num=0, fields=..., conds=0x0, og_num=0, order=0x0,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    group=0x0, having=0x0, proc_param=0x0, select_options=268435456, result=0xa754c628, unit=0xa754bd98, select_lex=0xa754c2d8) at sql_select.cc:2900\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#9  0x0846fb8c in st_select_lex_unit::exec (this=0xa754bd98) at sql_union.cc:724\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#10 0x0824d00d in subselect_union_engine::exec (this=0xa754c640) at item_subselect.cc:3009\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#11 0x08246bc9 in Item_subselect::exec (this=0xa754c538) at item_subselect.cc:587\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#12 0x08247092 in Item_in_subselect::exec (this=0xa754c538) at item_subselect.cc:742\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#13 0x08248be6 in Item_in_subselect::val_bool (this=0xa754c538) at item_subselect.cc:1455\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#14 0x081e2714 in Item::val_bool_result (this=0xa754c538) at item.h:843\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#15 0x0820ec74 in Item_in_optimizer::val_int (this=0xa754c8c0) at item_cmpfunc.cc:1715\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#16 0x08320189 in JOIN::exec (this=0xa75619e0) at sql_select.cc:2120\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#17 0x08322982 in mysql_select (thd=0xaf82a20, rref_pointer_array=0xaf8459c, tables=0xa754b8b8, wild_num=1, fields=..., conds=0xa754c538, og_num=0,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    order=0x0, group=0x0, having=0x0, proc_param=0x0, select_options=2147764736, result=0xa754c6d0, unit=0xaf84180, select_lex=0xaf84460)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    at sql_select.cc:2900\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#18 0x0831a87f in handle_select (thd=0xaf82a20, lex=0xaf84124, result=0xa754c6d0, setup_tables_done_option=0) at sql_select.cc:283\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#19 0x082b4fec in execute_sqlcom_select (thd=0xaf82a20, all_tables=0xa754b8b8) at sql_parse.cc:5112\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#20 0x082abda9 in mysql_execute_command (thd=0xaf82a20) at sql_parse.cc:2250\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "#21 0x082b762d in mysql_parse (thd=0xaf82a20, rawbuf=0xa754b718 \"SELECT * FROM t1 WHERE t1.f1 IN ( SELECT 'k' UNION  SELECT 'e' )\", length=64,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    found_semicolon=0x91616228) at sql_parse.cc:6113\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "#22 0x082a99f8 in dispatch_command (command=COM_QUERY, thd=0xaf82a20, packet=0xafa18e1 \"SELECT * FROM t1 WHERE t1.f1 IN ( SELECT 'k' UNION  SELECT 'e' )\",\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    packet_length=64) at sql_parse.cc:1221\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#23 0x082a8e53 in do_command (thd=0xaf82a20) at sql_parse.cc:916\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#24 0x082a5e37 in handle_one_connection (arg=0xaf82a20) at sql_connect.cc:1191\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#25 0x00821919 in start_thread () from /lib/libpthread.so.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#26 0x0076acce in clone () from /lib/libc.so.6\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "explain:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1       PRIMARY t1      system  NULL    NULL    NULL    NULL    1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "2       DEPENDENT SUBQUERY      NULL    NULL    NULL    NULL    NULL    NULL    NULL    No tables used\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "3       DEPENDENT UNION NULL    NULL    NULL    NULL    NULL    NULL    NULL    No tables used\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "NULL    UNION RESULT    <union2,3>      ALL     NULL    NULL    NULL    NULL    NULL\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "minimal switch: join_cache_level=3\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "full switch: \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "index_merge=on,index_merge_union=on,index_merge_sort_union=on,index_merge_intersection=on,index_merge_sort_intersection=off,index_condition_pushdown=off,derived_merge=off,derived_with_keys=off,firstmatch=on,loosescan=on,materialization=off,in_to_exists=on,semijoin=on,partial_match_rowid_merge=on,partial_match_table_scan=on,subquery_cache=on,mrr=off,mrr_cost_based=off,mrr_sort_keys=off,outer_join_with_cache=off,semijoin_with_cache=off,join_cache_incremental=on,join_cache_hashed=on,join_cache_bka=on,optimize_join_buffer_size=off,table_elimination=on\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bzr version-info:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "revision-id: <email address hidden>\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "date: 2011-11-02 13:51:47 +0400\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "build-date: 2011-11-02 13:22:20 +0200\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "revno: 3264\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "branch-nick: maria-5.3\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "test case:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "CREATE TABLE t1 (\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  f1 varchar(1) DEFAULT NULL\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ");\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "INSERT INTO t1 VALUES ('c');\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "SET SESSION join_cache_level=8;\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "SELECT * FROM t1 WHERE t1.f1 IN ( SELECT 'k' UNION  SELECT 'e' ) ;\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "pstoev-askmonty", 
+            "email": "pstoev-askmonty"
+        }, 
+        {
+            "date": "2011-11-03 14:48:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The problem is in calling add_key_field for the whole UNION\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "in JOIN::reoptimize.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "timour", 
+            "email": "timour"
+        }, 
+        {
+            "date": "2011-11-03 15:14:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug can be reproduced with the following test case that does not use constant tables:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--echo #\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "--echo # Bug #802860: UNION with IN subquery and hash join enabled \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--echo #\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "CREATE TABLE t1 (a varchar(1));\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "INSERT INTO t1 VALUES ('c'), ('e');\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "CREATE TABLE t2 (a varchar(1));\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "INSERT INTO t2 VALUES ('k'), ('e'), ('h'), ('g');\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SET SESSION join_cache_level=1;\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SELECT * FROM t1 \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  WHERE t1.a IN (SELECT a FROM t2 WHERE a>='k' UNION\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                 SELECT a FROM t2 WHERE a<='e');\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SET SESSION join_cache_level=3;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SELECT * FROM t1 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  WHERE t1.a IN (SELECT a FROM t2 WHERE a>='k' UNION\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "                 SELECT a FROM t2 WHERE a<='e');\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SET SESSION join_cache_level = DEFAULT;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "DROP TABLE t1,t2;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We get here:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "MariaDB [test]> SET SESSION join_cache_level=3;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Query OK, 0 rows affected (0.00 sec)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "MariaDB [test]> SELECT * FROM t1 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    ->   WHERE t1.a IN (SELECT a FROM t2 WHERE a>='k' UNION\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    ->                  SELECT a FROM t2 WHERE a<='e');\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ERROR 1030 (HY000): Got error 124 from storage engine\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "igorb-seattle", 
+            "email": "igorb-seattle"
+        }, 
+        {
+            "date": "2011-11-03 15:20:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This problem appears because the current code tries to employ a KEYUSE element to access the temporary table created for the union. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The code should not do it as IN into EXISTS transformation has already pushed the used equality into each select of the union.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "igorb-seattle", 
+            "email": "igorb-seattle"
+        }, 
+        {
+            "date": "2011-11-08 08:16:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "see also:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://bugs.launchpad.net/maria/+bug/887458\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "pstoev-askmonty", 
+            "email": "pstoev-askmonty"
+        }, 
+        {
+            "date": "2011-11-29 21:01:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The bug is no longer reproducible after the fixes for\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "LP BUG#859375 and LP BUG#887458. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It is in fact a\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "manifestation of the same problem.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "timour", 
+            "email": "timour"
+        }, 
+        {
+            "date": "2011-11-29 21:05:40", 
+            "sentences": [], 
+            "name": "sanja-byelkin", 
+            "email": "sanja-byelkin"
+        }
+    ], 
+    "id": "885162", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/885162"
+}
