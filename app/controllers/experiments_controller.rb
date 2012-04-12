@@ -86,8 +86,8 @@ class ExperimentsController < ApplicationController
   def result
     @experiment = Experiment.find(params[:id])
     @total_submissions = @experiment.participants.where('eval_submitted_at IS NOT NULL and eval_submitted_at != ""')
-    @lex_submissions = @total_submissions.where(:summary_assigned => APP_CONFIG[:lexrank])
-    @email_submissions = @total_submissions.where(:summary_assigned => APP_CONFIG[:email])
+    @lex_submissions = @total_submissions.where(:summary_assigned => 'lexrank')
+    @email_submissions = @total_submissions.where(:summary_assigned => 'email')
 
     @lex = populate_result(@lex_submissions, 'lex')
     @email = populate_result(@email_submissions, 'email')
@@ -126,8 +126,8 @@ class ExperimentsController < ApplicationController
 
   def experiment_csv experiment, csv
     total_submissions = experiment.participants.where('eval_submitted_at IS NOT NULL and eval_submitted_at != ""')
-    lex_submissions = total_submissions.where(:summary_assigned => APP_CONFIG[:lexrank])
-    email_submissions = total_submissions.where(:summary_assigned => APP_CONFIG[:email])
+    lex_submissions = total_submissions.where(:summary_assigned => 'lexrank')
+    email_submissions = total_submissions.where(:summary_assigned => 'email')
     csv = submission_csv(experiment.title, lex_submissions, 'lex', csv)
     csv = submission_csv(experiment.title, email_submissions, 'email', csv)
     return csv
