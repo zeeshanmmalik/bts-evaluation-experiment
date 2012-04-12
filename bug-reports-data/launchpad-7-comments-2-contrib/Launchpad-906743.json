@@ -1,0 +1,396 @@
+{
+    "contributors": [
+        [
+            "mitchej", 
+            "lexrank"
+        ], 
+        [
+            "koehnheiko", 
+            "email"
+        ]
+    ], 
+    "title": "Output parsing freezes after receiving Z_STREAM_END", 
+    "comments": [
+        {
+            "date": "2011-12-20 06:38:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Upon receiving Z_STREAM_END mudlet stops handling output from the mud server. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Upon looking at the code it looks like it correctly calls inflateEnd, however it doesn't reset any of the compression options so the client is still looking for compressed data and never gets any. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I noticed this issue when one of my users complained that her mudclient [mudlet] froze on reboot(copyover). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " My mud server first ends compression, reboots, and then attempts to re-negotiate it.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've attached a patch that seems to address the issue.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mitchej", 
+            "email": "mitchej"
+        }, 
+        {
+            "date": "2011-12-20 06:38:22", 
+            "sentences": [], 
+            "name": "mitchej", 
+            "email": "mitchej"
+        }, 
+        {
+            "date": "2011-12-20 14:47:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "the problem is that the MCCP protocol does not cover server controlled  termination of the zstream.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The standard procedure is to disconnect all connections on reboot.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Which MUD do you run (server + port please)?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll commit the patch, but I may need to run a few tests on your server.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Heiko\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Am 20.12.11 07:38, schrieb mitchej123:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Public bug reported:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Upon receiving Z_STREAM_END mudlet stops handling output from the mud > server. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Upon looking at the code it looks like it correctly calls > inflateEnd, however it doesn't reset any of the compression options so > the client is still looking for compressed data and never gets any.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I noticed this issue when one of my users complained that her mudclient > [mudlet] froze on reboot(copyover). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " My mud server first ends > compression, reboots, and then attempts to re-negotiate it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I've attached a patch that seems to address the issue.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ** Affects: mudlet\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">       Importance: Undecided\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">           Status: New\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "koehnheiko", 
+            "email": "koehnheiko"
+        }, 
+        {
+            "date": "2011-12-20 16:40:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ah,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for taking a look at this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've been going off of http://tintin.sourceforge.net/mccp/ which says: \"The server may terminate compression at any point by sending an orderly stream end (Z_FINISH). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Following this, the connection continues as a normal telnet connection.\"  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The details on zuggsoft also currently say something similar: \"Compression can only be terminated by the server - a normal end to the compression stream is assumed to mean \"revert to uncompressed mode\". ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It may be desirable for the server to automatically terminate compression when an IAC DONT COMPRESS sequence is received from the client. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The mud I run is The Realms of Hell - mud.rohonline.net 3333. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It will auto negotiate MCCP, however once you log in you can use the 'mccp' command. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If compression is already enabled it will send the Z_STREAM_END, if not enabled it will send the telnet sequence to re-negotiate it. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Typing \"Score\" will indicate \"MCCP Disabled\", \"MCCP V1 Enabled\", or \"MCCP V2 Enabled\".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Additionally, we use a reboot sequence very similar to copyover found on diku muds, we save everything, disable compression, execl a new version, and then renegotiate mccp. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(Which seemed to be the suggested procedure after some googling). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-Jason\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mitchej", 
+            "email": "mitchej"
+        }, 
+        {
+            "date": "2012-02-13 07:31:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Did you ever have a chance to test this patch?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mitchej", 
+            "email": "mitchej"
+        }, 
+        {
+            "date": "2012-02-13 07:59:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This will get into the next major update. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Don't worry.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Heiko\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Am 13.02.12 08:31, schrieb mitchej123:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Did you ever have a chance to test this patch?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "koehnheiko", 
+            "email": "koehnheiko"
+        }, 
+        {
+            "date": "2012-02-13 23:34:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fantastic thanks. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I've had a few users questioning me about this, I'll pass this along to them.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "mitchej", 
+            "email": "mitchej"
+        }
+    ], 
+    "id": "906743", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/906743"
+}

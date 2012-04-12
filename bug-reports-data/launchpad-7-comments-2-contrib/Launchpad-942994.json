@@ -1,0 +1,469 @@
+{
+    "contributors": [
+        [
+            "medigeek", 
+            "email"
+        ], 
+        [
+            "wgrant", 
+            "lexrank"
+        ]
+    ], 
+    "title": "[ppa] FTBFS libarchive on launchpad", 
+    "comments": [
+        {
+            "date": "2012-02-29 00:43:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm sorry if this not a place to ask/debug ppa-related questions, but libarchive package 3.0.3-5 FTBFS on launchpad (precise ppa):\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpad.net/~medigeek/+archive/evince-xps/+build/3245958\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpadlibrarian.net/94700638/buildlog_ubuntu-precise-i386.libarchive_3.0.3-5~ppap1_FAILEDTOBUILD.txt.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "..and on oneiric: https://launchpad.net/~medigeek/+archive/evince-xps/+build/3245954\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Initially it fails on 2 tests:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 60: test_read_disk_directory_traversals               FAIL\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " 61: test_read_disk_entry_from_file                    FAIL\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Meanwhile, it builts fine\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* on debian unstable: https://buildd.debian.org/status/fetch.php?pkg=libarchive&arch=i386&ver=3.0.3-5&stamp=1330045411\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* using pbuilder-dist precise (see attached last_operation.log)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The package source is debian 3. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(unchanged): http://cdn.debian.net/debian/pool/main/liba/libarchive/libarchive_3.0.3-5.dsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Is this a ppa build daemon bug? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Any suggestions or workarounds?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "medigeek", 
+            "email": "medigeek"
+        }, 
+        {
+            "date": "2012-02-29 00:43:37", 
+            "sentences": [], 
+            "name": "medigeek", 
+            "email": "medigeek"
+        }, 
+        {
+            "date": "2012-02-29 01:06:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Looks like it's this bug: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=659294\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I quote the solution:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> The problem is that the test suite run (just like the whole package  > build) is done within fakeroot (which means fakeroot-tcp), triggering \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Debian's #534879. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "( http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=534879 )\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It was fixed in 3.0.3-4 for debian and it worked: http://goo.gl/PMwjN (link to git diff)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't know why it doesn't work for ppa build daemon\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "medigeek", 
+            "email": "medigeek"
+        }, 
+        {
+            "date": "2012-02-29 01:35:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://code.google.com/p/libarchive/issues/detail?id=223 looks relevant. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Can you try that patch?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "wgrant", 
+            "email": "wgrant"
+        }, 
+        {
+            "date": "2012-02-29 12:20:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpad.net/~medigeek/+archive/evince-xps/+build/3249143\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It builds fine in pbuilder-dist with the patch applied.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I just noticed that the amd64 ~ppap1 was built: https://launchpad.net/~medigeek/+archive/evince-xps/+build/3245957\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpad.net/~medigeek/+archive/evince-xps/+build/3245957/+files/buildlog_ubuntu-precise-amd64.libarchive_3.0.3-5%7Eppap1_BUILDING.txt.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "~ppap4 failed to build again:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpad.net/~medigeek/+archive/evince-xps/+build/3249143\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpadlibrarian.net/94776212/buildlog_ubuntu-precise-i386.libarchive_3.0.3-5~ppap4_FAILEDTOBUILD.txt.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll test with a pbuilder 32-bit (my pbuilder was 64-bit) and let you know.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "medigeek", 
+            "email": "medigeek"
+        }, 
+        {
+            "date": "2012-02-29 13:00:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Works with and without the patch (tried ~ppap1 and ~ppap4):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "medigeek", 
+            "email": "medigeek"
+        }, 
+        {
+            "date": "2012-02-29 19:16:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I suppressed the error from the tests (~ppap6 and ~ppap7), trying to get some more information out of the build daemon log:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpadlibrarian.net/94807629/buildlog_ubuntu-precise-i386.libarchive_3.0.3-5~ppap6_BUILDING.txt.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "find command came out empty:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "find /tmp/ -maxdepth 1 -iname \"libarchive*\" -type f -exec echo \"DEBUG-TEST {}\" \\; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-a -exec cat \"{}\" \\;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "find /tmp/ -maxdepth 1 -iname \"bsd*\" -type f -exec echo \"DEBUG-TEST {}\" \\; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-a -exec cat \"{}\" \\;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I suppose I can't use the find or cat command in /tmp of a build daemon? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "medigeek", 
+            "email": "medigeek"
+        }, 
+        {
+            "date": "2012-02-29 19:20:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ~ppap6 and ~ppap7\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Pardon ~ppap6 only. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I won't make a ~ppap7\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, I'm still interested why the tests fail on launchpad.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "medigeek", 
+            "email": "medigeek"
+        }, 
+        {
+            "date": "2012-03-01 12:43:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I made a mistake when I was trying to read the logs in /tmp (libarchive* and bsd* are folders, not files).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here are the log files (~ppap7): \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpadlibrarian.net/94867412/buildlog_ubuntu-precise-i386.libarchive_3.0.3-5~ppap7_BUILDING.txt.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I hope it helps debug the problem.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "medigeek", 
+            "email": "medigeek"
+        }, 
+        {
+            "date": "2012-03-01 13:02:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That shows the problem -- libarchive is trying to use FIEMAP, which was only introduced in Linux 2.6.28. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The buildds mostly run Hardy (2.6.24) kernels.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://code.google.com/p/libarchive/issues/detail?id=238 has a patch.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "wgrant", 
+            "email": "wgrant"
+        }, 
+        {
+            "date": "2012-03-16 09:20:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug was fixed in the package libarchive - 3.0.3-6ubuntu1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libarchive (3.0.3-6ubuntu1) precise; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * Add 03_ignore_fiemap_errors.patch: Ignore FIEMAP errors on linux < 2.6.28. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    This fixes a failing test case (and thus FTBFS) when building this on a     hardy-based buildds. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This can be dropped once the buildds get upgraded to     something more modern. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks to Savvas Radevic for the patch!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    (LP: #942994)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "janitor", 
+            "email": "janitor"
+        }
+    ], 
+    "id": "942994", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/942994"
+}

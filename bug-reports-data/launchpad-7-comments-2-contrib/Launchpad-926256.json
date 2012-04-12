@@ -1,0 +1,507 @@
+{
+    "contributors": [
+        [
+            "sirver", 
+            "lexrank"
+        ], 
+        [
+            "phillip-berndt", 
+            "email"
+        ]
+    ], 
+    "title": "Add support for embedding code to be executed after expansion", 
+    "comments": [
+        {
+            "date": "2012-02-03 18:34:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'd love to have support for embedding VIM-scripts into snippets such that they are executed after expansion took place rather than substituting their output.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "With this feature it would be possible to automatically change other parts of the file using a script, if necessary. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Of course, technically, one could also substitute a function call which returns an empty string. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However when lines are inserted or removed above the line where the snippet is inserted SnipMate's cursor positioning would fail.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The application I have in mind is to add import statements as needed when editing python files.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "See\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* lp:~phillip-berndt/ultisnips/executeafter\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "for an implementation I hacked. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Not so nice code quality but it works. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Adds `!av ..` for (a)fter expansion (v)iml script. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The token is substituted with nothing upon expansion and the code is queued inside the Token object. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I execute it in _do_snippet, after the call to _jump\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* https://github.com/phillipberndt/vimconfig/blob/master/bundle/vim-python-imports/ftplugin/python.vim  for the script I intend to use this with\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* http://youtu.be/eNM3_HP-Ejw\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "for a demonstration\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "phillip-berndt", 
+            "email": "phillip-berndt"
+        }, 
+        {
+            "date": "2012-02-03 20:58:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for your interest in UltiSnips. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "However, I am not too fond of this proposal. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can see that it might be useful for some people; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "we had a question that had a similar need a short while ago[1].\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "However, I feel that this is not what a snippet plugin should do. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The user expects the snippet to be local and not change the whole file around. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'd much rather see this in another plugin and I could see some interchange between another plugin and ultisnips (e.g. ultisnips could inform the plugin what it has inserted or just pass the complete snippet object on. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "UltiSnips should be the best snippet plugin around, but we must be wary of the feature creep. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[1] https://answers.launchpad.net/ultisnips/+question/185761\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I leave this open for further discussion.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sirver", 
+            "email": "sirver"
+        }, 
+        {
+            "date": "2012-02-03 20:59:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "And the project is called UltiSnips - not snipMate :/\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sirver", 
+            "email": "sirver"
+        }, 
+        {
+            "date": "2012-02-04 11:14:39", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sorry for that. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Apparently there are too many snips-extensions out there for me to get the names straight.. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ":)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I see your point. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "An event driven extension system sounds great and would solve my request both more elegantly and more generally. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'd gladly be the first to use it! ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "How about also adding support for arbitrary annotations to the snippets, something like \"option <unique-identifier> <value>\" and passing them on to the extensions?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "phillip-berndt", 
+            "email": "phillip-berndt"
+        }, 
+        {
+            "date": "2012-02-04 11:47:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Lets talk design then: What events would such a system need to support? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "UltiSnips will get confused when something inserts lines before the snippet without moving the cursor (this can't be detected without using marks). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Therefore events should only be send after a snippet is finished (that is when the user leaves the snippet via movements or reaches tabstop zero).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "To be as compatible as possible we should keep things in Vim script (as compared to only allowing event functions to be used from inside :py). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My suggestion would be that there is a new Vim Function, something like\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "UltiSnips_RegisterEventCallback(\"snippet_done\", \"MyNameOfVimFunction\", .... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "maybe filetype and/or buffer id/globbing patterns for file name?)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "UltiSnips_UnregisterEventCallback with same arguments.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "UltiSnips then guarantees that all registered functions are called in order of registration. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The callback functions would be passed a vim dictionary (however they are called in VimL) containing:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1) snippet trigger\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2) snippet options\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3) final snippet start/end inside the vim buffer (line, col) -> (line, col)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4) Maybe: final start/end of all textobjects in the snippet (e.g. Tabstop1: (line, col) -> (line, col)) (and their text?)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The callbacks could then basically change everything in the buffer because for UltiSnips the snippet is already done and over with. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Note that this will make problems in recursive snippets: if the inner snippets callback will change the buffer by adding lines before the outer snippet UltiSnips will get confused.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Therefore there might be a second option: UltiSnips is able to replay user edits and move it's text objects accordingly. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If the callback could report back to UltiSnips that it has added or removed lines ultiSnips could update the location of it's text object. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This would also allow to have events for more things, e.g. jumped_forward, changed_tabstop and so on.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "What do you think about those brainstorms?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sirver", 
+            "email": "sirver"
+        }, 
+        {
+            "date": "2012-02-04 15:12:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Updating dynamic contents inside the snippet is already possible through substitution and for anything outside it won't matter in practice if the changes are not done in real time. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "At least most times. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " So in principle it should suffice to have a single event which is fired after the snippet is finished.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The only exceptions I can think of right now are if users want to do\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* changes to VIM settings\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* changes above/below the snippet which would affect syntax highlighting\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* changes which would interfere with some other plugin\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "How much more complicated would things get when you'd decide to follow the second option?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As for the addition/removal of lines: Why do you not want to use marks? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You could backup the old value of some mark before setting it and restore from that value after the event processing took place.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "IMO, registered event callbacks should be local to the buffer they were registered in. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This gives users a maximum of flexibility (using :au). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Having the texts of the textobjects available in the event handler might be of use.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "phillip-berndt", 
+            "email": "phillip-berndt"
+        }, 
+        {
+            "date": "2012-02-06 09:33:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Marks are not as flexible as they should be. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Vim does not track the columns of marks, only the lines. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So marks are just a partial solution - but one that works most of the times granted.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sirver", 
+            "email": "sirver"
+        }
+    ], 
+    "id": "926256", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/926256"
+}

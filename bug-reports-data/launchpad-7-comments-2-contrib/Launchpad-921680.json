@@ -1,0 +1,875 @@
+{
+    "contributors": [
+        [
+            "gde-openerp", 
+            "lexrank"
+        ], 
+        [
+            "vadim-smartmode", 
+            "email"
+        ], 
+        [
+            "gdgellatly", 
+            "lexrank"
+        ], 
+        [
+            "ado-openerp", 
+            "email"
+        ], 
+        [
+            "numerigraphe", 
+            "lexrank"
+        ]
+    ], 
+    "title": "[Stock valuation] Stock journal entry for real-time product which have unit and sale price are 0.0", 
+    "comments": [
+        {
+            "date": "2012-01-25 16:49:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On the SaaS, when I make an inventory directly from the product form for a Consumable product with sales and cost price equal to 0, I get an accounting line with an amount equal to 1 which is not correct.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It should generate a move with an amount equal to 0 or no move at all.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Steps to reproduce:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Create a consumable product with sales and cost price equal to 0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Set the Stock valuation to real time\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Make an inventory for 10000 units\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Check the accounting move\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Make an inventory for 5 units for the same product\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Check the accounting move\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--> Problem: accounting move with amount different of 0\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "gde-openerp", 
+            "email": "gde-openerp"
+        }, 
+        {
+            "date": "2012-02-02 06:21:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I have checked your issue but this is not a bug rather than it's functional behavior for accounting entires.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Let me explain whole thing here:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "First of all that doesn't matter that we have using a \"Consumable \" or \"Stackable\" both have behavior same for this scenario.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You have created a product with cost and sale both price 0.0. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Yes, you are right. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Whenever we creates stock journal's entires for this product it will take the credit and debit value 1.0. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is not a bug, but we have set this thing for better functional behavior for real time scenario. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Because If we creates entires for 0.0 it's doesn't make sanes and it's meaning less also we won't  allow entires for 0.0.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Finlay that's behavior is set an intensionally and this 's not a bug, So I am converting this to questions.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Correct me If I am wrong .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for understanding!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amp-openerp", 
+            "email": "amp-openerp"
+        }, 
+        {
+            "date": "2012-02-02 09:02:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Confirming back as a bug according to gde (OpenERP)'s comment:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"Ok. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So it is more correct to have several wrong lines instead of having some correct lines with an amount of 0 or no lines at all?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " A better solution is to have no line if the debit/credit amount is equal to 0.\" Lionel Sausin.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "numerigraphe", 
+            "email": "numerigraphe"
+        }, 
+        {
+            "date": "2012-02-06 07:07:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello Lionel,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't agree, we should not allow the entry for credit and debit with amount 0 for stock accounting because If we have to calculate our stock valuation there should be some entry . ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That's we have create entry for (less amount 1.0) please see the comment#1.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If we update some stock for realtime product then there should be some entry for this product's valuation. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If we creates entry with 0.0 amount then it's don't have any meaning that's why we have put this behavior.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So this is not a generalize issue and for more discussion I am setting this as an \"Opinion\".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "After a discussion over here we will decide the better solution for this and then we will set the appropriate status for it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Correct me If I am wrong.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " @Stock and Accounting experts: Would you please share your views on this!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks and more suggestions are welcomed!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amp-openerp", 
+            "email": "amp-openerp"
+        }, 
+        {
+            "date": "2012-02-06 13:55:20", 
+            "sentences": [], 
+            "name": "vadim-smartmode", 
+            "email": "vadim-smartmode"
+        }, 
+        {
+            "date": "2012-02-06 15:37:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I completely agree with Gde & people supporting the idea this is a bug.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "ahu-openerp", 
+            "email": "ahu-openerp"
+        }, 
+        {
+            "date": "2012-02-17 21:23:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I also agree this is a bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It does not make any sense to create a value from nothing.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "gadgetscentralservice", 
+            "email": "gadgetscentralservice"
+        }, 
+        {
+            "date": "2012-02-20 05:30:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello Folks,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for replied on this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Would you please describe here which behaviour is good for this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Entry should be created with 0.0 value.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Journal entry should not be created (because may be it's good,  If we should not create this entry rather than create a entry for nothing)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Would you please provide your suggestion for the better solution. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That is very efficient, If someone provide a proper real use case.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thank you!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "amp-openerp", 
+            "email": "amp-openerp"
+        }, 
+        {
+            "date": "2012-02-20 07:53:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Well for me the answer is that an entry for 0.00 should be created.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For a few reasons:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1 - Other modules expect invoices to have account move lines e.g account_anglo_saxon and to not have a move line could cause breakage.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2 - it is probably easier - there is a default somewhere causing 1, just removing the default probably fixes it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3 - its probably cleaner - same reason as above - rather than a special test and not create moves - uses same code.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4 - it provides better traceability in case of returns, refund invoices etc.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5 - accountants (and tax departments) like to see everything especially in audits (most fraud is perpetuated and caught at the journal level)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "6 - not creating the zero move makes amending it harder.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Mon, Feb 20, 2012 at 6:30 PM, Amit Parik (OpenERP) <email address hidden>wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Hello Folks,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Thanks for replied on this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Would you please describe here which behaviour is good for this.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> - Entry should be created with 0.0 value.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> - Journal entry should not be created (because may be it's good,  If we > should not create this entry rather than create a entry for nothing)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Would you please provide your suggestion for the better solution. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That > is very efficient, If someone provide a proper real use case.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Thank you!\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> --\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> You received this bug notification because you are subscribed to OpenERP > Addons.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://bugs.launchpad.net/bugs/921680\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Title:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  [Stock valuation] Stock journal entry for real-time product which have >  unit and sale price are 0.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Status in OpenERP Addons (modules):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  Opinion\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Bug description:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  On the SaaS, when I make an inventory directly from the product form >  for a Consumable product with sales and cost price equal to 0, I get >  an accounting line with an amount equal to 1 which is not correct.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  It should generate a move with an amount equal to 0 or no move at all.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  Steps to reproduce:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  - Create a consumable product with sales and cost price equal to 0 >  - Set the Stock valuation to real time\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  - Make an inventory for 10000 units\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  - Check the accounting move\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  - Make an inventory for 5 units for the same product\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  - Check the accounting move\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">  --> Problem: accounting move with amount different of 0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> To manage notifications about this bug go to:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> https://bugs.launchpad.net/openobject-addons/+bug/921680/+subscriptions\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gdgellatly", 
+            "email": "gdgellatly"
+        }, 
+        {
+            "date": "2012-03-02 10:51:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This issue if fixed with following branch:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Branch: lp:~openerp-dev/openobject-addons/6.0-opw-381937-ado with\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Revision-id: <email address hidden> and\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Revision-no:  5013\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Amit\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "ado-openerp", 
+            "email": "ado-openerp"
+        }, 
+        {
+            "date": "2012-03-02 12:33:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It is solved in 6.0.3 but the bug is still present in 6.1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The patch should be done for the 6.1 also.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gde-openerp", 
+            "email": "gde-openerp"
+        }, 
+        {
+            "date": "2012-03-02 14:05:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Gregory,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The forward-port of the patch to v6.1 is on the following branch:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(awaiting approval of the R&D Team)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Branch: lp:~openerp-dev/openobject-addons/6.1-opw-381937-xal\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Revision-id: <email address hidden>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Revision-no: 6642\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Xavier\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "xal-openerp", 
+            "email": "xal-openerp"
+        }, 
+        {
+            "date": "2012-03-05 12:36:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Waiting for the merge in the 6.1.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gde-openerp", 
+            "email": "gde-openerp"
+        }
+    ], 
+    "id": "921680", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/921680"
+}

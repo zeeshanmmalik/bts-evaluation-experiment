@@ -1,0 +1,274 @@
+{
+    "contributors": [
+        [
+            "stirling", 
+            "lexrank"
+        ], 
+        [
+            "johanengelen", 
+            "email"
+        ], 
+        [
+            "baptiste-pierrat", 
+            "lexrank"
+        ]
+    ], 
+    "title": "PDF+LaTeX does not export proper font size in LaTeX file", 
+    "comments": [
+        {
+            "date": "2011-11-19 20:02:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In the output option PDF+LaTeX (omit text and create separate LaTeX file) the font sizes are not output correctly. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Same thing for EPS+LaTeX and PS+LaTeX. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I have written patches to fix this issue (see the attached .tgz file which includes 6 patches to be applied to files in \"src/extension/internal\"). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " These are patches onto the 0.48.2 version.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "These patches also add EXTRA functionality:  combined EPS+PDF+LaTeX export. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Some people still need to support both regular LaTeX and PDFLaTeX simultaneously, hence they need *both* EPS and PDF files at the same time. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " The trick is to export both types of files and remove the filename extension on the \\includegraphics line in the .pdf_tex file.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stirling", 
+            "email": "stirling"
+        }, 
+        {
+            "date": "2011-11-19 20:02:33", 
+            "sentences": [], 
+            "name": "stirling", 
+            "email": "stirling"
+        }, 
+        {
+            "date": "2011-11-19 22:31:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> the font sizes are not output correctly\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Possibly related earlier reports:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bug #595315 need eps/ps/pdf+LaTeX font size warning\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<https://bugs.launchpad.net/inkscape/+bug/595315>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bug #718638 LaTeX font size support\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<https://bugs.launchpad.net/inkscape/+bug/718638>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "suv-lp", 
+            "email": "suv-lp"
+        }, 
+        {
+            "date": "2011-11-19 22:34:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@Johan - could you review the patch and verify whether it addresses the earlier reports about the font size?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "suv-lp", 
+            "email": "suv-lp"
+        }, 
+        {
+            "date": "2011-12-02 00:57:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I apologize, but I just realized that the patches that I sent won't work (I was using a LaTex command \"SetFigFontNFSS\" to set the font size, but I forgot to add code to define it. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I'm an idiot. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I didn't notice because, by chance, that command was already defined in the document that I was testing on. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " GRRRR)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I also read the comments on bug  #718638  and so I added the functionality that Johan requested there (an option to turn OFF font size support, and leave it off by default). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I basically stole the code from the other patch supplied in that bug (however, that patch has a bug in it as well, so it won't compile - hence you really need this patch).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Attached is the new patch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The original trunk is called inkscape-0.48.2, and the new trunk is called inkscape-0.48.2-new. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Again, this patch also adds some new functionality: combined PDF+EPS+LaTeX support for poor souls like me who are forced to support both latex and pdflatex simultaneously. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This option is also \"off\" by default\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thank you\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stirling", 
+            "email": "stirling"
+        }, 
+        {
+            "date": "2012-02-06 22:40:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Tested and working on the 0.48.x branch. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Would be nive to have this feature on future releases.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "baptiste-pierrat", 
+            "email": "baptiste-pierrat"
+        }, 
+        {
+            "date": "2012-03-11 18:20:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "After reading the new code: does it work when the filename contains more than one dot? ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "E.g: \"figure1.2.eps\"\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "johanengelen", 
+            "email": "johanengelen"
+        }, 
+        {
+            "date": "2012-03-12 00:44:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, that works because g_strrstr matches the last occurrence of the \".\"  \n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "stirling", 
+            "email": "stirling"
+        }, 
+        {
+            "date": "2012-03-18 17:45:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think it would be good to explicitly search for the 3 'problem' extensions that need to be removed in the tex source: \".pdf\", \".eps\", and \".ps\".\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "johanengelen", 
+            "email": "johanengelen"
+        }
+    ], 
+    "id": "892572", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/892572"
+}

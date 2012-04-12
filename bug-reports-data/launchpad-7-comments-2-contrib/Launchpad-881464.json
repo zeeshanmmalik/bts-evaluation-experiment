@@ -1,0 +1,944 @@
+{
+    "contributors": [
+        [
+            "doko", 
+            "email"
+        ], 
+        [
+            "gandelman-a", 
+            "lexrank"
+        ]
+    ], 
+    "title": "[MIR] keystone", 
+    "comments": [
+        {
+            "date": "2011-10-25 14:50:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "To be completed.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "davewalker", 
+            "email": "davewalker"
+        }, 
+        {
+            "date": "2011-11-18 13:28:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This will require a security team audit.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdstrand", 
+            "email": "jdstrand"
+        }, 
+        {
+            "date": "2011-11-18 13:31:52", 
+            "sentences": [], 
+            "name": "jdstrand", 
+            "email": "jdstrand"
+        }, 
+        {
+            "date": "2011-11-25 11:29:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "the dependency on python-sqlite needs to be dropped (build and use sqlite3 from the python standard library)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "doko", 
+            "email": "doko"
+        }, 
+        {
+            "date": "2011-11-29 15:21:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "MIR's are missing for the b-d's/d's, at least passlib, python-coverage, python-memcache\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "doko", 
+            "email": "doko"
+        }, 
+        {
+            "date": "2011-11-29 15:31:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "and python-coverage on jquery-goodies and more \"goodies\" :-/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "doko", 
+            "email": "doko"
+        }, 
+        {
+            "date": "2011-12-14 23:03:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have performed a shallow security audit of keystone. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The code audit was not deep because \"Keystone is very young and developing very fast.\" -- http://docs.openstack.org/trunk/openstack-identity/admin/content/what-is.html. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "With that said, here is my review:\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Package review:\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Does not run as root\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Has test suite in the build\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Listens on all interfaces by default, on ports 5000/tcp and 35357/tcp (admin interface)\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- Documentation on keystone is scant and there are no manpages for the binaries shipped in keystone\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- no sudo fragments\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- no DBus services\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- no setuid/setgid binaries\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- By default, does not use ssl. Since access to keystone is necessarily over the network and considering that Keystone/Nova/Glance/Quantum bits are likely on a trusted network (though they should use SSL as well), the most important bit seems to be the User to Keystone interaction, as that is where the password is passed and the token used by the other services is received. If the password or token is snooped then an attacker can do everything as that user.\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Code review\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- no privileged operations\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- no processes spawned\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- file handling seems sane\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- keystone-control has, which shouldn't strictly be a problem because of Yama, but should be fixed regardless: os.environ['PYTHON_EGG_CACHE'] = '/tmp'\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- correct example uses of ssl does not seem to be present. /etc/keystone/ssl.conf is shipped, but this is an example for tests and is confusing. /etc/keystone/keystone.conf has comments for how to use SSL, but only if using a local CA. It would be much better if it were commented to also include a section on using SSL with a proper CA from ca-certificates\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Doesn't seem to be any input validation on 'marker' in get_marker_limit_and_url() from keystone/controllers/__init__.py. It isn't clear at this time if this can be used for SQL injection, but 'marker' is passed unvalidated from get_marker_limit_and_url() all the way to session.query() (part of sqlalchemy) in endpoint_get_by_tenant_get_page() from endpoint_template.py.\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Recommendations from security team for MIR approval:\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- provide documentation for keystone, especially man pages\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- provide documentation on how to correctly use SSL certificates, not just snakeoil or self-signed with your own CA (manpages and server documentation ideally)\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- fix the /tmp file issue\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- perform input validation an all variables returned in get_marker_limit_and_url() (keystone/controllers/__init__.py) or demonstrate where this is already being performed (and therefore why this is not needed)\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Ideally, Ubuntu would also have tools or adjust packaging to properly configure keystone for SSL, with helpers for the various other openstack services utilizing keystone so all could also benefit. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Since keystone is an identity service and a key component of openstack, it begs the question why it would be used without SSL at all. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ssl-cert may be helpful here.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdstrand", 
+            "email": "jdstrand"
+        }, 
+        {
+            "date": "2012-01-03 15:40:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I believe I all of these issues have been addressed now:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- passlib MIR - https://bugs.launchpad.net/ubuntu/+source/passlib/+bug/911287\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- python-sqlite has been dropped\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- python-coverage has been dropped\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- python-memcache MIR - https://bugs.launchpad.net/ubuntu/+source/python-memcache/+bug/911295\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- I believe the security issues that was rasied by Jamie has been addressed upstream.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "zulcss", 
+            "email": "zulcss"
+        }, 
+        {
+            "date": "2012-01-23 16:43:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Whats the status of this MIR?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "zulcss", 
+            "email": "zulcss"
+        }, 
+        {
+            "date": "2012-01-31 08:53:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "passlib and python-memcache now promoted; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "jdstrand, please have a look at the changes after your last review.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "doko", 
+            "email": "doko"
+        }, 
+        {
+            "date": "2012-02-06 16:47:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Jamie,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The keystonelight git repo can be found at: https://github.com/termie/keystonelight/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if you have any questions please let me know.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Regards\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "chuck\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "zulcss", 
+            "email": "zulcss"
+        }, 
+        {
+            "date": "2012-02-07 16:52:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So the reason for the switch to keystonelight is that alot of the developers in openstack has had problems with keystone and so an alternate was created called keystonelight. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The discussion has started at:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://<email address hidden>/msg06998.html\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you have any questions please let me know.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Regards\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "chuck\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "zulcss", 
+            "email": "zulcss"
+        }, 
+        {
+            "date": "2012-02-10 18:37:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "After talking to the server team, I am unassigning myself for now while the server team decides which keystone packages they want in main. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Leaving as Incomplete for now.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdstrand", 
+            "email": "jdstrand"
+        }, 
+        {
+            "date": "2012-03-02 18:13:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For info, keystone packages after 2012.1~e4-0ubuntu1 (after the prior review), is based on whole new upstream code. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Upstream rewrote this project from scratch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Apologies for the doubling of work.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "davewalker", 
+            "email": "davewalker"
+        }, 
+        {
+            "date": "2012-03-05 15:16:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "FYI the latest keystone that was uploaded to the archive will be the version that we will be using in Ubuntu (not final release fro precise):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A list of the dependencies are the following:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " pep8 (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " pylint (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-all (>= 2.6) (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-all-dev (>= 2.6.6-3~) | python-support (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-eventlet (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-keystoneclient (in universe pending MIR)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-ldap (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-lxml (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-memcache (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-migrate (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-mox (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-nose (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-pam (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-passlib (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-paste (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-pastedeploy (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-prettytable (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-routes (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-sphinx (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-sqlalchemy (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-unittest2 (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-webob (in main)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " python-webtest (in main)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "zulcss", 
+            "email": "zulcss"
+        }, 
+        {
+            "date": "2012-03-08 22:39:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have performed another shallow security audit of keystone. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The code audit was not deep because \"Keystone is very young and developing very fast.\" (even more so now because of the rewrite. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://docs.openstack.org/trunk/openstack-identity/admin/content/what-is.html.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "With that said, here is my review:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Package review:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Does not run as root\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Has test suite in the build, but 139 out of 266 test cases fail. debian/rules   has:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  override_dh_auto_test:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        bash run_tests.sh -N || true\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- Listens on all interfaces by default, on ports 5000/tcp and 35357/tcp (admin   interface)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- no sudo fragments\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- no DBus services\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- no setuid/setgid binaries\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- By default, does not use ssl. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Since access to keystone is necessarily over the network and considering that Keystone/Nova/Glance/Quantum bits are likely on a trusted network (though they should use SSL as well), the most important bit seems to be the User to Keystone interaction, as that is where the password is passed and the token used by the other services is received. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If the password or token is snooped then an attacker can do everything as that authenticated user.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- The previous version of keystone had some sort of SSL capabilities, but this   version doesn't support it in any documentation.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Code review:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- no privileged operations\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- process spawning seems sane\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- file handling seems sane\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- environment handling seems sane\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- uses sqlalchemy, which is good\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Requirements for main inclusion:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- add to manpage the fact that this must be on a trusted network segment or   provide proper SSL configuration.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- fix test suite and make it fail the build\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jdstrand", 
+            "email": "jdstrand"
+        }, 
+        {
+            "date": "2012-03-10 21:34:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Note: As of 2012.1~rc1~20120308.2103-0ubuntu1, keystone.conf now contains a 'bind_host' option to configure which address the servers listen.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gandelman-a", 
+            "email": "gandelman-a"
+        }, 
+        {
+            "date": "2012-03-22 17:29:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "With regards to the testsuite for keystone.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The testsuite included in keystone contain both functional and integration tests. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "An example of this keystone integration with keystoneclient, or swift with keystone. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In order to run these tests, the tests do a git checkout of both swift and keystone when the tests are run. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This make the tests not use what we will have in the archive for swift and keystone (ie make it less static) which is not good for us and less than ideal. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think we need to have options going forward.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "zulcss", 
+            "email": "zulcss"
+        }, 
+        {
+            "date": "2012-03-22 18:15:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here are the options I see going forward, in preferred order of precedence:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1. patch the keystone testsuite to work against installed Ubuntu packages (and therefore adding swift and keystoneclient to Build-Depends). This will allow the security, QA and SRU teams to have higher confidence that patches don't break keystone when used against the packages in the archive\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2. disable the tests that require git and document somewhere (README.Debian?) how the keystone testsuite can be run against Ubuntu installed packages\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3. do nothing\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't really see '3' as an option since keystone is going to be supported for 5 years and upstream git is going to be constantly evolving while the keystone testsuite being used in the package is going to be static. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This means potentially more and more problems when people try to use the integration tests in their personal testing (which we should be doing).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "'2' is acceptable but far less desirable as it will also require a QRT script.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "jdstrand", 
+            "email": "jdstrand"
+        }, 
+        {
+            "date": "2012-03-22 19:30:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I spent some time on this yestreaday, to clarify-\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't really see the git checkouts an issue. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The pending test to swift tests that do this do so only if there is an error importing it from already installed libraries. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " That is, it should be imported locally instead of cloned remotely if we list it with Build-Depends. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The same should be true of keystoneclient, if its not we can probably patch that easily enough (I'm not able to confirm that the keystoneclient tests are actually running, though, as that would have turned up already)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The bigger problem AFAICS is that the python-swift library used makes an unconditional call to setup a logging handler via /dev/log, which is causing these FTBFS: \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpadlibrarian.net/97807065/buildlog_ubuntu-precise-i386.keystone_2012.1%2Bgit201203212030-0ubuntu1_FAILEDTOBUILD.txt.gz\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We can either disable these swift tests (since they appear to be more integration tests that are actually exercising swift more than keystone), or we can probably carry a small patch to swift as well as a corresponding patch to any test suite that uses it, to make log setup optional.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "gandelman-a", 
+            "email": "gandelman-a"
+        }, 
+        {
+            "date": "2012-03-22 20:10:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks Adam, I'll let you decide on the log FTBFS, but a properly formatted DEP-3 commented patch the describes why we are doing this and disables those specific tests seems fine to me provided that changes to keystone should not affect how it works with swift (ie, it is preferable to not leave a hole in our testing).\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "jdstrand", 
+            "email": "jdstrand"
+        }
+    ], 
+    "id": "881464", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/881464"
+}

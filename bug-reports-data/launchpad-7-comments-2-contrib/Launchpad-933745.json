@@ -1,0 +1,467 @@
+{
+    "contributors": [
+        [
+            "jplans", 
+            "email"
+        ], 
+        [
+            "mattrae", 
+            "lexrank"
+        ], 
+        [
+            "antarus", 
+            "email"
+        ], 
+        [
+            "petermatulis", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Xvfb: any use of the XInput extension causes Xvfb to crash", 
+    "comments": [
+        {
+            "date": "2012-02-16 20:46:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Repro steps:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* Run \"Xvfb -ac :99\" in a terminal\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "* Run \"DISPLAY=:99 xinput list\" in a second terminal\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Expected:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "List of input devices appears (XTest, core). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Xvfb continues to run.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Actual:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Xvfb segfaults in first terminal.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This problem affects any user of Xvfb who tries to run a client that uses the XInput extension. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " For example, a user runs a new desktop session, and a session program tries to enumerate the XInput devices (or the user has a startup script containing any \"xinput\" commands).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There is an upstream patch which I've verified fixes the problem: http://cgit.freedesktop.org/xorg/xserver/commit/hw/vfb/InitInput.c?id=0e7703f9b1927328954a2fc87aac6be244819329 The version of Xorg/Xvfb in Precise has this patch (from inspection of the source tarball for \"xvfb\" package).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We'd like this to be backported to Lucid\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "antarus", 
+            "email": "antarus"
+        }, 
+        {
+            "date": "2012-02-17 17:47:52", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "confirmed the segfault in lucid following the steps to reproduce (xvfb 2:1.7.6-2ubuntu7.10). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've also confirmed that the xvfb version i'm using in oneiric does not have this issue (xvfb 2:1.10.4-1ubuntu4.2)\r\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "in first terminal:\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "raema@ubuntu:~$ Xvfb -ac :99 \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[dix] Could not init font path element /usr/share/fonts/X11/cyrillic, removing from list! ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Backtrace: \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "0: Xvfb (xorg_backtrace+0x28) [0x558138] \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1: Xvfb (0x400000+0x15bd4d) [0x55bd4d] \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2: /lib/libpthread.so.0 (0x7f1a60519000+0xf8f0) [0x7f1a605288f0] \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3: /lib/libc.so.6 (0x7f1a5f1f3000+0x83052) [0x7f1a5f276052] \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4: Xvfb (0x400000+0xba96d) [0x4ba96d] \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "5: Xvfb (0x400000+0xbac88) [0x4bac88] \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "6: Xvfb (0x400000+0x10619c) [0x50619c] \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "7: Xvfb (0x400000+0xf697a) [0x4f697a] \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "8: /lib/libc.so.6 (__libc_start_main+0xfd) [0x7f1a5f211c4d] \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "9: Xvfb (0x400000+0x1d389) [0x41d389] \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Segmentation fault at address (nil) \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Caught signal 11 (Segmentation fault). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Server aborting \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "raema@ubuntu:~$ \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "in second terminal:\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "raema@ubuntu:~$ DISPLAY=:99 xinput list \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "XIO: fatal IO error 11 (Resource temporarily unavailable) on X server \":99.0\" \r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "after 16 requests (15 known processed) with 0 events remaining. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mattrae", 
+            "email": "mattrae"
+        }, 
+        {
+            "date": "2012-02-22 18:17:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch fixing the issue for Lucid. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(SRU and debdiff to follow)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jplans", 
+            "email": "jplans"
+        }, 
+        {
+            "date": "2012-02-22 23:27:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Debdiff for Lucid SRU\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jplans", 
+            "email": "jplans"
+        }, 
+        {
+            "date": "2012-02-22 23:31:58", 
+            "sentences": [], 
+            "name": "jplans", 
+            "email": "jplans"
+        }, 
+        {
+            "date": "2012-02-23 21:21:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Uploaded this to lucid-proposed last night, it's pending approval.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "subject: [ubuntu/lucid-proposed] xorg-server 2:1.7.6-2ubuntu7.11 (Waiting for approval)\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "bryce", 
+            "email": "bryce"
+        }, 
+        {
+            "date": "2012-02-25 06:56:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello Alec, or anyone else affected,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Accepted into lucid-proposed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The package will build now and be available in a few hours. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please test and give feedback here. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "See https://wiki.ubuntu.com/Testing/EnableProposed for documentation how to enable and use -proposed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thank you in advance!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vorlon", 
+            "email": "vorlon"
+        }, 
+        {
+            "date": "2012-02-25 12:54:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Verified on Lucid.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "petermatulis", 
+            "email": "petermatulis"
+        }, 
+        {
+            "date": "2012-02-28 13:14:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Tested on Lucid too, build fixes the issue thanks.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jplans", 
+            "email": "jplans"
+        }, 
+        {
+            "date": "2012-03-04 21:40:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On webpage:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://people.canonical.com/~ubuntu-archive/pending-sru.html\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "this package is not connected to bug report.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Could you please fix this?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gang65", 
+            "email": "gang65"
+        }, 
+        {
+            "date": "2012-03-15 16:23:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Copied to lucid-updates. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Closing manually due to broken bug link in the changelog.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "pitti", 
+            "email": "pitti"
+        }
+    ], 
+    "id": "933745", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/933745"
+}

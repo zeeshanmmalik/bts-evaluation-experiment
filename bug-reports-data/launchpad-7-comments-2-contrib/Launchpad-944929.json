@@ -1,0 +1,1310 @@
+{
+    "contributors": [
+        [
+            "jklein", 
+            "lexrank"
+        ], 
+        [
+            "leannogasawara", 
+            "email"
+        ]
+    ], 
+    "title": "psb_gfx boot hang on Atom N2600 (GMA3600 Cedarview)", 
+    "comments": [
+        {
+            "date": "2012-03-02 16:27:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "psb_gfx causes kernel stall at bootup immediately after framebuffer initializes. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Screen goes black and system unresponsive. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Usual suspects - disable vt switching, console=tty1, nosplash, no plymouth, disable plymouth, hard set framebuffer mode - don't solve the problem. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Problem also exists in mainline and vanilla upstream kernels with gma500_gfx, although gma500_gfx on 3.3rc5 gets slightly further in that it redraws the screen text after the framebuffer initializes at a rate of about 1 line every 3 seconds. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you wait long enough, kernel kicks out stalls as follows (on 3.3rc5):\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ioremap error for 0x3f675000-0x3f678000, requested 0x10, got 0x0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gma500 0000:00:02.0: GTT PCI BAR not initialized.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "gma500 0000:00:02.0: GATT PCI BAR not initialized.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "INFO: rcu_sched detected stalls on CPUs/tasks: { 0} (detected by 2, t=15029 jiffies)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmesg doesn't offer much insight:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.194626] [drm] Initialized drm 1.1.0 20060810\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.226288] gma500 0000:00:02.0: setting latency timer to 64\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.228773] gma500 0000:00:02.0: irq 46 for MSI/MSI-X\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.229052] ioremap error for 0x3f675000-0x3f678000, requested 0x10, got 0x0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.229415] gma500 0000:00:02.0: GTT PCI BAR not initialized.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.229489] gma500 0000:00:02.0: GATT PCI BAR not initialized.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.229556] Stolen memory information\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.229560]        base in RAM: 0x3f800000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.229565]        size: 7932K, calculated by (GTT RAM base) - (Stolen base), seems wrong\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.229571]       the correct size should be: 8M(dvmt mode=3)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.232523] Set up 1983 stolen pages starting at 0x3f800000, GTT offset 0K\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.232700] [drm] SGX core id = 0x00000000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.232705] [drm] SGX core rev major = 0x00, minor = 0x00\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.232710] [drm] SGX core rev maintenance = 0x00, designer = 0x00\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.251286] acpi device:1d: registered as cooling_device4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.252745] input: Video Bus as /devices/LNXSYSTM:00/device:00/PNP0A08:00/LNXVIDEO:00/input/input10\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.253191] ACPI: Video Device [GFX0] (multi-head: yes  rom: no  post: no)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.253375] [drm] Supports vblank timestamp caching Rev 1 (10.10.2010).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:25 system-2124d8 kernel: [  176.253396] [drm] No driver support for vblank timestamp query.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:26 system-2124d8 kernel: [  177.064883] gma500 0000:00:02.0: allocated 1024x600 fb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:33:26 system-2124d8 kernel: [  177.065254] fbcon: psbfb (fb0) is primary device\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:34:57 system-2124d8 kernel: [  227.887149] Console: switching to colour frame buffer device 128x37\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:34:57 system-2124d8 kernel: [  267.849207] fb0: psbfb frame buffer device\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Feb 17 09:34:57 system-2124d8 kernel: [  267.849221] drm: registered panic notifier\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Feb 17 09:34:57 system-2124d8 kernel: [  267.849594] [drm] Initialized gma500 1.0.0 2011-06-06 for 0000:00:02.0 on minor 0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "drm.debug looks like this before the stall:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[     3.902363] Refined TSC clocksource calibration: 1595.999 MHz.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[     3.902515] Switching to clocksource tsc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[     4.392088] gma500 0000:00:02.0: allocated 1024x600 fb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[     4.392357] fbcon: psbfb (fb0) is primary device\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[    44.751817] Console: switching to colour frame buffer device 128x37\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Likely to be a big problem, as N2600 netbooks/devices are beginning to flood into the market.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ProblemType: Bug\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "DistroRelease: Ubuntu 12.04\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Package: linux-image-3.2.0-17-generic-pae 3.2.0-17.27\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ProcVersionSignature: Ubuntu 3.2.0-17.27-generic-pae 3.2.6\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Uname: Linux 3.2.0-17-generic-pae i686\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "AlsaVersion: Advanced Linux Sound Architecture Driver Version 1.0.24.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "AplayDevices:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " **** List of PLAYBACK Hardware Devices ****\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " card 0: Intel [HDA Intel], device 0: ALC271X Analog [ALC271X Analog]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   Subdevices: 1/1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   Subdevice #0: subdevice #0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ApportVersion: 1.93-0ubuntu2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Architecture: i386\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ArecordDevices:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " **** List of CAPTURE Hardware Devices ****\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " card 0: Intel [HDA Intel], device 0: ALC271X Analog [ALC271X Analog]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   Subdevices: 1/1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   Subdevice #0: subdevice #0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "AudioDevicesInUse:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " USER        PID ACCESS COMMAND\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " /dev/snd/controlC0:  user       1592 F.... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pulseaudio\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "CRDA: Error: [Errno 2] No such file or directory\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Card0.Amixer.info:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Card hw:0 'Intel'/'HDA Intel at 0x46100000 irq 45'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   Mixer name\t: 'Realtek ALC271X'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   Components\t: 'HDA:80862880,80860101,00100000 HDA:10ec0269,1025058f,00100100'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   Controls      : 20\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   Simple ctrls  : 11\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Date: Fri Mar  2 08:05:43 2012\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "HibernationDevice: RESUME=UUID=1aec9a0a-14e2-4f24-8e2b-fdaf4efe1552\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "InstallationMedia: Ubuntu 12.04 LTS \"Precise Pangolin\" - Beta i386 (20120301)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "MachineType: Gateway LT40\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ProcEnviron:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " TERM=xterm\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " PATH=(custom, no user)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " LANG=en_US.UTF-8\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " SHELL=/bin/bash\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ProcKernelCmdLine: BOOT_IMAGE=/boot/vmlinuz-3.2.0-17-generic-pae root=UUID=9b5d2d21-d044-4abf-ad4c-6ff3c2eedf58 ro quiet\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "PulseSinks:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Error: command ['pacmd', 'list-sinks'] failed with exit code 1: Home directory /home/user not ours.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No PulseAudio daemon running, or not running as session daemon.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "PulseSources:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Error: command ['pacmd', 'list-sources'] failed with exit code 1: Home directory /home/user not ours.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " No PulseAudio daemon running, or not running as session daemon.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "RelatedPackageVersions:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " linux-restricted-modules-3.2.0-17-generic-pae N/A\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " linux-backports-modules-3.2.0-17-generic-pae  N/A\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " linux-firmware                                1.71\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SourcePackage: linux\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "StagingDrivers: rts_pstor\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "UpgradeStatus: No upgrade log present (probably fresh install)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.bios.date: 01/12/2012\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.bios.vendor: Insyde Corp.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.bios.version: V1.04\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.board.asset.tag: Base Board Asset Tag\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.board.name: SJE01_CT\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.board.vendor: Gateway\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.board.version: Base Board Version\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.chassis.type: 10\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.chassis.vendor: Chassis Manufacturer\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.chassis.version: Chassis Version\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.modalias: dmi:bvnInsydeCorp.:bvrV1.04:bd01/12/2012:svnGateway:pnLT40:pvrV1.04:rvnGateway:rnSJE01_CT:rvrBaseBoardVersion:cvnChassisManufacturer:ct10:cvrChassisVersion:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.product.name: LT40\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.product.version: V1.04\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dmi.sys.vendor: Gateway\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jklein", 
+            "email": "jklein"
+        }, 
+        {
+            "date": "2012-03-02 16:27:56", 
+            "sentences": [], 
+            "name": "jklein", 
+            "email": "jklein"
+        }, 
+        {
+            "date": "2012-03-02 16:31:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Also, standard install won't work due to hang - only way to get installed is alternate, then boot from something else and blacklist psb_gfx.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "jklein", 
+            "email": "jklein"
+        }, 
+        {
+            "date": "2012-03-02 16:56:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This issue appears to be an upstream bug, since you tested the latest upstream kernel. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Would it be possible for you to open an upstream bug report at bugzilla.kernel.org [1]? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " That will allow the upstream Developers to examine the issue, and may provide a quicker resolution to the bug.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you are comfortable with opening a bug upstream, It would be great if you can report back the upstream bug number in this bug report. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " That will allow us to link this bug to the upstream report.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[1] https://wiki.ubuntu.com/Bugs/Upstream/kernel\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jsalisbury", 
+            "email": "jsalisbury"
+        }, 
+        {
+            "date": "2012-03-03 15:52:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We now have this mostly worked out. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Alan put together the attached patch upstream, and the gma500_gfx driver now loads properly. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Only remaining problem appears to be resume from suspend - still looking into that. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Works pretty well with the new xorg modesetting (fallback) driver at http://xorg.freedesktop.org/archive/individual/driver/ - no disappearing cursor, external ports are visible, etc. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "New xorg driver is a vast improvement over traditional fallback and should be part of Precise.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jklein", 
+            "email": "jklein"
+        }, 
+        {
+            "date": "2012-03-03 16:07:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Tested against Gateway/Acer and HP so far, but suspect will work with all of them.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jklein", 
+            "email": "jklein"
+        }, 
+        {
+            "date": "2012-03-03 18:27:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Resume hang is the xorg-modesetting driver (drat!) fbdev/vesa work, but just barely. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Gonna need a good xorg driver for this one.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jklein", 
+            "email": "jklein"
+        }, 
+        {
+            "date": "2012-03-05 00:30:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Thank you for taking the time to file a bug report on this issue.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "However, given the number of bugs that the Kernel Team receives during any development cycle it is impossible for us to review them all. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Therefore, we occasionally resort to using automated bots to request further testing. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is such a request.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We have noted that there is a newer version of the development kernel than the one you last tested when this issue was found. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please test again with the newer kernel and indicate in the bug if this issue still exists or not.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You can update to the latest development kernel by simply running the following commands in a terminal window:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    sudo apt-get update\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    sudo apt-get upgrade\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If the bug still exists, change the bug status from Incomplete to Confirmed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If the bug no longer exists, change the bug status from Incomplete to Fix Released.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you want this bot to quit automatically requesting kernel tests, add a tag named: bot-stop-nagging.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Thank you for your help, we really do appreciate it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "brad-figg", 
+            "email": "brad-figg"
+        }, 
+        {
+            "date": "2012-03-06 17:13:46", 
+            "sentences": [], 
+            "name": "jklein", 
+            "email": "jklein"
+        }, 
+        {
+            "date": "2012-03-06 17:34:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Scratch that - it loads, but there are still issues. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Looks like a backport of the 3.3 version will be necessary.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jklein", 
+            "email": "jklein"
+        }, 
+        {
+            "date": "2012-03-06 19:50:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@Jim\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You commented that a  backport of the 3.3 version will be necessary. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Is there a patch available for v3.3 that resolves this bug, which is different than the patch in comment #4?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jsalisbury", 
+            "email": "jsalisbury"
+        }, 
+        {
+            "date": "2012-03-07 00:00:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The patch above is for 3.3. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As of today it has been applied upstream. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Attempted the backport the driver myself but alas I am not a hardware guy. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I can get it to build and load, but it causes a kernel oops when trying to setup the framebuffer (psb_gtt_free_range in framebuffer.c, if you're interested).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jklein", 
+            "email": "jklein"
+        }, 
+        {
+            "date": "2012-03-07 15:00:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, I see the patch in Linus' mainline tree with commit:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "055bf38d3d6069707e2d555cffdde629b8404ff2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll see if this has been queued up for linux-stable yet.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jsalisbury", 
+            "email": "jsalisbury"
+        }, 
+        {
+            "date": "2012-03-07 15:10:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Patch Upstream:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://lkml.org/lkml/2012/3/2/448\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jsalisbury", 
+            "email": "jsalisbury"
+        }, 
+        {
+            "date": "2012-03-07 15:18:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I didn't see <email address hidden> on the Cc list for the patch. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I replied to the patch submission on LKML to see if it will be submitted to the stable kernel.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In the mean time, can you test the v3.3rc-6 kernel[0] to confirm it resolves the bug?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[0] http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.3-rc6-precise/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jsalisbury", 
+            "email": "jsalisbury"
+        }, 
+        {
+            "date": "2012-03-07 16:10:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Upstream response:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://lkml.org/lkml/2012/3/7/278\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jsalisbury", 
+            "email": "jsalisbury"
+        }, 
+        {
+            "date": "2012-03-07 16:41:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'll poke at it some more, but would probably disable the cedarview build option (for now)  on 3.2 (CONFIG_DRM_PSB_CDV). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Device works with vesafb and fbdev, just suffers from no access to external ports and a little pointer flicker.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jklein", 
+            "email": "jklein"
+        }, 
+        {
+            "date": "2012-03-07 19:02:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Jim,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Based on comment #8 it sounds like backporting upstream commit 055bf38d3d6069707e2d555cffdde629b8404ff2 to the Precise Ubuntu kernel at least got you past the boot hang issue:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  commit 055bf38d3d6069707e2d555cffdde629b8404ff2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Author: Alan Cox <email address hidden>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  Date:   Mon Mar 5 14:22:16 2012 +0000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    drm, gma500: Fix Cedarview boot failures in 3.3-rc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Assuming this is correct, I've built a Precise test kernel with commit 055bf38d3d6069707e2d555cffdde629b8404ff2 backported. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I've then disabled CONFIG_STUB_POULSBO so that the psb_gfx driver is loaded by default for devices which are supported by both drivers (this is more for bug 899244). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " However, if this patch helps you out, I wanted to get users from bug 899244 to test as well to ensure there are no nasty side affects for others. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If you could please test this kernel for me it would be much appreciated.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://people.canonical.com/~ogasawara/lp944929/i386/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If this at least gets you past the boot issue, I can investigate providing a full backported driver via our linux-backports-modules package. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Thanks.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "leannogasawara", 
+            "email": "leannogasawara"
+        }, 
+        {
+            "date": "2012-03-07 19:39:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks Leann, but tried that already (see comment 11). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Your's is doing the same thing as mine, ie throwing a kernel oops \"Unable to handle kernel NULL pointer dereference\" from psb_driver_load->psb_fbdev_init. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Right now I'm trying to track down the null pointer.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jklein", 
+            "email": "jklein"
+        }, 
+        {
+            "date": "2012-03-08 00:42:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "OK patch this to 3.2.0-18.28 and Cedarview will work - and by work I mean load ok, creates framebuffer ok, work in X with fbdev driver. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Will still need a proper X driver for full operation, and to expose any bugs I might have missed.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jklein", 
+            "email": "jklein"
+        }, 
+        {
+            "date": "2012-03-27 16:04:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This looks like a mashup of many commits from 3.3 which normally would be a huge maintenance burden, but these changes are limited to cedarview specific files (the code is duplicated out into each specific machine generation) so it wont impact the other gma500 using drivers that do work properly. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The only changes not specific to cedarview are\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "diff --git a/drivers/staging/gma500/framebuffer.c b/drivers/staging/gma500/framebuffer.c\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "index 3f39a37..07c1af8 100644\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--- a/drivers/staging/gma500/framebuffer.c\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+++ b/drivers/staging/gma500/framebuffer.c\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ -244,7 +244,6 @@ static struct fb_ops psbfb_roll_ops = {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        .fb_imageblit = cfb_imageblit,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        .fb_pan_display = psbfb_pan,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        .fb_mmap = psbfb_mmap,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-       .fb_sync = psbfb_sync,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "        .fb_ioctl = psbfb_ioctl,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " };\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "which is covered by this changelog note saying its safe to do on other GPUs\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " - fix a bug where gtt roll mode called psbfb_sync, which tries to sync    the 2D engine. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On other devices it is harmless as the 2D engine is    present but not in use when in gtt roll mode, on Cedartrail it causes    a hang\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "as well as converting 2 dev_err to dev_dbg to make them less verbose. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Given that GMA500 most likely wont receive updates in 3.2.x stable releases because it moved out of staging a changed quite a bit the burden seems minimal.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sarvatt", 
+            "email": "sarvatt"
+        }, 
+        {
+            "date": "2012-03-27 16:09:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If these are indeed a mashup of 3.3 patches, then I need provenance for each patch involved, e.g., the list of commits and their respective Signed-off-by signatures, etc.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "timg-tpi", 
+            "email": "timg-tpi"
+        }
+    ], 
+    "id": "944929", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/944929"
+}

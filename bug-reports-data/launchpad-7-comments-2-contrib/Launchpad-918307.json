@@ -1,0 +1,406 @@
+{
+    "contributors": [
+        [
+            "james-w", 
+            "lexrank"
+        ], 
+        [
+            "gang65", 
+            "email"
+        ], 
+        [
+            "mvo", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Declares that it requires the test dependencies, but doesn't depend on them, breaking other python code", 
+    "comments": [
+        {
+            "date": "2012-01-18 17:27:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Impact: code that uses lazr.restfulclient (or launchpadlib) and pkg_resources can't\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    work. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The python package declares that the test dependencies are required, but they     aren't listed in the .deb dependencies, and so aren't installed. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "They aren't needed for the     code so they should be dropped.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Development fix: Drop the requires on the test dependencies\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Stable fix: the same thing\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Test Case:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     1. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Install the lazr.restfulclient package from -updates\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     2. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Check that van.testing, wsgi_intercept, lazr.restful and lazr.authentication are listed in\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "          the first section of /usr/share/pyshared/lazr.restfulclient-0.9.11.egg-info/requires.txt      3. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Install the lazr.restfulclient package from -proposed\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     4. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Check that those lines are now listed in a [tests] section.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Regression potential: low, as the packages haven't been installed as dependencies, and some aren't even packaged, so nothing should be relying on them being declared as dependencies.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "james-w", 
+            "email": "james-w"
+        }, 
+        {
+            "date": "2012-01-18 20:00:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug was fixed in the package lazr.restfulclient - 0.12.0-1ubuntu1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lazr.restfulclient (0.12.0-1ubuntu1) precise; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  * Move test dependencies to extras_require so that setuptools doesn't think     they are needed for the code to work. (LP: #918307)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    Having them listed in requires, but not in the package dependencies leads     to having a package installed that setuptools thinks is broken. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This     breaks any code that relies on lazr.restfulclient (or launchpadlib) and     uses setuptools/pkg_resources.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "janitor", 
+            "email": "janitor"
+        }, 
+        {
+            "date": "2012-01-23 15:16:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "marking as affecting lazr.restfulclient, as it would be nice if this patch was applied upstream.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stefanor", 
+            "email": "stefanor"
+        }, 
+        {
+            "date": "2012-02-13 14:10:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hello James, or anyone else affected,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Accepted lazr.restfulclient into lucid-proposed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The package will build now and be available in a few hours. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please test and give feedback here. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "See https://wiki.ubuntu.com/Testing/EnableProposed for documentation how to enable and use -proposed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thank you in advance!\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "pitti", 
+            "email": "pitti"
+        }, 
+        {
+            "date": "2012-02-13 21:05:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The package python-lazr.restfulclient from proposed works perfectly for me. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I checked the /usr/share/pyshared/lazr.restfulclient-0.9.11.egg-info/requires.txt file, and it looks like:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "httplib2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "oauth\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "setuptools\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "wadllib>=1.1.4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "zope.interface\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[docs]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sphinx\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "z3c.recipe.sphinxdoc\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[tests]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lazr.authentication\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lazr.restful>=0.9.18\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "wsgi_intercept\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "van.testing\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Verification done.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gang65", 
+            "email": "gang65"
+        }, 
+        {
+            "date": "2012-02-14 08:21:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I can confirm this as well.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mvo", 
+            "email": "mvo"
+        }, 
+        {
+            "date": "2012-02-21 11:36:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug was fixed in the package lazr.restfulclient - 0.9.11-1ubuntu1.3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "lazr.restfulclient (0.9.11-1ubuntu1.3) lucid-proposed; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * Move test dependencies to extras_require so that setuptools doesn't think     they are needed for the code to work. (LP: #918307)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Having them listed in requires, but not in the package dependencies leads     to having a package installed that setuptools thinks is broken. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This     breaks any code that relies on lazr.restfulclient (or launchpadlib) and     uses setuptools/pkg_resources.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "janitor", 
+            "email": "janitor"
+        }
+    ], 
+    "id": "918307", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/918307"
+}

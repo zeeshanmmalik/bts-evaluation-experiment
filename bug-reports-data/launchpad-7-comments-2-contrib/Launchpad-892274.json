@@ -1,0 +1,2191 @@
+{
+    "contributors": [
+        [
+            "patrick-crews", 
+            "lexrank"
+        ], 
+        [
+            "seppo-jaakola", 
+            "email"
+        ]
+    ], 
+    "title": "Nodes crashing when handling ROLLBACK TO SAVEPOINTs", 
+    "comments": [
+        {
+            "date": "2011-11-18 17:44:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Subjecting a 3 node cluster to a transactional load that includes SAVEPOINTs + ROLLBACK TO SAVEPOINT statements results in nasty crashes.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Removing the ROLLBACK TO SAVEPOINT possibility from the test load results in a 'pass'\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "To repeat, you need:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "dbqp:  bzr branch lp:dbqp\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "DBD:mysql (the test uses the randgen / random query generator)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Command line:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "./dbqp.py --default-server-type=galera --basedir=/path/to/server/ --wsrep-provider-path=/usr/lib/galera/libgalera_smm.so --suite=cluster_randgen trxSingleThread_test\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Backtrace:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111118 12:38:58 [Note] WSREP: Skipping empty log_xid: COMMIT\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111118 12:39:00 - mysqld got signal 11 ;\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This could be because you hit a bug. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It is also possible that this binary or one of the libraries it was linked against is corrupt, improperly built, or misconfigured. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This error can also be caused by malfunctioning hardware.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We will try our best to scrape up some info that will hopefully help diagnose the problem, but since we have already crashed, something is definitely wrong and this may fail.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "key_buffer_size=1048576\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "read_buffer_size=131072\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "max_used_connections=3\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "max_threads=151\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thread_count=2\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "connection_count=2\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It is possible that mysqld could use up to \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "key_buffer_size + (read_buffer_size + sort_buffer_size)*max_threads = 60860 K\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bytes of memory\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hope that's ok; ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "if not, decrease some variables in the equation.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thread pointer: 0x36eb3b0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Attempting backtrace. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You can use the following information to find out where mysqld died. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If you see no messages after this, something went terribly wrong...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "stack_bottom = 0x7f1902adcd70 thread_stack 0x30000\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "galera_server/sql/mysqld(my_print_stacktrace+0x39)[0x7ef1f9]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "galera_server/sql/mysqld(handle_segfault+0x45e)[0x50903e]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/lib/libpthread.so.0(+0xf8f0)[0x7f19178c88f0]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/lib/libc.so.6(memset+0xae3)[0x7f19168db363]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "galera_server/sql/mysqld(_ZN12Field_string6unpackEPhPKhjb+0x7f)[0x68a31f]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "galera_server/sql/mysqld(_Z10unpack_rowPK14Relay_log_infoP5TABLEjPKhPK9st_bitmapPS5_Pm+0x41f)[0x7672cf]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "galera_server/sql/mysqld(_ZN14Rows_log_event8find_rowEPK14Relay_log_info+0x27e)[0x7556ae]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "galera_server/sql/mysqld(_ZN21Delete_rows_log_event11do_exec_rowEPK14Relay_log_info+0x8c)[0x75599c]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "galera_server/sql/mysqld(_ZN14Rows_log_event14do_apply_eventEPK14Relay_log_info+0x1e7)[0x759087]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "galera_server/sql/mysqld[0x595018]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "galera_server/sql/mysqld(_Z14wsrep_apply_cbPvPKvml+0x89)[0x5955b9]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(+0x1a93a2)[0x7f190c35f3a2]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(_ZN6galera13ReplicatorSMM9apply_trxEPvPNS_9TrxHandleE+0x67)[0x7f190c35fa87]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(_ZN6galera13ReplicatorSMM11process_trxEPvPNS_9TrxHandleE+0x45)[0x7f190c365a05]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(_ZN6galera15GcsActionSource8dispatchEPvRK10gcs_action+0x3e1)[0x7f190c345071]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(_ZN6galera15GcsActionSource7processEPv+0x58)[0x7f190c345818]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(_ZN6galera13ReplicatorSMM10async_recvEPv+0x105)[0x7f190c360d65]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(galera_recv+0x23)[0x7f190c379fb3]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "galera_server/sql/mysqld(_Z25wsrep_replication_processP3THD+0x112)[0x58e6a2]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "galera_server/sql/mysqld(start_wsrep_THD+0x4bd)[0x50d05d]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/lib/libpthread.so.0(+0x69ca)[0x7f19178bf9ca]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/lib/libc.so.6(clone+0x6d)[0x7f191693b70d]\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Trying to get some variables.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Some pointers may be invalid and cause the dump to abort.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Query ((nil)): Connection ID (thread ID): 2\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Status: NOT_KILLED\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "patrick-crews", 
+            "email": "patrick-crews"
+        }, 
+        {
+            "date": "2011-11-18 17:46:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Here is how one can modify the test to *not* use SAVEPOINTs. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Could this be tied to the possibility that multiple SAVEPOINTs of the same name could be used in the same transaction? ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " (eg, we don't track try to use them very sensibly, we just pepper them into the mix)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "=== modified file 'randgen/conf/percona/translog_concurrent1.yy'\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--- randgen/conf/percona/translog_concurrent1.yy\t2011-11-17 00:23:09 +0000 +++ randgen/conf/percona/translog_concurrent1.yy\t2011-11-18 17:36:20 +0000\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ -40,8 +40,8 @@ normal_query:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " \tinsert_query | update | delete |\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " \tinsert_query | update | delete |\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " \tinsert_query | update | delete |\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-\tinsert_query | update | delete |\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "-        SAVEPOINT A /*Generated by THREAD_ID _thread_id*/ |  +\tinsert_query | update | delete ; \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "+        #SAVEPOINT A /*Generated by THREAD_ID _thread_id*/ | \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "         ROLLBACK TO SAVEPOINT A /*Generated by THREAD_ID _thread_id*/ ;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "patrick-crews", 
+            "email": "patrick-crews"
+        }, 
+        {
+            "date": "2011-11-18 23:06:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It should also be noted that simple tests of ROLLBACK TO SAVEPOINT are passing:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "START TRANSACTION;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "INSERT INTO t1 (a) VALUES (1);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SAVEPOINT 'x';\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "INSERT INTO t2 (a) VALUES (2);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ROLLBACK TO SAVEPOINT 'x';\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "COMMIT;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "works fine\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "patrick-crews", 
+            "email": "patrick-crews"
+        }, 
+        {
+            "date": "2011-11-29 16:32:50", 
+            "sentences": [], 
+            "name": "seppo-jaakola", 
+            "email": "seppo-jaakola"
+        }, 
+        {
+            "date": "2011-11-29 16:34:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "anyways, I got dbqp running, and this test passes, when running from current wsrep-5.5 head:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "seppo@pitbull:~/work/dbqp$ ./dbqp.py --default-server-type=galera --basedir=/home/seppo/work/wsrep/wsrep-5.5 --wsrep-provider-path=/home/seppo/work/testing/node1/galera/lib/libgalera_smm.so --suite=cluster_randgen trxSingleThread_test\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094752 INFO Linking workdir /home/seppo/work/dbqp/workdir to /dev/shm/dbqp_workdir_seppo_ba900f24-1052-4aee-afcf-771c2a547030\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094752 INFO Using mysql source tree:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094752 INFO basedir: /home/seppo/work/wsrep/wsrep-5.5\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094752 INFO clientbindir: /home/seppo/work/wsrep/wsrep-5.5/client\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094752 INFO testdir: /home/seppo/work/dbqp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094752 INFO server_version: 5.5.17-debug\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094752 INFO server_compile_os: Linux\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094752 INFO server_platform: x86_64\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094752 INFO server_comment: (wsrep_22.3dev.r3629)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094752 INFO Using default-storage-engine: innodb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094752 INFO Using testing mode: native\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094752 INFO Processing test suites...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094753 INFO Found 1 test(s) for execution\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094753 INFO Creating 1 bot(s)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094759 INFO Taking clean db snapshot...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094806 INFO Taking clean db snapshot...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094812 INFO Taking clean db snapshot...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094825 INFO bot0 server:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094825 INFO NAME: s0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094825 INFO MASTER_PORT: 9306\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094825 INFO GALERA_LISTEN_PORT: 9307\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094825 INFO GALERA_RECV_PORT: 9308\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094825 INFO SOCKET_FILE: /home/seppo/work/dbqp/workdir/bot0/var_s0/my.sock\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094825 INFO VARDIR: /home/seppo/work/dbqp/workdir/bot0/var_s0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-094825 INFO STATUS: 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-102415  ===============================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-102415  TEST NAME                                  [ RESULT ] TIME (ms)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-102415  ===============================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-102415  cluster_randgen.trxSingleThread_test       [ pass ]  2137648\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-102415  ===============================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-102415 INFO Test execution complete in 2175 seconds\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-102415 INFO Summary report:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-102415 INFO Executed 1/1 test cases, 100.00 percent\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-102415 INFO STATUS: PASS, 1/1 test cases, 100.00 percent executed\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-102415 INFO Spent 2137 / 2175 seconds on: TEST(s)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-102415 INFO Test execution complete\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-102415 INFO Stopping all running servers...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "seppo-jaakola", 
+            "email": "seppo-jaakola"
+        }, 
+        {
+            "date": "2011-11-29 17:55:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On 11/29/2011 11:34 AM, Seppo Jaakola wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> anyways, I got dbqp running, and this test passes, when running from > current wsrep-5.5 head:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> seppo@pitbull:~/work/dbqp$ ./dbqp.py --default-server-type=galera --basedir=/home/seppo/work/wsrep/wsrep-5.5 --wsrep-provider-path=/home/seppo/work/testing/node1/galera/lib/libgalera_smm.so --suite=cluster_randgen trxSingleThread_test\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094752 INFO Linking workdir /home/seppo/work/dbqp/workdir to /dev/shm/dbqp_workdir_seppo_ba900f24-1052-4aee-afcf-771c2a547030\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094752 INFO Using mysql source tree:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094752 INFO basedir: /home/seppo/work/wsrep/wsrep-5.5\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094752 INFO clientbindir: /home/seppo/work/wsrep/wsrep-5.5/client\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094752 INFO testdir: /home/seppo/work/dbqp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094752 INFO server_version: 5.5.17-debug\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094752 INFO server_compile_os: Linux\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094752 INFO server_platform: x86_64\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094752 INFO server_comment: (wsrep_22.3dev.r3629)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094752 INFO Using default-storage-engine: innodb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094752 INFO Using testing mode: native\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094752 INFO Processing test suites...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094753 INFO Found 1 test(s) for execution\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094753 INFO Creating 1 bot(s)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094759 INFO Taking clean db snapshot...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094806 INFO Taking clean db snapshot...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094812 INFO Taking clean db snapshot...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094825 INFO bot0 server:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094825 INFO NAME: s0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094825 INFO MASTER_PORT: 9306\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094825 INFO GALERA_LISTEN_PORT: 9307\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094825 INFO GALERA_RECV_PORT: 9308\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094825 INFO SOCKET_FILE: /home/seppo/work/dbqp/workdir/bot0/var_s0/my.sock\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094825 INFO VARDIR: /home/seppo/work/dbqp/workdir/bot0/var_s0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-094825 INFO STATUS: 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-102415  ===============================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-102415  TEST NAME                                  [ RESULT ] TIME (ms)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-102415  ===============================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-102415  cluster_randgen.trxSingleThread_test       [ pass ]  2137648\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-102415  ===============================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-102415 INFO Test execution complete in 2175 seconds\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-102415 INFO Summary report:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-102415 INFO Executed 1/1 test cases, 100.00 percent\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-102415 INFO STATUS: PASS, 1/1 test cases, 100.00 percent executed\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-102415 INFO Spent 2137 / 2175 seconds on: TEST(s)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-102415 INFO Test execution complete\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-102415 INFO Stopping all running servers...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Ah, that is because the ROLLBACK TO SAVEPOINT bit of that randgen test  is disabled (to look for other bugs).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've created a version that uses ROLLBACK TO SAVEPOINT. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Try the same  command line, but with suite=cluster_bugs. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " This is a new suite I just  added, so you will need to update your dbqp repo.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Finally, apologies for any inconvenience you had using the test  software. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I'm working on updating the docs asap and they will be  available via Drizzle's docs site (and other means).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hope this helps,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "patrick\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "patrick-crews", 
+            "email": "patrick-crews"
+        }, 
+        {
+            "date": "2011-11-29 22:24:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I pulled the latest dbqp version (r52) and tried with the cluster_bugs suite, full command line is like here:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "seppo@pitbull:~/work/dbqp$ ./dbqp.py --default-server-type=galera --basedir=/home/seppo/work/wsrep/wsrep-5.5 --wsrep-provider-path=/home/seppo/work/testing/node1/galera/lib/libgalera_smm.so --suite=cluster_bugs  --verbose \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Result is that the test still passes, here's the output:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 VERBOSE Initializing system manager...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO Linking workdir /home/seppo/work/dbqp/workdir to /dev/shm/dbqp_workdir_seppo_ba900f24-1052-4aee-afcf-771c2a547030\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 VERBOSE Processing code rooted at basedir: /home/seppo/work/wsrep/wsrep-5.5...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO Using mysql source tree:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO basedir: /home/seppo/work/wsrep/wsrep-5.5\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO clientbindir: /home/seppo/work/wsrep/wsrep-5.5/client\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO testdir: /home/seppo/work/dbqp\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO server_version: 5.5.17-debug\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO server_compile_os: Linux\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO server_platform: x86_64\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO server_comment: (wsrep_22.3dev.r3629)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO Using default-storage-engine: innodb\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO Using testing mode: native\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 VERBOSE Initializing test manager...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO Processing test suites...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 VERBOSE Processing suite: cluster_bugs\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO Found 1 test(s) for execution\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO Initializing test execution manager...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 INFO Creating 1 bot(s)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231716 VERBOSE Creating bot0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231722 INFO Taking clean db snapshot...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231722 VERBOSE Starting executor: bot0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231722 VERBOSE Executor: bot0 beginning test execution...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231729 INFO Taking clean db snapshot...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231735 INFO Taking clean db snapshot...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231735 VERBOSE Starting server: bot0.s0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231737 VERBOSE Starting server: bot0.s1\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231743 VERBOSE Starting server: bot0.s2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231749 INFO bot0 server:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231749 INFO NAME: s0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231749 INFO MASTER_PORT: 9306\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231749 INFO GALERA_LISTEN_PORT: 9307\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231749 INFO GALERA_RECV_PORT: 9308\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231749 INFO SOCKET_FILE: /home/seppo/work/dbqp/workdir/bot0/var_s0/my.sock\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231749 INFO VARDIR: /home/seppo/work/dbqp/workdir/bot0/var_s0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231749 INFO STATUS: 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111129-231749 VERBOSE Executor: bot0 executing test: cluster_bugs.bug892274_test\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001214 VERBOSE Stopping server bot0.s0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001218 VERBOSE Stopping server bot0.s1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001222 VERBOSE Stopping server bot0.s2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225  ===============================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225  TEST NAME                                  [ RESULT ] TIME (ms)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225  ===============================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225  cluster_bugs.bug892274_test                [ pass ]  3265272\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225  test_basic1 (bug892274_test.basicTest) ... ok\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225  ----------------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225  Ran 1 test in 3265.272s\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225  \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225  OK\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225  \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225  ===============================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225 INFO Test execution complete in 3303 seconds\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225 INFO Summary report:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225 INFO Executed 1/1 test cases, 100.00 percent\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225 INFO STATUS: PASS, 1/1 test cases, 100.00 percent executed\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225 INFO Spent 3265 / 3303 seconds on: TEST(s)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225 INFO Test execution complete\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "20111130-001225 INFO Stopping all running servers...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It may also be that current wsrep-5.5 had has a fix for the problem encountered with the original dbqp test run. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There were fixes e.g. for dealing with empty RBR buffers, and savepoint rollbacks can easily generate such...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "seppo-jaakola", 
+            "email": "seppo-jaakola"
+        }, 
+        {
+            "date": "2011-11-29 23:20:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On 11/29/2011 05:24 PM, Seppo Jaakola wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> I pulled the latest dbqp version (r52) and tried with the cluster_bugs > suite, full command line is like here:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> seppo@pitbull:~/work/dbqp$ ./dbqp.py --default-server-type=galera\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> --basedir=/home/seppo/work/wsrep/wsrep-5.5 --wsrep-provider-\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> path=/home/seppo/work/testing/node1/galera/lib/libgalera_smm.so\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> --suite=cluster_bugs  --verbose\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Result is that the test still passes, here's the output:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 VERBOSE Initializing system manager...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO Linking workdir /home/seppo/work/dbqp/workdir to /dev/shm/dbqp_workdir_seppo_ba900f24-1052-4aee-afcf-771c2a547030\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 VERBOSE Processing code rooted at basedir: /home/seppo/work/wsrep/wsrep-5.5...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO Using mysql source tree:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO basedir: /home/seppo/work/wsrep/wsrep-5.5\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO clientbindir: /home/seppo/work/wsrep/wsrep-5.5/client\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO testdir: /home/seppo/work/dbqp\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO server_version: 5.5.17-debug\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO server_compile_os: Linux\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO server_platform: x86_64\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO server_comment: (wsrep_22.3dev.r3629)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO Using default-storage-engine: innodb\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO Using testing mode: native\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 VERBOSE Initializing test manager...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO Processing test suites...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 VERBOSE Processing suite: cluster_bugs\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO Found 1 test(s) for execution\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO Initializing test execution manager...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 INFO Creating 1 bot(s)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231716 VERBOSE Creating bot0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231722 INFO Taking clean db snapshot...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231722 VERBOSE Starting executor: bot0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231722 VERBOSE Executor: bot0 beginning test execution...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231729 INFO Taking clean db snapshot...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231735 INFO Taking clean db snapshot...\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231735 VERBOSE Starting server: bot0.s0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231737 VERBOSE Starting server: bot0.s1\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231743 VERBOSE Starting server: bot0.s2\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231749 INFO bot0 server:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231749 INFO NAME: s0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231749 INFO MASTER_PORT: 9306\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231749 INFO GALERA_LISTEN_PORT: 9307\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231749 INFO GALERA_RECV_PORT: 9308\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231749 INFO SOCKET_FILE: /home/seppo/work/dbqp/workdir/bot0/var_s0/my.sock\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231749 INFO VARDIR: /home/seppo/work/dbqp/workdir/bot0/var_s0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231749 INFO STATUS: 1\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111129-231749 VERBOSE Executor: bot0 executing test: cluster_bugs.bug892274_test\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001214 VERBOSE Stopping server bot0.s0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001218 VERBOSE Stopping server bot0.s1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001222 VERBOSE Stopping server bot0.s2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225  ===============================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225  TEST NAME                                  [ RESULT ] TIME (ms)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225  ===============================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225  cluster_bugs.bug892274_test                [ pass ]  3265272\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225  test_basic1 (bug892274_test.basicTest) ... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ok\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225  ----------------------------------------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225  Ran 1 test in 3265.272s\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225  OK\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225  ===============================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225 INFO Test execution complete in 3303 seconds\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225 INFO Summary report:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225 INFO Executed 1/1 test cases, 100.00 percent\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225 INFO STATUS: PASS, 1/1 test cases, 100.00 percent executed\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225 INFO Spent 3265 / 3303 seconds on: TEST(s)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225 INFO Test execution complete\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> 20111130-001225 INFO Stopping all running servers...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> It may also be that current wsrep-5.5 had has a fix for the problem encountered with the original dbqp test run. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "There were fixes e.g. for dealing with empty RBR buffers, and savepoint rollbacks can easily generate such...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ok, cool : )\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll give this a test myself and see what happens. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I've been using a  somewhat older branch while just getting tests up and running. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Thanks  for the information.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "patrick-crews", 
+            "email": "patrick-crews"
+        }, 
+        {
+            "date": "2011-11-29 23:54:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Just tested out on my box with updated library + server. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Tests a-ok : )\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Now on to think of more ways to break things >: )\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "patrick-crews", 
+            "email": "patrick-crews"
+        }, 
+        {
+            "date": "2011-11-30 01:15:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hmm. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Apologies, but the test grammar had a flaw.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Rather than mixing SAVEPOINT A and ROLLBACK TO SAVEPOINT A in a transaction, it was issuing those statements immediately after each other (ie it was  a softball test).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I just tested the fixed test against a fresh pull of the codership-mysql branch and am seeing the crash:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<snip>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111129 20:12:02 [Note] WSREP: Skipping empty log_xid: COMMIT\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111129 20:12:03 - mysqld got signal 11 ;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This could be because you hit a bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It is also possible that this binary or one of the libraries it was linked against is corrupt, improperly built, or misconfigured. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This error can also be caused by malfunctioning hardware.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We will try our best to scrape up some info that will hopefully help diagnose the problem, but since we have already crashed, something is definitely wrong and this may fail.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "key_buffer_size=1048576\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "read_buffer_size=131072\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "max_used_connections=3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "max_threads=151\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "thread_count=2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "connection_count=2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It is possible that mysqld could use up to \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "key_buffer_size + (read_buffer_size + sort_buffer_size)*max_threads = 60773 K\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "bytes of memory\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hope that's ok; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if not, decrease some variables in the equation.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thread pointer: 0x1a24e40\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Attempting backtrace. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "You can use the following information to find out where mysqld died. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you see no messages after this, something went terribly wrong...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "stack_bottom = 0x7fb5f6890d70 thread_stack 0x30000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/codership-mysql/sql/mysqld(my_print_stacktrace+0x39)[0x7e4b39]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/codership-mysql/sql/mysqld(handle_segfault+0x45e)[0x506c3e]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/lib/libpthread.so.0(+0xf8f0)[0x7fb6087418f0]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/lib/libc.so.6(memset+0xad9)[0x7fb607754359]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/codership-mysql/sql/mysqld(_ZN12Field_string6unpackEPhPKhjb+0x7f)[0x680a7f]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/codership-mysql/sql/mysqld(_Z10unpack_rowPK14Relay_log_infoP5TABLEjPKhPK9st_bitmapPS5_Pm+0x41f)[0x75cbff]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/codership-mysql/sql/mysqld(_ZN14Rows_log_event8find_rowEPK14Relay_log_info+0x27e)[0x74b15e]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/codership-mysql/sql/mysqld(_ZN21Delete_rows_log_event11do_exec_rowEPK14Relay_log_info+0x8c)[0x74b44c]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/codership-mysql/sql/mysqld(_ZN14Rows_log_event14do_apply_eventEPK14Relay_log_info+0x1e7)[0x74eb37]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/codership-mysql/sql/mysqld[0x591458]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/codership-mysql/sql/mysqld(_Z14wsrep_apply_cbPvPKvml+0x89)[0x5919f9]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(+0x1abf42)[0x7fb600b68f42]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(_ZN6galera13ReplicatorSMM9apply_trxEPvPNS_9TrxHandleE+0x67)[0x7fb600b69627]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(_ZN6galera13ReplicatorSMM11process_trxEPvPNS_9TrxHandleE+0x45)[0x7fb600b6f5d5]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(_ZN6galera15GcsActionSource8dispatchEPvRK10gcs_action+0x3e1)[0x7fb600b4ce81]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(_ZN6galera15GcsActionSource7processEPv+0x58)[0x7fb600b4d628]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(_ZN6galera13ReplicatorSMM10async_recvEPv+0xfd)[0x7fb600b6a92d]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/usr/lib/galera/libgalera_smm.so(galera_recv+0x23)[0x7fb600b83553]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/codership-mysql/sql/mysqld(_Z25wsrep_replication_processP3THD+0x112)[0x58ad62]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/codership-mysql/sql/mysqld(start_wsrep_THD+0x4bd)[0x50a5ad]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/lib/libpthread.so.0(+0x69ca)[0x7fb6087389ca]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/lib/libc.so.6(clone+0x6d)[0x7fb6077b470d]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Trying to get some variables.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Some pointers may be invalid and cause the dump to abort.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Query ((nil)): Connection ID (thread ID): 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Status: NOT_KILLED\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The manual page at http://dev.mysql.com/doc/mysql/en/crashing.html contains information that should help you find out what is causing the crash.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fatal signal 6 while backtracing\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111129 20:12:03 [ERROR] WSREP: exception from gcomm, backend must be restarted:regexec(PT1S): No match: 22 (Invalid argument)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\t at galerautils/src/gu_regex.cpp:match():45\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111129 20:12:03 [Note] WSREP: Received self-leave message.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111129 20:12:36 [Note] /codership-mysql/sql/mysqld: Normal shutdown\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111129 20:12:36 [Note] WSREP: Stop replication\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111129 20:12:36 [Note] WSREP: Provider disconnect\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111129 20:12:36 [Note] WSREP: Closing send monitor...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111129 20:12:36 [Note] WSREP: Closed send monitor.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111129 20:12:36 [Note] WSREP: gcomm: terminating thread\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111129 20:12:36 [Note] WSREP: gcomm: joining thread\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "111129 20:12:36 [Note] WSREP: gcomm: closing backend\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "patrick-crews", 
+            "email": "patrick-crews"
+        }, 
+        {
+            "date": "2011-11-30 22:44:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ok, thanks,  I can reproduce the issue with the latest dbqp version. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I could also extract an offending transaction from the logs.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It turns out also that the problem happens only when binlog has been enabled. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When I commented out the log_bin option in galera.py, the test passes.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "seppo-jaakola", 
+            "email": "seppo-jaakola"
+        }, 
+        {
+            "date": "2011-12-03 23:59:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fix pushed in wsrep-5.5: http://bazaar.launchpad.net/~codership/codership-mysql/wsrep-5.5/revision/3636\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "seppo-jaakola", 
+            "email": "seppo-jaakola"
+        }
+    ], 
+    "id": "892274", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/892274"
+}

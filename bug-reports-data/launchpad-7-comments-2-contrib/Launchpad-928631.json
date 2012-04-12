@@ -1,0 +1,318 @@
+{
+    "contributors": [
+        [
+            "paul-lucas", 
+            "lexrank"
+        ], 
+        [
+            "markos-za", 
+            "email"
+        ], 
+        [
+            "matthias-brantner", 
+            "lexrank"
+        ]
+    ], 
+    "title": "wrong static context in built-in function in full-text module", 
+    "comments": [
+        {
+            "date": "2012-02-08 05:10:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The error isn't raised if the schema is actually imported in the module that invokes the function which does the validation. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This probably means that the static context of the function is the static context resulting from compiling the importing module (instead the static context of the full-text module itself).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Alternatively, the in-scope element declarations could also become part of all the static contexts of the query. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think we have had this discussion a couple of times and I keep forgetting what we decided.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "matthias-brantner", 
+            "email": "matthias-brantner"
+        }, 
+        {
+            "date": "2012-02-08 21:37:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following query can be used to reproduce the bug with the branch at https://code.launchpad.net/~zorba-coders/zorba/feature-ft_module.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "import module namespace ft = \"http://www.zorba-xquery.com/modules/full-text\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ft:tokenizer-properties(xs:language(\"en\"))\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The failing validation call is made at src/runtime/full_text/ft_module_impl.cpp line 427.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The query works if the schema import is added to the query above.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "import schema namespace ft-schema =\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  \"http://www.zorba-xquery.com/modules/full-text\";\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "matthias-brantner", 
+            "email": "matthias-brantner"
+        }, 
+        {
+            "date": "2012-02-10 17:49:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "When I run the test ft-module-tokenize-1.xq, it dumps core:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#0  0x000000011163b356 in zorba::store::ItemHandle<zorba::store::Item>::operator=<zorba::simplestore::TokenItem> (this=0x0, rhs=0x7fe7e868d290) at item_handle.h:127\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#1  0x000000011162d13e in zorba::simplestore::BasicItemFactory::createToken (this=0x7fe7e8407060, result=@0x0, value=@0x7fff6f7eba08) at simple_item_factory.cpp:169\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#2  0x00000001113a0c6e in zorba::Validator::realValidationValue (result=@0x7fff6f7ec2a8, sourceNode=@0x7fff6f7eba40, typeName=@0x7fff6f7eba08, typeManager=0x7fe7e8407060, validationMode=zorba::ParseConstants::val_strict, sctx=0x7fff6f7ebe90, loc=@0x7fff6f7eb9e0) at validate.cpp:141\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#3  0x000000011139b6e2 in zorba::Validator::effectiveValidationValue (result=@0x7fff6f7ec2a8, sourceNode=@0x7fff6f7eba40, typeName=@0x7fff6f7eba08, typeManager=0x7fe7e8407060, validationMode=zorba::ParseConstants::val_strict, sctx=0x7fff6f7ebe90, loc=@0x7fff6f7eb9e0) at validate.cpp:77\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#4  0x00000001103611a2 in zorba::static_context::validate (this=0x7fff6f7ebe90, rootElement=0x7fe7e8691450, validatedResult=@0x7fff6f7ec2a8, targetNamespace=@0x7fff6f7ebaf8, validationMode=zorba::StaticContextConsts::strict_validation) at static_context.cpp:1749\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#5  0x0000000110361553 in zorba::static_context::validate (this=0x7fff6f7ebe90, rootElement=0x7fe7e8691450, validatedResult=@0x7fff6f7ec2a8, validationMode=zorba::StaticContextConsts::strict_validation) at static_context.cpp:1705\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#6  0x0000000110ac3a80 in zorba::TokenizeIterator::nextImpl (this=0x7fe7e86ac730, result=@0x7fff6f7ec2a8, plan_state=@0x7fe7e8696590) at ft_module_impl.cpp:361\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#7  0x00000001105098f4 in zorba::Batcher<zorba::TokenizeIterator>::produceNext (this=0x7fe7e86ac730, result=@0x7fff6f7ec2a8, planState=@0x7fe7e8696590) at plan_iterator.h:531\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#8  0x0000000110e3c135 in zorba::PlanIterator::consumeNext (result=@0x7fff6f7ec2a8, iter=0x7fe7e86ac730, planState=@0x7fe7e8696590) at plan_iterator.cpp:124\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#9  0x0000000110e3a7b1 in zorba::PlanWrapper::next (this=0x7fe7e868d190, result=@0x7fff6f7ec2a8) at plan_wrapper.cpp:149\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#10 0x000000010fd1ad86 in zorba::serializer::serialize (this=0x7fff6f7ec638, aObject=@0x7fff6f7ec560, aOStream=@0x7fff71e75f70, aHandler=0x0) at serializer.cpp:2257\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#11 0x000000010fd1b055 in zorba::serializer::serialize (this=0x7fff6f7ec638, aObject=@0x7fff6f7ec708, aOStream=@0x7fff71e75f70) at serializer.cpp:2215\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#12 0x000000010fc4c82f in zorba::XQueryImpl::serialize (this=0x7fe7e86843b0, os=@0x7fff71e75f70, aWrapper=@0x7fff6f7ec7c8, opt=0x7fff6f7eca90) at xqueryimpl.cpp:1291\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#13 0x000000010fc4dba3 in zorba::XQueryImpl::execute (this=0x7fe7e86843b0, os=@0x7fff71e75f70, opt=0x7fff6f7eca90) at xqueryimpl.cpp:1117\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#14 0x000000010fbf48d4 in compileAndExecute (zorbaInstance=0x111f20840, properties=@0x7fff6f7ed990, staticContext=@0x7fff6f7ed6e8, qfilepath=@0x7fff6f7ed700, qfile=@0x7fe7e8683c40, outputStream=@0x7fff71e75f70, timing=@0x7fff6f7ed2d8) at zorbacmd.cpp:634\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "#15 0x000000010fbf898b in main (argc=7, argv=0x7fff6f7ee150) at zorbacmd.cpp:906\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "paul-lucas", 
+            "email": "paul-lucas"
+        }, 
+        {
+            "date": "2012-02-15 01:24:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This still hasn't been fixed.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "paul-lucas", 
+            "email": "paul-lucas"
+        }, 
+        {
+            "date": "2012-02-15 09:45:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The original bug (for which this report was opened) has been fixed. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The test ft-module-tokenize-1.xq fails due to a bug in the TokenizeIterator::nextImpl(). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I assume this is Paul's code, so Paul should take a look.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "markos-za", 
+            "email": "markos-za"
+        }, 
+        {
+            "date": "2012-02-16 16:37:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But it does *not* fail if the call to validate() is commented out. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So how could it be a bug in my code?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "paul-lucas", 
+            "email": "paul-lucas"
+        }, 
+        {
+            "date": "2012-02-16 20:00:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Just step with the debugger through TokenizeIterator::nextImpl() and you will see it yourself.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "markos-za", 
+            "email": "markos-za"
+        }, 
+        {
+            "date": "2012-02-18 01:13:20", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I found and fixed it.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "paul-lucas", 
+            "email": "paul-lucas"
+        }
+    ], 
+    "id": "928631", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/928631"
+}

@@ -1,0 +1,521 @@
+{
+    "contributors": [
+        [
+            "brian-murray", 
+            "email"
+        ], 
+        [
+            "mathieu-tl", 
+            "lexrank"
+        ], 
+        [
+            "jr", 
+            "email"
+        ]
+    ], 
+    "title": "network-manager does not tell plymouth it has started", 
+    "comments": [
+        {
+            "date": "2012-02-01 11:48:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On installing Kubuntu alpha 2 candidates I have an error on first boot of the installed system. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Plymouth says \"waiting for network setup\" or similar. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " I think network-manager is not telling plymouth it has started. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " By the the time the full system does start network-manager works fine.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "jr", 
+            "email": "jr"
+        }, 
+        {
+            "date": "2012-02-01 11:50:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "confirmed with Ubuntu Desktop.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jibel", 
+            "email": "jibel"
+        }, 
+        {
+            "date": "2012-02-01 11:55:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug has been reported on the Ubuntu ISO testing tracker.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A list of all reports related to this bug can be found here:\r http://iso.qa.ubuntu.com/qatracker/reports/bugs/924836\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "ubuntuqa", 
+            "email": "ubuntuqa"
+        }, 
+        {
+            "date": "2012-02-01 14:32:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm not entirely sure that's NetworkManager's job, but rather one of the other upstart jobs. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is this happening on all the installs or is it specific to alternate?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "mathieu-tl", 
+            "email": "mathieu-tl"
+        }, 
+        {
+            "date": "2012-02-01 14:42:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "it is not specific to alternate and reproducible with Desktop images.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jibel", 
+            "email": "jibel"
+        }, 
+        {
+            "date": "2012-02-01 16:51:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "NetworkManager indeed doesn't deal with this kind of signal, nor does it need to, AFAIK.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Reassigning to ifupdown, that's my best guess for what goes wrong (need to emit static-network-up AFAICT, as required by the failsafe upstart job, which is what writes this plymouth message).\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "mathieu-tl", 
+            "email": "mathieu-tl"
+        }, 
+        {
+            "date": "2012-02-01 17:19:04", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Moving back to NM :)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ifupdown never does anything for interfaces that aren't listed in /etc/network/interfaces\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's Network Manager that's calling the up/post-up scripts through /etc/NetworkManager/dispatcher.d/01ifupdown\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "One of these, /etc/network/if-up.d/upstart emits net-device-up. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I did a quick check and this script hasn't changed since at least Oneiric.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stgraber", 
+            "email": "stgraber"
+        }, 
+        {
+            "date": "2012-02-01 17:59:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> ifupdown never does anything for interfaces that aren't listed in\r > /etc/network/interfaces\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Yes, and it doesn't matter, because interfaces not listed in /etc/network/interfaces have no impact on the 'static-network-up' event being issued from /etc/network/if-up.d/upstart. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " *Only* interfaces that are statically configured via /e/n/i are waited for.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vorlon", 
+            "email": "vorlon"
+        }, 
+        {
+            "date": "2012-02-01 18:04:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "18:02 < stgraber> slangasek: oh, right, misread the script ... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll eventually get a clear picture of all that in my head :) right. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "when lo is brought up, the ifupdown hook                    should emit static-network-up as all the interfaces are ready\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "18:03 < stgraber> slangasek: so the question is why it didn't happen or what make the script think there was something else to bring up\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Can you please give /var/log/syslog and /etc/network/interfaces on the affected system.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ideally, I'd also need /var/log/upstart/network* from a boot with --log used on the kernel command line.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "stgraber", 
+            "email": "stgraber"
+        }, 
+        {
+            "date": "2012-02-01 18:22:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Wed, Feb 01, 2012 at 06:04:27PM -0000, Stphane Graber wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Can you please give /var/log/syslog and /etc/network/interfaces on the > affected system. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Ideally, I'd also need /var/log/upstart/network* from a\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> boot with --log used on the kernel command line.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "A listing of /run/network from this system is probably also helpful.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-- \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Steve Langasek                   Give me a lever long enough and a Free OS Debian Developer                   to set it on, and I can move the world.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ubuntu Developer                                    http://www.debian.org/\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<email address hidden>                                     <email address hidden>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vorlon", 
+            "email": "vorlon"
+        }, 
+        {
+            "date": "2012-02-01 19:56:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I've seen this too:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ubuntu@ubuntu-virtual-machine:~$ ls /run/network\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ifstate  ifup.eth0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ubuntu@ubuntu-virtual-machine:~$ cat /etc/network/interfaces\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "auto lo\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "iface lo inet loopback\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "brian-murray", 
+            "email": "brian-murray"
+        }, 
+        {
+            "date": "2012-02-01 19:58:01", 
+            "sentences": [], 
+            "name": "brian-murray", 
+            "email": "brian-murray"
+        }, 
+        {
+            "date": "2012-02-01 20:08:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This only happened to me on the first boot so I was unable to get the upstart logs.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "brian-murray", 
+            "email": "brian-murray"
+        }, 
+        {
+            "date": "2012-02-01 22:46:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This has been tracked down to a bug in the resolvconf package, causing /etc/network/if-up.d/000resolvconf to fail and taking the rest of the ifupdown hooks with it.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We can't create the initial /etc/resolv.conf symlink from the upstart job when using the live installer, because the job is never run until boot - and at the time it runs (start on mounted MOUNTPOINT=/run), the root fs is not writable. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " So this symlinking *must* be done in the postinst.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Targeting to beta-1 because we don't want to unsettle this for alpha-2.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vorlon", 
+            "email": "vorlon"
+        }, 
+        {
+            "date": "2012-02-02 20:00:12", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug was fixed in the package resolvconf - 1.63ubuntu7\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "resolvconf (1.63ubuntu7) precise; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [ Stphane Graber ]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * Revert change from 1.63ubuntu5 where /etc/resolv.conf would be linkified     by the upstart/sysvinit job. This wasn't working as / wasn't necessarily\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    writable at the time.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Instead, make the link at package install time but make it a relative     link which should take care of the chroot usecase where you want     to copy /etc/resolv.conf from outside the chroot into the chroot.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Detect old flag file (/var/lib/resolvconf/convert) and re-run the     conversion code if it's present (to try and fix broken systems).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    Use readlink -m when checking the link's destination.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    (LP: #924836)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [ Steve Langasek ]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * Use readlink -m also in the postrm, to account for our relative links\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "janitor", 
+            "email": "janitor"
+        }
+    ], 
+    "id": "924836", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/924836"
+}

@@ -1,0 +1,699 @@
+{
+    "contributors": [
+        [
+            "jk-ozlabs", 
+            "email"
+        ], 
+        [
+            "sladen", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Mono font isn't discoverable by formatting objects processor", 
+    "comments": [
+        {
+            "date": "2011-12-19 08:35:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm using the formatting object processor (\"fop\") to produce PDFs. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I can use the proportional Ubuntu just fine, but fop can't seem to use the Ubuntu mono font.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm using fop version 1.0 from http://xmlgraphics.apache.org/fop/. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Version 0.95 is packaged in Ubuntu, but that does not have functionality to autodiscover fonts.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My testcase:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[jk@pororo fop]$ cat fopconfig.xml \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<?xml version=\"1.0\"?>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<fop version=\"1.0\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " <renderers>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  <renderer mime=\"application/pdf\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   <fonts>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    <auto-detect/>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   </fonts>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  </renderer>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " </renderers>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "</fop>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[jk@pororo fop]$ cat test.fo\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<?xml version=\"1.0\"?>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<fo:root xmlns:fo=\"http://www.w3.org/1999/XSL/Format\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " font-size=\"10pt\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  <fo:layout-master-set>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    <fo:simple-page-master master-name=\"master\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     page-width=\"60mm\" page-height=\"60mm\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     margin-top=\"10mm\" margin-bottom=\"10mm\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     margin-left=\"10mm\" margin-right=\"10mm\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      <fo:region-body display-align=\"center\" region-name=\"body\"/>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    </fo:simple-page-master>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  </fo:layout-master-set>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  <fo:page-sequence master-reference=\"master\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    <fo:flow flow-name=\"body\">\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      <fo:block font-family=\"Ubuntu\">hello, world</fo:block>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      <fo:block font-family=\"Ubuntu Mono\">hello, world</fo:block>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    </fo:flow>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  </fo:page-sequence>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "</fo:root>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[jk@pororo fop]$ /opt/fop-1.0/fop -pdf test.pdf -fo test.fo -c fopconfig.xml \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "19/12/2011 4:28:37 PM org.apache.fop.events.LoggingEventListener processEvent\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "WARNING: Font \"Ubuntu Mono,normal,400\" not found. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Substituting with \"any,normal,400\".\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[jk@pororo fop]$ /opt/fop-1.0/fop -version\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "FOP Version 1.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "- note that the Ubuntu font doesn't generate any warning, and appears correctly in the generated PDF. The second \"hello, world\" (which should be rendered in Ubuntu Mono) appears in a fallback font.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have version 0.80-0ubuntu1~medium of the ttf-ubuntu-font-family package installed.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jk-ozlabs", 
+            "email": "jk-ozlabs"
+        }, 
+        {
+            "date": "2011-12-19 08:48:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When trying to generate the metrics for the Ubuntu Mono font manually, the metrics processor throws an ArrayIndexOutOfBoundException:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[jk@pororo fop]$ java -cp /opt/fop-1.0/build/fop.jar:/opt/fop-1.0/lib/commons-logging-1.0.4.jar:/opt/fop-1.0/lib/commons-io-1.3.1.jar:/opt/fop-1.0/lib/xmlgraphics-commons-1.4.jar org.apache.fop.fonts.apps.TTFReader /usr/share/fonts/truetype/ubuntu-font-family/UbuntuMono-R.ttf UbuntuMono.metrics.xml \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TTF Reader for Apache FOP 1.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Parsing font...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reading /usr/share/fonts/truetype/ubuntu-font-family/UbuntuMono-R.ttf...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Error while building XML font metrics file.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "java.lang.ArrayIndexOutOfBoundsException: 1047\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[jk@pororo fop]$\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jk-ozlabs", 
+            "email": "jk-ozlabs"
+        }, 
+        {
+            "date": "2011-12-19 15:44:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So it looks like this is cause by an invalid \"post\" table in the font file. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The post table declares that there are 1047 glyph names (above  the standard macintosh set), but the glyph name indices in the post table go well above 1046.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jk-ozlabs", 
+            "email": "jk-ozlabs"
+        }, 
+        {
+            "date": "2011-12-19 16:35:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "After patching the line-drawing characters back in (see, LP: #788757), I don't think the index was being rebuilt, so this is probably the same as the other cases (bug #864202 and dupes) where the meta-data is being checked consistency.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In the 'lp:ubuntu-font-family' build source, there is the script that us used to rebuild the mono fonts from the Dalton Maag binaries there. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " This is 'midstream/patch-monospaced-mono.py' and there should be a function 'map_line_drawing_alternates()' based on Cody Boisclair's solution, that currently has two lines commented out involving a getGlyphOrder()/setGlyphOrder() call pair on the belief that they were superfluous.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Does uncommenting those and rebuilding the mono fonts create a difference (try comparing with 'sfddiff' in the 'fontforge-nox' No-X Window utility package). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Do re-rebuilt UFF mono fonts then load? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If so we should have a the cause and it can be duped against the other bugs about the mono mapping discrepancy (bug #864202) .\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Either way, it should be cured in a couple of months with a new release from Dalton Maag that maps these and the other CP437/ASCII characters by default (bug #812396).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "sladen", 
+            "email": "sladen"
+        }, 
+        {
+            "date": "2011-12-20 01:02:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hi Paul,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks for the quick response.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I've got the build source, but can't seem to work out what to do with it; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "it doesn't contain any of the font sources, just a Makefile and some python scripts. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The Makefile (midstream/rules) is able to download some metadata, but doesn't have any reference to upstream font sources.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Could you let me know which source file you want me to run the patch-monospaced-mono.py file on? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Or how I'm supposed to use the lp:ubuntu-font-family repo?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jk-ozlabs", 
+            "email": "jk-ozlabs"
+        }, 
+        {
+            "date": "2011-12-20 01:45:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Jeremy: it should, I think, be okay just to re-run the file on the 'UbuntuMono-{R,B}{I,}.ttf' files. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " If that doesn't work, I'll try and find you privately the raw unprocessed tarball from Dalton Maag which 'midstream' transforms to make the 'upstream' release packages.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "sladen", 
+            "email": "sladen"
+        }, 
+        {
+            "date": "2011-12-20 02:40:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Paul - thanks for the details. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Looks like the modified python script does not fix the post table:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[jk@pororo ubuntu-font-family]$ bzr diff\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "=== modified file 'midstream/patch-monospaced-mono.py'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--- midstream/patch-monospaced-mono.py\t2011-09-26 15:11:51 +0000 +++ midstream/patch-monospaced-mono.py\t2011-12-20 00:35:11 +0000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ -117,14 +117,14 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         # Microsoft Unicode: platform 3, encoding 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         msMap = f['cmap'].getcmap(3,1).cmap\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-        #order = f.getGlyphOrder()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+        order = f.getGlyphOrder()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         for name in renGlyphs:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "             mapping = agl.AGL2UV[name]\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "             uniMap[mapping] = name\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "             msMap[mapping] = name\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "             print '%s mapped to Unicode code point: %d' % (name, mapping)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-        #f.setGlyphOrder(order)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+        f.setGlyphOrder(order)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     # Thanks to Cody Boisclair (codeman38) for 'fixboxdraw-ft.py'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     def force_widths(f, advance=500):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[jk@pororo ubuntu-font-family]$ ./midstream/patch-monospaced-mono.py --rewrite-mono --map-box-drawing /usr/share/fonts/truetype/ubuntu-font-family/UbuntuMono-R.ttf ./UbuntuMono-R.new.ttf \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "0 1 0 1 1 0 2 1 0 3 1 0 4 1 0 5 1 0 6 1 0 7 1 0 8 1 0 9 1 0 11 1 0 12 1 0 16 1 0 17 1 0 18 1 0 0 3 1 1 3 1 2 3 1 3 3 1 4 3 1 5 3 1 6 3 1 7 3 1 8 3 1 9 3 1 11 3 1 12 3 1 16 3 1 17 3 1 18 3 1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[jk@pororo ubuntu-font-family]$ java -classpath /opt/fop-1.0/build/fop.jar:/opt/fop-1.0/lib/commons-logging-1.0.4.jar:/opt/fop-1.0/lib/commons-io-1.3.1.jar:/opt/fop-1.0/lib/xmlgraphics-commons-1.4.jar org.apache.fop.fonts.apps.TTFReader ./UbuntuMono-R.new.ttf UbuntuMono.metrics.xml\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TTF Reader for Apache FOP 1.0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Parsing font...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reading ./UbuntuMono-R.new.ttf...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Error while building XML font metrics file.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "java.lang.ArrayIndexOutOfBoundsException: 1047\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jk-ozlabs", 
+            "email": "jk-ozlabs"
+        }, 
+        {
+            "date": "2012-02-23 08:21:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Reproduceable on precise, using the (newly-package) distro version of fop.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "jk-ozlabs", 
+            "email": "jk-ozlabs"
+        }
+    ], 
+    "id": "906194", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/906194"
+}

@@ -1,0 +1,306 @@
+{
+    "contributors": [
+        [
+            "kirkland", 
+            "email"
+        ], 
+        [
+            "m-beyer5", 
+            "lexrank"
+        ]
+    ], 
+    "title": "ecryptfs-(u-)mount-private should emit an upstart event", 
+    "comments": [
+        {
+            "date": "2011-12-31 10:55:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It would be nice if ecryptfs-mount-private and ecryptfs-umount-private would emit an upstart event, thus allowing upstart to trigger jobs that require the home dir of a user to be mounted correctly.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "m-beyer5", 
+            "email": "m-beyer5"
+        }, 
+        {
+            "date": "2012-01-03 05:09:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Can you post a patch, a branch, or at least instructions on how to do so?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "kirkland", 
+            "email": "kirkland"
+        }, 
+        {
+            "date": "2012-01-08 14:46:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The easiest way would propably be to just call initct[1][2] with some meaningful parameters after the (u-)mount is successful, eg.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "initctl emit ecryptfs-mounted-private USER=$USER MOUNTPOINT=$MOUNTPOINT SOMEKEY=$SOMEVALUE\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[1] http://manpages.ubuntu.com/manpages/precise/en/man8/initctl.8.html\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[2] http://upstart.ubuntu.com/cookbook/#initctl\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "m-beyer5", 
+            "email": "m-beyer5"
+        }, 
+        {
+            "date": "2012-01-09 14:23:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Serge/Clint,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "What do you think about this suggestion? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Is it a reasonable idea? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Any security concerns?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Dustin\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "kirkland", 
+            "email": "kirkland"
+        }, 
+        {
+            "date": "2012-01-09 14:31:38", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It does make the manual use of setuid-root 'mount.ecryptfs_private' scarier...\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "serge-hallyn", 
+            "email": "serge-hallyn"
+        }, 
+        {
+            "date": "2012-01-09 16:54:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Mon, Jan 9, 2012 at 8:31 AM, Serge Hallyn <email address hidden> wrote:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> It does make the manual use of setuid-root 'mount.ecryptfs_private' > scarier...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Serge, what do you mean?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "kirkland", 
+            "email": "kirkland"
+        }, 
+        {
+            "date": "2012-01-09 16:54:50", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On Sun, Jan 8, 2012 at 8:46 AM, Marcus <email address hidden> wrote:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> initctl emit ecryptfs-mounted-private USER=$USER MOUNTPOINT=$MOUNTPOINT\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> SOMEKEY=$SOMEVALUE\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Does this have to be executed as the root user?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "kirkland", 
+            "email": "kirkland"
+        }, 
+        {
+            "date": "2012-01-09 20:15:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@6\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "m-beyer5", 
+            "email": "m-beyer5"
+        }, 
+        {
+            "date": "2012-01-09 21:06:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Quoting Dustin Kirkland (<email address hidden>):\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> On Sun, Jan 8, 2012 at 8:46 AM, Marcus <email address hidden> wrote:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > initctl emit ecryptfs-mounted-private USER=$USER MOUNTPOINT=$MOUNTPOINT\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> > SOMEKEY=$SOMEVALUE\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "> Does this have to be executed as the root user?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yes, it does. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " And mount.ecryptfs-private is setuid-root, so it can be executed by non-root. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " It's probably no big deal, but it means that $USER, $MOUNTPOINT, and $SOMEVALUE will be passed to root-owned jobs,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "and in the past perhaps have been assumed to come from ('trusted') root tasks. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I don't know how carefully those get sanitized along the chain.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It may be no big deal, but any time something which in the past may have assumed 'trusted' input is going to be handed untrusted input, it's worth worrying about.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "serge-hallyn", 
+            "email": "serge-hallyn"
+        }
+    ], 
+    "id": "910341", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/910341"
+}

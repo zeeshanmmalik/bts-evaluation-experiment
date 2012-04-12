@@ -1,0 +1,467 @@
+{
+    "contributors": [
+        [
+            "wence", 
+            "lexrank"
+        ], 
+        [
+            "gz", 
+            "email"
+        ], 
+        [
+            "g-gorman", 
+            "lexrank"
+        ], 
+        [
+            "jelmer", 
+            "email"
+        ]
+    ], 
+    "title": "bzr version-info very slow", 
+    "comments": [
+        {
+            "date": "2011-10-27 12:40:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm using bzr version-info --custom --template=\"{branch_nick}.{revno} to construct a version number within the code as per recommended usage in bzr help version-info. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, it's very slow - typically 4-6 seconds!\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "strace seems to indicate that it's stalling communicating with launchpad:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "write(3, \"0.665  ssh implementation is Ope\"..., 37) = 37\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "socketpair(PF_FILE, SOCK_STREAM, 0, [4, 5]) = 0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fcntl(4, F_GETFD)                       = 0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fcntl(4, F_SETFD, FD_CLOEXEC)           = 0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "pipe([6, 7])                            = 0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fcntl(7, F_GETFD)                       = 0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fcntl(7, F_SETFD, FD_CLOEXEC)           = 0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f5929da79f0) = 20349\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "close(7)                                = 0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "mmap(NULL, 1052672, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f5924b07000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "read(6, \"\", 1048576)                    = 0\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "mremap(0x7f5924b07000, 1052672, 4096, MREMAP_MAYMOVE) = 0x7f5924b07000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "close(6)                                = 0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "munmap(0x7f5924b07000, 4096)            = 0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "close(5)                                = 0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "sendto(4, \"bzr message 3 (bzr 1.6)\\n\\0\\0\\0\\34d16:\"..., 108, 0, NULL, 0) = 108\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "brk(0x2266000)                          = 0x2266000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "recvfrom(4, \"bzr message 3 (bzr 1.6)\\n\\0\\0\\0'd16:\"..., 65536, 0, NULL, NULL) = 86\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "...delay here\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "However, it would seem that all the information required is local. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For example:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "grep \"^\\(bound\\|parent\\)_location\" .bzr/branch/branch.conf | sed 's/.*${PACKAGE_NAME}\\///' | sed 's/\\/$//'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "from the source directory will give nick while bzr revno --tree gives the revno.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm using:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bazaar 2.4.1-1ubuntu1\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ubuntu 11.10\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "g-gorman", 
+            "email": "g-gorman"
+        }, 
+        {
+            "date": "2011-10-28 09:43:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Lawrence, your branch fixing this looks reasonable, do you want to propose it for merging into Bazaar so we can work out how to write a test to verify it resolves the issue?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gz", 
+            "email": "gz"
+        }, 
+        {
+            "date": "2011-10-28 09:50:21", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Done\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "wence", 
+            "email": "wence"
+        }, 
+        {
+            "date": "2011-11-09 12:42:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm not sure that the patch that's landed actually fixes the original report's problem.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There seem to be two issues:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1) stat()ing files on slow filesystems should be avoided if possible (the merged branch does this)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2) getting the branch nickname requires contacting the upstream server in the case of bound branches when no local nick is set.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For custom templates we can get around this problem with the following patch:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "=== modified file 'bzrlib/version_info_formats/format_custom.py'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--- bzrlib/version_info_formats/format_custom.py\t2011-06-12 20:09:55 +0000 +++ bzrlib/version_info_formats/format_custom.py\t2011-11-09 12:38:14 +0000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@@ -87,7 +87,8 @@\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         info = Template()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         info.add('build_date', create_date_str())\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-        info.add('branch_nick', self._branch.nick)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+        if '{branch_nick}' in self._template:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "+            info.add('branch_nick', self._branch.nick)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         revision_id = self._get_revision_id()\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         if revision_id == NULL_REVISION:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "In general I don't see an easy way to avoid this network traffic without changing the information stored locally for bound branches.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "One possible option would be to add a field to branch.conf:  upstream-nickname = ...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This could be updated on clone, plus any subsequent fetches, to act as a cache for the upstream nick.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Lawrence\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "wence", 
+            "email": "wence"
+        }, 
+        {
+            "date": "2011-11-15 08:59:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hm yes, had overlooked the original report, using bound branches does also cause network access - unless the branch nick is set locally. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, the command given in the bug report will still be slow for emacs until the local copy has `bzr nick emacs-bound` or similar run. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Does this need adding to the emacs getting started documentation?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gz", 
+            "email": "gz"
+        }, 
+        {
+            "date": "2011-11-15 11:54:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm not sure what emacs has to do with the original bug report, but in any case, I'd argue that the round-trip requirement for bound branches to get the nick is a poor choice. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " At some point in the past, this must have not been the case (see lp:148030). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " But I note it's also reported as an issue in lp:629150.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As I mentioned previously, I think branch.conf should store this one (extra) piece of information for bound branches to avoid round-tripping when looking for something as simple as the branch nickname. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Whether this should just be done by overloading the nickname field, or by adding an additional field, I don't know.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "wence", 
+            "email": "wence"
+        }, 
+        {
+            "date": "2011-11-15 16:08:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We discussed this a bit during our standup today. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Martin suggested having \"bzr checkout\" set the local branch nick by default, which is a very simple fix to make it hard to get into this situation.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There are more things we can do, but this this should fix the issue for most people and is a fairly simple change.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "jelmer", 
+            "email": "jelmer"
+        }, 
+        {
+            "date": "2011-11-15 18:05:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Okay, let's carry on in bug 629150 rather than confusing things further here (sorry Gerard!)\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "gz", 
+            "email": "gz"
+        }
+    ], 
+    "id": "882541", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/882541"
+}

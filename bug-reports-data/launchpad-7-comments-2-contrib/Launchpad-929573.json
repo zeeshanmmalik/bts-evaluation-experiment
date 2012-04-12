@@ -1,0 +1,321 @@
+{
+    "contributors": [
+        [
+            "showard314", 
+            "lexrank"
+        ], 
+        [
+            "adri2000", 
+            "email"
+        ]
+    ], 
+    "title": "/usr/bin/rsvg removed from latest upload (causing FTBFSes in archive)", 
+    "comments": [
+        {
+            "date": "2012-02-09 14:53:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The most recent upload of rsvg (2.35.2-0ubuntu1) no longer includes /usr/bin/rsvg.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "imagemagick's \"convert\" uses it to convert svgs to other file types.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Many packages use \"convert\" in the build to generate the pixmaps required for debian menus.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "See:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpadlibrarian.net/92231198/buildlog_ubuntu-precise-i386.librecad_1.0.0%2Bnolibs-1_FAILEDTOBUILD.txt.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Either imagemagick or rsvg should be fixed so the \"convert\" command works again.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "showard314", 
+            "email": "showard314"
+        }, 
+        {
+            "date": "2012-02-09 14:56:10", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As important: the \"convert\" command no longer works on precise - which has a large affect on many users\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "convert -resize 48x48 Icon_Librecad.svg debian/librecad.png\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "sh: 1: rsvg: not found\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "showard314", 
+            "email": "showard314"
+        }, 
+        {
+            "date": "2012-02-09 15:12:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Ok, found that /usr/bin/rsvg has been removed by upstream, yet imagemagick is still calling it:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://bugzilla.gnome.org/show_bug.cgi?id=580325\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "imagemagick needs to not call it anymore\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "showard314", 
+            "email": "showard314"
+        }, 
+        {
+            "date": "2012-02-09 15:31:39", 
+            "sentences": [], 
+            "name": "seb128", 
+            "email": "seb128"
+        }, 
+        {
+            "date": "2012-02-09 15:35:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "From the linked debian bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "imagemagick is not supposed to use /usr/bin/rsvg because it's supposed to pull in it's own svg converter in the package libmagick?-extras where ? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "is the SONAME version, and is recommended by imagemagick.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "However, as you can see in:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://launchpadlibrarian.net/92231198/buildlog_ubuntu-precise-i386.librecad_1.0.0%2Bnolibs-1_FAILEDTOBUILD.txt.gz\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "it is pulling in:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libmagickcore4\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "but is NOT pulling in:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "libmagickcore4-extra\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "since it is only a recommends.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So this is the real bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1) imagemagick's convert first will try to use the internal svg converter found in the recommended package libmagickcore4-extra. Since it is recommended, it is not pulled into the buildds.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2) When libmagickcore?-extra is missing on a system (such as the buildds and a user's system), \"convert\" will fall back to /usr/bin/rsvg. However, that file no longer exists in ubuntu.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "showard314", 
+            "email": "showard314"
+        }, 
+        {
+            "date": "2012-02-09 21:02:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "forwarded upstream to imagemagick:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://www.imagemagick.org/discourse-server/viewtopic.php?f=3&t=20315\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "showard314", 
+            "email": "showard314"
+        }, 
+        {
+            "date": "2012-02-10 16:11:58", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "svn commit 6793\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "showard314", 
+            "email": "showard314"
+        }, 
+        {
+            "date": "2012-02-10 16:13:03", 
+            "sentences": [], 
+            "name": "showard314", 
+            "email": "showard314"
+        }, 
+        {
+            "date": "2012-02-13 23:35:45", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For the record, I also filed bug #931802 against librsvg itself.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "adri2000", 
+            "email": "adri2000"
+        }, 
+        {
+            "date": "2012-02-17 11:10:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This bug was fixed in the package imagemagick - 8:6.6.9.7-5ubuntu3\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "---------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "imagemagick (8:6.6.9.7-5ubuntu3) precise; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "urgency=low\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  * 0006-rsvg-convert.patch: upstream removed the rsvg command from     librsvg2-bin, use rsvg-convert instead (LP: #929573)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "janitor", 
+            "email": "janitor"
+        }
+    ], 
+    "id": "929573", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/929573"
+}

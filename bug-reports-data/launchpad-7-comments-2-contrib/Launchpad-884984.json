@@ -1,0 +1,320 @@
+{
+    "contributors": [
+        [
+            "gagupta", 
+            "email"
+        ], 
+        [
+            "yamahata", 
+            "lexrank"
+        ], 
+        [
+            "ttx", 
+            "email"
+        ], 
+        [
+            "vishvananda", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Cannot boot from volume with 2 devices", 
+    "comments": [
+        {
+            "date": "2011-11-01 22:48:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "More details on:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "https://answers.launchpad.net/nova/+question/176938\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Summary:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-------------\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Say I had 2 disks, disk1 and disk2 (represented by 2 volumes). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "disk1 has the root-file-system and disk2 has some data. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I boot an instances using the boot-from-volumes extension, and specify the 2 disks such as disk1 should be attached to /dev/vda and disk2 to /dev/vdb. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When the instance is launched it fails to boot, because it tries to find the root-filesystem on disk2 instead.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The underlying problem is with virsh/libvirt. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Boot fails because in the libvirt.xml file created by Openstack, disk2 (/dev/vdb) is listed before disk1 (/dev/vda). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So, what happens is that the hypervisor attaches disk2 first (since its listed first in the XML). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Therefore when these disks are attached on the guest, disk2 appears as /dev/vda and disk1 as /dev/vdb. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Later the kernel tries to find the root filesystem on '/dev/vda' (because that's what is selected as the root) and it fails for obvious reason. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think it's a virsh bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It should be smart about it and attach the devices in the right order.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gagupta", 
+            "email": "gagupta"
+        }, 
+        {
+            "date": "2011-11-01 22:49:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Vish suggested:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"Sounds like we can work around this pretty easily by sorting the disks before we pass them into the xml template.\"\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gagupta", 
+            "email": "gagupta"
+        }, 
+        {
+            "date": "2011-11-04 08:56:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The order in XML isn't a part of libvirt API. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's just how the current libvirt is implemented and qemu-kvm works.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " So sorting is not long term solution. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Only acceptable as short term work around.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " For example, if you specify /dev/vda and /dev/vdc (skipping /dev/vdb), sorting doesn't work.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "How guest OS associates device names with devices is highly OS/distribution dependent,\r thus libvirt can't know all the cases.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So long term solution is\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- use disk label where possible (This is already suggested by Scott)\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "- pass the information of the relation to the guest OS from nova-compute(or libvirt) somehow\r\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If guest BIOS(seabios) is involuved for OS booting, the information also needs to be passed to BIOS.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "yamahata", 
+            "email": "yamahata"
+        }, 
+        {
+            "date": "2011-12-15 23:48:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is there any more thought about this bug. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Can we prioritise this in Essex.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "gagupta", 
+            "email": "gagupta"
+        }, 
+        {
+            "date": "2011-12-16 14:02:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Adding openstack-volumes team to cc:\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "ttx", 
+            "email": "ttx"
+        }, 
+        {
+            "date": "2012-02-06 17:30:26", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I still think sorting is a good short term solution to get booting to work again. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Beyond that we need better support for naming virtio disks. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " We may have to do some guest agent / udev magic to get the names right because it doesn't appear that udev has any way to tell which device name it should pick for attached volumes.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "vishvananda", 
+            "email": "vishvananda"
+        }, 
+        {
+            "date": "2012-02-08 02:07:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hmm I didn't say precisely my opinion.\r", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm not objecting against sorting as short term work around. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Rather I think it should be committed at first because it would take long time to attack long term solution. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It needs to fix not only nova but also other component like kvm, libvirt.\r", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The reason why xen case(AWS) works is such information is passed to drivers in kernel  via xenstore. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "On the other hand KVM lacks such framework yet. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "When short term work around is committed,  \r\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "please put on the comment on the code that it's work around,\r and please don't mark this bug fixed, keep this bug open until the long term solution is committed.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "yamahata", 
+            "email": "yamahata"
+        }
+    ], 
+    "id": "884984", 
+    "project": "Launchpad", 
+    "original_link": "https://bugs.launchpad.net/ubuntu/+bug/884984"
+}
