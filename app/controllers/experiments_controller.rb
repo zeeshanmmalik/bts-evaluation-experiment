@@ -98,7 +98,7 @@ class ExperimentsController < ApplicationController
     end
   end
 
-  def export_results
+  def export_results_for
     experiment = Experiment.find(params[:id])
 
     csv_string = CSV.generate do |csv|
@@ -110,7 +110,7 @@ class ExperimentsController < ApplicationController
     send_data(csv_string, :type => 'text/csv; charset=utf-8; header=present', :filename => filename)  
   end
 
-  def export_all_results
+  def export_results_for_all
     csv_string = CSV.generate do |csv|
       cols = ["experiment","user_id","summary","question","choice"]
       csv << cols
@@ -122,12 +122,52 @@ class ExperimentsController < ApplicationController
     send_data(csv_string, :type => 'text/csv; charset=utf-8; header=present', :filename => filename)  
   end
 
+  def export_bug_summaries_for
+    experiment = Experiment.find(params[:id])
+    csv_string = CSV.generate do |csv|
+      cols = ["experiment","user_id","bug_id","sentence_id","is_in_user_summary","is_in_lex_summary","is_in_email_summary"]
+      csv << cols
+      csv = bug_summaries_csv(experiment, csv)
+    end
+    filename = "summaries-comp-data-#{Time.now.to_date.to_s}.csv"
+    send_data(csv_string, :type => 'text/csv; charset=utf-8; header=present', :filename => filename)
+  end
+
+  def export_bug_summaries_for_all
+    csv_string = CSV.generate do |csv|
+      cols = ["experiment","user_id","bug_id","sentence_id","is_in_user_summary","is_in_lex_summary","is_in_email_summary"]
+      csv << cols
+      Experiment.all.each do |experiment|
+        csv = bug_summaries_csv(experiment, csv)        
+      end
+    end
+    filename = "all-summaries-comp-data-#{Time.now.to_date.to_s}.csv"
+    send_data(csv_string, :type => 'text/csv; charset=utf-8; header=present', :filename => filename)
+  end
+
   private
 
+  def bug_summaries_csv experiment, csv
+    all_submissions = experiment.participants.where('eval_submitted_at IS NOT NULL and eval_submitted_at != ""')
+    all_submissions.each do |p|
+      br = p.bug_report
+      rep_part = [experiment.title, p.id, br.id]
+      br.comments.each do |c|
+        c.sentences.each do |s|
+          unless s.text.strip.empty?
+            is_in_user_summary = p.sentence_evaluations.where(:sentence_id => s.id).first.importance == 1 ? true : false
+            csv << rep_part + [s.id, is_in_user_summary, s.is_in_lex_summary, s.is_in_email_summary]
+          end
+        end
+      end
+    end
+    return csv
+  end
+
   def experiment_csv experiment, csv
-    total_submissions = experiment.participants.where('eval_submitted_at IS NOT NULL and eval_submitted_at != ""')
-    lex_submissions = total_submissions.where(:summary_assigned => 'lexrank')
-    email_submissions = total_submissions.where(:summary_assigned => 'email')
+    all_submissions = experiment.participants.where('eval_submitted_at IS NOT NULL and eval_submitted_at != ""')
+    lex_submissions = all_submissions.where(:summary_assigned => 'lexrank')
+    email_submissions = all_submissions.where(:summary_assigned => 'email')
     csv = submission_csv(experiment.title, lex_submissions, 'lex', csv)
     csv = submission_csv(experiment.title, email_submissions, 'email', csv)
     return csv
