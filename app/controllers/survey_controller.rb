@@ -8,10 +8,13 @@ class SurveyController < ApplicationController
   def access
     @participant.response = @participant.response || Response.new
     @bug_report = @participant.bug_report    
+    @participant.update_attributes(:eval_started_at => Time.now) if @participant.eval_started_at.blank?
   end
 
   def submit
     @participant.response.update_attributes(params[:response])
+
+    @participant.update_attributes(:eval_submitted_at => Time.now) if @participant.eval_submitted_at.blank?
 
     # amazing... code continues after redirecting
     #redirect_to access_survey_path

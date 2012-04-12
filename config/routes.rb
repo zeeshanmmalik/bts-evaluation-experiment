@@ -1,6 +1,10 @@
 BtsEvalExpApp::Application.routes.draw do
 
-  resources :experiments
+  resources :experiments do
+    member do
+      get 'result'
+    end
+  end
 
   resources :emails
 
