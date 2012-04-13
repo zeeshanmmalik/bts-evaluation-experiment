@@ -1,0 +1,1449 @@
+{
+    "contributors": [
+        [
+            "/u/lcamtuf/", 
+            "email"
+        ], 
+        [
+            "/u/@UhVRQVBSBhNBXAd9/", 
+            "lexrank"
+        ], 
+        [
+            "/u/infernosec/", 
+            "email"
+        ]
+    ], 
+    "title": "Security: sanitize URLs better before creating desktop shortcuts", 
+    "comments": [
+        {
+            "date": "2009-10-02 15:43:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On Windows, we currently create desktop shortcuts the following way:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"X:\\Path\\To\\chrome.exe\" --app=<URL>\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We filter <URL> for 0x20, 0x09, 0x0a, 0x0b, 0x0d, etc, but we otherwise let\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "most other data indiscriminately. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "One of the characters that is not filtered is % (e.g., stray % will not be encoded as %25 or removed). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This permits a shortcut such as:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"X:\\Path\\To\\chrome.exe\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--app=http://example.com/%some_env_variable%--renderer-path=/something/else/entirely\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "...to be created if the user is duped into clicking \"Create application shortcut\" on a malicious page.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This syntax will be substituted by Windows prior to launching chrome.exe.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If %some_env_variable% happens to end with a whitespace, things go bad.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "To fix: ideally, I would recommend a different syntax, such as:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"X:\\Path\\To\\chrome.exe\" --launch-in-app-mode -- http://example.com/...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is much more robust (we could still support the --app syntax for legacy shortcuts). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "If we feel it is too late to change the syntax, however, we should at the very minimum, be more pedantic about escaping here. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I would also recommend escaping characters such as \", \\, etc, as their effect on Windows shell parsing is unclear to me, I don't think it's well-documented anywhere, and if they actually legitimately appear in an URL, the URL will be corrupted.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I did some quick tests on Linux, but don't see an obvious way to break it there (we escape `, $, \", etc).\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/lcamtuf/", 
+            "email": "/u/lcamtuf/"
+        }, 
+        {
+            "date": "2009-10-02 15:46:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "And by the way, I couldn't find any variable that ends in a whitespace to exploit it (e.g., no $IFS-equivalent) - but I'm not really that much of a Windows guru, there might be something.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/lcamtuf/", 
+            "email": "/u/lcamtuf/"
+        }, 
+        {
+            "date": "2009-10-03 01:40:01", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This works on Vista if you have an environment variable ending in a space, which you  don't have by default. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(%CMDCMDLINE% ends in a space if you just run cmd.exe without  arguments, but it's not set outside of cmd.exe, so you can't use that).\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I tried \"%ProgramFiles:~10,1%\" (it'll extract 1 character at offset 10, which is  normally the space between \"program\" and \"files\") but that also does not work outside  of cmd.exe. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "You can use \"%ProgramFiles%\" but that leaves you with a second argument  starting with \"files\", which doesn't seem to provide any attack vector.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I also noticed you can insert \"&\" which normally separates commands in windows, so  I've tried \"http://www.example.com/&c:\\windows\\system32\\calc.exe\" but the & doesn't \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "seem to get used as a command separator at all and the entire URL is parsed to  Chrome, so no attack there.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "All in all, we should fix this because it is exploitable. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "However, I don't think many  users are at risk (if any) because there is no common environment variable ending  with a space.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/skylined@chromium.org/", 
+            "email": "/u/skylined@chromium.org/"
+        }, 
+        {
+            "date": "2009-11-30 00:12:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We just received an external report of this. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The reporter focuses on the fact it could  lead to information disclosure (e.g., system type or user name via env variables),  although this is a very remote risk.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/lcamtuf/", 
+            "email": "/u/lcamtuf/"
+        }, 
+        {
+            "date": "2009-12-01 14:30:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Adding the reporter - Inferno - to the cc: list, as per his request.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/lcamtuf/", 
+            "email": "/u/lcamtuf/"
+        }, 
+        {
+            "date": "2009-12-07 16:51:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SecSeverity-Low since this requires a range of user interactions.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "However, this got noticed externally so we should see what can be done.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is anyone working on this? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Any ideas for a suitable assignee?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/scarybeasts/", 
+            "email": "/u/scarybeasts/"
+        }, 
+        {
+            "date": "2009-12-17 20:06:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fixing for the v4 release would be nice.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We should find an owner :) Marking M4. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'll send out a mail with all M4 security bugs  once I've done the triage.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/scarybeasts/", 
+            "email": "/u/scarybeasts/"
+        }, 
+        {
+            "date": "2009-12-18 17:33:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@lcamtuf: if we escape % -> %25, will Windows look for an environment variable  starting with the name \"25\" ?\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Does Windows have any quote characters which will desist it from doing env var  expansion within those quotes?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/scarybeasts/", 
+            "email": "/u/scarybeasts/"
+        }, 
+        {
+            "date": "2009-12-18 18:06:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Escaping % -> %25 is tricky, because you don't want, say, %3E in an URL becoming \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "%253E. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We could escape everything that does not match %[a-fA-F0-9]{2}; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "this may still  permit %aardvark% to go through, but looking at my windows box, I don't see any  standard variables that would start with this pattern. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Some obscure application- specific ones probably exist on certain installations.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Another option would be to just base64-encode shortcut URLs. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This makes them opaque,  so users may be not too happy; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "or double-escape or otherwise encode % (but then, this  will cause problems with manually inspecting and tweaking such targets).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I don't know of a way to prevent substitution by prefixing % with something :-(\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As noted earlier, I am also not entirely sure that Windows shell expansion is that  well-studied (and it's definitely very quirky and makes several things inherently  insecure), so regardless of the fix we employ to minimize the risk of information  disclosure, it may make sense to tweak the calling convention to prevent potentially  more serious parameter splitting issues.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/lcamtuf/", 
+            "email": "/u/lcamtuf/"
+        }, 
+        {
+            "date": "2009-12-19 06:25:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "D:\\>set 25=a\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "D:\\>echo %25%\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "a\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So, yes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "D:\\>echo ^%25^%\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "%25%\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/maruelatchromium/", 
+            "email": "/u/maruelatchromium/"
+        }, 
+        {
+            "date": "2009-12-19 10:57:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think that only works from shell, not from shortcuts, though.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/lcamtuf/", 
+            "email": "/u/lcamtuf/"
+        }, 
+        {
+            "date": "2009-12-20 13:54:23", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "one idea I have is to store length of url when creating the shortcut (like  25,http://... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "When chrome launches the shortcut, it validates the length to see if  the OS has not expanded the shortcut with the env variable values (can decide to  raise a warning/not execute the shortcut at all). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "this solution might work for other  OS flavors as well. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "one small issue with this when a env variable like %USERNAME% has  value lcamtuf007 , in that case, length of final url matches the initial url. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "But  this can be easily fixed by storing no of non alphanumeric characters in url as well. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " so, shortcut will have something like --app=length,no of non alpha chars,http://url\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Michal's solution is nice since no OOTB env variables in windows don't have that  pattern (user defined env variable will be a very targeted attack with minor use  cases). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "haven't checked if env variable values get substituted in linux flavors.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/infernosec/", 
+            "email": "/u/infernosec/"
+        }, 
+        {
+            "date": "2009-12-20 17:45:46", 
+            "sentences": [], 
+            "name": "/u/infernosec/", 
+            "email": "/u/infernosec/"
+        }, 
+        {
+            "date": "2009-12-20 18:00:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@lcamtuf you're right; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I tried various potential meta character but couldn't find  anything that would be triggered by CreateProcess;\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "C:\\Windows\\System32\\notepad.exe %userprofile%\\^%username^%.txt\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "opens ^%username^%.txt\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "C:\\Windows\\System32\\notepad.exe %userprofile%\\%%username%%.txt\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "opens %maruel%.txt\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sadness.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/maruelatchromium/", 
+            "email": "/u/maruelatchromium/"
+        }, 
+        {
+            "date": "2009-12-21 07:28:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sorry I'm jumping in on the tail of this discussion, but here are a few points to  remember:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* The loader (e.g. CreateProcess) does not expand environment variables. They must be  explicitly expanded by the executable.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* The shortcut handler (the shell extension that handles *.lnk files) explicitly  expands environment variables because they may be embedded in paths; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "that's why  Chrome appears to be getting them implicitly expanded.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "* The command shell (cmd.exe) is the only part of Windows that provides escape  characters; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "it also expands environment variables before passing them to an  executable via the command line.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So, the shrotcut handler is expanding environment variables and doing nothing else. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Unfortunately, it provides no way of disabling expansion, or escaping the percent  character. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That's why there's basically no good solution to this problem using  shortcuts. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So, how about not using shortcuts? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We can create a new file type with the URL and any  other startup parameters (probably just in a JSON dictionary). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "On installation of  Chrome we create an association with the file type that starts Chrome with the  appropriate switches. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Then we just read the URL and startup parameters out of that  file. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So, we get something that behaves like a shortcut, but avoids the environment  expansion mess with the shortcut handler.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Other than that, the only option I see is to come up with a different escape sequence  for the percent character. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It might look ugly, but it would prevent unintended  environment variable expansion. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Of course, that's not much different than lcamtuf's  suggestion of base64 encoding the entire URL.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UhVRQVBSBhNBXAd9/", 
+            "email": "/u/@UhVRQVBSBhNBXAd9/"
+        }, 
+        {
+            "date": "2009-12-21 08:34:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Oops, I didn't see the m4 tag there. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So, push my other suggestion to after m4. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "For now, I think the best we can do is escape any percent character that doesn't  match a URL escape sequence, which will prevent expansion of any default variables. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " We should also quote the entire URL string to prevent injecting additional arguments  to Chrome (and ensure the quotes are URL encoded). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We already use  CommandLineToArgvW() in our command processor, so it will parse the quotes around the  URL without any additional modification.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "cevans@, if you want I can write a patch that does this today.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As for the impact in the current code, I don't see anything other than environment  leakage and a very longshot chance at argument injection to Chrome if you can find an  environment variable to work with. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There's no chance of shell metacharacter expansion  or code execution since the command line never goes through the shell.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UhVRQVBSBhNBXAd9/", 
+            "email": "/u/@UhVRQVBSBhNBXAd9/"
+        }, 
+        {
+            "date": "2009-12-21 10:36:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "How about we encode/decode both \"%\" and \"\\\" using \"\\x..\" encoding? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "That type of hex  encoding characters is common in other places (eg. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "JavaScript) and existing links are  unlikely to contain \"\\x\" afaik, so this is will cause very limitted breakage.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/skylined@chromium.org/", 
+            "email": "/u/skylined@chromium.org/"
+        }, 
+        {
+            "date": "2009-12-21 15:35:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm grabbing this. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My solution is:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1. URL encode unsafe characters including whitespace and: <>{}[]|\\^~`\"'\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2. Replace any occurrences of % in the string with the \\\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "3. Wrap the URL in double quotes\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The replacement character is URL encoded from the source string, so it never occurs  in output string. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The quotes prevent argument injection and will get parsed by CommandLineToArgvW(). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Then we just replace \\ with % to get back to the correct URL.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This seems like the easiest and safest option, unless someone has a better idea.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UhVRQVBSBhNBXAd9/", 
+            "email": "/u/@UhVRQVBSBhNBXAd9/"
+        }, 
+        {
+            "date": "2009-12-21 15:41:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ugly, but should be good enough :p\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/lcamtuf/", 
+            "email": "/u/lcamtuf/"
+        }, 
+        {
+            "date": "2009-12-21 16:00:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\\ is not encoded in the url paramater value (verified in 4.0.249.43), so it will mess  up the % replacements with \\ :(. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "plus, it would be unreadable to user if user tries to  see shortcut properties.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "e.g.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://www.merriam-webster.com/dictionary/secure?abc=def\\\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/infernosec/", 
+            "email": "/u/infernosec/"
+        }, 
+        {
+            "date": "2009-12-21 16:06:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "sorry forgot to see that you are url encoding the unsafe chars first. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "please ignore  last comment.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/infernosec/", 
+            "email": "/u/infernosec/"
+        }, 
+        {
+            "date": "2009-12-21 16:11:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Should be backwards compatible too. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Useful :)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/scarybeasts/", 
+            "email": "/u/scarybeasts/"
+        }, 
+        {
+            "date": "2009-12-21 16:40:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Strictly speaking, this may cause problems; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{, }, ^, ~, [, ], `, etc are reserved \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "characters in URLs, and encoding them may change the meaning of the URL to  implementations that rely on this (much like replacing / with %2F makes a difference  to most webservers).\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As a quick kludge, I think this is acceptable, though. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Alternatively, you may do  something like replacing \\, %, and other problematic characters with \\xNN (and then  decode this on load). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "This is less likely to cause interference, and about as  complicated.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "One more thing: we probably don't want to decode \\-encoded URLs when invoked from a  place other than a shortcut (which can be inferred from cmdline switches).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/lcamtuf/", 
+            "email": "/u/lcamtuf/"
+        }, 
+        {
+            "date": "2009-12-22 00:43:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I agree with lcamtuf so maybe I wasn't clear before: I suggest replacing problematic  chars (\\\"<>|&%, everything < 0x20 or >= 0x7F) with \"\\x\"-encoded values in the  shortcut URL and decode them before opening the page, as in:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "C:\\Path\\To\\Chrome.exe --app=\"http://example.com/\\x5C\\x22\\x3C\\x3E\\x7C\\x26\\x25\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Will cause Chrome to open this url:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://example.com/\\\"<>|&%\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I suggest using \"\\x\" rather than just \"\\\" as the chance of having \"\\x\" in existing  application shortcuts is smaller; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "so we would break less existing shortcuts when we  introduce this feature. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(Unless you also want to write a tool that finds all existing  shortcuts and apply this new encoding to them when the user installs a new version of  Chrome).\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/skylined@chromium.org/", 
+            "email": "/u/skylined@chromium.org/"
+        }, 
+        {
+            "date": "2009-12-22 08:30:03", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@lcamtuf - The decoding is part of processing the --launch-in-app-mode switch, so it  won't be done anywhere else. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Also, I can reduce the set of encoded characters; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I just  wanted to start broadly and see how it worked. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@skylined - I understood your suggested escape sequence. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I just thinks it's more  awkward to stack two forms of encoding in the same string. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "My suggestion is simple  URL encoding, but replacing the % escape character with \\ to avoid environment  variable expansion. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Consider the following: http://example.com/The%20Test\\\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\\ substitution: http://example.com/The\\20Test\\5c\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\\x encoding:    http://example.com/The\\x2520Test\\x5c\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Personally, I think the the first one is just clearer. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you guys disagree, though,  we can go with the \\x encoding.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UhVRQVBSBhNBXAd9/", 
+            "email": "/u/@UhVRQVBSBhNBXAd9/"
+        }, 
+        {
+            "date": "2009-12-22 08:54:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Justin: I wasn't suggesting narrowing down the character set, just collapsing steps 2  and 3 into a single step: instead of first %nn-escaping undesirable characters, and  then switching % to \\ (which may interfere with URL semantics, because when you  replace \\ back with %, you end up with a different URL still), you can simply have a  list of \"bad\" characters that includes % and \\, and encode them as \\xNN or \\NN, thus  preserving the underlying URL as-is.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/lcamtuf/", 
+            "email": "/u/lcamtuf/"
+        }, 
+        {
+            "date": "2009-12-22 10:07:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Michal: My rationale is that we already get URLs with % encoded characters in them. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "So,  I was trying to avoid double-encoded strings like \\x2520. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Perhaps I'm making to much of  an issue of that, but the double encoding just seems unnecessarily ugly.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As for URL semantics, I'm sticking to a subset of the \"unwise\" characters defined in  RFC 2396. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Escaping is recommended for those, and I'm not touching any of the reserved  characters. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Also, this escaping is Windows only, so I don't have to mess with the Unix  shell characters.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UhVRQVBSBhNBXAd9/", 
+            "email": "/u/@UhVRQVBSBhNBXAd9/"
+        }, 
+        {
+            "date": "2009-12-22 10:45:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Ah OK, carry on then :p\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/lcamtuf/", 
+            "email": "/u/lcamtuf/"
+        }, 
+        {
+            "date": "2009-12-22 11:03:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@justin: fair enough, I am a bit worried that existing links with \"\\XX\" in them will  break when this is introduced, but there shouldn't be too many, so that's not a big  worry.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/skylined@chromium.org/", 
+            "email": "/u/skylined@chromium.org/"
+        }, 
+        {
+            "date": "2009-12-30 12:20:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UhVRQVBSBhNBXAd9/", 
+            "email": "/u/@UhVRQVBSBhNBXAd9/"
+        }, 
+        {
+            "date": "2010-01-04 06:32:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Bugbot appears to have missed this CL. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Here it is: \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://src.chromium.org/viewvc/chrome?view=rev&revision=35377\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UhVRQVBSBhNBXAd9/", 
+            "email": "/u/@UhVRQVBSBhNBXAd9/"
+        }, 
+        {
+            "date": "2010-01-04 09:46:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The following revision refers to this bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    http://src.chromium.org/viewvc/chrome?view=rev&revision=35377 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------------------------------------------ r35377 | jschuh@chromium.org | 2009-12-30 06:49:41 -0800 (Wed, 30 Dec 2009) | 8 lines\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed paths:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/browser_init.cc?r1=35377&r2=35376\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/shell_integration_unittest.cc?r1=35377&r2=35376\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/chrome_plugin_util.cc?r1=35377&r2=35376\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Replaces the % character with \\x when generating Windows shortcuts via  File->\"Create application shortcuts.\" The \\x is converted back to % in  handling the --app switch.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BUG=23693\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TEST=None\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/515028\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2010-01-04 09:47:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The following revision refers to this bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    http://src.chromium.org/viewvc/chrome?view=rev&revision=35453 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------------------------------------------ r35453 | jschuh@chromium.org | 2010-01-04 07:10:52 -0800 (Mon, 04 Jan 2010) | 11 lines\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed paths:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/branches/249/src/chrome/browser/browser_init.cc?r1=35453&r2=35452\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/branches/249/src/chrome/browser/shell_integration_unittest.cc?r1=35453&r2=35452\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/branches/249/src/chrome/common/chrome_plugin_util.cc?r1=35453&r2=35452\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Merge 35377 - Replaces the % character with \\x when generating Windows shortcuts via \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "File>\"Create application shortcuts.\" The \\x is converted back to % in  handling the app switch.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BUG=23693\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TEST=None\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/515028\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TBR=jschuh@chromium.org\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/524017\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2010-02-03 13:32:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Fixed in 4.0.249.78; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "releasing\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/scarybeasts/", 
+            "email": "/u/scarybeasts/"
+        }
+    ], 
+    "id": "23693", 
+    "project": "Chrome", 
+    "original_link": "http://code.google.com/p/chromium/issues/detail?id=23693"
+}

@@ -1,0 +1,469 @@
+{
+    "contributors": [
+        [
+            "/u/agl@chromium.org/", 
+            "email"
+        ], 
+        [
+            "/u/amanda@chromium.org/", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Scaler assembly optimization for linux", 
+    "comments": [
+        {
+            "date": "2009-08-04 17:23:44", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Windows currently has optimized assembly for its scaling code. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Mac/Linux  don't which causes high CPU usage during video playback.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The code needs to be ported to other platforms.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It has a reasonably large performance impact on linux.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/@VhhfQFZWDxVEWAJ%2F/", 
+            "email": "/u/@VhhfQFZWDxVEWAJ%2F/"
+        }, 
+        {
+            "date": "2009-08-10 10:36:08", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think we need to bump the priority of this, at least for Mac dev builds.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "1. The unittests need fixing.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "2. lessen42 brought up performance on  bug 17174 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\"Actually, looking through the source I don't see any SIMD YUV->RGB conversion for  non-MSVC? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Writing this \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "in gcc inline asm for Linux/Mac (or better yet, nasm for all platforms) probably \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "accounts for a larger \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "slowdown than the difference between ffmpeg and libtheora.\"\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'll start with a port of yuvtool to linux which I use for benchmarking and testing. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  The tool is in my experimental perforce folder, but I may add it to video tools if it  seems generally useful\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Also want to point out an ARM implementation of the same algorithm http://labs.movenda.com/blog/?p=87\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@VxheR1NVDxJDXAZ0/", 
+            "email": "/u/@VxheR1NVDxJDXAZ0/"
+        }, 
+        {
+            "date": "2009-08-14 16:16:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/scherkus@chromium.org/", 
+            "email": "/u/scherkus@chromium.org/"
+        }, 
+        {
+            "date": "2009-08-19 19:33:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Any updates on this? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Now that more of us are developing on Linux I can empathize with Evan on <video> playback performance :P\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/scherkus@chromium.org/", 
+            "email": "/u/scherkus@chromium.org/"
+        }, 
+        {
+            "date": "2009-08-20 07:45:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I bet Adam has some opinions on the proper way to do scaling. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " (Doesn't pixman do  this? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Or there was the one GGI used to use...)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/evan@chromium.org/", 
+            "email": "/u/evan@chromium.org/"
+        }, 
+        {
+            "date": "2009-08-20 09:25:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Amanda might know what's the best way to do yuv->rgb conversion on os x. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Use  vImage? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Use a fragment shader in form of a CoreImage filter?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/thakis@chromium.org/", 
+            "email": "/u/thakis@chromium.org/"
+        }, 
+        {
+            "date": "2009-08-20 09:41:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I'm surprised that the same source we use in Windows won't work in nasm for linux &  mac, but for the Mac, both vImage and CoreImage are reasonable things to try. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " vImage  is probably simpler to use for a single transformation step--it does not require a lot of  setup and teardown.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/amanda@chromium.org/", 
+            "email": "/u/amanda@chromium.org/"
+        }, 
+        {
+            "date": "2009-08-20 10:09:09", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "We've had a thread about this (apparently not on this bug). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " We can try  vImage/CoreImpge, but I think Frank's optimized asm is likely near optimal. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "As for needing to port, it's close, but the difference is in silly things like needing  underscores prepended to the labels in some platforms, and not in others. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Frank has  the details.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@VhhfQFZWDxVEWAJ%2F/", 
+            "email": "/u/@VhhfQFZWDxVEWAJ%2F/"
+        }, 
+        {
+            "date": "2009-08-20 10:19:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I think it sounds like you have this under control. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If you need help with asm on  Linux, feel free to email me.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/agl@chromium.org/", 
+            "email": "/u/agl@chromium.org/"
+        }, 
+        {
+            "date": "2009-08-31 18:06:40", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "linux is under control. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Mac is not.. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "DLL issues. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I'll open a separate bug for Mac.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@VxheR1NVDxJDXAZ0/", 
+            "email": "/u/@VxheR1NVDxJDXAZ0/"
+        }, 
+        {
+            "date": "2009-08-31 18:08:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@VxheR1NVDxJDXAZ0/", 
+            "email": "/u/@VxheR1NVDxJDXAZ0/"
+        }, 
+        {
+            "date": "2009-08-31 18:08:41", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Remove label: OS-Mac.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/divilex@hotmail.com/", 
+            "email": "/u/divilex@hotmail.com/"
+        }, 
+        {
+            "date": "2009-08-31 18:11:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The following revision refers to this bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    http://src.chromium.org/viewvc/chrome?view=rev&revision=25001 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------------------------------------------ r25001 | fbarchard@chromium.org | 2009-08-31 18:04:13 -0700 (Mon, 31 Aug 2009) | 5 lines\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed paths:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/media/base/yuv_convert.cc?r1=25001&r2=25000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/media/base/yuv_row.h?r1=25001&r2=25000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/media/base/yuv_row_linux.cc?r1=25001&r2=25000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/media/base/yuv_row_mac.cc?r1=25001&r2=25000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/media/base/yuv_row_win.cc?r1=25001&r2=25000\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "mmx for linux yuv convert function.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BUG=18449,20718\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TEST=play a video on linux without scaling and it should go 4 times faster than with scaling.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/174442\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2009-09-02 15:34:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Since this fix is for Linux I have removed OS-Mac label.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UBJUQV1XDxBBVwd8/", 
+            "email": "/u/@UBJUQV1XDxBBVwd8/"
+        }, 
+        {
+            "date": "2009-09-02 15:53:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Is there a bug for the mac fix then?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/thakis@chromium.org/", 
+            "email": "/u/thakis@chromium.org/"
+        }, 
+        {
+            "date": "2009-09-02 15:58:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Mac YUV bug: http://code.google.com/p/chromium/issues/detail?id=20749\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/scherkus@chromium.org/", 
+            "email": "/u/scherkus@chromium.org/"
+        }, 
+        {
+            "date": "2009-12-18 00:28:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/mal.chromium/", 
+            "email": "/u/mal.chromium/"
+        }, 
+        {
+            "date": "2009-12-18 17:24:57", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/mal.chromium/", 
+            "email": "/u/mal.chromium/"
+        }
+    ], 
+    "id": "18449", 
+    "project": "Chrome", 
+    "original_link": "http://code.google.com/p/chromium/issues/detail?id=18449"
+}

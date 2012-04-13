@@ -1,0 +1,783 @@
+{
+    "contributors": [
+        [
+            "/u/alexgartrell/", 
+            "lexrank"
+        ], 
+        [
+            "/u/skrul@chromium.org/", 
+            "email"
+        ], 
+        [
+            "/u/chron@google.com/", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Sync network integration test harness", 
+    "comments": [
+        {
+            "date": "2010-02-11 11:44:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "For sync, we currently have an in browser test harness, but it exercises a  full integration test requiring a live server. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Corner cases in a full  integration test are hard to mock out.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "What we want in addition is a nearly full integration test, but with the  network layer mocked out. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Sync uses the http bridge for all the communication  it does, so it seems like a pretty good place to mock things out. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We can then  expect certain requests coming from the syncer, and expect certain responses  and network behaviors.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "In particular, this will make it easier to test sync authentication,  notifications, and throttling at the sync-browser integration level. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We'll be  able to test integration expectations without a live server.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/chron@chromium.org/", 
+            "email": "/u/chron@chromium.org/"
+        }, 
+        {
+            "date": "2010-02-11 11:47:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/chron@chromium.org/", 
+            "email": "/u/chron@chromium.org/"
+        }, 
+        {
+            "date": "2010-02-11 11:48:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/chron@chromium.org/", 
+            "email": "/u/chron@chromium.org/"
+        }, 
+        {
+            "date": "2010-02-11 15:39:51", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/chron@chromium.org/", 
+            "email": "/u/chron@chromium.org/"
+        }, 
+        {
+            "date": "2010-02-16 13:44:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "AuthWatcher::RenewAuthToken could benefit from this.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/chron@chromium.org/", 
+            "email": "/u/chron@chromium.org/"
+        }, 
+        {
+            "date": "2010-02-16 13:55:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/chron@chromium.org/", 
+            "email": "/u/chron@chromium.org/"
+        }, 
+        {
+            "date": "2010-02-16 13:59:56", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/mark@chromium.org/", 
+            "email": "/u/mark@chromium.org/"
+        }, 
+        {
+            "date": "2010-02-16 17:12:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/laforge@chromium.org/", 
+            "email": "/u/laforge@chromium.org/"
+        }, 
+        {
+            "date": "2010-02-28 15:59:33", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Alright, so I've been messing with this and I propose the following.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Brief: Create our own \"HttpPostProviderFactory\" that uses scripted interactions  instead of hitting the network to mock out all of the network traffic.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "More specifically\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Extend HttpPostProviderFactory to MockHttpPostProviderFactory\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Extend HttpPostProviderInterface to MockHttpPostProvider\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Extend ProfileSyncServiceTestHarness into a MockNetworkProfileSyncServiceTestHarness\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Add interface\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "MockPostExchange\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Add methods\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "SyncBackendHost::InitializeWithMockNetwork(..., HttpPostProviderFactory* \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http_bridge_factory, HttpPostProviderFactory* auth_http_bridge_factory);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ProfileSyncService::InitializeBackendWithMockNetwork(..., HttpPostProviderFactory* \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http_bridge_factory, HttpPostProviderFactory* auth_http_bridge_factory);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "ProfileSyncService::EnableForUserWithMockNetwork(..., HttpPostProviderFactory* \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http_bridge_factory, HttpPostProviderFactory* auth_http_bridge_factory);\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Because EnableForUser calls InitializeBackend calls Initialize which currently \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "creates two new HttpPostProviderFactories.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The new test harness will override SetupSync and add methods AddAuthExchange and  AddBridgeExchange.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Both AddAuthExchange and AddBridgeExchange will take MockPostExchanges.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "MockPostExchange will be an interface with methods describing the expected url,  payload, etc. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(whatever else is deemed to be necessary) and the resulting response  (headers, content, etc.). ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The order of these exchanges is given implicitly by the  orde rin which AddAuthExchange is called on the exchanges.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Why interface? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Because that allows us to write classes that implement  MockPostExchange and can give us a more specific failed assertion than \"the sequence  of bytes was wrong\". ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Also, it moves the logic away so that we're not married to the  sync stuff with the interface.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/alexgartrell/", 
+            "email": "/u/alexgartrell/"
+        }, 
+        {
+            "date": "2010-03-01 14:26:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Sounds good. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I might call it something other than exchange, but I think this concept  works fine.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/chron@google.com/", 
+            "email": "/u/chron@google.com/"
+        }, 
+        {
+            "date": "2010-03-01 14:55:30", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hey alex -- I'd like to make a few suggestions here, even though I am not very familiar with  the code :)  It seems like the main goal here is to be able to inject a mock  HttpPostProviderFactory into the system. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Currently, the SyncBackendHost has a \"new \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "HttpBridgeFactory(...)\" in there that needs to be plumbed out.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "May I suggest adding a ProfileSyncFactory::CreateHttpPostProviderFactory (yay a factory  factory!) and add a ProfileSyncFactory* parameter to the SyncBackendHost ctor. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " And you can  pass the factory_ pointer in when the SyncBackendHost is created in  ProfileSyncService::StartUp.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This way you can avoid adding testing methods to production classes, which is discouraged.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Additionally, it is preferred to use the gmock library (http://code.google.com/p/gmock/) rather  than creating custom mock classes. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " As a start, here are mock versions of the factory and the  HttpPostProviderInterface:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "namespace sync_api {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "class HttpPostProviderFactoryMock : public HttpPostProviderFactory {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " public:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  MOCK_METHOD0(Create,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      HttpPostProviderInterface*());\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  MOCK_METHOD1(Destroy,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      void(HttpPostProviderInterface* http));\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "};\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}  // namespace sync_api\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "namespace sync_api {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "class HttpPostProviderInterfaceMock : public HttpPostProviderInterface {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " public:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  MOCK_METHOD1(SetUserAgent,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      void(const char* user_agent));\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  MOCK_METHOD1(SetExtraRequestHeaders,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      void(const char * headers));\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  MOCK_METHOD2(SetURL,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      void(const char* url, int port));\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  MOCK_METHOD3(SetPostPayload,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      void(const char* content_type, int content_length, const char* content));\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  MOCK_METHOD2(MakeSynchronousPost,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      bool(int* os_error_code, int* response_code));\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  MOCK_CONST_METHOD0(GetResponseContentLength,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      int());\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  MOCK_CONST_METHOD0(GetResponseContent,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      const char*());\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  MOCK_CONST_METHOD1(GetResponseHeaderValue,\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "      const std::string(const std::string& name));\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "};\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}  // namespace sync_api\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Please let me know if you have any questions about using gmock.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/skrul@chromium.org/", 
+            "email": "/u/skrul@chromium.org/"
+        }, 
+        {
+            "date": "2010-03-01 14:56:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Oops, I had the wrong link to gmock. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " The correct one is:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://code.google.com/p/googlemock/\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/skrul@chromium.org/", 
+            "email": "/u/skrul@chromium.org/"
+        }, 
+        {
+            "date": "2010-03-16 20:35:31", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hey Alex, were you still working on this? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Any roadblocks or updates?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/tim@chromium.org/", 
+            "email": "/u/tim@chromium.org/"
+        }, 
+        {
+            "date": "2010-03-16 21:37:28", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Yeah sorry, Spring break was last week and the kind of messed everything up.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm pretty close to done. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I'll have patches in the next day or so.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/alexgartrell/", 
+            "email": "/u/alexgartrell/"
+        }, 
+        {
+            "date": "2010-03-18 02:15:00", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Before I completely code myself into a corner, are there any opinions on where I should  put the examples? ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " The code style fits with the stuff in the live sync tests, but  obviously it's not exactly the same. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Just figured I would ask before I code myself  into a corner.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Thanks\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/alexgartrell/", 
+            "email": "/u/alexgartrell/"
+        }, 
+        {
+            "date": "2010-03-21 23:27:14", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The ugly truth is available: http://codereview.chromium.org/1158002\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The example shows how you might use it to blindly jump through authentication if you  don't care, but doesn't get into sync stuff. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " I wanted your opinions before I dove  into implementing every possible exchange ever in a bad way.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Also, putting the bridges into the profile_sync_service class is what I'm least happy  with, but in setting up everything, you have to somehow inject setting those bridges  in the backend host. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " It would have involved a lot more hacking, so I thought I'd try  a bandaid before major surgery (alright, stitches :))\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/alexgartrell/", 
+            "email": "/u/alexgartrell/"
+        }, 
+        {
+            "date": "2010-03-24 15:05:42", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/tim@chromium.org/", 
+            "email": "/u/tim@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-05 15:43:17", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/nick@chromium.org/", 
+            "email": "/u/nick@chromium.org/"
+        }
+    ], 
+    "id": "35429", 
+    "project": "Chrome", 
+    "original_link": "http://code.google.com/p/chromium/issues/detail?id=35429"
+}

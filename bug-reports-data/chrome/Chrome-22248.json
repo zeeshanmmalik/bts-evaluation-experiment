@@ -1,0 +1,1936 @@
+{
+    "contributors": [
+        [
+            "/u/iposva@chromium.org/", 
+            "email"
+        ], 
+        [
+            "/u/bauerb@chromium.org/", 
+            "lexrank"
+        ], 
+        [
+            "/u/ager@chromium.org/", 
+            "email"
+        ], 
+        [
+            "/u/jhawkins@chromium.org/", 
+            "lexrank"
+        ], 
+        [
+            "/u/maruelatchromium/", 
+            "email"
+        ]
+    ], 
+    "title": "ExtensionAPIClientTest.GetLastFocusedWindow and .GetCurrentWindow are crashing flakily", 
+    "comments": [
+        {
+            "date": "2009-09-18 07:49:54", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://build.chromium.org/buildbot/waterfall/builders/Vista%20Tests%20(dbg)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(1)/builds/12548/steps/unit_tests/logs/stdio\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[----------] 30 tests from ExtensionAPIClientTest\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ RUN      ] ExtensionAPIClientTest.CallbackDispatching\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[       OK ] ExtensionAPIClientTest.CallbackDispatching (389 ms)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ RUN      ] ExtensionAPIClientTest.GetWindow\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[       OK ] ExtensionAPIClientTest.GetWindow (265 ms)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ RUN      ] ExtensionAPIClientTest.GetCurentWindow\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[       OK ] ExtensionAPIClientTest.GetCurentWindow (245 ms)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "[ RUN      ] ExtensionAPIClientTest.GetLastFocusedWindow\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "==== Stack trace ============================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Security context: 073EF735 <JS Object>#0#\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    1: bind(this=073EF7B1 <JS Global Object>#1#,obj=0A872001 <an \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Object>>#2#,func=0BADDE91 <JS Function>#3#)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    2: /* anonymous */(this=073EF7B1 <JS Global \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Object>#1#,functionDef=0A86EC65 <an Object>>#4#)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    3: arguments adaptor frame: 2->1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    4: forEach(this=073EF7B1 <JS Global Object>#1#,a=0A86EB15 <JS \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "array[7]>#5#,f=0BADDDF5 <JS Function>#6#)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    5: /* anonymous */(this=073EF7B1 <JS Global Object>#1#,apiDef=0A86E9F5 \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<an Object>>#7#)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    6: arguments adaptor frame: 2->1\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "    7: forEach(this=073EF7B1 <JS Global Object>#1#,a=0A86E575 <JS \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "array[9]>#8#,f=0BADDC69 <JS Function>#9#)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    8: /* anonymous */(this=073EF7B1 <JS Global \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Object>#1#,extensionId=0A84CEBD <String[0]: >)\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   10: dispatch(this=0A8323A1 <JS Object>#10#,varargs=0A84CEBD <String[0]: \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": ">)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   11: /* anonymous */(this=0A84CF09 <an Object>>#11#,extensionId=0A84CEBD \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<String[0]: >)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "==== Details ================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "[1]: bind(this=073EF7B1 <JS Global Object>#1#,obj=0A872001 <an \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Object>>#2#,func=0BADDE91 <JS Function>#3#) {\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // heap-allocated locals\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var obj = 0A872001 <an Object>>#2#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var func = 0BADDE91 <JS Function>#3#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  // expression stack (top to bottom)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [01] : 0A872061 <FixedArray[7]>#12#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [00] : 073C2289 <JS Function>#13#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--------- s o u r c e   c o d e ---------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function bind(obj, func) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   return function() {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     return \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "func.apply(obj, arguments);? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   };? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "[2]: /* anonymous */(this=073EF7B1 <JS Global \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Object>#1#,functionDef=0A86EC65 <an Object>>#4#) {\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // stack-allocated locals\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var apiFunction = 0A872001 <an Object>>#2#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  // expression stack (top to bottom)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [03] : 073CA851 <JS Function bind>#14#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [02] : 0627E179 <String[14]: getLastFocused>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [01] : 0A871BCD <an Object>>#15#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--------- s o u r c e   c o d e ---------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function (functionDef) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         // Module functions may have been  defined earlier by hand. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Don't? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         // clobber them.? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         if  (module[functionDef.name])? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "           return;?? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         var apiFunction = \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "{};? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "         apiFunction.definition = functionDef;? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "apiFunction.name = apiDef.names...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[3]: arguments adaptor frame: 2->1 {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // actual arguments\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [00] : 0A86EC65 <an Object>>#4#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  [01] : 2  // not passed to callee\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "[4]: forEach(this=073EF7B1 <JS Global Object>#1#,a=0A86EB15 <JS \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "array[7]>#5#,f=0BADDDF5 <JS Function>#6#) {\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // stack-allocated locals\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var i = 2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  // expression stack (top to bottom)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [01] : 0BADDDF5 <JS Function>#6#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--------- s o u r c e   c o d e ---------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function forEach(a, f) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   for (var i = 0; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i < a.length; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i++) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "f(a[i], i);? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   }? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "[5]: /* anonymous */(this=073EF7B1 <JS Global Object>#1#,apiDef=0A86E9F5 \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<an Object>>#7#) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // heap-allocated locals\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var apiDef = 0A86E9F5 <an Object>>#7#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var module = 0A871BCD <an Object>>#15#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "  // expression stack (top to bottom)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [00] : 073CA835 <JS Function forEach>#16#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--------- s o u r c e   c o d e ---------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function (apiDef) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     chrome[apiDef.namespace] = \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "chrome[apiDef.namespace] || {};? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     var module = \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "chrome[apiDef.namespace];?? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "     // Add types to global validationTypes? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "if (apiDef.types) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "       forEach(apiDef.types, function(t) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "chromeHidden.validationTypes.push(t);? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "       });? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  ...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(...)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/maruelatchromium/", 
+            "email": "/u/maruelatchromium/"
+        }, 
+        {
+            "date": "2009-09-18 07:52:05", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following revision refers to this bug:\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    http://src.chromium.org/viewvc/chrome?view=rev&revision=26565 \n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------------------------------------------ r26565 | maruel@chromium.org | 2009-09-18 07:52:01 -0700 (Fri, 18 Sep 2009) | 6 lines\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed paths:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/renderer/extensions/extension_api_client_unittest.cc?r1=26565&r2=26564\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ExtensionAPIClientTest.GetLastFocusedWindow is flaky\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TBR=rafaelw\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "TEST=ExtensionAPIClientTest.GetLastFocusedWindow in unit_tests\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BUG=22248\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/207029\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-07 13:35:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Going through P1 bugs... ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "is this something you're working on Rafael? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Is it a P1 to have  this test disabled (eg, do we have other tests covering this API)?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/mal.chromium/", 
+            "email": "/u/mal.chromium/"
+        }, 
+        {
+            "date": "2009-10-22 17:10:49", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Mads, can you make sense of the stack trace in comment 0?\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/iposva@chromium.org/", 
+            "email": "/u/iposva@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-22 17:13:46", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "not a p1.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UhReQFNYBhNNWwF5/", 
+            "email": "/u/@UhReQFNYBhNNWwF5/"
+        }, 
+        {
+            "date": "2009-10-23 01:02:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Ivan, in isolation I can't make sense of the stack trace. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " bind uses apply with  arguments for which we have an optimization in V8, but without more information I have  no idea if this is related to that.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/ager@chromium.org/", 
+            "email": "/u/ager@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-28 15:19:13", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UhReQFNYBhNNWwF5/", 
+            "email": "/u/@UhReQFNYBhNNWwF5/"
+        }, 
+        {
+            "date": "2009-11-04 13:13:16", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I don't think anyone else is going to pick this up if it's unassigned, so back to the  author of the test.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/mal.chromium/", 
+            "email": "/u/mal.chromium/"
+        }, 
+        {
+            "date": "2009-11-16 09:12:32", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/aa@chromium.org/", 
+            "email": "/u/aa@chromium.org/"
+        }, 
+        {
+            "date": "2009-11-18 21:20:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/aa@chromium.org/", 
+            "email": "/u/aa@chromium.org/"
+        }, 
+        {
+            "date": "2009-12-18 00:16:02", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/mal.chromium/", 
+            "email": "/u/mal.chromium/"
+        }, 
+        {
+            "date": "2010-02-08 16:27:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "So is this a crash in the test or a JS exception? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " If it's the latter, we should re- enable as FLAKY_ and see if we can still repro. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " If the former, please add the Crash  label and see if you can repro locally.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/erikkay@chromium.org/", 
+            "email": "/u/erikkay@chromium.org/"
+        }, 
+        {
+            "date": "2010-03-08 16:28:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/aa@chromium.org/", 
+            "email": "/u/aa@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-11 11:42:27", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following revision refers to this bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    http://src.chromium.org/viewvc/chrome?view=rev&revision=46945 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------------------------------------------ r46945 | jhawkins@chromium.org | 2010-05-11 11:41:38 -0700 (Tue, 11 May 2010) | 6 lines\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed paths:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/renderer/extensions/extension_api_client_unittest.cc?r1=46945&r2=46944\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "TTF: Mark ExtensionAPIClientTest.GetLastFocusedWindow as flaky instead of disabling it.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BUG=22248\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TEST=none\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/2016008\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-11 16:58:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Just crashed the Vista Tests (dbg)(1) bot:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "http://build.chromium.org/buildbot/waterfall/builders/Vista%20Tests%20(dbg)(1)/builds\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "/23461/steps/unit_tests/logs/stdio\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[ RUN      ] ExtensionAPIClientTest.FLAKY_GetLastFocusedWindow\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "==== Stack trace ============================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Security context: 0BAD7411 <JS Object>#0#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    1: ParseJSONUnfiltered [native json.js:32] (this=0BAD03B5 <JS \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Object>#1#,a=0A03EB75 <Very long string[104457]>#2#)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    2: parse [native json.js:62] (this=0BAD39FD <a JSON>>#3#,a=0A03EB75 <Very long \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "string[104457]>#2#,b=07C1012D <undefined>)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    3: arguments adaptor frame: 1->2\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    4: /* anonymous */ [chrome/ExtensionProcessBindings:329] (this=0BAD74A5 <JS \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Global Object>#4#,extensionId=0A03DB71 <String[0]: >)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    6: dispatch [chrome/EventBindings:132] (this=0A015101 <JS \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Object>#5#,varargs=0A03DB71 <String[0]: >)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    7: /* anonymous */ [chrome/EventBindings:179] (this=0A03DBC9 <an \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Object>>#6#,extensionId=0A03DB71 <String[0]: >)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "==== Details ================================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[1]: ParseJSONUnfiltered [native json.js:32] (this=0BAD03B5 <JS Object>#1#,a=0A03EB75 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "<Very long string[104457]>#2#) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // stack-allocated locals\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var b = 0A03EB75 <Very long string[104457]>#2#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var d = 07C1012D <undefined>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // expression stack (top to bottom)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [03] : 07C10179 <true>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [02] : 0A03EB75 <Very long string[104457]>#2#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--------- s o u r c e   c o d e ---------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function ParseJSONUnfiltered(a){?var b=$String(a);?var d=%CompileString(a,true);?\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "return d();?}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[2]: parse [native json.js:62] (this=0BAD39FD <a JSON>>#3#,a=0A03EB75 <Very long \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "string[104457]>#2#,b=07C1012D <undefined>) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // stack-allocated locals\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var d = 07C1012D <undefined>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--------- s o u r c e   c o d e ---------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function parse(a,b){?var d=ParseJSONUnfiltered(a);?if((%_IsFunction(b))){?return \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Revive({'':d},'',b);?}else{?return d;?}?}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[3]: arguments adaptor frame: 1->2 {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // actual arguments\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [00] : 0A03EB75 <Very long string[104457]>#2#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[4]: /* anonymous */ [chrome/ExtensionProcessBindings:329] (this=0BAD74A5 <JS Global \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Object>#4#,extensionId=0A03DB71 <String[0]: >) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // stack-allocated locals\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var canvas = 07C1012D <undefined>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var apiDefinitions = 07C1012D <undefined>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // heap-allocated locals\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var apiFunctions = 0A03EB69 <an Object>>#7#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var setIconCommon = 0A03E139 <JS Function setIconCommon>#8#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--------- s o u r c e   c o d e ---------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function (extensionId) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   chrome.initExtension(extensionId, false);?? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   // \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "|apiFunctions| is a hash of name -> object that stores the? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   // name & definition  of the apiFunction. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Custom handling of api functions? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "   // is implemented by adding  a \"handleRequest\" function to the object.? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   var apiFunction...\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[6]: dispatch [chrome/EventBindings:132] (this=0A015101 <JS \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Object>#5#,varargs=0A03DB71 <String[0]: >) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // stack-allocated locals\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var .catch-var = 07C1012D <undefined>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // heap-allocated locals\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var .arguments = 0A03DC05 <an Arguments>>#9#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var validationErrors = 07C1012D <undefined>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var i = 0\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var args = 0A03E099 <JS array[1]>#10#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  var arguments = 0A03DC05 <an Arguments>>#9#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  // expression stack (top to bottom)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [07] : 0A03E099 <JS array[1]>#10#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [06] : 07C10101 <null>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "  [05] : 0A020A99 <JS Function>#11#\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--------- s o u r c e   c o d e ---------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function (varargs) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   var args = Array.prototype.slice.call(arguments);? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   if \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(this.validate_) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     var validationErrors = this.validate_(args);? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     if \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(validationErrors) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "       return validationErrors;? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     }? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   }? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   for (var i = \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "0; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i < this.listeners_.length; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "i++) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "     try {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "       this....\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "[7]: /* anonymous */ [chrome/EventBindings:179] (this=0A03DBC9 <an \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Object>>#6#,extensionId=0A03DB71 <String[0]: >) {\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "--------- s o u r c e   c o d e ---------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "function (extensionId) {? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   chromeHidden.onLoad.dispatch(extensionId);? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " }\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "-----------------------------------------\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "}\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "==== Key         ============================================\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " #0# 0BAD7411: 0BAD7411 <JS Object>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " #1# 0BAD03B5: 0BAD03B5 <JS Object>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " #2# 0A03EB75: 0A03EB75 <Very long string[104457]>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " #3# 0BAD39FD: 0BAD39FD <a JSON>>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " #4# 0BAD74A5: 0BAD74A5 <JS Global Object>\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " #5# 0A015101: copying dashboard file gtest-results/unit_tests\\results.json to  \\\\chrome-web.jail.google.com\\chrome-bot\\www\\gtest_results\\chromium-dbg-vista-\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "tests\\unit_tests\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "saving results to \\\\chrome-web.jail.google.com\\chrome-bot\\www\\gtest_results\\chromium- dbg-vista-tests\\unit_tests\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "program finished with exit code 3\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Disabling again for Windows.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/jhawkins@chromium.org/", 
+            "email": "/u/jhawkins@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-11 17:04:22", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following revision refers to this bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    http://src.chromium.org/viewvc/chrome?view=rev&revision=46989 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------------------------------------------ r46989 | jhawkins@chromium.org | 2010-05-11 17:03:19 -0700 (Tue, 11 May 2010) | 8 lines\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed paths:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/renderer/extensions/extension_api_client_unittest.cc?r1=46989&r2=46988\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Bummer: Re-disabling ExtensionAPIClientTest.GetLastFocusedWindow again because\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "the JS exception causes the test to crash.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TBR=mpcomplete\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BUG=22248\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TEST=none\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/1993012\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-12 02:43:37", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "ExtensionAPIClientTest.GetCurrentWindow also started crashing with the same message.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bauerb@chromium.org/", 
+            "email": "/u/bauerb@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-12 02:49:19", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bauerb@chromium.org/", 
+            "email": "/u/bauerb@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-12 02:50:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following revision refers to this bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    http://src.chromium.org/viewvc/chrome?view=rev&revision=47015 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------------------------------------------ r47015 | bauerb@chromium.org | 2010-05-12 02:49:45 -0700 (Wed, 12 May 2010) | 6 lines\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed paths:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/renderer/extensions/extension_api_client_unittest.cc?r1=47015&r2=47014\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Disable ExtensionAPIClientTest.GetCurrentWindow, it's crashy.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "TEST=Vista (dbg) not crashing\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BUG=22248\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/2018008\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-12 14:15:53", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "The following revision refers to this bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    http://src.chromium.org/viewvc/chrome?view=rev&revision=47072 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------------------------------------------ r47072 | jhawkins@chromium.org | 2010-05-12 14:15:29 -0700 (Wed, 12 May 2010) | 7 lines\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed paths:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/renderer/extensions/extension_api_client_unittest.cc?r1=47072&r2=47071\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Disable ExtensionAPIClientTest.GetAllWindows as it flakily crashes.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TBR=mpcomplete\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BUG=22248\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TEST=none\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/1999007\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-12 14:22:47", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/iposva@chromium.org/", 
+            "email": "/u/iposva@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-13 11:11:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Issue 44086  has been merged into this issue.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/mpcomplete@chromium.org/", 
+            "email": "/u/mpcomplete@chromium.org/"
+        }, 
+        {
+            "date": "2010-05-13 11:13:07", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "This is happening on more test cases in that suite (see  issue 44086  ). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I think the  whole suite is susceptible to this crash. ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "We might have to just disable the whole thing  if we can't figure out the crasher.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/mpcomplete@chromium.org/", 
+            "email": "/u/mpcomplete@chromium.org/"
+        }
+    ], 
+    "id": "22248", 
+    "project": "Chrome", 
+    "original_link": "http://code.google.com/p/chromium/issues/detail?id=22248"
+}

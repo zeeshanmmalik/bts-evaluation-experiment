@@ -1,0 +1,441 @@
+{
+    "contributors": [
+        [
+            "/u/erg@chromium.org/", 
+            "lexrank"
+        ], 
+        [
+            "/u/genericfu/", 
+            "email"
+        ], 
+        [
+            "/u/glen@chromium.org/", 
+            "lexrank"
+        ]
+    ], 
+    "title": "Bookmark bar doesn't draw correctly in the Ratchet and Clank theme", 
+    "comments": [
+        {
+            "date": "2009-10-29 14:16:11", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "1) Apply the Ratchet and Clank theme.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "2) Always Show Bookmark Bar\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "3) Notice that there is several pixels at the bottom of the bookmark bar  that are white.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "4) Hit Ctrl+F.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "5) Notice that the find bar doesn't have a themed background.\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "Conjecture: We do not appear to be repeating the background image  vertically.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/erg@chromium.org/", 
+            "email": "/u/erg@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-29 14:21:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Are we supposed to repeat it vertically? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": " Won't that cause the light part of the  gradient to be next to the dark part?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/tony.chromium/", 
+            "email": "/u/tony.chromium/"
+        }, 
+        {
+            "date": "2009-10-29 14:24:24", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'm sorry, when I said repeated vertically, I meant mirroring at the bottom.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/erg@chromium.org/", 
+            "email": "/u/erg@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-29 14:30:48", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I have noticed this before. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It's even more noticeable when you use the findbar. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "I  thought it was a bug in the theme because when I checked, windows had the same  problem, and anyway it seems the theme ought to be responsible for providing us a tall  enough image.\n", 
+                    "is_in_email_summary": true
+                }
+            ], 
+            "name": "/u/@UBBSQ1JWAhBCXwh8Fw%3D%3D/", 
+            "email": "/u/@UBBSQ1JWAhBCXwh8Fw%3D%3D/"
+        }, 
+        {
+            "date": "2009-10-29 14:36:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Hmmm, well maybe the theme is just bad then? ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It looks broken on Mac, too.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/erg@chromium.org/", 
+            "email": "/u/erg@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-29 16:30:18", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Glen: See screenshot. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": " Is this the expected behavior if the theme doesn't provide a  tall enough toolbar background image?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/tony.chromium/", 
+            "email": "/u/tony.chromium/"
+        }, 
+        {
+            "date": "2009-10-29 16:36:59", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "and yes, it repros on windows (latest dev channel)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UBBSQ1JWAhBCXwh8Fw%3D%3D/", 
+            "email": "/u/@UBBSQ1JWAhBCXwh8Fw%3D%3D/"
+        }, 
+        {
+            "date": "2009-10-29 17:38:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "There's a color, BrowserThemeProvider::kColorToolbar that's meant to be drawn behind  any toolbar images for the case where a transparent or short image is supplied (and it  provides the color for the one pixel content-edges). ", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The toolbar image is not meant to  be repeated vertically.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "It's probable that this color is not getting drawn in the bookmark and find bar.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/glen@chromium.org/", 
+            "email": "/u/glen@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-30 10:02:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I see. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I'll try fixing this on Linux.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/erg@chromium.org/", 
+            "email": "/u/erg@chromium.org/"
+        }, 
+        {
+            "date": "2009-10-30 11:27:15", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "filed  issue 26334  for windows\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UBBSQ1JWAhBCXwh8Fw%3D%3D/", 
+            "email": "/u/@UBBSQ1JWAhBCXwh8Fw%3D%3D/"
+        }, 
+        {
+            "date": "2009-11-23 15:53:35", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "fixed?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UBBSQ1JWAhBCXwh8Fw%3D%3D/", 
+            "email": "/u/@UBBSQ1JWAhBCXwh8Fw%3D%3D/"
+        }, 
+        {
+            "date": "2009-11-23 16:03:55", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "I didn't touch this. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "It looks like the theme was fixed upstream; ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": true, 
+                    "text": "they're pushing out a  version of the R&C theme with a toolbar background image that's large enough to fill  the top of the tab to the bottom of the find bar.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "AFAICT, this hasn't been fixed in the general case on any platform. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "If we're just  going to say that upstream peoples should make larger images, I guess we can close  this bug?\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/erg@chromium.org/", 
+            "email": "/u/erg@chromium.org/"
+        }, 
+        {
+            "date": "2009-12-18 13:57:43", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Updating labels:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Area-UI-Features replaces Area-BrowserUI\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/@UxhWQFdVBxFMWQd5/", 
+            "email": "/u/@UxhWQFdVBxFMWQd5/"
+        }, 
+        {
+            "date": "2010-01-07 00:59:36", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "@erg: to confirm, yes, the theme was fixed by enlarging the tb background image. ", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "but it  would be better to fix the general case.\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/genericfu/", 
+            "email": "/u/genericfu/"
+        }, 
+        {
+            "date": "2010-01-08 10:54:29", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/laforge@chromium.org/", 
+            "email": "/u/laforge@chromium.org/"
+        }, 
+        {
+            "date": "2010-01-14 16:21:25", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(No comment was entered for this change.)\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/erg@chromium.org/", 
+            "email": "/u/erg@chromium.org/"
+        }, 
+        {
+            "date": "2010-01-15 13:45:34", 
+            "sentences": [
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "The following revision refers to this bug:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "    http://src.chromium.org/viewvc/chrome?view=rev&revision=36313 \n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "------------------------------------------------------------------------ r36313 | erg@google.com | 2010-01-14 16:19:56 -0800 (Thu, 14 Jan 2010) | 8 lines\n", 
+                    "is_in_email_summary": true
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Changed paths:\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/gtk/blocked_popup_container_view_gtk.cc?r1=36313&r2=36312\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/gtk/bookmark_bar_gtk.cc?r1=36313&r2=36312\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/gtk/browser_toolbar_gtk.cc?r1=36313&r2=36312\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/gtk/browser_window_gtk.cc?r1=36313&r2=36312\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/gtk/find_bar_gtk.cc?r1=36313&r2=36312\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/gtk/infobar_gtk.cc?r1=36313&r2=36312\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/browser/gtk/location_bar_view_gtk.cc?r1=36313&r2=36312\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/gtk_util.cc?r1=36313&r2=36312\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "   M http://src.chromium.org/viewvc/chrome/trunk/src/chrome/common/gtk_util.h?r1=36313&r2=36312\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "GTK: Draw background color on the toolbar to deal with small theme bitmaps.\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "(Plus some gdk_cairo_rectangle() cleanups)\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "BUG=26255\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "TEST=none\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "\n", 
+                    "is_in_email_summary": false
+                }, 
+                {
+                    "is_in_lex_summary": false, 
+                    "text": "Review URL: http://codereview.chromium.org/542084\n", 
+                    "is_in_email_summary": false
+                }
+            ], 
+            "name": "/u/bugdroid1@chromium.org/", 
+            "email": "/u/bugdroid1@chromium.org/"
+        }
+    ], 
+    "id": "26255", 
+    "project": "Chrome", 
+    "original_link": "http://code.google.com/p/chromium/issues/detail?id=26255"
+}
