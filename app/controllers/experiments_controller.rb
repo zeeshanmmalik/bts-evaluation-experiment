@@ -85,9 +85,9 @@ class ExperimentsController < ApplicationController
 
   def result
     @experiment = Experiment.find(params[:id])
-    @total_inivitations = @experiment.participants.where(:is_email_sent => true).count
-    @lex_inivitations = @experiment.participants.where(:is_email_sent => true, :summary_assigned => 'lexrank').count
-    @email_inivitations = @experiment.participants.where(:is_email_sent => true, :summary_assigned => 'email').count
+    @total_invitations = @experiment.participants.where(:is_email_sent => true).count
+    @lex_invitations = @experiment.participants.where(:is_email_sent => true, :summary_assigned => 'lexrank').count
+    @email_invitations = @experiment.participants.where(:is_email_sent => true, :summary_assigned => 'email').count
     @total_accessed = @experiment.participants.where("eval_started_at IS NOT NULL and eval_started_at != ''").count
     @lex_accessed = @experiment.participants.where("summary_assigned = 'lexrank' and eval_started_at IS NOT NULL and eval_started_at != ''").count
     @email_accessed = @experiment.participants.where("summary_assigned = 'email' and eval_started_at IS NOT NULL and eval_started_at != ''").count
@@ -226,7 +226,6 @@ class ExperimentsController < ApplicationController
     }
     submissions.each do |p|
       r = p.response
-      puts "\n\n****************************\n#{r.sum_help_bug_similar}\n******************************************\n\n"
       result[:q4a]["r#{r.sum_help_bug_similar}".to_sym] += 1 unless r.sum_help_bug_similar.blank?
       result[:q4b]["r#{r.sum_help_bug_workaround}".to_sym] += 1 unless r.sum_help_bug_workaround.blank?
       result[:q4c]["r#{r.sum_help_bug_status}".to_sym] += 1 unless r.sum_help_bug_status.blank?
