@@ -4,7 +4,7 @@ class BugReportsController < ApplicationController
   # GET /bug_reports.json
   def index
     if params[:exp_id] and Experiment.exists?(params[:exp_id])
-      @bug_reports = Experiment.find(params[:exp_id]).bug_reports
+      @bug_reports = Experiment.find(params[:exp_id]).bug_reports.order('count_comments ASC')
     else
       @bug_reports = BugReport.all
     end
