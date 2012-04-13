@@ -85,12 +85,19 @@ class ExperimentsController < ApplicationController
 
   def result
     @experiment = Experiment.find(params[:id])
-    @total_submissions = @experiment.participants.where('eval_submitted_at IS NOT NULL and eval_submitted_at != ""')
-    @lex_submissions = @total_submissions.where(:summary_assigned => 'lexrank')
-    @email_submissions = @total_submissions.where(:summary_assigned => 'email')
+    @total_inivitations = @experiment.participants.where(:is_email_sent => true).count
+    @lex_inivitations = @experiment.participants.where(:is_email_sent => true, :summary_assigned => 'lexrank').count
+    @email_inivitations = @experiment.participants.where(:is_email_sent => true, :summary_assigned => 'email').count
+    @total_accessed = @experiment.participants.where("eval_started_at IS NOT NULL and eval_started_at != ''").count
+    @lex_accessed = @experiment.participants.where("summary_assigned = 'lexrank' and eval_started_at IS NOT NULL and eval_started_at != ''").count
+    @email_accessed = @experiment.participants.where("summary_assigned = 'email' and eval_started_at IS NOT NULL and eval_started_at != ''").count
+    @all_submissions = @experiment.participants.where("eval_submitted_at IS NOT NULL and eval_submitted_at != ''")
+    @lex_submissions = @all_submissions.where(:summary_assigned => 'lexrank')
+    @email_submissions = @all_submissions.where(:summary_assigned => 'email')
 
-    @lex = populate_result(@lex_submissions, 'lex')
-    @email = populate_result(@email_submissions, 'email')
+    @q1_lex = populate_result(@lex_submissions, 'lex')
+    @q1_email = populate_result(@email_submissions, 'email')
+    @q4 = q4_result(@all_submissions)
 
     respond_to do |format|
       format.html #result.html.haml
@@ -204,6 +211,29 @@ class ExperimentsController < ApplicationController
       result[:redundancy]["r#{p.response.send('redundancy_'+str+'_sum')}".to_sym] += 1
       result[:unnecessary_info]["r#{p.response.send('unnecessary_info_'+str+'_sum')}".to_sym] += 1
       result[:coherence]["r#{p.response.send('coherence_'+str+'_sum')}".to_sym] += 1
+    end
+    return result
+  end
+
+  def q4_result submissions
+    result = {:q4a => {:r0 => 0, :r1 => 0, :r2 => 0, :r3 => 0, :r4 => 0},
+      :q4b => {:r0 => 0, :r1 => 0, :r2 => 0, :r3 => 0, :r4 => 0},
+      :q4c => {:r0 => 0, :r1 => 0, :r2 => 0, :r3 => 0, :r4 => 0},
+      :q4d => {:r0 => 0, :r1 => 0, :r2 => 0, :r3 => 0, :r4 => 0},
+      :q4e => {:r0 => 0, :r1 => 0, :r2 => 0, :r3 => 0, :r4 => 0},
+      :q4f => {:r0 => 0, :r1 => 0, :r2 => 0, :r3 => 0, :r4 => 0},
+      :q4g => {:r0 => 0, :r1 => 0, :r2 => 0, :r3 => 0, :r4 => 0}
+    }
+    submissions.each do |p|
+      r = p.response
+      puts "\n\n****************************\n#{r.sum_help_bug_similar}\n******************************************\n\n"
+      result[:q4a]["r#{r.sum_help_bug_similar}".to_sym] += 1 unless r.sum_help_bug_similar.blank?
+      result[:q4b]["r#{r.sum_help_bug_workaround}".to_sym] += 1 unless r.sum_help_bug_workaround.blank?
+      result[:q4c]["r#{r.sum_help_bug_status}".to_sym] += 1 unless r.sum_help_bug_status.blank?
+      result[:q4d]["r#{r.sum_help_bug_life}".to_sym] += 1 unless r.sum_help_bug_life.blank?
+      result[:q4e]["r#{r.sum_help_proj_cont}".to_sym] += 1 unless r.sum_help_proj_cont.blank?
+      result[:q4f]["r#{r.sum_help_dev}".to_sym] += 1 unless r.sum_help_dev.blank?
+      result[:q4g]["r#{r.sum_help_non_dev}".to_sym] += 1 unless r.sum_help_non_dev.blank?
     end
     return result
   end

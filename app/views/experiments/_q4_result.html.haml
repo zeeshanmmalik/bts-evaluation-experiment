@@ -1,0 +1,53 @@
+%fieldset
+  %legend Q4
+  %p a,b,c,d) how much do you consider bug report summaries could be helpful for each of the following situations?
+  %p e,f,g) how much do you consider bug report summaries could be helpful for each of the following user profiles?
+  - result.each do |key,val|
+    - case key
+    - when :q4a
+      %p a) When looking for a similar or duplicate bug;
+    - when :q4b
+      %p b) When looking for a solution or workaround for a bug;
+    - when :q4c
+      %p c) When trying to understand the status of a bug and its open issues;
+    - when :q4d
+      %p d) When prioritizing a bug, assiging it to a developer, or closing out old bugs;
+    - when :q4e
+      %p e) Users who contribute code to the project with or without commit privileges;
+    - when :q4f
+      %p f) Users who do not contribute code to the project, but have software programming experience;
+    - when :q4g
+      %p g) Users who do not have software programming experience;
+      
+
+    %table{:style => 'width:500px;margin-left:30px;'}
+      %tr
+        %th 0
+        %th 1
+        %th 2
+        %th 3
+        %th 4
+
+      %tr
+        %td= val[:r0]
+        %td= val[:r1]
+        %td= val[:r2]
+        %td= val[:r3]
+        %td= val[:r4]
+    - total_responses = 0.0
+    - total_score = 0.0
+    - val.each do |key,val|
+      - total_responses += val
+      - case key
+      - when :r0
+        - total_score += 0 * val
+      - when :r1
+        - total_score += 1 * val
+      - when :r2
+        - total_score += 2 * val
+      - when :r3
+        - total_score += 3 * val
+      - when :r4
+        - total_score += 4 * val
+    %h4 Total Responses: #{total_responses.round(0)}
+    %h4 Avg: #{(total_score/total_responses).round(2)}
