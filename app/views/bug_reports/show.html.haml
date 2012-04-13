@@ -137,7 +137,7 @@
                       / %legend #{summary_shown.humanize} Summary
                       - @bug_report.comments.order('number ASC').each do |com|
                         .comment
-                          .comment-header.ui-state-default.ui-corner-right.ui-corner-left
+                          .comment-header.ui-state-default.ui-corner-right.ui-corner-left{:style => "#{com.participant.is_selected? ? 'background:yellow;' : ''}"}
                             = com.number
                             \|
                             = com.submitted_at
@@ -147,7 +147,7 @@
                             = com.participant.summary_assigned
                             \|
                             = link_to com.participant.name, rails_admin.edit_path('participant', com.participant)
-                            - if admin_signed_in? and com.participant.is_selected? and not com.participant.is_email_sent?
+                            - if admin_signed_in? and com.participant.is_selected? and not com.participant.is_email_sent? and not com.participant.name.blank?
                               \|
                               = link_to 'Send invitation email', send_invitation_email_participant_path(com.participant), :method => :get, :remote => true, :confirm => 'Are you sure you want to send invitation email to this participant?'
                           .comment-body
