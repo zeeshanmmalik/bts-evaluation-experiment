@@ -5,4 +5,8 @@ class BugReport < ActiveRecord::Base
   has_many :responses, :dependent => :destroy
 
   default_scope :select => "bug_reports.*, (select count(comments.id) from comments where comments.bug_report_id = bug_reports.id) as count_comments"
+
+  def used?
+    participants.where(:is_email_sent => true).count > 0
+  end
 end
