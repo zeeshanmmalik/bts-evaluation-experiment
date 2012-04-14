@@ -85,6 +85,7 @@ class ExperimentsController < ApplicationController
 
   def result
     @experiment = Experiment.find(params[:id])
+    @total_bug_reports = @experiment.bug_reports.map{|b| b.used? ? 1:0}.reduce(:+)
     @total_invitations = @experiment.participants.where(:is_email_sent => true).count
     @lex_invitations = @experiment.participants.where(:is_email_sent => true, :summary_assigned => 'lexrank').count
     @email_invitations = @experiment.participants.where(:is_email_sent => true, :summary_assigned => 'email').count
