@@ -185,18 +185,19 @@ class ExperimentsController < ApplicationController
     submissions.each do |p|
       r = p.response
       rep_part = [exp_title, p.id, p.summary_assigned]
-      csv << rep_part + ['1a', r.send("imp_points_incl_#{str}_sum")]
-      csv << rep_part + ['1b', r.send("redundancy_#{str}_sum")]
-      csv << rep_part + ['1c', r.send("unnecessary_info_#{str}_sum")]
-      csv << rep_part + ['1d', r.send("coherence_#{str}_sum")]
-      csv << rep_part + ['4a', r.sum_help_bug_similar]
-      csv << rep_part + ['4b', r.sum_help_bug_workaround]
-      csv << rep_part + ['4c', r.sum_help_bug_status]
-      csv << rep_part + ['4d', r.sum_help_bug_life]
-      csv << rep_part + ['4e', r.sum_help_proj_cont]
-      csv << rep_part + ['4f', r.sum_help_dev]
-      csv << rep_part + ['4g', r.sum_help_non_dev]
-      csv << rep_part + ['5', r.summary_view_pref]
+      csv << rep_part + ['1a', r.send("imp_points_incl_#{str}_sum")] unless r.send("imp_points_incl_#{str}_sum").blank?
+      csv << rep_part + ['1b', r.send("redundancy_#{str}_sum")] unless r.send("redundancy_#{str}_sum").blank?
+      csv << rep_part + ['1c', r.send("unnecessary_info_#{str}_sum")] unless r.send("unnecessary_info_#{str}_sum").blank?
+      csv << rep_part + ['1d', r.send("coherence_#{str}_sum")] unless r.send("coherence_#{str}_sum").blank?
+      csv << rep_part + ['4a', r.sum_help_bug_similar] unless r.sum_help_bug_similar.blank?
+      csv << rep_part + ['4b', r.sum_help_bug_workaround] unless r.sum_help_bug_workaround.blank?
+      csv << rep_part + ['4c', r.sum_help_bug_status] unless r.sum_help_bug_status.blank?
+      csv << rep_part + ['4d', r.sum_help_bug_life] unless r.sum_help_bug_life.blank?
+      csv << rep_part + ['4e', r.sum_help_proj_cont] unless r.sum_help_proj_cont.blank?
+      csv << rep_part + ['4f', r.sum_help_dev] unless r.sum_help_dev.blank?
+      csv << rep_part + ['4g', r.sum_help_non_dev] unless r.sum_help_non_dev.blank?
+      csv << rep_part + ['5', r.summary_view_pref] #unless r.summary_view_pref.blank?
+      csv << rep_part + ['contact', r.contact_for_results] #unless r.contact_for_results.blank?
     end
     return csv
   end
