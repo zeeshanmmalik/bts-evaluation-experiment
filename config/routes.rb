@@ -7,6 +7,7 @@ BtsEvalExpApp::Application.routes.draw do
       get 'export_bug_summaries_for'
     end
     collection do
+      get 'all_results'
       get 'export_results_for_all'
       get 'export_bug_summaries_for_all'
     end

@@ -106,6 +106,28 @@ class ExperimentsController < ApplicationController
     end
   end
 
+  def all_results
+    @total_bug_reports = Experiment.all.map{|e| e.bug_reports.map{|b| b.used? ? 1:0}.reduce(:+)}.reduce(:+)
+    @total_invitations = Experiment.all.map{|e| e.participants.where(:is_email_sent => true).count}.reduce(:+)
+    @lex_invitations = Experiment.all.map{|e| e.participants.where(:is_email_sent => true, :summary_assigned => 'lexrank').count}.reduce(:+)
+    @email_invitations = Experiment.all.map{|e| e.participants.where(:is_email_sent => true, :summary_assigned => 'email').count}.reduce(:+)
+    @total_accessed = Experiment.all.map{|e| e.participants.where("eval_started_at IS NOT NULL and eval_started_at != ''").count}.reduce(:+)
+    @lex_accessed = Experiment.all.map{|e| e.participants.where("summary_assigned = 'lexrank' and eval_started_at IS NOT NULL and eval_started_at != ''").count}.reduce(:+)
+    @email_accessed = Experiment.all.map{|e| e.participants.where("summary_assigned = 'email' and eval_started_at IS NOT NULL and eval_started_at != ''").count}.reduce(:+)
+    @all_submissions = Participant.where("eval_submitted_at IS NOT NULL and eval_submitted_at != ''")
+    @lex_submissions = @all_submissions.where(:summary_assigned => 'lexrank')
+    @email_submissions = @all_submissions.where(:summary_assigned => 'email')
+
+    @q1_lex = populate_result(@lex_submissions, 'lex')
+    @q1_email = populate_result(@email_submissions, 'email')
+    @q4 = q4_result(@all_submissions)
+
+    respond_to do |format|
+      format.html #result.html.haml
+      format.json { head :no_content }
+    end
+  end
+
   def export_results_for
     experiment = Experiment.find(params[:id])
 
