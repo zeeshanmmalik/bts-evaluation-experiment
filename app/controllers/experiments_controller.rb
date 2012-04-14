@@ -99,6 +99,8 @@ class ExperimentsController < ApplicationController
     @q1_lex = populate_result(@lex_submissions, 'lex')
     @q1_email = populate_result(@email_submissions, 'email')
     @q4 = q4_result(@all_submissions)
+    @q5 = q5_result(@all_submissions)
+    @contact = contact_result(@all_submissions)
 
     respond_to do |format|
       format.html #result.html.haml
@@ -121,6 +123,8 @@ class ExperimentsController < ApplicationController
     @q1_lex = populate_result(@lex_submissions, 'lex')
     @q1_email = populate_result(@email_submissions, 'email')
     @q4 = q4_result(@all_submissions)
+    @q5 = q5_result(@all_submissions)
+    @contact = contact_result(@all_submissions)
 
     respond_to do |format|
       format.html #result.html.haml
@@ -257,6 +261,32 @@ class ExperimentsController < ApplicationController
       result[:q4e]["r#{r.sum_help_proj_cont}".to_sym] += 1 unless r.sum_help_proj_cont.blank?
       result[:q4f]["r#{r.sum_help_dev}".to_sym] += 1 unless r.sum_help_dev.blank?
       result[:q4g]["r#{r.sum_help_non_dev}".to_sym] += 1 unless r.sum_help_non_dev.blank?
+    end
+    return result
+  end
+
+  def q5_result submissions
+    result = {:interlaced => 0, :condensed => 0, :none => 0}
+    submissions.each do |p|
+      r = p.response
+      if r.summary_view_pref.blank?
+        result[:none] += 1
+      else
+        result["#{r.summary_view_pref}".to_sym] += 1
+      end
+    end
+    return result
+  end
+
+  def contact_result submissions
+    result = {:yes => 0, :no => 0, :none => 0}
+    submissions.each do |p|
+      r = p.response
+      if r.contact_for_results.blank?
+        result[:none] += 1
+      else
+        result["#{r.contact_for_results}".to_sym] += 1
+      end
     end
     return result
   end
