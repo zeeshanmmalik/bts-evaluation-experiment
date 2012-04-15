@@ -5,9 +5,15 @@ BtsEvalExpApp::Application.routes.draw do
       get 'result'
       get 'export_results_for'
       get 'export_bug_summaries_for'
+      get 'q3_result'
+      get 'q4_text_result'
+      get 'q5_text_result'
     end
     collection do
       get 'all_results'
+      get 'q3_all_results'
+      get 'q4_text_all_results'
+      get 'q5_text_all_results'
       get 'export_results_for_all'
       get 'export_bug_summaries_for_all'
     end

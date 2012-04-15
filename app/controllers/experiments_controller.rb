@@ -132,6 +132,72 @@ class ExperimentsController < ApplicationController
     end
   end
 
+  def q3_result
+    @experiment = Experiment.find(params[:id])
+    all_submissions = @experiment.participants.where("eval_submitted_at IS NOT NULL and eval_submitted_at != ''")
+    @responses = []
+    all_submissions.each do |p|
+      imp_info = p.response.important_info_in_summary
+      @responses.push(imp_info) unless imp_info.blank?
+    end
+    respond_to do |format|
+      format.html #result.html.haml
+      format.json { head :no_content }
+    end
+  end
+
+  def q3_all_results    
+    @responses = []
+    Response.all.each do |r|
+      imp_info = r.important_info_in_summary
+      @responses.push(imp_info) unless imp_info.blank?
+    end    
+  end
+
+  def q4_text_result
+    @experiment = Experiment.find(params[:id])
+    all_submissions = @experiment.participants.where("eval_submitted_at IS NOT NULL and eval_submitted_at != ''")
+    @responses = []
+    all_submissions.each do |p|
+      sr = p.response.summarizing_reason
+      @responses.push(sr) unless sr.blank?
+    end
+    respond_to do |format|
+      format.html #result.html.haml
+      format.json { head :no_content }
+    end
+  end
+
+  def q4_text_all_results    
+    @responses = []
+    Response.all.each do |r|
+      sr = r.summarizing_reason
+      @responses.push(sr) unless sr.blank?
+    end    
+  end
+
+  def q5_text_result
+    @experiment = Experiment.find(params[:id])
+    all_submissions = @experiment.participants.where("eval_submitted_at IS NOT NULL and eval_submitted_at != ''")
+    @responses = []
+    all_submissions.each do |p|
+      vpr = p.response.view_pref_reason
+      @responses.push(vpr) unless vpr.blank?
+    end
+    respond_to do |format|
+      format.html #result.html.haml
+      format.json { head :no_content }
+    end
+  end
+
+  def q5_text_all_results    
+    @responses = []
+    Response.all.each do |r|
+      vpr = r.view_pref_reason
+      @responses.push(vpr) unless vpr.blank?
+    end    
+  end
+
   def export_results_for
     experiment = Experiment.find(params[:id])
 
