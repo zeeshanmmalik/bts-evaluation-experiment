@@ -1,7 +1,21 @@
 .container
   %h1 Experiment "#{@experiment.title}" Results
   %br
-  %h3 Total Bug Reports Used: #{@total_bug_reports}
+  %h3 Total Bug Reports Used: #{@all_bug_reports.length}
+  %br
+  %h3 Comments in used bug reports:
+  %h4 Min: #{@all_bugs_comments.min}
+  %h4 Max: #{@all_bugs_comments.max}
+  %h4 Average: #{@all_bugs_comments.average.round(2)}
+  /%h4 Variance: #{@all_bugs_comments.sample_variance.round(2)}
+  %h4 Standard Deviation: #{@all_bugs_comments.standard_deviation.round(2)}
+  %br
+  %h3 Sentences in used bug reports: 
+  %h4 Min: #{@all_bugs_sentences.min}
+  %h4 Max: #{@all_bugs_sentences.max}
+  %h4 Average: #{@all_bugs_sentences.average.round(2)}
+  /%h4 Variance: #{@all_bugs_sentences.sample_variance.round(2)}
+  %h4 Standard Deviation: #{@all_bugs_sentences.standard_deviation.round(2)}
   %br
   %h3 Total Invitations: #{@total_invitations}
   %h4 Lex Invitations: #{@lex_invitations}
@@ -14,6 +28,20 @@
   %h3 Total Submissions: #{@all_submissions.count}
   %h4 Lex Submissions: #{@lex_submissions.count}
   %h4 Email Submissions: #{@email_submissions.count}
+  %br
+  %h3 Comments in submitted bug reports:
+  %h4 Min: #{@submitted_bugs_comments.min}
+  %h4 Max: #{@submitted_bugs_comments.max}
+  /%h4 Average: #{@submitted_bugs_comments.average.round(2)}
+  %h4 Variance: #{@submitted_bugs_comments.sample_variance.round(2)}
+  %h4 Standard Deviation: #{@submitted_bugs_comments.standard_deviation.round(2)}
+  %br
+  %h3 Sentences in submitted bug reports: 
+  %h4 Min: #{@submitted_bugs_sentences.min}
+  %h4 Max: #{@submitted_bugs_sentences.max}
+  %h4 Average: #{@submitted_bugs_sentences.average.round(2)}
+  /%h4 Variance: #{@all_bugs_sentences.sample_variance.round(2)}
+  %h4 Standard Deviation: #{@submitted_bugs_sentences.standard_deviation.round(2)}
 
   %br
   = link_to 'Q3 Results', q3_result_experiment_path(@experiment)

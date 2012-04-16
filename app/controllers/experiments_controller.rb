@@ -85,7 +85,14 @@ class ExperimentsController < ApplicationController
 
   def result
     @experiment = Experiment.find(params[:id])
-    @total_bug_reports = @experiment.bug_reports.map{|b| b.used? ? 1:0}.reduce(:+)
+    # @total_bug_reports = @experiment.bug_reports.map{|b| b.used? ? 1:0}.reduce(:+)
+    @all_bug_reports = @experiment.bug_reports.select{|b| b.used?}
+    @all_bugs_comments = @all_bug_reports.map{|b| b.comments.count}
+    @all_bugs_sentences = []
+    @all_bug_reports.each do |b|
+      total_senteces = b.comments.map{|c| c.sentences.count}.reduce(:+) 
+      @all_bugs_sentences.push(total_senteces)
+    end
     @total_invitations = @experiment.participants.where(:is_email_sent => true).count
     @lex_invitations = @experiment.participants.where(:is_email_sent => true, :summary_assigned => 'lexrank').count
     @email_invitations = @experiment.participants.where(:is_email_sent => true, :summary_assigned => 'email').count
@@ -95,6 +102,13 @@ class ExperimentsController < ApplicationController
     @all_submissions = @experiment.participants.where("eval_submitted_at IS NOT NULL and eval_submitted_at != ''")
     @lex_submissions = @all_submissions.where(:summary_assigned => 'lexrank')
     @email_submissions = @all_submissions.where(:summary_assigned => 'email')
+    @submitted_bug_reports = @all_submissions.map{|p| p.bug_report}.uniq
+    @submitted_bugs_comments = @submitted_bug_reports.map{|b| b.comments.count}
+    @submitted_bugs_sentences = []
+    @submitted_bug_reports.each do |b|
+      total_senteces = b.comments.map{|c| c.sentences.count}.reduce(:+) 
+      @submitted_bugs_sentences.push(total_senteces)
+    end
 
     @q1_lex = populate_result(@lex_submissions, 'lex')
     @q1_email = populate_result(@email_submissions, 'email')
@@ -109,7 +123,15 @@ class ExperimentsController < ApplicationController
   end
 
   def all_results
-    @total_bug_reports = Experiment.all.map{|e| e.bug_reports.map{|b| b.used? ? 1:0}.reduce(:+)}.reduce(:+)
+    # @total_bug_reports = Experiment.all.map{|e| e.bug_reports.map{|b| b.used? ? 1:0}.reduce(:+)}.reduce(:+)
+    @all_bug_reports = []
+    Experiment.all.each{|e| @all_bug_reports += e.bug_reports.select{|b| b.used?}}
+    @all_bugs_comments = @all_bug_reports.map{|b| b.comments.count}
+    @all_bugs_sentences = []
+    @all_bug_reports.each do |b|
+      total_senteces = b.comments.map{|c| c.sentences.count}.reduce(:+) 
+      @all_bugs_sentences.push(total_senteces)
+    end
     @total_invitations = Experiment.all.map{|e| e.participants.where(:is_email_sent => true).count}.reduce(:+)
     @lex_invitations = Experiment.all.map{|e| e.participants.where(:is_email_sent => true, :summary_assigned => 'lexrank').count}.reduce(:+)
     @email_invitations = Experiment.all.map{|e| e.participants.where(:is_email_sent => true, :summary_assigned => 'email').count}.reduce(:+)
@@ -119,6 +141,13 @@ class ExperimentsController < ApplicationController
     @all_submissions = Participant.where("eval_submitted_at IS NOT NULL and eval_submitted_at != ''")
     @lex_submissions = @all_submissions.where(:summary_assigned => 'lexrank')
     @email_submissions = @all_submissions.where(:summary_assigned => 'email')
+    @submitted_bug_reports = @all_submissions.map{|p| p.bug_report}.uniq
+    @submitted_bugs_comments = @submitted_bug_reports.map{|b| b.comments.count}
+    @submitted_bugs_sentences = []
+    @submitted_bug_reports.each do |b|
+      total_senteces = b.comments.map{|c| c.sentences.count}.reduce(:+) 
+      @submitted_bugs_sentences.push(total_senteces)
+    end
 
     @q1_lex = populate_result(@lex_submissions, 'lex')
     @q1_email = populate_result(@email_submissions, 'email')
