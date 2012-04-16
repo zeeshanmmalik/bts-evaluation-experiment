@@ -191,6 +191,12 @@
 
 
 $(document).ready(function(){
+	
+	$(".summary").each(function(index,s){
+	  	$(s).html($(s).html().replace(/;new_line_char;/g,"<br />"));
+		// console.log($(s).html());
+	});
+
 	$(".radio-buttons").buttonset();
 
 	var user_summary_evaluator = new summary_eveluator();
