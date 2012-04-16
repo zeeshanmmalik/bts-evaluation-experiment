@@ -8,17 +8,19 @@
       %th Project
       %th Original link
       %th comments
+      %th submissions
       %th Action
       -#%th
       -#%th
 
     - @bug_reports.each_with_index do |bug_report, i|
-      %tr{:class => "#{cycle('even','odd')}", :style => "#{bug_report.used? ? 'background:yellow;':''}"}
+      %tr{:class => "#{cycle('even','odd')}", :style => "#{bug_report.used? ? 'background:yellow !important;':''}"}
         %td= i + 1
         %td= truncate bug_report.title
         %td= bug_report.project
         %td= truncate bug_report.original_link
         %td= bug_report.count_comments
+        %td= bug_report.submissions
         %td= link_to 'Show', bug_report
         -#%td= link_to 'Edit', edit_bug_report_path(bug_report)
         -#%td= link_to 'Destroy', bug_report, :confirm => 'Are you sure?', :method => :delete

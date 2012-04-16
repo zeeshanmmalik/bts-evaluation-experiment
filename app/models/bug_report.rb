@@ -9,4 +9,8 @@ class BugReport < ActiveRecord::Base
   def used?
     participants.where(:is_email_sent => true).count > 0
   end
+
+  def submissions
+    participants.where("eval_submitted_at IS NOT NULL and eval_submitted_at != ''").count unless participants.blank?
+  end
 end
