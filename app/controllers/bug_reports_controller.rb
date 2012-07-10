@@ -1,5 +1,5 @@
 class BugReportsController < ApplicationController
-  before_filter :authenticate_admin!
+  before_filter :authenticate_admin!, :except => [:show]
   # GET /bug_reports
   # GET /bug_reports.json
   def index
